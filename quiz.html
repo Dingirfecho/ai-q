@@ -7,6 +7,7 @@
     <meta name="description" content="50 questions. 10 minutes. Discover which of 16 AI strategy types your organization is.">
     <meta property="og:title" content="AI-Q Assessment | What's Your AI Strategy Type?">
     <meta property="og:description" content="Take the definitive AI maturity assessment. 16 types. Complete clarity.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1199,7 +1200,7 @@
         // CONFIGURATION
         // ========================================
         // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
-        const GOOGLE_SHEETS_WEBHOOK_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzl0mvlsVQU79or7pxl8KUUaWYdwiWRhUFA2uaqbwRs8JKjYu6YvqjertvLMrOazx7u/exec';
 
         // ========================================
         // STATE
@@ -1484,17 +1485,17 @@
         function determineType(scores) {
             let code = '';
             
-            // Structure: < 50% = S (Scattered), >= 50% = C (Consolidated)
-            code += scores.Structure.percentage < 50 ? 'S' : 'C';
+            // Structure: <= 50% = S (Scattered), > 50% = C (Consolidated)
+            code += scores.Structure.percentage <= 50 ? 'S' : 'C';
             
-            // Orientation: < 50% = R (Reactive), >= 50% = P (Proactive)
-            code += scores.Orientation.percentage < 50 ? 'R' : 'P';
+            // Orientation: <= 50% = R (Reactive), > 50% = P (Proactive)
+            code += scores.Orientation.percentage <= 50 ? 'R' : 'P';
             
-            // Leadership: < 50% = T (Tech-driven), >= 50% = B (Business-driven)
-            code += scores.Leadership.percentage < 50 ? 'T' : 'B';
+            // Leadership: <= 50% = T (Tech-driven), > 50% = B (Business-driven)
+            code += scores.Leadership.percentage <= 50 ? 'T' : 'B';
             
-            // Integration: < 50% = E (Experimental), >= 50% = I (Integrated)
-            code += scores.Integration.percentage < 50 ? 'E' : 'I';
+            // Integration: <= 50% = E (Experimental), > 50% = I (Integrated)
+            code += scores.Integration.percentage <= 50 ? 'E' : 'I';
 
             return code;
         }
@@ -1549,7 +1550,7 @@
 
             document.getElementById('dimension-scores').innerHTML = dimensionConfig.map(dim => {
                 const score = scores[dim.key];
-                const resultLabel = score.percentage >= 50 ? dim.right : dim.left;
+                const resultLabel = score.percentage > 50 ? dim.right : dim.left;
                 return `
                     <div class="dimension-score">
                         <div class="dimension-score-header">
