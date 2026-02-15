@@ -3,397 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Q Assessment | Discover Your AI Strategy Type</title>
+    <title>AI-Q Assessment</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;min-height:100vh}
-        .bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(20,184,166,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}
-        header{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-        .logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
-        .header-progress{display:flex;align-items:center;gap:1rem}
-        .progress-text{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted)}
-        .progress-bar-container{width:200px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-        .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent-teal),var(--accent-blue));width:0%;transition:width 0.3s ease}
-        .container{max-width:800px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;z-index:1}
-        .screen{display:none;animation:fadeIn 0.4s ease}
-        .screen.active{display:block}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-        .intro-screen{text-align:center;padding:2rem 0}
-        .intro-screen h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:800;margin-bottom:1.5rem;line-height:1.1}
-        .intro-screen h1 .gradient{background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .intro-screen>p{font-size:1.2rem;color:var(--text-secondary);max-width:500px;margin:0 auto 2rem}
-        .intro-stats{display:flex;justify-content:center;gap:3rem;margin-bottom:2.5rem}
-        .intro-stat{text-align:center}
-        .intro-stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent-teal)}
-        .intro-stat-label{font-size:0.9rem;color:var(--text-muted)}
-        .preview-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2.5rem;text-align:left}
-        .preview-section h3{font-size:1.1rem;color:var(--accent-teal);margin-bottom:1.25rem;text-align:center}
-        .preview-types{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-        .preview-type{background:var(--bg-dark);border-radius:10px;padding:1rem}
-        .preview-type-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem}
-        .preview-type-code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}
-        .preview-type-name{font-weight:600;font-size:0.95rem}
-        .preview-type-desc{font-size:0.85rem;color:var(--text-muted)}
-        .preview-sample{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-        .preview-sample h4{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;text-align:center}
-        .sample-result{display:flex;gap:1rem;align-items:center}
-        .sample-bars{flex:1}
-        .sample-bar{margin-bottom:0.5rem}
-        .sample-bar-label{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem}
-        .sample-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
-        .sample-bar-fill{height:100%;border-radius:3px}
-        .sample-insights{flex:1;font-size:0.85rem;color:var(--text-secondary)}
-        .sample-insights li{margin-bottom:0.35rem;list-style:none;padding-left:1.25rem;position:relative}
-        .sample-insights li::before{content:'→';position:absolute;left:0;color:var(--accent-teal)}
-        .registration-form{max-width:480px;margin:0 auto 2rem;text-align:left}
-        .form-group{margin-bottom:1rem}
-        .form-label{display:block;font-size:0.9rem;font-weight:500;color:var(--text-secondary);margin-bottom:0.4rem}
-        .form-label .required{color:var(--accent-red)}
-        .form-label .optional{color:var(--text-muted);font-weight:400;font-size:0.8rem}
-        .form-input,.form-select{width:100%;padding:0.8rem 1rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:var(--text-primary);transition:all 0.2s ease}
-        .form-input:focus,.form-select:focus{outline:none;border-color:var(--accent-teal);background:var(--bg-card-hover)}
-        .form-input::placeholder{color:var(--text-muted)}
-        .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer;appearance:none}
-        .form-select option{background:var(--bg-dark);color:var(--text-primary)}
-        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-        @media(max-width:500px){.form-row,.preview-types{grid-template-columns:1fr}.sample-result{flex-direction:column}}
-        .form-note{text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .btn-start{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1.25rem 3rem;font-size:1.2rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:0.75rem;width:100%;max-width:320px;justify-content:center}
-        .btn-start:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(20,184,166,0.3)}
-        .btn-start:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
-        .intro-note{margin-top:1.5rem;font-size:0.85rem;color:var(--text-muted)}
-        .question-screen{padding:2rem 0}
-        .question-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
-        .question-dimension{font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.4rem 0.8rem;border-radius:6px;background:var(--accent-teal-dim);color:var(--accent-teal)}
-        .question-number{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--text-muted)}
-        .question-text{font-size:clamp(1.5rem,4vw,2rem);font-weight:600;margin-bottom:3rem;line-height:1.4}
-        .answer-options{display:flex;flex-direction:column;gap:0.85rem}
-        .answer-option{background:var(--bg-card);border:2px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:1rem}
-        .answer-option:hover{border-color:var(--accent-teal);background:var(--bg-card-hover)}
-        .answer-option.selected{border-color:var(--accent-teal);background:var(--accent-teal-dim)}
-        .answer-radio{width:22px;height:22px;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s ease}
-        .answer-option:hover .answer-radio{border-color:var(--accent-teal)}
-        .answer-option.selected .answer-radio{border-color:var(--accent-teal);background:var(--accent-teal)}
-        .answer-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--bg-dark);opacity:0;transition:opacity 0.2s ease}
-        .answer-option.selected .answer-radio::after{opacity:1}
-        .answer-label{font-size:1rem;color:var(--text-secondary)}
-        .answer-option.selected .answer-label{color:var(--text-primary)}
-        .question-nav{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-        .btn-nav{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.5rem}
-        .btn-nav:hover:not(:disabled){border-color:var(--accent-teal);color:var(--accent-teal)}
-        .btn-nav:disabled{opacity:0.3;cursor:not-allowed}
-        .btn-nav.primary{background:var(--accent-teal);border-color:var(--accent-teal);color:var(--bg-dark)}
-        .btn-nav.primary:hover:not(:disabled){background:#0D9488;border-color:#0D9488;color:white}
-        .results-screen{padding:2rem 0;text-align:center}
-        .results-type-code{font-family:'JetBrains Mono',monospace;font-size:4rem;font-weight:700;letter-spacing:8px;margin-bottom:0.5rem}
-        .results-type-name{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem}
-        .results-type-tagline{font-size:1.25rem;color:var(--text-muted);font-style:italic;margin-bottom:3rem}
-        .dimension-scores{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem;text-align:left}
-        .dimension-score{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
-        .dimension-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-        .dimension-score-name{font-weight:600;font-size:0.95rem}
-        .dimension-score-result{font-family:'JetBrains Mono',monospace;font-size:0.85rem;padding:0.25rem 0.6rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}
-        .dimension-score-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:0.75rem}
-        .dimension-score-fill{height:100%;border-radius:4px;transition:width 1s ease}
-        .dimension-score-labels{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted)}
-        .results-profile{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}
-        .results-profile h3{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:1rem}
-        .results-profile p{color:var(--text-secondary);line-height:1.7;font-size:1.05rem}
-        .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;text-align:left}
-        .results-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
-        .results-box h3{font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
-        .results-box.strengths h3{color:var(--accent-green)}
-        .results-box.blindspots h3{color:var(--accent-red)}
-        .results-box ul{list-style:none}
-        .results-box li{padding:0.5rem 0;padding-left:1.25rem;position:relative;color:var(--text-secondary);font-size:0.95rem}
-        .results-box li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}
-        .results-box.strengths li::before{background:var(--accent-green)}
-        .results-box.blindspots li::before{background:var(--accent-red)}
-        .results-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.5rem 2rem;margin-bottom:3rem;text-align:left}
-        .results-path h3{color:var(--accent-teal);font-size:1rem;margin-bottom:0.75rem}
-        .results-path p{color:var(--text-primary);font-size:1.05rem;line-height:1.6}
-        .results-cta{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem}
-        .results-cta h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}
-        .results-cta p{color:var(--text-secondary);margin-bottom:1.5rem}
-        .btn-cta{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:10px;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
-        .btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,184,166,0.3)}
-        .results-share{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-        .btn-share{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none}
-        .btn-share:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
-        @media(max-width:768px){.container{padding:5rem 1.25rem 3rem}header{padding:1rem}.progress-bar-container{width:100px}.intro-stats{gap:1.5rem}.intro-stat-number{font-size:2rem}.dimension-scores,.results-grid{grid-template-columns:1fr}.results-type-code{font-size:3rem;letter-spacing:4px}.results-type-name{font-size:1.75rem}}
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;min-height:100vh}.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(20,184,166,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}header{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}.header-right{display:flex;align-items:center;gap:1rem}.lang-switch{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}.lang-switch:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.header-progress{display:flex;align-items:center;gap:1rem}.progress-text{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted)}.progress-bar-container{width:200px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent-teal),var(--accent-blue));width:0%;transition:width 0.3s ease}.container{max-width:800px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;z-index:1}.screen{display:none;animation:fadeIn 0.4s ease}.screen.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.intro-screen{text-align:center;padding:2rem 0}.intro-screen h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:800;margin-bottom:1.5rem;line-height:1.1}.intro-screen h1 .gradient{background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.intro-screen>p{font-size:1.2rem;color:var(--text-secondary);max-width:500px;margin:0 auto 2rem}.intro-stats{display:flex;justify-content:center;gap:3rem;margin-bottom:2.5rem}.intro-stat{text-align:center}.intro-stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent-teal)}.intro-stat-label{font-size:0.9rem;color:var(--text-muted)}.preview-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2.5rem;text-align:left}.preview-section h3{font-size:1.1rem;color:var(--accent-teal);margin-bottom:1.25rem;text-align:center}.preview-types{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.preview-type{background:var(--bg-dark);border-radius:10px;padding:1rem}.preview-type-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem}.preview-type-code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}.preview-type-name{font-weight:600;font-size:0.95rem}.preview-type-desc{font-size:0.85rem;color:var(--text-muted)}.preview-sample{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.preview-sample h4{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;text-align:center}.sample-result{display:flex;gap:1rem;align-items:center}.sample-bars{flex:1}.sample-bar{margin-bottom:0.5rem}.sample-bar-label{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem}.sample-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}.sample-bar-fill{height:100%;border-radius:3px}.sample-insights{flex:1;font-size:0.85rem;color:var(--text-secondary)}.sample-insights li{margin-bottom:0.35rem;list-style:none;padding-left:1.25rem;position:relative}.sample-insights li::before{content:'→';position:absolute;left:0;color:var(--accent-teal)}.registration-form{max-width:480px;margin:0 auto 2rem;text-align:left}.form-group{margin-bottom:1rem}.form-label{display:block;font-size:0.9rem;font-weight:500;color:var(--text-secondary);margin-bottom:0.4rem}.form-label .required{color:var(--accent-red)}.form-label .optional{color:var(--text-muted);font-weight:400;font-size:0.8rem}.form-input,.form-select{width:100%;padding:0.8rem 1rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:var(--text-primary);transition:all 0.2s ease}.form-input:focus,.form-select:focus{outline:none;border-color:var(--accent-teal);background:var(--bg-card-hover)}.form-input::placeholder{color:var(--text-muted)}.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer;appearance:none}.form-select option{background:var(--bg-dark);color:var(--text-primary)}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}@media(max-width:500px){.form-row,.preview-types{grid-template-columns:1fr}.sample-result{flex-direction:column}}.form-note{text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem}.btn-start{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1.25rem 3rem;font-size:1.2rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:0.75rem;width:100%;max-width:320px;justify-content:center}.btn-start:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(20,184,166,0.3)}.btn-start:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}.intro-note{margin-top:1.5rem;font-size:0.85rem;color:var(--text-muted)}.question-screen{padding:2rem 0}.question-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.question-dimension{font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.4rem 0.8rem;border-radius:6px;background:var(--accent-teal-dim);color:var(--accent-teal)}.question-number{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--text-muted)}.question-text{font-size:clamp(1.5rem,4vw,2rem);font-weight:600;margin-bottom:3rem;line-height:1.4}.answer-options{display:flex;flex-direction:column;gap:0.85rem}.answer-option{background:var(--bg-card);border:2px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:1rem}.answer-option:hover{border-color:var(--accent-teal);background:var(--bg-card-hover)}.answer-option.selected{border-color:var(--accent-teal);background:var(--accent-teal-dim)}.answer-radio{width:22px;height:22px;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s ease}.answer-option:hover .answer-radio{border-color:var(--accent-teal)}.answer-option.selected .answer-radio{border-color:var(--accent-teal);background:var(--accent-teal)}.answer-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--bg-dark);opacity:0;transition:opacity 0.2s ease}.answer-option.selected .answer-radio::after{opacity:1}.answer-label{font-size:1rem;color:var(--text-secondary)}.answer-option.selected .answer-label{color:var(--text-primary)}.question-nav{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.btn-nav{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.5rem}.btn-nav:hover:not(:disabled){border-color:var(--accent-teal);color:var(--accent-teal)}.btn-nav:disabled{opacity:0.3;cursor:not-allowed}.btn-nav.primary{background:var(--accent-teal);border-color:var(--accent-teal);color:var(--bg-dark)}.btn-nav.primary:hover:not(:disabled){background:#0D9488;color:white}.results-screen{padding:2rem 0;text-align:center}.results-type-code{font-family:'JetBrains Mono',monospace;font-size:4rem;font-weight:700;letter-spacing:8px;margin-bottom:0.5rem}.results-type-name{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem}.results-type-tagline{font-size:1.25rem;color:var(--text-muted);font-style:italic;margin-bottom:3rem}.dimension-scores{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem;text-align:left}.dimension-score{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.dimension-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}.dimension-score-name{font-weight:600;font-size:0.95rem}.dimension-score-result{font-family:'JetBrains Mono',monospace;font-size:0.85rem;padding:0.25rem 0.6rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}.dimension-score-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:0.75rem}.dimension-score-fill{height:100%;border-radius:4px;transition:width 1s ease}.dimension-score-labels{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted)}.results-profile{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}.results-profile h3{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:1rem}.results-profile p{color:var(--text-secondary);line-height:1.7;font-size:1.05rem}.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;text-align:left}.results-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.results-box h3{font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}.results-box.strengths h3{color:var(--accent-green)}.results-box.blindspots h3{color:var(--accent-red)}.results-box ul{list-style:none}.results-box li{padding:0.5rem 0;padding-left:1.25rem;position:relative;color:var(--text-secondary);font-size:0.95rem}.results-box li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}.results-box.strengths li::before{background:var(--accent-green)}.results-box.blindspots li::before{background:var(--accent-red)}.results-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.5rem 2rem;margin-bottom:2rem;text-align:left}.results-path h3{color:var(--accent-teal);font-size:1rem;margin-bottom:0.75rem}.results-path p{color:var(--text-primary);font-size:1.05rem;line-height:1.6}.email-report{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:2rem;text-align:center}.email-report h4{font-size:1rem;margin-bottom:0.75rem}.email-report p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}.email-form{display:flex;gap:0.75rem;max-width:400px;margin:0 auto}.email-form input{flex:1;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-dark);color:var(--text-primary);font-family:'Space Grotesk',sans-serif}.email-form input:focus{outline:none;border-color:var(--accent-teal)}.email-form button{padding:0.75rem 1.25rem;background:var(--accent-teal);border:none;border-radius:8px;color:white;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif}.email-form button:hover{background:#0D9488}.email-form button:disabled{opacity:0.5}.email-sent{color:var(--accent-green);font-size:0.9rem;margin-top:0.75rem;display:none}.results-cta{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem}.results-cta h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}.results-cta p{color:var(--text-secondary);margin-bottom:1.5rem}.btn-cta{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:10px;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-block}.btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,184,166,0.3)}.results-share{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}.btn-share{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;text-decoration:none;display:inline-block}.btn-share:hover{border-color:var(--accent-teal);color:var(--accent-teal)}@media(max-width:768px){.container{padding:5rem 1.25rem 3rem}header{padding:1rem}.progress-bar-container{width:100px}.intro-stats{gap:1.5rem}.intro-stat-number{font-size:2rem}.dimension-scores,.results-grid{grid-template-columns:1fr}.results-type-code{font-size:3rem;letter-spacing:4px}.results-type-name{font-size:1.75rem}.email-form{flex-direction:column}}
     </style>
 </head>
 <body>
-    <div class="bg-gradient"></div>
-    <header>
-        <a href="index.html" class="logo">AI-Q</a>
-        <div class="header-progress" id="header-progress" style="display:none;">
-            <span class="progress-text"><span id="progress-count">0</span>/20</span>
-            <div class="progress-bar-container"><div class="progress-bar" id="progress-bar"></div></div>
+<div class="bg-gradient"></div>
+<header>
+    <a href="index.html" class="logo">AI-Q</a>
+    <div class="header-right">
+        <button class="lang-switch" onclick="toggleLang()">ES</button>
+        <div class="header-progress" id="headerProgress" style="display:none">
+            <span class="progress-text"><span id="progressCount">0</span>/20</span>
+            <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
         </div>
-    </header>
-    <div class="container">
-        <div class="screen active" id="intro-screen">
-            <div class="intro-screen">
-                <h1>Discover Your<br><span class="gradient">AI-Q Type</span></h1>
-                <p>Like Myers-Briggs, but for your company's AI strategy.</p>
-                <div class="intro-stats">
-                    <div class="intro-stat"><div class="intro-stat-number">20</div><div class="intro-stat-label">Questions</div></div>
-                    <div class="intro-stat"><div class="intro-stat-number">5</div><div class="intro-stat-label">Minutes</div></div>
-                    <div class="intro-stat"><div class="intro-stat-number">16</div><div class="intro-stat-label">Types</div></div>
+    </div>
+</header>
+<div class="container">
+    <div class="screen active" id="introScreen">
+        <div class="intro-screen">
+            <h1 id="titleMain">Discover Your<br><span class="gradient">AI-Q Type</span></h1>
+            <p id="subtitle">Like Myers-Briggs, but for your company's AI strategy.</p>
+            <div class="intro-stats">
+                <div class="intro-stat"><div class="intro-stat-number">20</div><div class="intro-stat-label" id="lblQuestions">Questions</div></div>
+                <div class="intro-stat"><div class="intro-stat-number">5</div><div class="intro-stat-label" id="lblMinutes">Minutes</div></div>
+                <div class="intro-stat"><div class="intro-stat-number">16</div><div class="intro-stat-label" id="lblTypes">Types</div></div>
+            </div>
+            <div class="preview-section">
+                <h3 id="previewTitle">What you'll discover</h3>
+                <div class="preview-types">
+                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTE</span><span class="preview-type-name" id="pn1">Chaos Pilot</span></div><p class="preview-type-desc" id="pd1">Tools everywhere, strategy nowhere</p></div>
+                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPBI</span><span class="preview-type-name" id="pn2">Strategic Leader</span></div><p class="preview-type-desc" id="pd2">AI is how you compete</p></div>
+                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTB</span><span class="preview-type-name" id="pn3">Wishful Thinker</span></div><p class="preview-type-desc" id="pd3">"Can't AI just do that?"</p></div>
+                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPTE</span><span class="preview-type-name" id="pn4">Tech Utopia</span></div><p class="preview-type-desc" id="pd4">Built it, they didn't come</p></div>
                 </div>
-                <div class="preview-section">
-                    <h3>What you'll discover</h3>
-                    <div class="preview-types">
-                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTE</span><span class="preview-type-name">Chaos Pilot</span></div><p class="preview-type-desc">Tools everywhere, strategy nowhere</p></div>
-                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPBI</span><span class="preview-type-name">Strategic Leader</span></div><p class="preview-type-desc">AI is how you compete</p></div>
-                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTB</span><span class="preview-type-name">Wishful Thinker</span></div><p class="preview-type-desc">"Can't AI just do that?"</p></div>
-                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPTE</span><span class="preview-type-name">Tech Utopia</span></div><p class="preview-type-desc">Built it, they didn't come</p></div>
-                    </div>
-                    <div class="preview-sample">
-                        <h4>Sample result</h4>
-                        <div class="sample-result">
-                            <div class="sample-bars">
-                                <div class="sample-bar"><div class="sample-bar-label">Structure</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:35%;background:var(--accent-teal);"></div></div></div>
-                                <div class="sample-bar"><div class="sample-bar-label">Orientation</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:65%;background:var(--accent-blue);"></div></div></div>
-                                <div class="sample-bar"><div class="sample-bar-label">Leadership</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:80%;background:var(--accent-purple);"></div></div></div>
-                                <div class="sample-bar"><div class="sample-bar-label">Integration</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:45%;background:var(--accent-orange);"></div></div></div>
-                            </div>
-                            <ul class="sample-insights"><li>Your type & what it means</li><li>Strengths to leverage</li><li>Blind spots to watch</li><li>Clear path forward</li></ul>
+                <div class="preview-sample">
+                    <h4 id="sampleTitle">Sample result</h4>
+                    <div class="sample-result">
+                        <div class="sample-bars">
+                            <div class="sample-bar"><div class="sample-bar-label" id="dim1">Structure</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:35%;background:var(--accent-teal)"></div></div></div>
+                            <div class="sample-bar"><div class="sample-bar-label" id="dim2">Orientation</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:65%;background:var(--accent-blue)"></div></div></div>
+                            <div class="sample-bar"><div class="sample-bar-label" id="dim3">Leadership</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:80%;background:var(--accent-purple)"></div></div></div>
+                            <div class="sample-bar"><div class="sample-bar-label" id="dim4">Integration</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:45%;background:var(--accent-orange)"></div></div></div>
                         </div>
+                        <ul class="sample-insights"><li id="ins1">Your type & what it means</li><li id="ins2">Strengths to leverage</li><li id="ins3">Blind spots to watch</li><li id="ins4">Clear path forward</li></ul>
                     </div>
-                </div>
-                <form class="registration-form" id="registration-form" onsubmit="return false;">
-                    <div class="form-group"><label class="form-label">Your Name <span class="required">*</span></label><input type="text" class="form-input" id="user-name" placeholder="e.g., Maria Garcia" required></div>
-                    <div class="form-row">
-                        <div class="form-group"><label class="form-label">Email <span class="optional">(optional)</span></label><input type="email" class="form-input" id="user-email" placeholder="e.g., maria@acme.com"></div>
-                        <div class="form-group"><label class="form-label">Company <span class="optional">(optional)</span></label><input type="text" class="form-input" id="company-name" placeholder="e.g., Acme Corp"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group"><label class="form-label">Industry <span class="optional">(optional)</span></label><select class="form-select" id="industry"><option value="">Select...</option><option value="technology">Technology</option><option value="financial">Financial Services</option><option value="healthcare">Healthcare</option><option value="manufacturing">Manufacturing</option><option value="retail">Retail</option><option value="professional">Professional Services</option><option value="other">Other</option></select></div>
-                        <div class="form-group"><label class="form-label">Company Size <span class="optional">(optional)</span></label><select class="form-select" id="company-size"><option value="">Select...</option><option value="1-50">1-50</option><option value="51-200">51-200</option><option value="201-1000">201-1,000</option><option value="1001+">1,001+</option></select></div>
-                    </div>
-                </form>
-                <p class="form-note">Only your name is required. We respect your privacy.</p>
-                <button class="btn-start" id="btn-start" onclick="startQuiz()" disabled>Start Assessment →</button>
-                <p class="intro-note">Answer based on how things actually are, not how you wish they were.</p>
-            </div>
-        </div>
-        <div class="screen" id="question-screen">
-            <div class="question-screen">
-                <div class="question-meta"><span class="question-dimension" id="question-dimension">Structure</span><span class="question-number" id="question-number">Question 1 of 20</span></div>
-                <h2 class="question-text" id="question-text">Loading...</h2>
-                <div class="answer-options" id="answer-options"></div>
-                <div class="question-nav">
-                    <button class="btn-nav" id="btn-prev" onclick="prevQuestion()" disabled>← Previous</button>
-                    <button class="btn-nav primary" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>
                 </div>
             </div>
+            <form class="registration-form" onsubmit="return false">
+                <div class="form-group"><label class="form-label"><span id="lblName">Your Name</span> <span class="required">*</span></label><input type="text" class="form-input" id="userName" placeholder="Maria Garcia" required></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label"><span id="lblEmail">Email</span> <span class="optional" id="optTxt">(optional)</span></label><input type="email" class="form-input" id="userEmail" placeholder="maria@acme.com"></div>
+                    <div class="form-group"><label class="form-label"><span id="lblCompany">Company</span> <span class="optional">(optional)</span></label><input type="text" class="form-input" id="companyName" placeholder="Acme Corp"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label"><span id="lblIndustry">Industry</span> <span class="optional">(optional)</span></label><select class="form-select" id="industry"><option value="">Select...</option><option value="technology">Technology</option><option value="financial">Financial</option><option value="healthcare">Healthcare</option><option value="manufacturing">Manufacturing</option><option value="retail">Retail</option><option value="professional">Professional Services</option><option value="other">Other</option></select></div>
+                    <div class="form-group"><label class="form-label"><span id="lblSize">Company Size</span> <span class="optional">(optional)</span></label><select class="form-select" id="companySize"><option value="">Select...</option><option value="1-50">1-50</option><option value="51-200">51-200</option><option value="201-1000">201-1,000</option><option value="1001+">1,001+</option></select></div>
+                </div>
+            </form>
+            <p class="form-note" id="formNote">Only your name is required. We respect your privacy.</p>
+            <button class="btn-start" id="btnStart" onclick="startQuiz()" disabled><span id="btnStartTxt">Start Assessment →</span></button>
+            <p class="intro-note" id="introNote">Answer based on how things actually are, not how you wish they were.</p>
         </div>
-        <div class="screen" id="results-screen">
-            <div class="results-screen">
-                <div class="results-type-code" id="results-type-code">----</div>
-                <div class="results-type-name" id="results-type-name">Loading...</div>
-                <div class="results-type-tagline" id="results-type-tagline">"..."</div>
-                <div class="dimension-scores" id="dimension-scores"></div>
-                <div class="results-profile"><h3>Your Profile</h3><p id="results-description">Loading...</p></div>
-                <div class="results-grid">
-                    <div class="results-box strengths"><h3>✓ Strengths</h3><ul id="results-strengths"></ul></div>
-                    <div class="results-box blindspots"><h3>✗ Blind Spots</h3><ul id="results-blindspots"></ul></div>
-                </div>
-                <div class="results-path"><h3>→ Your Path Forward</h3><p id="results-path">Loading...</p></div>
-                <div class="results-cta">
-                    <h3>Want to move from <span id="cta-from">here</span> to Strategic Leader?</h3>
-                    <p>The AI Strategy Sprint gives you a complete roadmap in 2 weeks.</p>
-                    <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-cta">Book a Discovery Call →</a>
-                </div>
-                <div class="results-share">
-                    <button class="btn-share" onclick="copyResults()">📋 Copy Results</button>
-                    <a class="btn-share" id="linkedin-share" href="#" target="_blank">🔗 Share on LinkedIn</a>
-                    <button class="btn-share" onclick="retakeQuiz()">🔄 Retake Quiz</button>
-                </div>
+    </div>
+    <div class="screen" id="questionScreen">
+        <div class="question-screen">
+            <div class="question-meta"><span class="question-dimension" id="qDimension">Structure</span><span class="question-number" id="qNumber">Question 1 of 20</span></div>
+            <h2 class="question-text" id="qText">Loading...</h2>
+            <div class="answer-options" id="answerOptions"></div>
+            <div class="question-nav">
+                <button class="btn-nav" id="btnPrev" onclick="prevQ()" disabled><span id="btnPrevTxt">← Previous</span></button>
+                <button class="btn-nav primary" id="btnNext" onclick="nextQ()" disabled><span id="btnNextTxt">Next →</span></button>
             </div>
         </div>
     </div>
+    <div class="screen" id="resultsScreen">
+        <div class="results-screen">
+            <div class="results-type-code" id="resCode">----</div>
+            <div class="results-type-name" id="resName">Loading...</div>
+            <div class="results-type-tagline" id="resTagline">"..."</div>
+            <div class="dimension-scores" id="dimScores"></div>
+            <div class="results-profile"><h3 id="profileTitle">Your Profile</h3><p id="resDesc">Loading...</p></div>
+            <div class="results-grid">
+                <div class="results-box strengths"><h3 id="strTitle">✓ Strengths</h3><ul id="resStr"></ul></div>
+                <div class="results-box blindspots"><h3 id="blTitle">✗ Blind Spots</h3><ul id="resBl"></ul></div>
+            </div>
+            <div class="results-path"><h3 id="pathTitle">→ Your Path Forward</h3><p id="resPath">Loading...</p></div>
+            <div class="email-report">
+                <h4 id="reportTitle">📧 Get your full report via email</h4>
+                <p id="reportDesc">Receive a detailed report with your results and recommendations.</p>
+                <div class="email-form"><input type="email" id="reportEmail" placeholder="your@email.com"><button onclick="sendReport()" id="btnReport">Send</button></div>
+                <div class="email-sent" id="emailSent">✓ Report sent!</div>
+            </div>
+            <div class="results-cta">
+                <h3 id="ctaTitle">Want to become a Strategic Leader?</h3>
+                <p id="ctaDesc">The AI Strategy Sprint gives you a complete roadmap in 2 weeks.</p>
+                <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-cta" id="ctaBtn">Book a Discovery Call →</a>
+            </div>
+            <div class="results-share">
+                <button class="btn-share" onclick="copyRes()" id="btnCopy">📋 Copy Results</button>
+                <a class="btn-share" id="linkedinShare" href="#" target="_blank">🔗 Share on LinkedIn</a>
+                <button class="btn-share" onclick="retake()" id="btnRetake">🔄 Retake Quiz</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 const WEBHOOK='https://script.google.com/macros/s/AKfycbzl0mvlsVQU79or7pxl8KUUaWYdwiWRhUFA2uaqbwRs8JKjYu6YvqjertvLMrOazx7u/exec';
-let cur=0,ans=Array(20).fill(null),user={name:'',email:'',company:'',industry:'',size:''};
+let lang='en',cur=0,ans=Array(20).fill(null),usr={};
 
-const Q=[
-{d:"Structure",t:"We have a complete inventory of all AI tools being used across the organization.",p:1},
-{d:"Structure",t:"Different departments have purchased their own AI tools without central coordination.",p:-1},
-{d:"Structure",t:"Our AI tools are governed under a unified policy and ownership structure.",p:1},
-{d:"Structure",t:"Teams often discover they're using duplicate AI tools for similar purposes.",p:-1},
-{d:"Structure",t:"We regularly audit and consolidate our AI tool portfolio.",p:1},
-{d:"Orientation",t:"We have a 12-month AI roadmap that anticipates future needs.",p:1},
-{d:"Orientation",t:"Most of our AI initiatives started because a competitor did something.",p:-1},
-{d:"Orientation",t:"We have a clear vision for how AI will transform our business in 3 years.",p:1},
-{d:"Orientation",t:"Our AI decisions are often driven by the latest article the CEO read.",p:-1},
-{d:"Orientation",t:"We've said no to AI opportunities that didn't fit our strategic plan.",p:1},
-{d:"Leadership",t:"Business leaders define what problems AI should solve.",p:1},
-{d:"Leadership",t:"IT or the data team decides which AI projects to pursue.",p:-1},
-{d:"Leadership",t:"Business outcomes (revenue, efficiency) drive AI prioritization.",p:1},
-{d:"Leadership",t:"Our AI team builds impressive things that few people actually use.",p:-1},
-{d:"Leadership",t:"Our CEO could explain our AI ROI to the board with confidence.",p:1},
-{d:"Integration",t:"AI tools are embedded in our daily workflows, not just special projects.",p:1},
-{d:"Integration",t:"Most of our AI initiatives are still in pilot or proof of concept phase.",p:-1},
-{d:"Integration",t:"Employees use AI tools as a natural part of their work.",p:1},
-{d:"Integration",t:"We have impressive AI demos that haven't translated to real usage.",p:-1},
-{d:"Integration",t:"We've retired old processes because AI does them better.",p:1}
-];
-
-const T={
-SRTE:{n:"The Chaos Pilot",tg:"We have AI... somewhere.",c:"#EF4444",desc:"Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other, no clear owner, no measurable outcomes.",str:["Willingness to try new things","Budget available for AI","No legacy system lock-in"],bl:["No idea what you're spending","Can't measure ROI","Teams are frustrated"],path:"Stop buying. Start auditing. You need a complete inventory before anything else."},
-SRTB:{n:"The Wishful Thinker",tg:"Can't AI just do that?",c:"#F97316",desc:"Leadership is excited about AI but treats it like magic. Requests come down like 'use AI to fix customer churn' with no specifics.",str:["Executive attention on AI","Business problems are the focus","Budget unlocks possible"],bl:["Unrealistic expectations","No technical translation","Initiatives die from vagueness"],path:"Translate business wishes into specific, measurable problems."},
-SPTE:{n:"The Over-Engineer",tg:"The architecture is beautiful. Nobody uses it.",c:"#8B5CF6",desc:"Your tech team built impressive AI infrastructure. One problem: business users don't know it exists.",str:["Strong technical capability","Forward-thinking IT","Modern infrastructure"],bl:["Disconnect from business","Build it and they'll come","Measuring wrong metrics"],path:"Stop building. Start listening. Find real problems worth solving."},
-SPTB:{n:"The Ambitious Starter",tg:"Great strategy, scattered execution.",c:"#EC4899",desc:"Good intentions, executive buy-in, strategy on paper. But execution is chaos.",str:["Executive sponsorship","Strategic thinking","Business-driven priorities"],bl:["Too many priorities","Lacks coordination","Strategy diverging from reality"],path:"Pick THREE initiatives maximum. Kill everything else."},
-SRTI:{n:"The Accidental Success",tg:"It works, but don't ask me how.",c:"#14B8A6",desc:"Against all odds, you have AI integrated into workflows. But it happened by accident.",str:["Proof AI can work here","A champion exists","Real value being created"],bl:["Single point of failure","Not replicable","Leadership unaware"],path:"Document everything. Now. Turn accidental wins into repeatable processes."},
-SRBI:{n:"The Shadow IT Hero",tg:"Don't tell IT, but this is working.",c:"#3B82F6",desc:"Business users signed up for AI tools with credit cards and are getting results. IT doesn't know.",str:["Bias toward action","Real problems solved","Proof of demand"],bl:["Security/compliance risks","No scalability path","Data silos"],path:"Bring it into the light. Partner with IT to legitimize what's working."},
-SPTI:{n:"The Rogue Lab",tg:"Our tech is amazing. The business doesn't care.",c:"#6366F1",desc:"Proactive tech team with integrated AI. But what they build has little connection to business priorities.",str:["Technical excellence","Innovation culture","Integrated infrastructure"],bl:["Building for engineers","Seen as cost center","No strategy seat"],path:"Translate capabilities into business language. Find one executive sponsor."},
-SPBI:{n:"The Grassroots Movement",tg:"Pockets of excellence, waiting to connect.",c:"#22C55E",desc:"Multiple departments doing AI well. But they're not talking to each other.",str:["Proven success across teams","Business ownership","High adoption in pockets"],bl:["Duplicated effort","Incompatible tools","No enterprise view"],path:"Create a coordination layer — not to control, but to connect."},
-CRTE:{n:"The Controlled Experiment",tg:"We're piloting... still.",c:"#64748B",desc:"Consolidated AI tools with good governance. But stuck in permanent pilot mode.",str:["Low risk","Clean tool landscape","Good governance"],bl:["Pilots never become products","Business losing patience","Vague success metrics"],path:"Set a kill date for every pilot. Graduate to production or shut it down."},
-CRTB:{n:"The Waiting Game",tg:"We're ready to be ready.",c:"#94A3B8",desc:"Business owns AI decisions, consolidated tools, but everything is reactive and cautious.",str:["Clean landscape","Business alignment","No expensive mistakes"],bl:["Competitors are moving","Right time never comes","Talent is bored"],path:"Pick one low-risk, high-visibility initiative. Get in the game."},
-CPTE:{n:"The Tech Utopia",tg:"If only people would use what we built.",c:"#A855F7",desc:"You've done everything right — technically. The only thing missing: people using it.",str:["Solid technical foundation","Future-proof architecture","Ready to scale"],bl:["Adoption is THE problem","Change management skipped","Technical elegance ≠ value"],path:"Stop building features. Start building relationships."},
-CPTB:{n:"The Strategy Doc",tg:"The deck is ready. Execution isn't.",c:"#F59E0B",desc:"Beautiful strategy, executive alignment. But stuck between strategy and execution.",str:["Clear vision","Stakeholder buy-in","Prioritized roadmap"],bl:["Perfectionism as planning","Waiting for ideal conditions","Strategy getting stale"],path:"Pick ONE initiative. Start THIS WEEK. Imperfect action beats perfect planning."},
-CRTI:{n:"The Efficient Machine",tg:"Responsive but not innovative.",c:"#06B6D4",desc:"IT runs a tight ship responding to requests. But optimizing yesterday's operations.",str:["Reliable execution","Strong governance","Efficient operations"],bl:["No innovation pipeline","Reactive means behind","IT seen as utility"],path:"Carve out 20% for proactive exploration."},
-CRBI:{n:"The Service Desk",tg:"We deliver what you ask for — nothing more.",c:"#0EA5E9",desc:"AI is integrated and business-driven, but entirely reactive.",str:["Reliable execution","Business trust","Working integrations"],bl:["Missing opportunities","AI as cost center","No proactive roadmap"],path:"Earn a seat at the strategy table. Start bringing ideas."},
-CPTI:{n:"The Almost There",tg:"One conversation away from excellence.",c:"#10B981",desc:"Consolidated, proactive, integrated. The only gap: business isn't driving priorities.",str:["Strong execution","Technical excellence","Integrated workflows"],bl:["Tech ≠ business priorities","Technical metrics only","Business sees AI as IT's"],path:"Connect one AI initiative to a metric the CEO cares about."},
-CPBI:{n:"The Strategic Leader",tg:"AI is how we compete.",c:"#14B8A6",desc:"You've cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.",str:["Clear ROI metrics","High adoption rates","Executive alignment","Competitive advantage"],bl:["Risk of complacency","May over-engineer","Talent retention critical"],path:"Focus on talent, stay paranoid about disruption, consider how AI reshapes your business model."}
+const TXT={
+en:{title:'Discover Your<br><span class="gradient">AI-Q Type</span>',sub:'Like Myers-Briggs, but for your company\'s AI strategy.',questions:'Questions',minutes:'Minutes',types:'Types',preview:'What you\'ll discover',sample:'Sample result',pn1:'Chaos Pilot',pd1:'Tools everywhere, strategy nowhere',pn2:'Strategic Leader',pd2:'AI is how you compete',pn3:'Wishful Thinker',pd3:'"Can\'t AI just do that?"',pn4:'Tech Utopia',pd4:'Built it, they didn\'t come',dim1:'Structure',dim2:'Orientation',dim3:'Leadership',dim4:'Integration',ins1:'Your type & what it means',ins2:'Strengths to leverage',ins3:'Blind spots to watch',ins4:'Clear path forward',name:'Your Name',email:'Email',company:'Company',industry:'Industry',size:'Company Size',note:'Only your name is required. We respect your privacy.',start:'Start Assessment →',intro:'Answer based on how things actually are, not how you wish they were.',prev:'← Previous',next:'Next →',results:'See Results →',profile:'Your Profile',str:'✓ Strengths',bl:'✗ Blind Spots',path:'→ Your Path Forward',report:'📧 Get your full report via email',reportD:'Receive a detailed report with your results and recommendations.',send:'Send',sent:'✓ Report sent!',cta:'Want to become a Strategic Leader?',ctaD:'The AI Strategy Sprint gives you a complete roadmap in 2 weeks.',ctaB:'Book a Discovery Call →',copy:'📋 Copy Results',retake:'🔄 Retake Quiz',qof:'Question Q of 20',scat:'Scattered',cons:'Consolidated',react:'Reactive',proact:'Proactive',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrated',sd:'Strongly Disagree',d:'Disagree',n:'Neutral',a:'Agree',sa:'Strongly Agree'},
+es:{title:'Descubre Tu<br><span class="gradient">Tipo AI-Q</span>',sub:'Como Myers-Briggs, pero para la estrategia de IA de tu empresa.',questions:'Preguntas',minutes:'Minutos',types:'Tipos',preview:'Lo que descubrirás',sample:'Resultado de ejemplo',pn1:'Piloto del Caos',pd1:'Herramientas por todas partes, estrategia ninguna',pn2:'Líder Estratégico',pd2:'La IA es cómo compites',pn3:'Pensador Idealista',pd3:'"¿No puede la IA hacer eso?"',pn4:'Utopía Tech',pd4:'Lo construiste, no vinieron',dim1:'Estructura',dim2:'Orientación',dim3:'Liderazgo',dim4:'Integración',ins1:'Tu tipo y qué significa',ins2:'Fortalezas a aprovechar',ins3:'Puntos ciegos a vigilar',ins4:'Camino claro a seguir',name:'Tu Nombre',email:'Email',company:'Empresa',industry:'Industria',size:'Tamaño',note:'Solo tu nombre es requerido. Respetamos tu privacidad.',start:'Comenzar →',intro:'Responde basándote en cómo son las cosas, no cómo desearías.',prev:'← Anterior',next:'Siguiente →',results:'Ver Resultados →',profile:'Tu Perfil',str:'✓ Fortalezas',bl:'✗ Puntos Ciegos',path:'→ Tu Camino a Seguir',report:'📧 Recibe tu reporte por email',reportD:'Recibe un reporte detallado con tus resultados.',send:'Enviar',sent:'✓ Reporte enviado!',cta:'¿Quieres ser un Líder Estratégico?',ctaD:'El AI Strategy Sprint te da un roadmap completo en 2 semanas.',ctaB:'Agendar Llamada →',copy:'📋 Copiar',retake:'🔄 Repetir',qof:'Pregunta Q de 20',scat:'Disperso',cons:'Consolidado',react:'Reactivo',proact:'Proactivo',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrado',sd:'Muy en Desacuerdo',d:'En Desacuerdo',n:'Neutral',a:'De Acuerdo',sa:'Muy de Acuerdo'}
 };
 
-const opts=[{v:1,l:"Strongly Disagree"},{v:2,l:"Disagree"},{v:3,l:"Neutral"},{v:4,l:"Agree"},{v:5,l:"Strongly Agree"}];
+const Q={
+en:[{d:'Structure',t:'We have a complete inventory of all AI tools being used across the organization.',p:1},{d:'Structure',t:'Different departments have purchased their own AI tools without central coordination.',p:-1},{d:'Structure',t:'Our AI tools are governed under a unified policy and ownership structure.',p:1},{d:'Structure',t:'Teams often discover they are using duplicate AI tools for similar purposes.',p:-1},{d:'Structure',t:'We regularly audit and consolidate our AI tool portfolio.',p:1},{d:'Orientation',t:'We have a 12-month AI roadmap that anticipates future needs.',p:1},{d:'Orientation',t:'Most of our AI initiatives started because a competitor did something.',p:-1},{d:'Orientation',t:'We have a clear vision for how AI will transform our business in 3 years.',p:1},{d:'Orientation',t:'Our AI decisions are often driven by the latest article the CEO read.',p:-1},{d:'Orientation',t:'We have said no to AI opportunities that did not fit our strategic plan.',p:1},{d:'Leadership',t:'Business leaders define what problems AI should solve.',p:1},{d:'Leadership',t:'IT or the data team decides which AI projects to pursue.',p:-1},{d:'Leadership',t:'Business outcomes like revenue and efficiency drive AI prioritization.',p:1},{d:'Leadership',t:'Our AI team builds impressive things that few people actually use.',p:-1},{d:'Leadership',t:'Our CEO could explain our AI ROI to the board with confidence.',p:1},{d:'Integration',t:'AI tools are embedded in our daily workflows, not just special projects.',p:1},{d:'Integration',t:'Most of our AI initiatives are still in pilot or proof of concept phase.',p:-1},{d:'Integration',t:'Employees use AI tools as a natural part of their work.',p:1},{d:'Integration',t:'We have impressive AI demos that have not translated to real usage.',p:-1},{d:'Integration',t:'We have retired old processes because AI does them better.',p:1}],
+es:[{d:'Estructura',t:'Tenemos un inventario completo de todas las herramientas de IA en la organización.',p:1},{d:'Estructura',t:'Diferentes departamentos han comprado herramientas de IA sin coordinación central.',p:-1},{d:'Estructura',t:'Nuestras herramientas de IA están bajo una política unificada.',p:1},{d:'Estructura',t:'Los equipos descubren que usan herramientas de IA duplicadas.',p:-1},{d:'Estructura',t:'Regularmente auditamos y consolidamos nuestro portafolio de IA.',p:1},{d:'Orientación',t:'Tenemos un roadmap de IA de 12 meses que anticipa necesidades.',p:1},{d:'Orientación',t:'La mayoría de nuestras iniciativas de IA comenzaron porque un competidor hizo algo.',p:-1},{d:'Orientación',t:'Tenemos una visión clara de cómo la IA transformará nuestro negocio en 3 años.',p:1},{d:'Orientación',t:'Nuestras decisiones de IA son impulsadas por el último artículo que leyó el CEO.',p:-1},{d:'Orientación',t:'Hemos dicho no a oportunidades de IA que no encajaban con nuestro plan.',p:1},{d:'Liderazgo',t:'Los líderes de negocio definen qué problemas debe resolver la IA.',p:1},{d:'Liderazgo',t:'IT o el equipo de datos decide qué proyectos de IA perseguir.',p:-1},{d:'Liderazgo',t:'Los resultados de negocio impulsan la priorización de IA.',p:1},{d:'Liderazgo',t:'Nuestro equipo de IA construye cosas impresionantes que poca gente usa.',p:-1},{d:'Liderazgo',t:'Nuestro CEO podría explicar nuestro ROI de IA al directorio con confianza.',p:1},{d:'Integración',t:'Las herramientas de IA están integradas en nuestros flujos de trabajo diarios.',p:1},{d:'Integración',t:'La mayoría de nuestras iniciativas de IA aún están en fase piloto.',p:-1},{d:'Integración',t:'Los empleados usan herramientas de IA como parte natural de su trabajo.',p:1},{d:'Integración',t:'Tenemos demos de IA impresionantes que no se han traducido a uso real.',p:-1},{d:'Integración',t:'Hemos retirado procesos antiguos porque la IA los hace mejor.',p:1}]
+};
 
-function validate(){document.getElementById('btn-start').disabled=!document.getElementById('user-name').value.trim();}
-document.addEventListener('DOMContentLoaded',()=>{document.getElementById('user-name').addEventListener('input',validate);});
+const T={
+SRTE:{n:{en:'The Chaos Pilot',es:'El Piloto del Caos'},tg:{en:'We have AI... somewhere.',es:'Tenemos IA... en algún lugar.'},c:'#EF4444',desc:{en:'Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other.',es:'Tu panorama de IA es un cementerio de buenas intenciones. Múltiples herramientas compradas por diferentes equipos.'},str:{en:['Willingness to try new things','Budget available for AI','No legacy lock-in'],es:['Disposición para probar cosas nuevas','Presupuesto disponible','Sin dependencia legacy']},bl:{en:['No idea what you spend','Cannot measure ROI','Teams frustrated'],es:['Sin idea de lo que gastas','No puedes medir ROI','Equipos frustrados']},path:{en:'Stop buying. Start auditing. You need a complete inventory first.',es:'Deja de comprar. Comienza a auditar. Necesitas un inventario completo primero.'}},
+SRTB:{n:{en:'The Wishful Thinker',es:'El Pensador Idealista'},tg:{en:'Can\'t AI just do that?',es:'¿No puede la IA simplemente hacer eso?'},c:'#F97316',desc:{en:'Leadership is excited about AI but treats it like magic.',es:'El liderazgo está entusiasmado con la IA pero la trata como magia.'},str:{en:['Executive attention on AI','Business problems are focus','Budget unlocks possible'],es:['Atención ejecutiva en IA','Foco en problemas de negocio','Desbloqueo de presupuesto posible']},bl:{en:['Unrealistic expectations','No technical translation','Initiatives die from vagueness'],es:['Expectativas poco realistas','Sin traducción técnica','Iniciativas mueren por vaguedad']},path:{en:'Translate business wishes into specific, measurable problems.',es:'Traduce los deseos del negocio en problemas específicos y medibles.'}},
+SPTE:{n:{en:'The Over-Engineer',es:'El Sobre-Ingeniero'},tg:{en:'The architecture is beautiful. Nobody uses it.',es:'La arquitectura es hermosa. Nadie la usa.'},c:'#8B5CF6',desc:{en:'Your tech team built impressive AI infrastructure. Business users do not know it exists.',es:'Tu equipo técnico construyó infraestructura de IA impresionante. Los usuarios de negocio no saben que existe.'},str:{en:['Strong technical capability','Forward-thinking IT','Modern infrastructure'],es:['Fuerte capacidad técnica','IT con visión de futuro','Infraestructura moderna']},bl:{en:['Disconnect from business','Build it and they will come','Wrong metrics'],es:['Desconexión del negocio','Mentalidad de constrúyelo y vendrán','Métricas incorrectas']},path:{en:'Stop building. Start listening. Find real problems worth solving.',es:'Deja de construir. Comienza a escuchar. Encuentra problemas reales.'}},
+SPTB:{n:{en:'The Ambitious Starter',es:'El Iniciador Ambicioso'},tg:{en:'Great strategy, scattered execution.',es:'Gran estrategia, ejecución dispersa.'},c:'#EC4899',desc:{en:'Good intentions, executive buy-in, strategy on paper. But execution is chaos.',es:'Buenas intenciones, apoyo ejecutivo, estrategia en papel. Pero la ejecución es caos.'},str:{en:['Executive sponsorship','Strategic thinking','Business-driven priorities'],es:['Patrocinio ejecutivo','Pensamiento estratégico','Prioridades del negocio']},bl:{en:['Too many priorities','Lacks coordination','Strategy diverging'],es:['Demasiadas prioridades','Falta coordinación','Estrategia divergiendo']},path:{en:'Pick THREE initiatives maximum. Kill everything else.',es:'Elige TRES iniciativas máximo. Elimina todo lo demás.'}},
+SRTI:{n:{en:'The Accidental Success',es:'El Éxito Accidental'},tg:{en:'It works, but don\'t ask me how.',es:'Funciona, pero no me preguntes cómo.'},c:'#14B8A6',desc:{en:'Against all odds, you have AI integrated into workflows. But it happened by accident.',es:'Contra todo pronóstico, tienes IA integrada. Pero sucedió por accidente.'},str:{en:['Proof AI can work here','A champion exists','Real value created'],es:['Prueba de que la IA puede funcionar','Existe un campeón','Valor real creado']},bl:{en:['Single point of failure','Not replicable','Leadership unaware'],es:['Punto único de falla','No replicable','Liderazgo no consciente']},path:{en:'Document everything. Now. Turn accidental wins into repeatable processes.',es:'Documenta todo. Ahora. Convierte éxitos accidentales en procesos repetibles.'}},
+SRBI:{n:{en:'The Shadow IT Hero',es:'El Héroe de Shadow IT'},tg:{en:'Don\'t tell IT, but this is working.',es:'No le digas a IT, pero esto funciona.'},c:'#3B82F6',desc:{en:'Business users signed up for AI tools with credit cards. IT does not know.',es:'Los usuarios de negocio se registraron en herramientas de IA con tarjetas. IT no lo sabe.'},str:{en:['Bias toward action','Real problems solved','Proof of demand'],es:['Sesgo hacia la acción','Problemas reales resueltos','Prueba de demanda']},bl:{en:['Security risks','No scalability','Data silos'],es:['Riesgos de seguridad','Sin escalabilidad','Silos de datos']},path:{en:'Bring it into the light. Partner with IT to legitimize what works.',es:'Sácalo a la luz. Asóciate con IT para legitimar lo que funciona.'}},
+SPTI:{n:{en:'The Rogue Lab',es:'El Laboratorio Rebelde'},tg:{en:'Our tech is amazing. The business doesn\'t care.',es:'Nuestra tecnología es increíble. Al negocio no le importa.'},c:'#6366F1',desc:{en:'Proactive tech team with integrated AI. But what they build has little connection to business priorities.',es:'Equipo técnico proactivo con IA integrada. Pero poca conexión con prioridades del negocio.'},str:{en:['Technical excellence','Innovation culture','Integrated infrastructure'],es:['Excelencia técnica','Cultura de innovación','Infraestructura integrada']},bl:{en:['Building for engineers','Seen as cost center','No strategy seat'],es:['Construyendo para ingenieros','Centro de costos','Sin asiento en estrategia']},path:{en:'Translate capabilities into business language. Find one executive sponsor.',es:'Traduce capacidades al lenguaje del negocio. Encuentra un patrocinador ejecutivo.'}},
+SPBI:{n:{en:'The Grassroots Movement',es:'El Movimiento de Base'},tg:{en:'Pockets of excellence, waiting to connect.',es:'Bolsillos de excelencia, esperando conectar.'},c:'#22C55E',desc:{en:'Multiple departments doing AI well. But they are not talking to each other.',es:'Múltiples departamentos haciendo IA bien. Pero no se comunican.'},str:{en:['Proven success across teams','Business ownership','High adoption in pockets'],es:['Éxito probado en equipos','Propiedad del negocio','Alta adopción en bolsillos']},bl:{en:['Duplicated effort','Incompatible tools','No enterprise view'],es:['Esfuerzo duplicado','Herramientas incompatibles','Sin visión empresarial']},path:{en:'Create a coordination layer - not to control, but to connect.',es:'Crea una capa de coordinación - no para controlar, sino para conectar.'}},
+CRTE:{n:{en:'The Controlled Experiment',es:'El Experimento Controlado'},tg:{en:'We\'re piloting... still.',es:'Estamos piloteando... todavía.'},c:'#64748B',desc:{en:'Consolidated AI tools with good governance. But stuck in permanent pilot mode.',es:'Herramientas de IA consolidadas con buena gobernanza. Pero en modo piloto permanente.'},str:{en:['Low risk','Clean tool landscape','Good governance'],es:['Bajo riesgo','Panorama de herramientas limpio','Buena gobernanza']},bl:{en:['Pilots never become products','Business losing patience','Vague metrics'],es:['Los pilotos nunca se convierten en productos','El negocio pierde paciencia','Métricas vagas']},path:{en:'Set a kill date for every pilot. Graduate to production or shut it down.',es:'Establece fecha límite para cada piloto. Gradúa a producción o ciérralo.'}},
+CRTB:{n:{en:'The Waiting Game',es:'El Juego de la Espera'},tg:{en:'We\'re ready to be ready.',es:'Estamos listos para estar listos.'},c:'#94A3B8',desc:{en:'Business owns AI decisions, consolidated tools, but everything is reactive and cautious.',es:'El negocio es dueño de las decisiones de IA, pero todo es reactivo y cauteloso.'},str:{en:['Clean landscape','Business alignment','No expensive mistakes'],es:['Panorama limpio','Alineación del negocio','Sin errores costosos']},bl:{en:['Competitors moving','Right time never comes','Talent bored'],es:['Competidores se mueven','El momento correcto nunca llega','Talento aburrido']},path:{en:'Pick one low-risk, high-visibility initiative. Get in the game.',es:'Elige una iniciativa de bajo riesgo y alta visibilidad. Entra al juego.'}},
+CPTE:{n:{en:'The Tech Utopia',es:'La Utopía Tech'},tg:{en:'If only people would use what we built.',es:'Si solo la gente usara lo que construimos.'},c:'#A855F7',desc:{en:'You have done everything right - technically. The only thing missing: people using it.',es:'Has hecho todo bien - técnicamente. Lo único que falta: gente usándolo.'},str:{en:['Solid technical foundation','Future-proof architecture','Ready to scale'],es:['Base técnica sólida','Arquitectura a prueba de futuro','Listo para escalar']},bl:{en:['Adoption is THE problem','Change management skipped','Technical elegance not value'],es:['Adopción ES el problema','Se saltó gestión del cambio','Elegancia técnica no es valor']},path:{en:'Stop building features. Start building relationships.',es:'Deja de construir features. Comienza a construir relaciones.'}},
+CPTB:{n:{en:'The Strategy Doc',es:'El Documento de Estrategia'},tg:{en:'The deck is ready. Execution isn\'t.',es:'El deck está listo. La ejecución no.'},c:'#F59E0B',desc:{en:'Beautiful strategy, executive alignment. But stuck between strategy and execution.',es:'Hermosa estrategia, alineación ejecutiva. Pero atrapado entre estrategia y ejecución.'},str:{en:['Clear vision','Stakeholder buy-in','Prioritized roadmap'],es:['Visión clara','Buy-in de stakeholders','Roadmap priorizado']},bl:{en:['Perfectionism as planning','Waiting for ideal conditions','Strategy getting stale'],es:['Perfeccionismo como planificación','Esperando condiciones ideales','Estrategia envejeciendo']},path:{en:'Pick ONE initiative. Start THIS WEEK.',es:'Elige UNA iniciativa. Comienza ESTA SEMANA.'}},
+CRTI:{n:{en:'The Efficient Machine',es:'La Máquina Eficiente'},tg:{en:'Responsive but not innovative.',es:'Responsivo pero no innovador.'},c:'#06B6D4',desc:{en:'IT runs a tight ship responding to requests. But optimizing yesterday.',es:'IT opera eficientemente respondiendo a solicitudes. Pero optimizando el ayer.'},str:{en:['Reliable execution','Strong governance','Efficient operations'],es:['Ejecución confiable','Gobernanza fuerte','Operaciones eficientes']},bl:{en:['No innovation pipeline','Reactive means behind','IT seen as utility'],es:['Sin pipeline de innovación','Reactivo significa atrás','IT visto como utilidad']},path:{en:'Carve out 20% for proactive exploration.',es:'Reserva 20% para exploración proactiva.'}},
+CRBI:{n:{en:'The Service Desk',es:'La Mesa de Servicio'},tg:{en:'We deliver what you ask for - nothing more.',es:'Entregamos lo que pides - nada más.'},c:'#0EA5E9',desc:{en:'AI is integrated and business-driven, but entirely reactive.',es:'La IA está integrada y es impulsada por el negocio, pero completamente reactiva.'},str:{en:['Reliable execution','Business trust','Working integrations'],es:['Ejecución confiable','Confianza del negocio','Integraciones funcionando']},bl:{en:['Missing opportunities','AI as cost center','No proactive roadmap'],es:['Perdiendo oportunidades','IA como centro de costos','Sin roadmap proactivo']},path:{en:'Earn a seat at the strategy table. Start bringing ideas.',es:'Gana un asiento en la mesa de estrategia. Comienza a traer ideas.'}},
+CPTI:{n:{en:'The Almost There',es:'El Casi Llega'},tg:{en:'One conversation away from excellence.',es:'A una conversación de la excelencia.'},c:'#10B981',desc:{en:'Consolidated, proactive, integrated. The only gap: business is not driving priorities.',es:'Consolidado, proactivo, integrado. La única brecha: el negocio no impulsa las prioridades.'},str:{en:['Strong execution','Technical excellence','Integrated workflows'],es:['Ejecución fuerte','Excelencia técnica','Flujos de trabajo integrados']},bl:{en:['Tech not business priorities','Technical metrics only','Business sees AI as IT'],es:['Tech no prioridades del negocio','Solo métricas técnicas','El negocio ve IA como de IT']},path:{en:'Connect one AI initiative to a metric the CEO cares about.',es:'Conecta una iniciativa de IA a una métrica que le importe al CEO.'}},
+CPBI:{n:{en:'The Strategic Leader',es:'El Líder Estratégico'},tg:{en:'AI is how we compete.',es:'La IA es cómo competimos.'},c:'#14B8A6',desc:{en:'You have cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.',es:'Has descifrado el código. Herramientas consolidadas, roadmap proactivo, el negocio impulsa prioridades.'},str:{en:['Clear ROI metrics','High adoption rates','Executive alignment','Competitive advantage'],es:['Métricas de ROI claras','Altas tasas de adopción','Alineación ejecutiva','Ventaja competitiva']},bl:{en:['Risk of complacency','May over-engineer','Talent retention critical'],es:['Riesgo de complacencia','Puede sobre-ingeniar','Retención de talento crítica']},path:{en:'Focus on talent, stay paranoid about disruption.',es:'Enfócate en el talento, mantente paranoico sobre la disrupción.'}}
+};
+
+function updateUI(){
+    const t=TXT[lang];
+    document.getElementById('titleMain').innerHTML=t.title;
+    document.getElementById('subtitle').textContent=t.sub;
+    document.getElementById('lblQuestions').textContent=t.questions;
+    document.getElementById('lblMinutes').textContent=t.minutes;
+    document.getElementById('lblTypes').textContent=t.types;
+    document.getElementById('previewTitle').textContent=t.preview;
+    document.getElementById('sampleTitle').textContent=t.sample;
+    document.getElementById('pn1').textContent=t.pn1;document.getElementById('pd1').textContent=t.pd1;
+    document.getElementById('pn2').textContent=t.pn2;document.getElementById('pd2').textContent=t.pd2;
+    document.getElementById('pn3').textContent=t.pn3;document.getElementById('pd3').textContent=t.pd3;
+    document.getElementById('pn4').textContent=t.pn4;document.getElementById('pd4').textContent=t.pd4;
+    document.getElementById('dim1').textContent=t.dim1;document.getElementById('dim2').textContent=t.dim2;
+    document.getElementById('dim3').textContent=t.dim3;document.getElementById('dim4').textContent=t.dim4;
+    document.getElementById('ins1').textContent=t.ins1;document.getElementById('ins2').textContent=t.ins2;
+    document.getElementById('ins3').textContent=t.ins3;document.getElementById('ins4').textContent=t.ins4;
+    document.getElementById('lblName').textContent=t.name;document.getElementById('lblEmail').textContent=t.email;
+    document.getElementById('lblCompany').textContent=t.company;document.getElementById('lblIndustry').textContent=t.industry;
+    document.getElementById('lblSize').textContent=t.size;document.getElementById('formNote').textContent=t.note;
+    document.getElementById('btnStartTxt').textContent=t.start;document.getElementById('introNote').textContent=t.intro;
+    document.getElementById('btnPrevTxt').textContent=t.prev;
+    document.getElementById('profileTitle').textContent=t.profile;document.getElementById('strTitle').textContent=t.str;
+    document.getElementById('blTitle').textContent=t.bl;document.getElementById('pathTitle').textContent=t.path;
+    document.getElementById('reportTitle').textContent=t.report;document.getElementById('reportDesc').textContent=t.reportD;
+    document.getElementById('btnReport').textContent=t.send;
+    document.getElementById('ctaTitle').textContent=t.cta;document.getElementById('ctaDesc').textContent=t.ctaD;
+    document.getElementById('ctaBtn').textContent=t.ctaB;document.getElementById('btnCopy').textContent=t.copy;
+    document.getElementById('btnRetake').textContent=t.retake;
+    document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
+}
+
+function toggleLang(){lang=lang==='en'?'es':'en';updateUI();if(document.getElementById('questionScreen').classList.contains('active'))render();}
+function validate(){document.getElementById('btnStart').disabled=!document.getElementById('userName').value.trim();}
+document.addEventListener('DOMContentLoaded',function(){document.getElementById('userName').addEventListener('input',validate);updateUI();});
 
 function startQuiz(){
-    user={name:document.getElementById('user-name').value.trim(),email:document.getElementById('user-email').value.trim(),company:document.getElementById('company-name').value.trim(),industry:document.getElementById('industry').value,size:document.getElementById('company-size').value};
-    document.getElementById('intro-screen').classList.remove('active');
-    document.getElementById('question-screen').classList.add('active');
-    document.getElementById('header-progress').style.display='flex';
+    usr={name:document.getElementById('userName').value.trim(),email:document.getElementById('userEmail').value.trim(),company:document.getElementById('companyName').value.trim(),industry:document.getElementById('industry').value,size:document.getElementById('companySize').value};
+    document.getElementById('introScreen').classList.remove('active');
+    document.getElementById('questionScreen').classList.add('active');
+    document.getElementById('headerProgress').style.display='flex';
     render();
 }
 
 function render(){
-    const q=Q[cur];
-    document.getElementById('question-dimension').textContent=q.d;
-    document.getElementById('question-number').textContent=`Question ${cur+1} of 20`;
-    document.getElementById('question-text').textContent=q.t;
-    document.getElementById('answer-options').innerHTML=opts.map(o=>`<div class="answer-option ${ans[cur]===o.v?'selected':''}" onclick="select(${o.v})"><div class="answer-radio"></div><span class="answer-label">${o.l}</span></div>`).join('');
-    document.getElementById('btn-prev').disabled=cur===0;
-    document.getElementById('btn-next').disabled=ans[cur]===null;
-    document.getElementById('btn-next').textContent=cur===19?'See Results →':'Next →';
-    const cnt=ans.filter(a=>a!==null).length;
-    document.getElementById('progress-count').textContent=cnt;
-    document.getElementById('progress-bar').style.width=`${cnt/20*100}%`;
+    var q=Q[lang][cur],t=TXT[lang];
+    document.getElementById('qDimension').textContent=q.d;
+    document.getElementById('qNumber').textContent=t.qof.replace('Q',cur+1);
+    document.getElementById('qText').textContent=q.t;
+    var opts=[{v:1,l:t.sd},{v:2,l:t.d},{v:3,l:t.n},{v:4,l:t.a},{v:5,l:t.sa}];
+    document.getElementById('answerOptions').innerHTML=opts.map(function(o){return '<div class="answer-option '+(ans[cur]===o.v?'selected':'')+'" onclick="sel('+o.v+')"><div class="answer-radio"></div><span class="answer-label">'+o.l+'</span></div>';}).join('');
+    document.getElementById('btnPrev').disabled=cur===0;
+    document.getElementById('btnNext').disabled=ans[cur]===null;
+    document.getElementById('btnNextTxt').textContent=cur===19?t.results:t.next;
+    var cnt=ans.filter(function(a){return a!==null;}).length;
+    document.getElementById('progressCount').textContent=cnt;
+    document.getElementById('progressBar').style.width=(cnt/20*100)+'%';
 }
 
-function select(v){ans[cur]=v;render();}
-function nextQuestion(){if(cur<19){cur++;render();}else{showResults();}}
-function prevQuestion(){if(cur>0){cur--;render();}}
+function sel(v){ans[cur]=v;render();}
+function nextQ(){if(cur<19){cur++;render();}else{showResults();}}
+function prevQ(){if(cur>0){cur--;render();}}
 
 function calcScores(){
-    const dims={Structure:{s:0,c:0},Orientation:{s:0,c:0},Leadership:{s:0,c:0},Integration:{s:0,c:0}};
-    Q.forEach((q,i)=>{
-        if(ans[i]===null)return;
-        const d=dims[q.d];
-        d.s+=q.p===1?ans[i]-1:5-ans[i];
-        d.c++;
-    });
-    const r={};
-    for(const[k,v]of Object.entries(dims)){r[k]={score:v.s,max:v.c*4,pct:v.c>0?v.s/(v.c*4)*100:50};}
+    var dims={Structure:{s:0,c:0},Orientation:{s:0,c:0},Leadership:{s:0,c:0},Integration:{s:0,c:0}};
+    var map=lang==='es'?{Estructura:'Structure',Orientación:'Orientation',Liderazgo:'Leadership',Integración:'Integration'}:{Structure:'Structure',Orientation:'Orientation',Leadership:'Leadership',Integration:'Integration'};
+    Q[lang].forEach(function(q,i){if(ans[i]===null)return;var d=dims[map[q.d]];d.s+=q.p===1?ans[i]-1:5-ans[i];d.c++;});
+    var r={};for(var k in dims){var v=dims[k];r[k]={score:v.s,max:v.c*4,pct:v.c>0?v.s/(v.c*4)*100:50};}
     return r;
 }
 
-function getType(sc){
-    let c='';
-    c+=sc.Structure.pct<=50?'S':'C';
-    c+=sc.Orientation.pct<=50?'R':'P';
-    c+=sc.Leadership.pct<=50?'T':'B';
-    c+=sc.Integration.pct<=50?'E':'I';
-    return c;
-}
+function getType(sc){var c='';c+=sc.Structure.pct<=50?'S':'C';c+=sc.Orientation.pct<=50?'R':'P';c+=sc.Leadership.pct<=50?'T':'B';c+=sc.Integration.pct<=50?'E':'I';return c;}
 
 function showResults(){
-    document.getElementById('question-screen').classList.remove('active');
-    document.getElementById('results-screen').classList.add('active');
-    document.getElementById('header-progress').style.display='none';
-    const sc=calcScores(),code=getType(sc),t=T[code];
-    
-    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:user.name,email:user.email,company:user.company,industry:user.industry,size:user.size,role:'',typeCode:code,typeName:t.n,structureScore:Math.round(sc.Structure.pct),orientationScore:Math.round(sc.Orientation.pct),leadershipScore:Math.round(sc.Leadership.pct),integrationScore:Math.round(sc.Integration.pct)})}).catch(e=>console.error(e));
-    
-    document.getElementById('results-type-code').textContent=code;
-    document.getElementById('results-type-code').style.color=t.c;
-    document.getElementById('results-type-name').textContent=t.n;
-    document.getElementById('results-type-tagline').textContent=`"${t.tg}"`;
-    document.getElementById('results-description').textContent=t.desc;
-    document.getElementById('results-path').textContent=t.path;
-    document.getElementById('cta-from').textContent=t.n;
-    document.getElementById('results-strengths').innerHTML=t.str.map(s=>`<li>${s}</li>`).join('');
-    document.getElementById('results-blindspots').innerHTML=t.bl.map(b=>`<li>${b}</li>`).join('');
-    
-    const dc=[{k:'Structure',l:'Scattered',r:'Consolidated',c:'#14B8A6'},{k:'Orientation',l:'Reactive',r:'Proactive',c:'#3B82F6'},{k:'Leadership',l:'Tech-driven',r:'Business-driven',c:'#8B5CF6'},{k:'Integration',l:'Experimental',r:'Integrated',c:'#F97316'}];
-    document.getElementById('dimension-scores').innerHTML=dc.map(d=>{
-        const s=sc[d.k],lbl=s.pct>50?d.r:d.l;
-        return `<div class="dimension-score"><div class="dimension-score-header"><span class="dimension-score-name">${d.k}</span><span class="dimension-score-result">${lbl}</span></div><div class="dimension-score-bar"><div class="dimension-score-fill" style="width:${s.pct}%;background:${d.c};"></div></div><div class="dimension-score-labels"><span>${d.l}</span><span>${d.r}</span></div></div>`;
-    }).join('');
-    
-    document.getElementById('linkedin-share').href=`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://ai-q.fit')}`;
+    document.getElementById('questionScreen').classList.remove('active');
+    document.getElementById('resultsScreen').classList.add('active');
+    document.getElementById('headerProgress').style.display='none';
+    var sc=calcScores(),code=getType(sc),t=T[code],txt=TXT[lang];
+    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:usr.name,email:usr.email,company:usr.company,industry:usr.industry,size:usr.size,role:'',typeCode:code,typeName:t.n[lang],structureScore:Math.round(sc.Structure.pct),orientationScore:Math.round(sc.Orientation.pct),leadershipScore:Math.round(sc.Leadership.pct),integrationScore:Math.round(sc.Integration.pct),language:lang})}).catch(function(e){console.error(e);});
+    document.getElementById('resCode').textContent=code;document.getElementById('resCode').style.color=t.c;
+    document.getElementById('resName').textContent=t.n[lang];document.getElementById('resTagline').textContent='"'+t.tg[lang]+'"';
+    document.getElementById('resDesc').textContent=t.desc[lang];document.getElementById('resPath').textContent=t.path[lang];
+    document.getElementById('resStr').innerHTML=t.str[lang].map(function(s){return '<li>'+s+'</li>';}).join('');
+    document.getElementById('resBl').innerHTML=t.bl[lang].map(function(b){return '<li>'+b+'</li>';}).join('');
+    if(usr.email)document.getElementById('reportEmail').value=usr.email;
+    var dc=[{k:'Structure',l:txt.scat,r:txt.cons,c:'#14B8A6',n:txt.dim1},{k:'Orientation',l:txt.react,r:txt.proact,c:'#3B82F6',n:txt.dim2},{k:'Leadership',l:txt.tech,r:txt.biz,c:'#8B5CF6',n:txt.dim3},{k:'Integration',l:txt.exp,r:txt.integ,c:'#F97316',n:txt.dim4}];
+    document.getElementById('dimScores').innerHTML=dc.map(function(d){var s=sc[d.k],lbl=s.pct>50?d.r:d.l;return '<div class="dimension-score"><div class="dimension-score-header"><span class="dimension-score-name">'+d.n+'</span><span class="dimension-score-result">'+lbl+'</span></div><div class="dimension-score-bar"><div class="dimension-score-fill" style="width:'+s.pct+'%;background:'+d.c+'"></div></div><div class="dimension-score-labels"><span>'+d.l+'</span><span>'+d.r+'</span></div></div>';}).join('');
+    document.getElementById('linkedinShare').href='https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent('https://ai-q.fit');
 }
 
-function copyResults(){
-    const sc=calcScores(),code=getType(sc),t=T[code];
-    const txt=`My AI-Q Type: ${code} - "${t.n}"\n\n${t.tg}\n\n${t.desc}\n\nStrengths:\n${t.str.map(s=>'• '+s).join('\n')}\n\nPath Forward:\n${t.path}\n\nTake the assessment: ai-q.fit`;
-    navigator.clipboard.writeText(txt).then(()=>alert('Results copied!'));
+function sendReport(){
+    var email=document.getElementById('reportEmail').value;
+    if(!email||email.indexOf('@')<0){alert(lang==='en'?'Please enter a valid email':'Por favor ingresa un email válido');return;}
+    var sc=calcScores(),code=getType(sc),t=T[code];
+    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({reportRequest:true,email:email,name:usr.name,company:usr.company,typeCode:code,typeName:t.n[lang],description:t.desc[lang],strengths:t.str[lang].join(', '),blindspots:t.bl[lang].join(', '),path:t.path[lang],structureScore:Math.round(sc.Structure.pct),orientationScore:Math.round(sc.Orientation.pct),leadershipScore:Math.round(sc.Leadership.pct),integrationScore:Math.round(sc.Integration.pct),language:lang})}).catch(function(e){console.error(e);});
+    document.getElementById('emailSent').style.display='block';document.getElementById('btnReport').disabled=true;
 }
 
-function retakeQuiz(){
-    cur=0;ans=Array(20).fill(null);user={name:'',email:'',company:'',industry:'',size:''};
-    document.getElementById('user-name').value='';
-    document.getElementById('user-email').value='';
-    document.getElementById('company-name').value='';
-    document.getElementById('industry').value='';
-    document.getElementById('company-size').value='';
-    document.getElementById('btn-start').disabled=true;
-    document.getElementById('results-screen').classList.remove('active');
-    document.getElementById('intro-screen').classList.add('active');
+function copyRes(){
+    var sc=calcScores(),code=getType(sc),t=T[code];
+    var txt=lang==='en'?'My AI-Q Type: '+code+' - "'+t.n.en+'"\n\n'+t.tg.en+'\n\n'+t.desc.en+'\n\nStrengths:\n'+t.str.en.map(function(s){return '- '+s;}).join('\n')+'\n\nPath Forward:\n'+t.path.en+'\n\nTake the assessment: ai-q.fit':'Mi Tipo AI-Q: '+code+' - "'+t.n.es+'"\n\n'+t.tg.es+'\n\n'+t.desc.es+'\n\nFortalezas:\n'+t.str.es.map(function(s){return '- '+s;}).join('\n')+'\n\nCamino a Seguir:\n'+t.path.es+'\n\nHaz la evaluación: ai-q.fit';
+    navigator.clipboard.writeText(txt).then(function(){alert(lang==='en'?'Results copied!':'¡Resultados copiados!');});
 }
 
-document.addEventListener('keydown',e=>{
-    if(!document.getElementById('question-screen').classList.contains('active'))return;
-    if(e.key>='1'&&e.key<='5')select(parseInt(e.key));
-    else if((e.key==='ArrowRight'||e.key==='Enter')&&ans[cur]!==null)nextQuestion();
-    else if(e.key==='ArrowLeft')prevQuestion();
-});
-</script>
-</body>
-</html>
-n${t.tg.en}\n\n${t.desc.en}\n\nStrengths:\n${t.str.en.map(s=>'• '+s).join('\n')}\n\nPath Forward:\n${t.path.en}\n\nTake the assessment: ai-q.fit`:`Mi Tipo AI-Q: ${code} - "${t.n.es}"\n\n${t.tg.es}\n\n${t.desc.es}\n\nFortalezas:\n${t.str.es.map(s=>'• '+s).join('\n')}\n\nCamino a Seguir:\n${t.path.es}\n\nHaz la evaluación: ai-q.fit`;
-    navigator.clipboard.writeText(txt).then(()=>alert(lang==='en'?'Results copied!':'¡Resultados copiados!'));
+function retake(){
+    cur=0;ans=Array(20).fill(null);usr={};
+    document.getElementById('userName').value='';document.getElementById('userEmail').value='';
+    document.getElementById('companyName').value='';document.getElementById('industry').value='';
+    document.getElementById('companySize').value='';document.getElementById('btnStart').disabled=true;
+    document.getElementById('emailSent').style.display='none';document.getElementById('btnReport').disabled=false;
+    document.getElementById('resultsScreen').classList.remove('active');
+    document.getElementById('introScreen').classList.add('active');
 }
 
-function retakeQuiz(){
-    cur=0;ans=Array(20).fill(null);user={name:'',email:'',company:'',industry:'',size:''};
-    document.getElementById('user-name').value='';
-    document.getElementById('user-email').value='';
-    document.getElementById('company-name').value='';
-    document.getElementById('industry').value='';
-    document.getElementById('company-size').value='';
-    document.getElementById('btn-start').disabled=true;
-    document.getElementById('email-sent').style.display='none';
-    document.getElementById('btn-send-report').disabled=false;
-    document.getElementById('results-screen').classList.remove('active');
-    document.getElementById('intro-screen').classList.add('active');
-}
-
-document.addEventListener('keydown',e=>{
-    if(!document.getElementById('question-screen').classList.contains('active'))return;
-    if(e.key>='1'&&e.key<='5')select(parseInt(e.key));
-    else if((e.key==='ArrowRight'||e.key==='Enter')&&ans[cur]!==null)nextQuestion();
-    else if(e.key==='ArrowLeft')prevQuestion();
+document.addEventListener('keydown',function(e){
+    if(!document.getElementById('questionScreen').classList.contains('active'))return;
+    if(e.key>='1'&&e.key<='5')sel(parseInt(e.key));
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&ans[cur]!==null)nextQ();
+    else if(e.key==='ArrowLeft')prevQ();
 });
 </script>
 </body>
