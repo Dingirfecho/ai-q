@@ -4,1631 +4,370 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-Q Assessment | Discover Your AI Strategy Type</title>
-    <meta name="description" content="50 questions. 10 minutes. Discover which of 16 AI strategy types your organization is.">
-    <meta property="og:title" content="AI-Q Assessment | What's Your AI Strategy Type?">
-    <meta property="og:description" content="Take the definitive AI maturity assessment. 16 types. Complete clarity.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #07090E;
-            --bg-card: #0D1117;
-            --bg-card-hover: #161B22;
-            --accent-teal: #14B8A6;
-            --accent-teal-dim: rgba(20, 184, 166, 0.15);
-            --accent-blue: #3B82F6;
-            --accent-purple: #8B5CF6;
-            --accent-orange: #F97316;
-            --accent-red: #EF4444;
-            --accent-green: #22C55E;
-            --text-primary: #F1F5F9;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
-            --border: #1E293B;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% -20%, rgba(20, 184, 166, 0.12), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(59, 130, 246, 0.08), transparent);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(7, 9, 14, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .header-progress {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .progress-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .progress-bar-container {
-            width: 200px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 6rem 2rem 4rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Screens */
-        .screen {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Intro Screen */
-        .intro-screen {
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        .intro-screen h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-
-        .intro-screen h1 .gradient {
-            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .intro-screen p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto 2rem;
-        }
-
-        .intro-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .intro-stat {
-            text-align: center;
-        }
-
-        .intro-stat-number {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-teal);
-        }
-
-        .intro-stat-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .btn-start {
-            background: linear-gradient(135deg, var(--accent-teal), #0D9488);
-            color: white;
-            border: none;
-            padding: 1.25rem 3rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            font-family: 'Space Grotesk', sans-serif;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .btn-start:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(20, 184, 166, 0.3);
-        }
-
-        .btn-start:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .intro-note {
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* Registration Form */
-        .registration-form {
-            max-width: 480px;
-            margin: 0 auto 2rem;
-            text-align: left;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-label .required {
-            color: var(--accent-red);
-        }
-
-        .form-input,
-        .form-select {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
-            appearance: none;
-        }
-
-        .form-input:focus,
-        .form-select:focus {
-            outline: none;
-            border-color: var(--accent-teal);
-            background: var(--bg-card-hover);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .form-select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            padding-right: 2.5rem;
-            cursor: pointer;
-        }
-
-        .form-select option {
-            background: var(--bg-dark);
-            color: var(--text-primary);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 500px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .form-divider {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .form-divider::before,
-        .form-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        /* Question Screen */
-        .question-screen {
-            padding: 2rem 0;
-        }
-
-        .question-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .question-dimension {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            background: var(--accent-teal-dim);
-            color: var(--accent-teal);
-        }
-
-        .question-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .question-text {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 600;
-            margin-bottom: 3rem;
-            line-height: 1.4;
-        }
-
-        /* Answer Options */
-        .answer-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .answer-option {
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .answer-option:hover {
-            border-color: var(--accent-teal);
-            background: var(--bg-card-hover);
-        }
-
-        .answer-option.selected {
-            border-color: var(--accent-teal);
-            background: var(--accent-teal-dim);
-        }
-
-        .answer-radio {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.2s ease;
-        }
-
-        .answer-option:hover .answer-radio {
-            border-color: var(--accent-teal);
-        }
-
-        .answer-option.selected .answer-radio {
-            border-color: var(--accent-teal);
-            background: var(--accent-teal);
-        }
-
-        .answer-radio::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--bg-dark);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .answer-option.selected .answer-radio::after {
-            opacity: 1;
-        }
-
-        .answer-label {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-        }
-
-        .answer-option.selected .answer-label {
-            color: var(--text-primary);
-        }
-
-        /* Navigation */
-        .question-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .btn-nav {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-nav:hover:not(:disabled) {
-            border-color: var(--accent-teal);
-            color: var(--accent-teal);
-        }
-
-        .btn-nav:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .btn-nav.primary {
-            background: var(--accent-teal);
-            border-color: var(--accent-teal);
-            color: var(--bg-dark);
-        }
-
-        .btn-nav.primary:hover:not(:disabled) {
-            background: #0D9488;
-            border-color: #0D9488;
-            color: white;
-        }
-
-        /* Results Screen */
-        .results-screen {
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        .results-type-code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: 8px;
-            margin-bottom: 0.5rem;
-        }
-
-        .results-type-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .results-type-tagline {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-bottom: 3rem;
-        }
-
-        /* Dimension Scores */
-        .dimension-scores {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            text-align: left;
-        }
-
-        .dimension-score {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .dimension-score-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .dimension-score-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .dimension-score-result {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            background: var(--accent-teal-dim);
-            color: var(--accent-teal);
-        }
-
-        .dimension-score-bar {
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.75rem;
-        }
-
-        .dimension-score-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 1s ease;
-        }
-
-        .dimension-score-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* Profile Section */
-        .results-profile {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .results-profile h3 {
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .results-profile p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        /* Strengths & Blindspots */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .results-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .results-box h3 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-        }
-
-        .results-box.strengths h3 {
-            color: var(--accent-green);
-        }
-
-        .results-box.blindspots h3 {
-            color: var(--accent-red);
-        }
-
-        .results-box ul {
-            list-style: none;
-        }
-
-        .results-box li {
-            padding: 0.5rem 0;
-            padding-left: 1.25rem;
-            position: relative;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .results-box li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .results-box.strengths li::before {
-            background: var(--accent-green);
-        }
-
-        .results-box.blindspots li::before {
-            background: var(--accent-red);
-        }
-
-        /* Path Forward */
-        .results-path {
-            background: var(--accent-teal-dim);
-            border: 1px solid rgba(20, 184, 166, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
-            margin-bottom: 3rem;
-            text-align: left;
-        }
-
-        .results-path h3 {
-            color: var(--accent-teal);
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .results-path p {
-            color: var(--text-primary);
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-
-        /* CTA */
-        .results-cta {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-hover));
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .results-cta h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .results-cta p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-cta {
-            background: linear-gradient(135deg, var(--accent-teal), #0D9488);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            font-family: 'Space Grotesk', sans-serif;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.3);
-        }
-
-        /* Share */
-        .results-share {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-share {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 0.75rem 1.5rem;
-            font-size: 0.95rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .btn-share:hover {
-            border-color: var(--accent-teal);
-            color: var(--accent-teal);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 5rem 1.25rem 3rem;
-            }
-
-            header {
-                padding: 1rem;
-            }
-
-            .progress-bar-container {
-                width: 100px;
-            }
-
-            .intro-stats {
-                gap: 1.5rem;
-            }
-
-            .intro-stat-number {
-                font-size: 2rem;
-            }
-
-            .dimension-scores,
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .results-type-code {
-                font-size: 3rem;
-                letter-spacing: 4px;
-            }
-
-            .results-type-name {
-                font-size: 1.75rem;
-            }
-        }
+        :root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;min-height:100vh}
+        .bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(20,184,166,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}
+        header{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+        .logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+        .header-progress{display:flex;align-items:center;gap:1rem}
+        .progress-text{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted)}
+        .progress-bar-container{width:200px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+        .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent-teal),var(--accent-blue));width:0%;transition:width 0.3s ease}
+        .container{max-width:800px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;z-index:1}
+        .screen{display:none;animation:fadeIn 0.4s ease}
+        .screen.active{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .intro-screen{text-align:center;padding:2rem 0}
+        .intro-screen h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:800;margin-bottom:1.5rem;line-height:1.1}
+        .intro-screen h1 .gradient{background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .intro-screen>p{font-size:1.2rem;color:var(--text-secondary);max-width:500px;margin:0 auto 2rem}
+        .intro-stats{display:flex;justify-content:center;gap:3rem;margin-bottom:2.5rem}
+        .intro-stat{text-align:center}
+        .intro-stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent-teal)}
+        .intro-stat-label{font-size:0.9rem;color:var(--text-muted)}
+        .preview-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2.5rem;text-align:left}
+        .preview-section h3{font-size:1.1rem;color:var(--accent-teal);margin-bottom:1.25rem;text-align:center}
+        .preview-types{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .preview-type{background:var(--bg-dark);border-radius:10px;padding:1rem}
+        .preview-type-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem}
+        .preview-type-code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}
+        .preview-type-name{font-weight:600;font-size:0.95rem}
+        .preview-type-desc{font-size:0.85rem;color:var(--text-muted)}
+        .preview-sample{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+        .preview-sample h4{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;text-align:center}
+        .sample-result{display:flex;gap:1rem;align-items:center}
+        .sample-bars{flex:1}
+        .sample-bar{margin-bottom:0.5rem}
+        .sample-bar-label{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem}
+        .sample-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+        .sample-bar-fill{height:100%;border-radius:3px}
+        .sample-insights{flex:1;font-size:0.85rem;color:var(--text-secondary)}
+        .sample-insights li{margin-bottom:0.35rem;list-style:none;padding-left:1.25rem;position:relative}
+        .sample-insights li::before{content:'→';position:absolute;left:0;color:var(--accent-teal)}
+        .registration-form{max-width:480px;margin:0 auto 2rem;text-align:left}
+        .form-group{margin-bottom:1rem}
+        .form-label{display:block;font-size:0.9rem;font-weight:500;color:var(--text-secondary);margin-bottom:0.4rem}
+        .form-label .required{color:var(--accent-red)}
+        .form-label .optional{color:var(--text-muted);font-weight:400;font-size:0.8rem}
+        .form-input,.form-select{width:100%;padding:0.8rem 1rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:var(--text-primary);transition:all 0.2s ease}
+        .form-input:focus,.form-select:focus{outline:none;border-color:var(--accent-teal);background:var(--bg-card-hover)}
+        .form-input::placeholder{color:var(--text-muted)}
+        .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer;appearance:none}
+        .form-select option{background:var(--bg-dark);color:var(--text-primary)}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        @media(max-width:500px){.form-row,.preview-types{grid-template-columns:1fr}.sample-result{flex-direction:column}}
+        .form-note{text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .btn-start{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1.25rem 3rem;font-size:1.2rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:0.75rem;width:100%;max-width:320px;justify-content:center}
+        .btn-start:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(20,184,166,0.3)}
+        .btn-start:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
+        .intro-note{margin-top:1.5rem;font-size:0.85rem;color:var(--text-muted)}
+        .question-screen{padding:2rem 0}
+        .question-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+        .question-dimension{font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.4rem 0.8rem;border-radius:6px;background:var(--accent-teal-dim);color:var(--accent-teal)}
+        .question-number{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--text-muted)}
+        .question-text{font-size:clamp(1.5rem,4vw,2rem);font-weight:600;margin-bottom:3rem;line-height:1.4}
+        .answer-options{display:flex;flex-direction:column;gap:0.85rem}
+        .answer-option{background:var(--bg-card);border:2px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:1rem}
+        .answer-option:hover{border-color:var(--accent-teal);background:var(--bg-card-hover)}
+        .answer-option.selected{border-color:var(--accent-teal);background:var(--accent-teal-dim)}
+        .answer-radio{width:22px;height:22px;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s ease}
+        .answer-option:hover .answer-radio{border-color:var(--accent-teal)}
+        .answer-option.selected .answer-radio{border-color:var(--accent-teal);background:var(--accent-teal)}
+        .answer-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--bg-dark);opacity:0;transition:opacity 0.2s ease}
+        .answer-option.selected .answer-radio::after{opacity:1}
+        .answer-label{font-size:1rem;color:var(--text-secondary)}
+        .answer-option.selected .answer-label{color:var(--text-primary)}
+        .question-nav{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+        .btn-nav{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.5rem}
+        .btn-nav:hover:not(:disabled){border-color:var(--accent-teal);color:var(--accent-teal)}
+        .btn-nav:disabled{opacity:0.3;cursor:not-allowed}
+        .btn-nav.primary{background:var(--accent-teal);border-color:var(--accent-teal);color:var(--bg-dark)}
+        .btn-nav.primary:hover:not(:disabled){background:#0D9488;border-color:#0D9488;color:white}
+        .results-screen{padding:2rem 0;text-align:center}
+        .results-type-code{font-family:'JetBrains Mono',monospace;font-size:4rem;font-weight:700;letter-spacing:8px;margin-bottom:0.5rem}
+        .results-type-name{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem}
+        .results-type-tagline{font-size:1.25rem;color:var(--text-muted);font-style:italic;margin-bottom:3rem}
+        .dimension-scores{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem;text-align:left}
+        .dimension-score{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+        .dimension-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+        .dimension-score-name{font-weight:600;font-size:0.95rem}
+        .dimension-score-result{font-family:'JetBrains Mono',monospace;font-size:0.85rem;padding:0.25rem 0.6rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}
+        .dimension-score-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:0.75rem}
+        .dimension-score-fill{height:100%;border-radius:4px;transition:width 1s ease}
+        .dimension-score-labels{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted)}
+        .results-profile{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}
+        .results-profile h3{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:1rem}
+        .results-profile p{color:var(--text-secondary);line-height:1.7;font-size:1.05rem}
+        .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;text-align:left}
+        .results-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+        .results-box h3{font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+        .results-box.strengths h3{color:var(--accent-green)}
+        .results-box.blindspots h3{color:var(--accent-red)}
+        .results-box ul{list-style:none}
+        .results-box li{padding:0.5rem 0;padding-left:1.25rem;position:relative;color:var(--text-secondary);font-size:0.95rem}
+        .results-box li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}
+        .results-box.strengths li::before{background:var(--accent-green)}
+        .results-box.blindspots li::before{background:var(--accent-red)}
+        .results-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.5rem 2rem;margin-bottom:3rem;text-align:left}
+        .results-path h3{color:var(--accent-teal);font-size:1rem;margin-bottom:0.75rem}
+        .results-path p{color:var(--text-primary);font-size:1.05rem;line-height:1.6}
+        .results-cta{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem}
+        .results-cta h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}
+        .results-cta p{color:var(--text-secondary);margin-bottom:1.5rem}
+        .btn-cta{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:10px;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
+        .btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,184,166,0.3)}
+        .results-share{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+        .btn-share{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none}
+        .btn-share:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
+        @media(max-width:768px){.container{padding:5rem 1.25rem 3rem}header{padding:1rem}.progress-bar-container{width:100px}.intro-stats{gap:1.5rem}.intro-stat-number{font-size:2rem}.dimension-scores,.results-grid{grid-template-columns:1fr}.results-type-code{font-size:3rem;letter-spacing:4px}.results-type-name{font-size:1.75rem}}
     </style>
 </head>
 <body>
     <div class="bg-gradient"></div>
-
-    <!-- Header -->
     <header>
         <a href="index.html" class="logo">AI-Q</a>
-        <div class="header-progress" id="header-progress" style="display: none;">
-            <span class="progress-text"><span id="progress-count">0</span>/50</span>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
+        <div class="header-progress" id="header-progress" style="display:none;">
+            <span class="progress-text"><span id="progress-count">0</span>/20</span>
+            <div class="progress-bar-container"><div class="progress-bar" id="progress-bar"></div></div>
         </div>
     </header>
-
     <div class="container">
-        <!-- Intro Screen -->
         <div class="screen active" id="intro-screen">
             <div class="intro-screen">
                 <h1>Discover Your<br><span class="gradient">AI-Q Type</span></h1>
-                <p>Answer 50 questions about how your organization approaches AI. Get your type, strengths, blind spots, and path forward.</p>
-                
+                <p>Like Myers-Briggs, but for your company's AI strategy.</p>
                 <div class="intro-stats">
-                    <div class="intro-stat">
-                        <div class="intro-stat-number">50</div>
-                        <div class="intro-stat-label">Questions</div>
+                    <div class="intro-stat"><div class="intro-stat-number">20</div><div class="intro-stat-label">Questions</div></div>
+                    <div class="intro-stat"><div class="intro-stat-number">5</div><div class="intro-stat-label">Minutes</div></div>
+                    <div class="intro-stat"><div class="intro-stat-number">16</div><div class="intro-stat-label">Types</div></div>
+                </div>
+                <div class="preview-section">
+                    <h3>What you'll discover</h3>
+                    <div class="preview-types">
+                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTE</span><span class="preview-type-name">Chaos Pilot</span></div><p class="preview-type-desc">Tools everywhere, strategy nowhere</p></div>
+                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPBI</span><span class="preview-type-name">Strategic Leader</span></div><p class="preview-type-desc">AI is how you compete</p></div>
+                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTB</span><span class="preview-type-name">Wishful Thinker</span></div><p class="preview-type-desc">"Can't AI just do that?"</p></div>
+                        <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPTE</span><span class="preview-type-name">Tech Utopia</span></div><p class="preview-type-desc">Built it, they didn't come</p></div>
                     </div>
-                    <div class="intro-stat">
-                        <div class="intro-stat-number">10</div>
-                        <div class="intro-stat-label">Minutes</div>
-                    </div>
-                    <div class="intro-stat">
-                        <div class="intro-stat-number">16</div>
-                        <div class="intro-stat-label">Types</div>
+                    <div class="preview-sample">
+                        <h4>Sample result</h4>
+                        <div class="sample-result">
+                            <div class="sample-bars">
+                                <div class="sample-bar"><div class="sample-bar-label">Structure</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:35%;background:var(--accent-teal);"></div></div></div>
+                                <div class="sample-bar"><div class="sample-bar-label">Orientation</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:65%;background:var(--accent-blue);"></div></div></div>
+                                <div class="sample-bar"><div class="sample-bar-label">Leadership</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:80%;background:var(--accent-purple);"></div></div></div>
+                                <div class="sample-bar"><div class="sample-bar-label">Integration</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:45%;background:var(--accent-orange);"></div></div></div>
+                            </div>
+                            <ul class="sample-insights"><li>Your type & what it means</li><li>Strengths to leverage</li><li>Blind spots to watch</li><li>Clear path forward</li></ul>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-divider">Tell us about your organization</div>
-
                 <form class="registration-form" id="registration-form" onsubmit="return false;">
-                    <div class="form-group">
-                        <label class="form-label">Your Name <span class="required">*</span></label>
-                        <input type="text" class="form-input" id="user-name" placeholder="e.g., Maria Garcia" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Company Name <span class="required">*</span></label>
-                        <input type="text" class="form-input" id="company-name" placeholder="e.g., Acme Corporation" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Your Email <span class="required">*</span></label>
-                        <input type="email" class="form-input" id="user-email" placeholder="e.g., maria@acme.com" required>
-                    </div>
-
+                    <div class="form-group"><label class="form-label">Your Name <span class="required">*</span></label><input type="text" class="form-input" id="user-name" placeholder="e.g., Maria Garcia" required></div>
                     <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Industry <span class="required">*</span></label>
-                            <select class="form-select" id="industry" required>
-                                <option value="">Select industry...</option>
-                                <option value="technology">Technology / Software</option>
-                                <option value="financial">Financial Services / Banking</option>
-                                <option value="healthcare">Healthcare / Life Sciences</option>
-                                <option value="manufacturing">Manufacturing / Industrial</option>
-                                <option value="retail">Retail / E-commerce</option>
-                                <option value="professional">Professional Services / Consulting</option>
-                                <option value="media">Media / Entertainment</option>
-                                <option value="education">Education</option>
-                                <option value="government">Government / Public Sector</option>
-                                <option value="energy">Energy / Utilities</option>
-                                <option value="transportation">Transportation / Logistics</option>
-                                <option value="real-estate">Real Estate / Construction</option>
-                                <option value="hospitality">Hospitality / Travel</option>
-                                <option value="telecommunications">Telecommunications</option>
-                                <option value="agriculture">Agriculture / Food</option>
-                                <option value="nonprofit">Non-profit / NGO</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Company Size <span class="required">*</span></label>
-                            <select class="form-select" id="company-size" required>
-                                <option value="">Select size...</option>
-                                <option value="1-10">1-10 employees</option>
-                                <option value="11-50">11-50 employees</option>
-                                <option value="51-200">51-200 employees</option>
-                                <option value="201-500">201-500 employees</option>
-                                <option value="501-1000">501-1,000 employees</option>
-                                <option value="1001-5000">1,001-5,000 employees</option>
-                                <option value="5001+">5,001+ employees</option>
-                            </select>
-                        </div>
+                        <div class="form-group"><label class="form-label">Email <span class="optional">(optional)</span></label><input type="email" class="form-input" id="user-email" placeholder="e.g., maria@acme.com"></div>
+                        <div class="form-group"><label class="form-label">Company <span class="optional">(optional)</span></label><input type="text" class="form-input" id="company-name" placeholder="e.g., Acme Corp"></div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Your Role <span class="required">*</span></label>
-                        <select class="form-select" id="user-role" required>
-                            <option value="">Select role...</option>
-                            <option value="c-level">C-Level Executive (CEO, CTO, CIO, etc.)</option>
-                            <option value="vp">VP / Senior Vice President</option>
-                            <option value="director">Director</option>
-                            <option value="manager">Manager</option>
-                            <option value="individual">Individual Contributor</option>
-                            <option value="consultant">Consultant / Advisor</option>
-                            <option value="founder">Founder / Owner</option>
-                            <option value="other">Other</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">Industry <span class="optional">(optional)</span></label><select class="form-select" id="industry"><option value="">Select...</option><option value="technology">Technology</option><option value="financial">Financial Services</option><option value="healthcare">Healthcare</option><option value="manufacturing">Manufacturing</option><option value="retail">Retail</option><option value="professional">Professional Services</option><option value="other">Other</option></select></div>
+                        <div class="form-group"><label class="form-label">Company Size <span class="optional">(optional)</span></label><select class="form-select" id="company-size"><option value="">Select...</option><option value="1-50">1-50</option><option value="51-200">51-200</option><option value="201-1000">201-1,000</option><option value="1001+">1,001+</option></select></div>
                     </div>
                 </form>
-
-                <button class="btn-start" id="btn-start" onclick="startQuiz()" disabled>
-                    Start Assessment
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-
+                <p class="form-note">Only your name is required. We respect your privacy.</p>
+                <button class="btn-start" id="btn-start" onclick="startQuiz()" disabled>Start Assessment →</button>
                 <p class="intro-note">Answer based on how things actually are, not how you wish they were.</p>
             </div>
         </div>
-
-        <!-- Question Screen -->
         <div class="screen" id="question-screen">
             <div class="question-screen">
-                <div class="question-meta">
-                    <span class="question-dimension" id="question-dimension">Structure</span>
-                    <span class="question-number" id="question-number">Question 1 of 50</span>
-                </div>
-
-                <h2 class="question-text" id="question-text">Loading question...</h2>
-
-                <div class="answer-options" id="answer-options">
-                    <!-- Options rendered by JS -->
-                </div>
-
+                <div class="question-meta"><span class="question-dimension" id="question-dimension">Structure</span><span class="question-number" id="question-number">Question 1 of 20</span></div>
+                <h2 class="question-text" id="question-text">Loading...</h2>
+                <div class="answer-options" id="answer-options"></div>
                 <div class="question-nav">
-                    <button class="btn-nav" id="btn-prev" onclick="prevQuestion()" disabled>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M13 8H3M3 8L8 3M3 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Previous
-                    </button>
-                    <button class="btn-nav primary" id="btn-next" onclick="nextQuestion()" disabled>
-                        Next
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
+                    <button class="btn-nav" id="btn-prev" onclick="prevQuestion()" disabled>← Previous</button>
+                    <button class="btn-nav primary" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>
                 </div>
             </div>
         </div>
-
-        <!-- Results Screen -->
         <div class="screen" id="results-screen">
             <div class="results-screen">
                 <div class="results-type-code" id="results-type-code">----</div>
                 <div class="results-type-name" id="results-type-name">Loading...</div>
                 <div class="results-type-tagline" id="results-type-tagline">"..."</div>
-
-                <div class="dimension-scores" id="dimension-scores">
-                    <!-- Rendered by JS -->
-                </div>
-
-                <div class="results-profile">
-                    <h3>Your Profile</h3>
-                    <p id="results-description">Loading...</p>
-                </div>
-
+                <div class="dimension-scores" id="dimension-scores"></div>
+                <div class="results-profile"><h3>Your Profile</h3><p id="results-description">Loading...</p></div>
                 <div class="results-grid">
-                    <div class="results-box strengths">
-                        <h3>✓ Strengths</h3>
-                        <ul id="results-strengths"></ul>
-                    </div>
-                    <div class="results-box blindspots">
-                        <h3>✗ Blind Spots</h3>
-                        <ul id="results-blindspots"></ul>
-                    </div>
+                    <div class="results-box strengths"><h3>✓ Strengths</h3><ul id="results-strengths"></ul></div>
+                    <div class="results-box blindspots"><h3>✗ Blind Spots</h3><ul id="results-blindspots"></ul></div>
                 </div>
-
-                <div class="results-path">
-                    <h3>→ Your Path Forward</h3>
-                    <p id="results-path">Loading...</p>
-                </div>
-
+                <div class="results-path"><h3>→ Your Path Forward</h3><p id="results-path">Loading...</p></div>
                 <div class="results-cta">
                     <h3>Want to move from <span id="cta-from">here</span> to Strategic Leader?</h3>
                     <p>The AI Strategy Sprint gives you a complete roadmap in 2 weeks.</p>
-                    <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-cta">
-                        Book a Discovery Call
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+                    <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-cta">Book a Discovery Call →</a>
                 </div>
-
                 <div class="results-share">
-                    <button class="btn-share" onclick="copyResults()">
-                        📋 Copy Results
-                    </button>
-                    <a class="btn-share" id="linkedin-share" href="#" target="_blank">
-                        🔗 Share on LinkedIn
-                    </a>
-                    <button class="btn-share" onclick="retakeQuiz()">
-                        🔄 Retake Quiz
-                    </button>
+                    <button class="btn-share" onclick="copyResults()">📋 Copy Results</button>
+                    <a class="btn-share" id="linkedin-share" href="#" target="_blank">🔗 Share on LinkedIn</a>
+                    <button class="btn-share" onclick="retakeQuiz()">🔄 Retake Quiz</button>
                 </div>
             </div>
         </div>
     </div>
+<script>
+const WEBHOOK='https://script.google.com/macros/s/AKfycbzl0mvlsVQU79or7pxl8KUUaWYdwiWRhUFA2uaqbwRs8JKjYu6YvqjertvLMrOazx7u/exec';
+let cur=0,ans=Array(20).fill(null),user={name:'',email:'',company:'',industry:'',size:''};
 
-    <script>
-        // ========================================
-        // QUESTIONS DATABASE
-        // ========================================
-        const questions = [
-            // STRUCTURE (S/C) - Questions 1-12
-            // Low score = Scattered (S), High score = Consolidated (C)
-            { id: 1, dimension: "Structure", text: "We have a complete inventory of all AI tools being used across the organization.", polarity: 1 },
-            { id: 2, dimension: "Structure", text: "Different departments have purchased their own AI tools without central coordination.", polarity: -1 },
-            { id: 3, dimension: "Structure", text: "Our AI tools are governed under a unified policy and ownership structure.", polarity: 1 },
-            { id: 4, dimension: "Structure", text: "I couldn't tell you how many AI subscriptions we're currently paying for.", polarity: -1 },
-            { id: 5, dimension: "Structure", text: "We have clear criteria for evaluating and approving new AI tools.", polarity: 1 },
-            { id: 6, dimension: "Structure", text: "Our AI landscape feels like a collection of random experiments.", polarity: -1 },
-            { id: 7, dimension: "Structure", text: "There's a single team or person responsible for AI tool decisions.", polarity: 1 },
-            { id: 8, dimension: "Structure", text: "Teams often discover they're using duplicate AI tools for similar purposes.", polarity: -1 },
-            { id: 9, dimension: "Structure", text: "Our AI tools integrate well with each other and our existing systems.", polarity: 1 },
-            { id: 10, dimension: "Structure", text: "Every vendor pitch seems to result in another AI purchase.", polarity: -1 },
-            { id: 11, dimension: "Structure", text: "We regularly audit and consolidate our AI tool portfolio.", polarity: 1 },
-            { id: 12, dimension: "Structure", text: "Our AI spending is scattered across dozens of budget lines and credit cards.", polarity: -1 },
+const Q=[
+{d:"Structure",t:"We have a complete inventory of all AI tools being used across the organization.",p:1},
+{d:"Structure",t:"Different departments have purchased their own AI tools without central coordination.",p:-1},
+{d:"Structure",t:"Our AI tools are governed under a unified policy and ownership structure.",p:1},
+{d:"Structure",t:"Teams often discover they're using duplicate AI tools for similar purposes.",p:-1},
+{d:"Structure",t:"We regularly audit and consolidate our AI tool portfolio.",p:1},
+{d:"Orientation",t:"We have a 12-month AI roadmap that anticipates future needs.",p:1},
+{d:"Orientation",t:"Most of our AI initiatives started because a competitor did something.",p:-1},
+{d:"Orientation",t:"We have a clear vision for how AI will transform our business in 3 years.",p:1},
+{d:"Orientation",t:"Our AI decisions are often driven by the latest article the CEO read.",p:-1},
+{d:"Orientation",t:"We've said no to AI opportunities that didn't fit our strategic plan.",p:1},
+{d:"Leadership",t:"Business leaders define what problems AI should solve.",p:1},
+{d:"Leadership",t:"IT or the data team decides which AI projects to pursue.",p:-1},
+{d:"Leadership",t:"Business outcomes (revenue, efficiency) drive AI prioritization.",p:1},
+{d:"Leadership",t:"Our AI team builds impressive things that few people actually use.",p:-1},
+{d:"Leadership",t:"Our CEO could explain our AI ROI to the board with confidence.",p:1},
+{d:"Integration",t:"AI tools are embedded in our daily workflows, not just special projects.",p:1},
+{d:"Integration",t:"Most of our AI initiatives are still in pilot or proof of concept phase.",p:-1},
+{d:"Integration",t:"Employees use AI tools as a natural part of their work.",p:1},
+{d:"Integration",t:"We have impressive AI demos that haven't translated to real usage.",p:-1},
+{d:"Integration",t:"We've retired old processes because AI does them better.",p:1}
+];
 
-            // ORIENTATION (R/P) - Questions 13-24
-            // Low score = Reactive (R), High score = Proactive (P)
-            { id: 13, dimension: "Orientation", text: "We have a 12-month AI roadmap that anticipates future needs.", polarity: 1 },
-            { id: 14, dimension: "Orientation", text: "Most of our AI initiatives started because a competitor did something.", polarity: -1 },
-            { id: 15, dimension: "Orientation", text: "We proactively identify AI opportunities before problems become urgent.", polarity: 1 },
-            { id: 16, dimension: "Orientation", text: "Our AI decisions are often driven by the latest article the CEO read.", polarity: -1 },
-            { id: 17, dimension: "Orientation", text: "We have a clear vision for how AI will transform our business in 3 years.", polarity: 1 },
-            { id: 18, dimension: "Orientation", text: "We're constantly playing catch-up with AI trends.", polarity: -1 },
-            { id: 19, dimension: "Orientation", text: "Our AI strategy was developed thoughtfully, not in response to pressure.", polarity: 1 },
-            { id: 20, dimension: "Orientation", text: "Board or investor pressure is the main driver of our AI initiatives.", polarity: -1 },
-            { id: 21, dimension: "Orientation", text: "We've said no to AI opportunities that didn't fit our strategic plan.", polarity: 1 },
-            { id: 22, dimension: "Orientation", text: "We tend to wait and see what others do before making AI investments.", polarity: -1 },
-            { id: 23, dimension: "Orientation", text: "Our team regularly scans for emerging AI capabilities we could leverage.", polarity: 1 },
-            { id: 24, dimension: "Orientation", text: "Our AI initiatives feel reactive rather than strategic.", polarity: -1 },
+const T={
+SRTE:{n:"The Chaos Pilot",tg:"We have AI... somewhere.",c:"#EF4444",desc:"Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other, no clear owner, no measurable outcomes.",str:["Willingness to try new things","Budget available for AI","No legacy system lock-in"],bl:["No idea what you're spending","Can't measure ROI","Teams are frustrated"],path:"Stop buying. Start auditing. You need a complete inventory before anything else."},
+SRTB:{n:"The Wishful Thinker",tg:"Can't AI just do that?",c:"#F97316",desc:"Leadership is excited about AI but treats it like magic. Requests come down like 'use AI to fix customer churn' with no specifics.",str:["Executive attention on AI","Business problems are the focus","Budget unlocks possible"],bl:["Unrealistic expectations","No technical translation","Initiatives die from vagueness"],path:"Translate business wishes into specific, measurable problems."},
+SPTE:{n:"The Over-Engineer",tg:"The architecture is beautiful. Nobody uses it.",c:"#8B5CF6",desc:"Your tech team built impressive AI infrastructure. One problem: business users don't know it exists.",str:["Strong technical capability","Forward-thinking IT","Modern infrastructure"],bl:["Disconnect from business","Build it and they'll come","Measuring wrong metrics"],path:"Stop building. Start listening. Find real problems worth solving."},
+SPTB:{n:"The Ambitious Starter",tg:"Great strategy, scattered execution.",c:"#EC4899",desc:"Good intentions, executive buy-in, strategy on paper. But execution is chaos.",str:["Executive sponsorship","Strategic thinking","Business-driven priorities"],bl:["Too many priorities","Lacks coordination","Strategy diverging from reality"],path:"Pick THREE initiatives maximum. Kill everything else."},
+SRTI:{n:"The Accidental Success",tg:"It works, but don't ask me how.",c:"#14B8A6",desc:"Against all odds, you have AI integrated into workflows. But it happened by accident.",str:["Proof AI can work here","A champion exists","Real value being created"],bl:["Single point of failure","Not replicable","Leadership unaware"],path:"Document everything. Now. Turn accidental wins into repeatable processes."},
+SRBI:{n:"The Shadow IT Hero",tg:"Don't tell IT, but this is working.",c:"#3B82F6",desc:"Business users signed up for AI tools with credit cards and are getting results. IT doesn't know.",str:["Bias toward action","Real problems solved","Proof of demand"],bl:["Security/compliance risks","No scalability path","Data silos"],path:"Bring it into the light. Partner with IT to legitimize what's working."},
+SPTI:{n:"The Rogue Lab",tg:"Our tech is amazing. The business doesn't care.",c:"#6366F1",desc:"Proactive tech team with integrated AI. But what they build has little connection to business priorities.",str:["Technical excellence","Innovation culture","Integrated infrastructure"],bl:["Building for engineers","Seen as cost center","No strategy seat"],path:"Translate capabilities into business language. Find one executive sponsor."},
+SPBI:{n:"The Grassroots Movement",tg:"Pockets of excellence, waiting to connect.",c:"#22C55E",desc:"Multiple departments doing AI well. But they're not talking to each other.",str:["Proven success across teams","Business ownership","High adoption in pockets"],bl:["Duplicated effort","Incompatible tools","No enterprise view"],path:"Create a coordination layer — not to control, but to connect."},
+CRTE:{n:"The Controlled Experiment",tg:"We're piloting... still.",c:"#64748B",desc:"Consolidated AI tools with good governance. But stuck in permanent pilot mode.",str:["Low risk","Clean tool landscape","Good governance"],bl:["Pilots never become products","Business losing patience","Vague success metrics"],path:"Set a kill date for every pilot. Graduate to production or shut it down."},
+CRTB:{n:"The Waiting Game",tg:"We're ready to be ready.",c:"#94A3B8",desc:"Business owns AI decisions, consolidated tools, but everything is reactive and cautious.",str:["Clean landscape","Business alignment","No expensive mistakes"],bl:["Competitors are moving","Right time never comes","Talent is bored"],path:"Pick one low-risk, high-visibility initiative. Get in the game."},
+CPTE:{n:"The Tech Utopia",tg:"If only people would use what we built.",c:"#A855F7",desc:"You've done everything right — technically. The only thing missing: people using it.",str:["Solid technical foundation","Future-proof architecture","Ready to scale"],bl:["Adoption is THE problem","Change management skipped","Technical elegance ≠ value"],path:"Stop building features. Start building relationships."},
+CPTB:{n:"The Strategy Doc",tg:"The deck is ready. Execution isn't.",c:"#F59E0B",desc:"Beautiful strategy, executive alignment. But stuck between strategy and execution.",str:["Clear vision","Stakeholder buy-in","Prioritized roadmap"],bl:["Perfectionism as planning","Waiting for ideal conditions","Strategy getting stale"],path:"Pick ONE initiative. Start THIS WEEK. Imperfect action beats perfect planning."},
+CRTI:{n:"The Efficient Machine",tg:"Responsive but not innovative.",c:"#06B6D4",desc:"IT runs a tight ship responding to requests. But optimizing yesterday's operations.",str:["Reliable execution","Strong governance","Efficient operations"],bl:["No innovation pipeline","Reactive means behind","IT seen as utility"],path:"Carve out 20% for proactive exploration."},
+CRBI:{n:"The Service Desk",tg:"We deliver what you ask for — nothing more.",c:"#0EA5E9",desc:"AI is integrated and business-driven, but entirely reactive.",str:["Reliable execution","Business trust","Working integrations"],bl:["Missing opportunities","AI as cost center","No proactive roadmap"],path:"Earn a seat at the strategy table. Start bringing ideas."},
+CPTI:{n:"The Almost There",tg:"One conversation away from excellence.",c:"#10B981",desc:"Consolidated, proactive, integrated. The only gap: business isn't driving priorities.",str:["Strong execution","Technical excellence","Integrated workflows"],bl:["Tech ≠ business priorities","Technical metrics only","Business sees AI as IT's"],path:"Connect one AI initiative to a metric the CEO cares about."},
+CPBI:{n:"The Strategic Leader",tg:"AI is how we compete.",c:"#14B8A6",desc:"You've cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.",str:["Clear ROI metrics","High adoption rates","Executive alignment","Competitive advantage"],bl:["Risk of complacency","May over-engineer","Talent retention critical"],path:"Focus on talent, stay paranoid about disruption, consider how AI reshapes your business model."}
+};
 
-            // LEADERSHIP (T/B) - Questions 25-37
-            // Low score = Tech-driven (T), High score = Business-driven (B)
-            { id: 25, dimension: "Leadership", text: "Business leaders define what problems AI should solve.", polarity: 1 },
-            { id: 26, dimension: "Leadership", text: "IT or the data team decides which AI projects to pursue.", polarity: -1 },
-            { id: 27, dimension: "Leadership", text: "AI initiatives are owned by business units, not just technology.", polarity: 1 },
-            { id: 28, dimension: "Leadership", text: "Our AI projects are solutions looking for problems.", polarity: -1 },
-            { id: 29, dimension: "Leadership", text: "Business outcomes (revenue, efficiency) drive AI prioritization.", polarity: 1 },
-            { id: 30, dimension: "Leadership", text: "Technical elegance matters more than business adoption in our AI projects.", polarity: -1 },
-            { id: 31, dimension: "Leadership", text: "Non-technical executives can articulate our AI strategy clearly.", polarity: 1 },
-            { id: 32, dimension: "Leadership", text: "Business users don't really understand what our AI team is building.", polarity: -1 },
-            { id: 33, dimension: "Leadership", text: "We measure AI success by business metrics, not technical metrics.", polarity: 1 },
-            { id: 34, dimension: "Leadership", text: "Our AI team builds impressive things that few people actually use.", polarity: -1 },
-            { id: 35, dimension: "Leadership", text: "Business stakeholders are actively involved in AI project reviews.", polarity: 1 },
-            { id: 36, dimension: "Leadership", text: "There's a disconnect between what tech builds and what business needs.", polarity: -1 },
-            { id: 37, dimension: "Leadership", text: "Our CEO could explain our AI ROI to the board with confidence.", polarity: 1 },
+const opts=[{v:1,l:"Strongly Disagree"},{v:2,l:"Disagree"},{v:3,l:"Neutral"},{v:4,l:"Agree"},{v:5,l:"Strongly Agree"}];
 
-            // INTEGRATION (E/I) - Questions 38-50
-            // Low score = Experimental (E), High score = Integrated (I)
-            { id: 38, dimension: "Integration", text: "AI tools are embedded in our daily workflows, not just special projects.", polarity: 1 },
-            { id: 39, dimension: "Integration", text: "Most of our AI initiatives are still in 'pilot' or 'proof of concept' phase.", polarity: -1 },
-            { id: 40, dimension: "Integration", text: "Employees use AI tools as a natural part of their work.", polarity: 1 },
-            { id: 41, dimension: "Integration", text: "Our AI projects work in test environments but haven't scaled to production.", polarity: -1 },
-            { id: 42, dimension: "Integration", text: "AI adoption rates across the organization are above 60%.", polarity: 1 },
-            { id: 43, dimension: "Integration", text: "We have impressive AI demos that haven't translated to real usage.", polarity: -1 },
-            { id: 44, dimension: "Integration", text: "AI has meaningfully changed how at least one department operates.", polarity: 1 },
-            { id: 45, dimension: "Integration", text: "Our AI tools feel like add-ons rather than integral parts of our systems.", polarity: -1 },
-            { id: 46, dimension: "Integration", text: "We've retired old processes because AI does them better.", polarity: 1 },
-            { id: 47, dimension: "Integration", text: "People still do things manually that our AI tools could automate.", polarity: -1 },
-            { id: 48, dimension: "Integration", text: "AI is part of our standard operating procedures, not an experiment.", polarity: 1 },
-            { id: 49, dimension: "Integration", text: "We've been 'about to scale' our AI pilots for over a year.", polarity: -1 },
-            { id: 50, dimension: "Integration", text: "New employees are trained on AI tools as part of onboarding.", polarity: 1 }
-        ];
+function validate(){document.getElementById('btn-start').disabled=!document.getElementById('user-name').value.trim();}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('user-name').addEventListener('input',validate);});
 
-        // ========================================
-        // TYPE DATABASE
-        // ========================================
-        const types = {
-            "SRTE": {
-                name: "The Chaos Pilot",
-                tagline: "We have AI... somewhere.",
-                color: "#EF4444",
-                description: "Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other, no clear owner, no measurable outcomes. Every vendor pitch leads to another purchase. You're spending money but can't explain what you're getting.",
-                strengths: ["Willingness to try new things", "Budget available for AI", "No legacy system lock-in"],
-                blindspots: ["No idea what you're actually spending", "Can't measure ROI because you never defined it", "Teams are frustrated and giving up on AI"],
-                path: "Stop buying. Start auditing. You need a complete inventory before anything else."
-            },
-            "SRTB": {
-                name: "The Wishful Thinker",
-                tagline: "Can't AI just do that?",
-                color: "#F97316",
-                description: "Leadership is excited about AI but treats it like magic. Requests come down like 'use AI to fix customer churn' with no specifics. Business drives decisions but reactively — responding to board pressure or competitor announcements.",
-                strengths: ["Executive attention on AI", "Business problems are the focus", "Budget unlocks are possible"],
-                blindspots: ["Unrealistic expectations", "No technical translation layer", "Initiatives die from vagueness"],
-                path: "Translate business wishes into specific, measurable problems. You need a bridge between ambition and execution."
-            },
-            "SPTE": {
-                name: "The Over-Engineer",
-                tagline: "The architecture is beautiful. Nobody uses it.",
-                color: "#8B5CF6",
-                description: "Your tech team is ahead of the curve. They've built impressive AI infrastructure, proactively explored cutting-edge solutions, and created elegant systems. One problem: business users don't know it exists or don't see how it solves their problems.",
-                strengths: ["Strong technical capability", "Forward-thinking IT leadership", "Modern infrastructure"],
-                blindspots: ["Disconnect from business reality", "Build it and they'll come mentality", "Measuring technical metrics, not outcomes"],
-                path: "Stop building. Start listening. Embed someone in business teams to find real problems worth solving."
-            },
-            "SPTB": {
-                name: "The Ambitious Starter",
-                tagline: "Great strategy, scattered execution.",
-                color: "#EC4899",
-                description: "Good intentions, executive buy-in, and a real strategy — on paper. But execution is chaos. Multiple teams interpreting the strategy differently, no coordination, efforts scattered across too many initiatives.",
-                strengths: ["Executive sponsorship exists", "Strategic thinking is present", "Business-driven priorities"],
-                blindspots: ["Too many priorities means no priorities", "Execution lacks coordination", "Strategy and reality are diverging"],
-                path: "Pick THREE initiatives maximum. Kill everything else. Coordination matters more than ambition right now."
-            },
-            "SRTI": {
-                name: "The Accidental Success",
-                tagline: "It works, but don't ask me how.",
-                color: "#14B8A6",
-                description: "Against all odds, you have AI integrated into actual workflows. But it happened by accident — a passionate individual, a lucky project, or sheer persistence. There's no documentation, and if that one person leaves, it all falls apart.",
-                strengths: ["Proof that AI can work in your org", "At least one champion exists", "Real business value being created"],
-                blindspots: ["Single point of failure", "Not replicable", "Leadership doesn't know what's working"],
-                path: "Document everything. Now. Replicate the success intentionally. Turn accidental wins into repeatable processes."
-            },
-            "SRBI": {
-                name: "The Shadow IT Hero",
-                tagline: "Don't tell IT, but this is working.",
-                color: "#3B82F6",
-                description: "Business users got tired of waiting. They signed up for AI tools with credit cards, integrated them into workflows, and are getting results. IT doesn't know, compliance hasn't approved. It's working — until it isn't.",
-                strengths: ["Bias toward action", "Real problems being solved", "Proof of demand for AI"],
-                blindspots: ["Security and compliance risks", "No scalability path", "Data silos multiplying"],
-                path: "Bring it into the light. Partner with IT to legitimize what's working without killing the momentum."
-            },
-            "SPTI": {
-                name: "The Rogue Lab",
-                tagline: "Our tech is amazing. The business doesn't care.",
-                color: "#6366F1",
-                description: "You have a proactive, talented tech team with integrated AI solutions. They're pushing boundaries and building cool stuff. But they're operating in a parallel universe — what they're building has little connection to business priorities.",
-                strengths: ["Technical excellence", "Innovation culture", "Integrated AI infrastructure"],
-                blindspots: ["Building for engineers, not users", "Business sees them as cost center", "No seat at strategy table"],
-                path: "Translate capabilities into business language. Find one executive sponsor and deliver undeniable value."
-            },
-            "SPBI": {
-                name: "The Grassroots Movement",
-                tagline: "Pockets of excellence, waiting to connect.",
-                color: "#22C55E",
-                description: "Multiple departments are doing AI well — business-driven, proactive, even integrated. But they're not talking to each other. Marketing's success doesn't inform Sales. Operations reinvents what Finance already built.",
-                strengths: ["Proven AI success across teams", "Business ownership", "High adoption in pockets"],
-                blindspots: ["Duplicated effort", "Incompatible tools", "No enterprise view"],
-                path: "Create a coordination layer — not to control, but to connect. Share learnings, consolidate where it makes sense."
-            },
-            "CRTE": {
-                name: "The Controlled Experiment",
-                tagline: "We're piloting... still.",
-                color: "#64748B",
-                description: "You've consolidated your AI tools — good governance, clear ownership. But you're stuck in permanent pilot mode. IT controls everything, runs careful experiments, but nothing graduates to production.",
-                strengths: ["Low risk of AI disasters", "Clean tool landscape", "Good governance foundation"],
-                blindspots: ["Pilots never become products", "Success metrics are 'we learned something'", "Business is losing patience"],
-                path: "Set a kill date for every pilot. Either graduate to production or shut it down. Pilots aren't strategy."
-            },
-            "CRTB": {
-                name: "The Waiting Game",
-                tagline: "We're ready to be ready.",
-                color: "#94A3B8",
-                description: "Business owns AI decisions, you've consolidated tools, but everything is reactive and cautious. You're waiting for the market to stabilize, for competitors to go first. Governance is strong because it's easy to govern inaction.",
-                strengths: ["Clean landscape", "Business alignment", "No expensive mistakes"],
-                blindspots: ["Competitors are moving", "The 'right time' never comes", "Talent is getting bored"],
-                path: "Pick one low-risk, high-visibility initiative. Get in the game. You can't learn from the sidelines."
-            },
-            "CPTE": {
-                name: "The Tech Utopia",
-                tagline: "If only people would use what we built.",
-                color: "#A855F7",
-                description: "You've done everything right — technically. Consolidated tools, proactive roadmap, integrated architecture. The only thing missing: people using it. Tech-driven decisions mean beautiful systems optimized for elegance, not adoption.",
-                strengths: ["Solid technical foundation", "Future-proof architecture", "Ready to scale"],
-                blindspots: ["Adoption is THE problem", "Technical elegance ≠ business value", "Change management was skipped"],
-                path: "Stop building features. Start building relationships. Embed with users, understand resistance, redesign for adoption."
-            },
-            "CPTB": {
-                name: "The Strategy Doc",
-                tagline: "The deck is ready. Execution isn't.",
-                color: "#F59E0B",
-                description: "Beautiful strategy document, executive alignment, clear priorities, consolidated tools. But you're stuck between strategy and execution. Everything is 'planned for Q3' or 'pending resource allocation.'",
-                strengths: ["Clear vision", "Stakeholder buy-in", "Prioritized roadmap exists"],
-                blindspots: ["Perfectionism disguised as planning", "Waiting for 'ideal conditions'", "Strategy getting stale"],
-                path: "Pick ONE initiative. Start THIS WEEK. Imperfect action beats perfect planning."
-            },
-            "CRTI": {
-                name: "The Efficient Machine",
-                tagline: "Responsive but not innovative.",
-                color: "#06B6D4",
-                description: "IT runs a tight ship responding to business requests. Systems work well, properly governed, deliver what's asked. But you're optimizing yesterday's operations, not building tomorrow's advantages.",
-                strengths: ["Reliable execution", "Strong governance", "Efficient operations"],
-                blindspots: ["No innovation pipeline", "Reactive means always behind", "IT seen as utility"],
-                path: "Carve out 20% for proactive exploration. Propose one initiative business didn't ask for."
-            },
-            "CRBI": {
-                name: "The Service Desk",
-                tagline: "We deliver what you ask for — nothing more.",
-                color: "#0EA5E9",
-                description: "AI is integrated and business-driven, but entirely reactive. You fulfill requests well but don't shape strategy. When business asks, you deliver. But you never ask 'what should we build next?'",
-                strengths: ["Reliable execution", "Business trust", "Working integrations"],
-                blindspots: ["Missing strategic opportunities", "AI as cost center", "No proactive roadmap"],
-                path: "Earn a seat at the strategy table. Start bringing ideas, not just fulfilling requests."
-            },
-            "CPTI": {
-                name: "The Almost There",
-                tagline: "One conversation away from excellence.",
-                color: "#10B981",
-                description: "Consolidated tools, proactive roadmap, deeply integrated. Tech-led, but competently so. The only gap: business isn't driving priorities. You're optimizing the right way for potentially the wrong goals.",
-                strengths: ["Strong execution", "Technical excellence", "Integrated workflows"],
-                blindspots: ["Tech priorities ≠ business priorities", "Metrics are technical, not outcomes", "Business sees AI as IT's project"],
-                path: "Connect one AI initiative to a metric the CEO cares about. Prove business value, earn the conversation."
-            },
-            "CPBI": {
-                name: "The Strategic Leader",
-                tagline: "AI is how we compete.",
-                color: "#14B8A6",
-                description: "You've cracked the code. Consolidated tools under clear governance, roadmap anticipates market shifts, business drives priorities, AI embedded in workflows. You measure outcomes, not activity.",
-                strengths: ["Clear ROI metrics", "High adoption rates", "Executive alignment", "Competitive advantage"],
-                blindspots: ["Risk of complacency", "May over-engineer simple problems", "Talent retention critical"],
-                path: "Focus on talent, stay paranoid about disruption, consider how AI reshapes your business model — not just operations."
-            }
-        };
+function startQuiz(){
+    user={name:document.getElementById('user-name').value.trim(),email:document.getElementById('user-email').value.trim(),company:document.getElementById('company-name').value.trim(),industry:document.getElementById('industry').value,size:document.getElementById('company-size').value};
+    document.getElementById('intro-screen').classList.remove('active');
+    document.getElementById('question-screen').classList.add('active');
+    document.getElementById('header-progress').style.display='flex';
+    render();
+}
 
-        // ========================================
-        // CONFIGURATION
-        // ========================================
-        // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
-        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzl0mvlsVQU79or7pxl8KUUaWYdwiWRhUFA2uaqbwRs8JKjYu6YvqjertvLMrOazx7u/exec';
+function render(){
+    const q=Q[cur];
+    document.getElementById('question-dimension').textContent=q.d;
+    document.getElementById('question-number').textContent=`Question ${cur+1} of 20`;
+    document.getElementById('question-text').textContent=q.t;
+    document.getElementById('answer-options').innerHTML=opts.map(o=>`<div class="answer-option ${ans[cur]===o.v?'selected':''}" onclick="select(${o.v})"><div class="answer-radio"></div><span class="answer-label">${o.l}</span></div>`).join('');
+    document.getElementById('btn-prev').disabled=cur===0;
+    document.getElementById('btn-next').disabled=ans[cur]===null;
+    document.getElementById('btn-next').textContent=cur===19?'See Results →':'Next →';
+    const cnt=ans.filter(a=>a!==null).length;
+    document.getElementById('progress-count').textContent=cnt;
+    document.getElementById('progress-bar').style.width=`${cnt/20*100}%`;
+}
 
-        // ========================================
-        // STATE
-        // ========================================
-        let currentQuestion = 0;
-        let answers = new Array(50).fill(null);
-        let userData = {
-            name: '',
-            email: '',
-            company: '',
-            industry: '',
-            size: '',
-            role: ''
-        };
+function select(v){ans[cur]=v;render();}
+function nextQuestion(){if(cur<19){cur++;render();}else{showResults();}}
+function prevQuestion(){if(cur>0){cur--;render();}}
 
-        // ========================================
-        // SEND DATA TO GOOGLE SHEETS
-        // ========================================
-        async function sendToGoogleSheets(typeCode, typeName, scores) {
-            // Don't send if webhook URL not configured
-            if (GOOGLE_SHEETS_WEBHOOK_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-                console.warn('Google Sheets webhook not configured. Set GOOGLE_SHEETS_WEBHOOK_URL to enable data collection.');
-                return;
-            }
+function calcScores(){
+    const dims={Structure:{s:0,c:0},Orientation:{s:0,c:0},Leadership:{s:0,c:0},Integration:{s:0,c:0}};
+    Q.forEach((q,i)=>{
+        if(ans[i]===null)return;
+        const d=dims[q.d];
+        d.s+=q.p===1?ans[i]-1:5-ans[i];
+        d.c++;
+    });
+    const r={};
+    for(const[k,v]of Object.entries(dims)){r[k]={score:v.s,max:v.c*4,pct:v.c>0?v.s/(v.c*4)*100:50};}
+    return r;
+}
 
-            const payload = {
-                name: userData.name,
-                email: userData.email,
-                company: userData.company,
-                industry: userData.industry,
-                size: userData.size,
-                role: userData.role,
-                typeCode: typeCode,
-                typeName: typeName,
-                structureScore: Math.round(scores.Structure.percentage),
-                orientationScore: Math.round(scores.Orientation.percentage),
-                leadershipScore: Math.round(scores.Leadership.percentage),
-                integrationScore: Math.round(scores.Integration.percentage)
-            };
+function getType(sc){
+    let c='';
+    c+=sc.Structure.pct<=50?'S':'C';
+    c+=sc.Orientation.pct<=50?'R':'P';
+    c+=sc.Leadership.pct<=50?'T':'B';
+    c+=sc.Integration.pct<=50?'E':'I';
+    return c;
+}
 
-            try {
-                // Use no-cors mode for Google Apps Script
-                await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
-                console.log('Data sent to Google Sheets successfully');
-            } catch (error) {
-                console.error('Error sending to Google Sheets:', error);
-            }
-        }
+function showResults(){
+    document.getElementById('question-screen').classList.remove('active');
+    document.getElementById('results-screen').classList.add('active');
+    document.getElementById('header-progress').style.display='none';
+    const sc=calcScores(),code=getType(sc),t=T[code];
+    
+    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:user.name,email:user.email,company:user.company,industry:user.industry,size:user.size,role:'',typeCode:code,typeName:t.n,structureScore:Math.round(sc.Structure.pct),orientationScore:Math.round(sc.Orientation.pct),leadershipScore:Math.round(sc.Leadership.pct),integrationScore:Math.round(sc.Integration.pct)})}).catch(e=>console.error(e));
+    
+    document.getElementById('results-type-code').textContent=code;
+    document.getElementById('results-type-code').style.color=t.c;
+    document.getElementById('results-type-name').textContent=t.n;
+    document.getElementById('results-type-tagline').textContent=`"${t.tg}"`;
+    document.getElementById('results-description').textContent=t.desc;
+    document.getElementById('results-path').textContent=t.path;
+    document.getElementById('cta-from').textContent=t.n;
+    document.getElementById('results-strengths').innerHTML=t.str.map(s=>`<li>${s}</li>`).join('');
+    document.getElementById('results-blindspots').innerHTML=t.bl.map(b=>`<li>${b}</li>`).join('');
+    
+    const dc=[{k:'Structure',l:'Scattered',r:'Consolidated',c:'#14B8A6'},{k:'Orientation',l:'Reactive',r:'Proactive',c:'#3B82F6'},{k:'Leadership',l:'Tech-driven',r:'Business-driven',c:'#8B5CF6'},{k:'Integration',l:'Experimental',r:'Integrated',c:'#F97316'}];
+    document.getElementById('dimension-scores').innerHTML=dc.map(d=>{
+        const s=sc[d.k],lbl=s.pct>50?d.r:d.l;
+        return `<div class="dimension-score"><div class="dimension-score-header"><span class="dimension-score-name">${d.k}</span><span class="dimension-score-result">${lbl}</span></div><div class="dimension-score-bar"><div class="dimension-score-fill" style="width:${s.pct}%;background:${d.c};"></div></div><div class="dimension-score-labels"><span>${d.l}</span><span>${d.r}</span></div></div>`;
+    }).join('');
+    
+    document.getElementById('linkedin-share').href=`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://ai-q.fit')}`;
+}
 
-        // ========================================
-        // LOCAL STORAGE PERSISTENCE
-        // ========================================
-        const STORAGE_KEY = 'aiq_quiz_data';
+function copyResults(){
+    const sc=calcScores(),code=getType(sc),t=T[code];
+    const txt=`My AI-Q Type: ${code} - "${t.n}"\n\n${t.tg}\n\n${t.desc}\n\nStrengths:\n${t.str.map(s=>'• '+s).join('\n')}\n\nPath Forward:\n${t.path}\n\nTake the assessment: ai-q.fit`;
+    navigator.clipboard.writeText(txt).then(()=>alert('Results copied!'));
+}
 
-        function saveProgress() {
-            const data = {
-                userData,
-                answers,
-                currentQuestion,
-                timestamp: Date.now()
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        }
+function retakeQuiz(){
+    cur=0;ans=Array(20).fill(null);user={name:'',email:'',company:'',industry:'',size:''};
+    document.getElementById('user-name').value='';
+    document.getElementById('user-email').value='';
+    document.getElementById('company-name').value='';
+    document.getElementById('industry').value='';
+    document.getElementById('company-size').value='';
+    document.getElementById('btn-start').disabled=true;
+    document.getElementById('results-screen').classList.remove('active');
+    document.getElementById('intro-screen').classList.add('active');
+}
 
-        function loadProgress() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (!saved) return false;
-
-            try {
-                const data = JSON.parse(saved);
-                // Check if data is less than 7 days old
-                if (Date.now() - data.timestamp > 7 * 24 * 60 * 60 * 1000) {
-                    localStorage.removeItem(STORAGE_KEY);
-                    return false;
-                }
-
-                userData = data.userData;
-                answers = data.answers;
-                currentQuestion = data.currentQuestion;
-
-                // Populate form fields
-                document.getElementById('user-name').value = userData.name;
-                document.getElementById('user-email').value = userData.email;
-                document.getElementById('company-name').value = userData.company;
-                document.getElementById('industry').value = userData.industry;
-                document.getElementById('company-size').value = userData.size;
-                document.getElementById('user-role').value = userData.role;
-
-                return true;
-            } catch (e) {
-                localStorage.removeItem(STORAGE_KEY);
-                return false;
-            }
-        }
-
-        function clearProgress() {
-            localStorage.removeItem(STORAGE_KEY);
-        }
-
-        // ========================================
-        // FORM VALIDATION
-        // ========================================
-        function validateForm() {
-            const name = document.getElementById('user-name').value.trim();
-            const email = document.getElementById('user-email').value.trim();
-            const company = document.getElementById('company-name').value.trim();
-            const industry = document.getElementById('industry').value;
-            const size = document.getElementById('company-size').value;
-            const role = document.getElementById('user-role').value;
-
-            const isValid = name && email && company && industry && size && role && 
-                           email.includes('@') && email.includes('.');
-
-            document.getElementById('btn-start').disabled = !isValid;
-            return isValid;
-        }
-
-        // Add event listeners to form fields
-        document.addEventListener('DOMContentLoaded', () => {
-            const formFields = ['user-name', 'user-email', 'company-name', 'industry', 'company-size', 'user-role'];
-            formFields.forEach(id => {
-                document.getElementById(id).addEventListener('input', validateForm);
-                document.getElementById(id).addEventListener('change', validateForm);
-            });
-
-            // Load saved progress
-            const hasProgress = loadProgress();
-            if (hasProgress && answers.some(a => a !== null)) {
-                // User has started quiz before - offer to resume
-                if (confirm('You have a quiz in progress. Would you like to continue where you left off?')) {
-                    validateForm();
-                    startQuiz(true);
-                } else {
-                    clearProgress();
-                    answers = new Array(50).fill(null);
-                    currentQuestion = 0;
-                }
-            } else if (hasProgress) {
-                validateForm();
-            }
-        });
-
-        // ========================================
-        // ANSWER OPTIONS
-        // ========================================
-        const answerOptions = [
-            { value: 1, label: "Strongly Disagree" },
-            { value: 2, label: "Disagree" },
-            { value: 3, label: "Neutral" },
-            { value: 4, label: "Agree" },
-            { value: 5, label: "Strongly Agree" }
-        ];
-
-        // ========================================
-        // FUNCTIONS
-        // ========================================
-        function startQuiz(resuming = false) {
-            // Capture user data
-            userData = {
-                name: document.getElementById('user-name').value.trim(),
-                email: document.getElementById('user-email').value.trim(),
-                company: document.getElementById('company-name').value.trim(),
-                industry: document.getElementById('industry').value,
-                size: document.getElementById('company-size').value,
-                role: document.getElementById('user-role').value
-            };
-
-            saveProgress();
-
-            document.getElementById('intro-screen').classList.remove('active');
-            document.getElementById('question-screen').classList.add('active');
-            document.getElementById('header-progress').style.display = 'flex';
-            renderQuestion();
-        }
-
-        function renderQuestion() {
-            const q = questions[currentQuestion];
-            
-            document.getElementById('question-dimension').textContent = q.dimension;
-            document.getElementById('question-number').textContent = `Question ${currentQuestion + 1} of 50`;
-            document.getElementById('question-text').textContent = q.text;
-
-            const optionsContainer = document.getElementById('answer-options');
-            optionsContainer.innerHTML = answerOptions.map(opt => `
-                <div class="answer-option ${answers[currentQuestion] === opt.value ? 'selected' : ''}" 
-                     onclick="selectAnswer(${opt.value})">
-                    <div class="answer-radio"></div>
-                    <span class="answer-label">${opt.label}</span>
-                </div>
-            `).join('');
-
-            // Update navigation
-            document.getElementById('btn-prev').disabled = currentQuestion === 0;
-            document.getElementById('btn-next').disabled = answers[currentQuestion] === null;
-            document.getElementById('btn-next').textContent = currentQuestion === 49 ? 'See Results' : 'Next';
-
-            // Update progress
-            const answered = answers.filter(a => a !== null).length;
-            document.getElementById('progress-count').textContent = answered;
-            document.getElementById('progress-bar').style.width = `${(answered / 50) * 100}%`;
-        }
-
-        function selectAnswer(value) {
-            answers[currentQuestion] = value;
-            saveProgress();
-            renderQuestion();
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < 49) {
-                currentQuestion++;
-                saveProgress();
-                renderQuestion();
-            } else {
-                showResults();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                saveProgress();
-                renderQuestion();
-            }
-        }
-
-        function calculateScores() {
-            const dimensions = {
-                Structure: { score: 0, count: 0 },
-                Orientation: { score: 0, count: 0 },
-                Leadership: { score: 0, count: 0 },
-                Integration: { score: 0, count: 0 }
-            };
-
-            questions.forEach((q, i) => {
-                const answer = answers[i];
-                if (answer === null) return;
-                
-                const dim = dimensions[q.dimension];
-                
-                // Normalize score based on polarity
-                // Polarity 1: high answer = high score (towards C, P, B, I)
-                //   Answer 1 (Strongly Disagree) = 0 points
-                //   Answer 5 (Strongly Agree) = 4 points
-                // Polarity -1: high answer = low score (towards S, R, T, E)
-                //   Answer 1 (Strongly Disagree) = 4 points
-                //   Answer 5 (Strongly Agree) = 0 points
-                
-                let normalizedScore;
-                if (q.polarity === 1) {
-                    normalizedScore = answer - 1; // 1->0, 2->1, 3->2, 4->3, 5->4
-                } else {
-                    normalizedScore = 5 - answer; // 1->4, 2->3, 3->2, 4->1, 5->0
-                }
-                
-                dim.score += normalizedScore;
-                dim.count += 1;
-            });
-
-            // Calculate percentages (0-100 scale)
-            // Max score per question is 4, so max total = count * 4
-            const results = {};
-            for (const [name, dim] of Object.entries(dimensions)) {
-                const maxPossible = dim.count * 4;
-                results[name] = {
-                    score: dim.score,
-                    max: maxPossible,
-                    percentage: maxPossible > 0 ? (dim.score / maxPossible) * 100 : 50
-                };
-            }
-
-            return results;
-        }
-
-        function determineType(scores) {
-            let code = '';
-            
-            // Structure: <= 50% = S (Scattered), > 50% = C (Consolidated)
-            code += scores.Structure.percentage <= 50 ? 'S' : 'C';
-            
-            // Orientation: <= 50% = R (Reactive), > 50% = P (Proactive)
-            code += scores.Orientation.percentage <= 50 ? 'R' : 'P';
-            
-            // Leadership: <= 50% = T (Tech-driven), > 50% = B (Business-driven)
-            code += scores.Leadership.percentage <= 50 ? 'T' : 'B';
-            
-            // Integration: <= 50% = E (Experimental), > 50% = I (Integrated)
-            code += scores.Integration.percentage <= 50 ? 'E' : 'I';
-
-            return code;
-        }
-
-        function showResults() {
-            document.getElementById('question-screen').classList.remove('active');
-            document.getElementById('results-screen').classList.add('active');
-            document.getElementById('header-progress').style.display = 'none';
-
-            const scores = calculateScores();
-            const typeCode = determineType(scores);
-            const type = types[typeCode];
-
-            // Send data to Google Sheets
-            sendToGoogleSheets(typeCode, type.name, scores);
-
-            // Save final results locally
-            const finalResults = {
-                userData,
-                typeCode,
-                typeName: type.name,
-                scores,
-                completedAt: new Date().toISOString()
-            };
-            localStorage.setItem('aiq_results', JSON.stringify(finalResults));
-
-            // Console log for debugging
-            console.log('AI-Q Assessment Completed:', finalResults);
-
-            // Render type info
-            document.getElementById('results-type-code').textContent = typeCode;
-            document.getElementById('results-type-code').style.color = type.color;
-            document.getElementById('results-type-name').textContent = type.name;
-            document.getElementById('results-type-tagline').textContent = `"${type.tagline}"`;
-            document.getElementById('results-description').textContent = type.description;
-            document.getElementById('results-path').textContent = type.path;
-            document.getElementById('cta-from').textContent = type.name;
-
-            // Render strengths & blindspots
-            document.getElementById('results-strengths').innerHTML = 
-                type.strengths.map(s => `<li>${s}</li>`).join('');
-            document.getElementById('results-blindspots').innerHTML = 
-                type.blindspots.map(b => `<li>${b}</li>`).join('');
-
-            // Render dimension scores
-            const dimensionConfig = [
-                { key: 'Structure', left: 'Scattered', right: 'Consolidated', color: '#14B8A6' },
-                { key: 'Orientation', left: 'Reactive', right: 'Proactive', color: '#3B82F6' },
-                { key: 'Leadership', left: 'Tech-driven', right: 'Business-driven', color: '#8B5CF6' },
-                { key: 'Integration', left: 'Experimental', right: 'Integrated', color: '#F97316' }
-            ];
-
-            document.getElementById('dimension-scores').innerHTML = dimensionConfig.map(dim => {
-                const score = scores[dim.key];
-                const resultLabel = score.percentage > 50 ? dim.right : dim.left;
-                return `
-                    <div class="dimension-score">
-                        <div class="dimension-score-header">
-                            <span class="dimension-score-name">${dim.key}</span>
-                            <span class="dimension-score-result">${resultLabel}</span>
-                        </div>
-                        <div class="dimension-score-bar">
-                            <div class="dimension-score-fill" style="width: ${score.percentage}%; background: ${dim.color};"></div>
-                        </div>
-                        <div class="dimension-score-labels">
-                            <span>${dim.left}</span>
-                            <span>${dim.right}</span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            // Setup share link with user's company
-            const shareText = `${userData.company}'s AI-Q type: ${typeCode} - "${type.name}"\n\n${type.tagline}\n\nTake the assessment: ai-q.fit`;
-            document.getElementById('linkedin-share').href = 
-                `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://ai-q.fit')}`;
-        }
-
-        function copyResults() {
-            const scores = calculateScores();
-            const typeCode = determineType(scores);
-            const type = types[typeCode];
-
-            const text = `${userData.company}'s AI-Q Type: ${typeCode} - "${type.name}"
-
-${type.tagline}
-
-${type.description}
-
-Strengths:
-${type.strengths.map(s => '• ' + s).join('\n')}
-
-Path Forward:
-${type.path}
-
-Take the assessment: ai-q.fit`;
-
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Results copied to clipboard!');
-            });
-        }
-
-        function retakeQuiz() {
-            clearProgress();
-            currentQuestion = 0;
-            answers = new Array(50).fill(null);
-            userData = { name: '', email: '', company: '', industry: '', size: '', role: '' };
-            
-            // Clear form
-            document.getElementById('user-name').value = '';
-            document.getElementById('user-email').value = '';
-            document.getElementById('company-name').value = '';
-            document.getElementById('industry').value = '';
-            document.getElementById('company-size').value = '';
-            document.getElementById('user-role').value = '';
-            document.getElementById('btn-start').disabled = true;
-
-            document.getElementById('results-screen').classList.remove('active');
-            document.getElementById('intro-screen').classList.add('active');
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (!document.getElementById('question-screen').classList.contains('active')) return;
-            
-            if (e.key >= '1' && e.key <= '5') {
-                selectAnswer(parseInt(e.key));
-            } else if (e.key === 'ArrowRight' || e.key === 'Enter') {
-                if (answers[currentQuestion] !== null) nextQuestion();
-            } else if (e.key === 'ArrowLeft') {
-                prevQuestion();
-            }
-        });
-    </script>
+document.addEventListener('keydown',e=>{
+    if(!document.getElementById('question-screen').classList.contains('active'))return;
+    if(e.key>='1'&&e.key<='5')select(parseInt(e.key));
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&ans[cur]!==null)nextQuestion();
+    else if(e.key==='ArrowLeft')prevQuestion();
+});
+</script>
 </body>
 </html>
