@@ -4,953 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-Q | Discover Your AI Strategy Type</title>
-    <meta name="description" content="The definitive assessment for AI maturity. 16 types. 50 questions. Discover where your organization really stands.">
+    <meta name="description" content="The definitive assessment for AI maturity. 16 types. 20 questions. Discover where your organization really stands.">
     <meta property="og:title" content="AI-Q | What's Your AI Strategy Type?">
     <meta property="og:description" content="Most companies think they have an AI strategy. This test reveals the truth.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #07090E;
-            --bg-card: #0D1117;
-            --bg-card-hover: #161B22;
-            --accent-teal: #14B8A6;
-            --accent-teal-dim: rgba(20, 184, 166, 0.15);
-            --accent-blue: #3B82F6;
-            --accent-purple: #8B5CF6;
-            --accent-pink: #EC4899;
-            --accent-orange: #F97316;
-            --accent-red: #EF4444;
-            --accent-yellow: #EAB308;
-            --accent-green: #22C55E;
-            --text-primary: #F1F5F9;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
-            --border: #1E293B;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animated background */
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse 80% 50% at 20% -20%, rgba(20, 184, 166, 0.15), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(59, 130, 246, 0.1), transparent);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(7, 9, 14, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-teal);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-teal), #0D9488);
-            color: white;
-            padding: 0.75rem 1.75rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(20, 184, 166, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 0 4rem;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--accent-teal-dim);
-            border: 1px solid rgba(20, 184, 166, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--accent-teal);
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .hero h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 800;
-            line-height: 1.05;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-secondary {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-teal);
-            color: var(--accent-teal);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .stat {
-            text-align: left;
-        }
-
-        .stat-number {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-teal);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* Dimensions Section */
-        .section {
-            padding: 6rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem;
-        }
-
-        .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent-teal);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .section-description {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* Dimensions Grid */
-        .dimensions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .dimension-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dimension-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--card-accent), transparent);
-        }
-
-        .dimension-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(20, 184, 166, 0.3);
-            background: var(--bg-card-hover);
-        }
-
-        .dimension-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .dimension-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .dimension-spectrum {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-        }
-
-        .spectrum-pole {
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            background: var(--bg-dark);
-        }
-
-        .spectrum-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
-        }
-
-        .dimension-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* Types Section */
-        .types-section {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Type Filter */
-        .type-filters {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1.25rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-secondary);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            border-color: var(--accent-teal);
-            color: var(--accent-teal);
-            background: var(--accent-teal-dim);
-        }
-
-        /* Types Grid */
-        .types-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .type-card {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.75rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .type-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--type-color, var(--accent-teal));
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .type-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .type-code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--type-color, var(--accent-teal));
-            letter-spacing: 2px;
-        }
-
-        .type-quadrant {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            background: var(--bg-card);
-            color: var(--text-muted);
-        }
-
-        .type-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .type-tagline {
-            font-style: italic;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .type-description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
-        }
-
-        .type-traits {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .trait {
-            font-size: 0.75rem;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-weight: 500;
-        }
-
-        .trait.strength {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--accent-green);
-        }
-
-        .trait.blindspot {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--accent-red);
-        }
-
-        /* Type Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            max-width: 700px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .modal-header {
-            padding: 2rem 2rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: var(--bg-card);
-            z-index: 10;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 1.25rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-close:hover {
-            border-color: var(--accent-red);
-            color: var(--accent-red);
-        }
-
-        .modal-code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-tagline {
-            font-style: italic;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .modal-section {
-            margin-bottom: 2rem;
-        }
-
-        .modal-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .modal-section h4 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-        }
-
-        .modal-section p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .modal-list {
-            list-style: none;
-        }
-
-        .modal-list li {
-            color: var(--text-secondary);
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .modal-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .modal-list.strengths li::before {
-            background: var(--accent-green);
-        }
-
-        .modal-list.blindspots li::before {
-            background: var(--accent-red);
-        }
-
-        .modal-list.symptoms li::before {
-            background: var(--accent-yellow);
-        }
-
-        .modal-path {
-            background: var(--accent-teal-dim);
-            border: 1px solid rgba(20, 184, 166, 0.3);
-            border-radius: 12px;
-            padding: 1.25rem;
-        }
-
-        .modal-path h4 {
-            color: var(--accent-teal);
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-path p {
-            color: var(--text-primary);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(20, 184, 166, 0.1), transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            max-width: 500px;
-            margin: 0 auto 2rem;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-teal);
-        }
-
-        .footer-credit {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .footer-credit a {
-            color: var(--accent-teal);
-            text-decoration: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 6rem 0 3rem;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .types-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal {
-                margin: 1rem;
-                max-height: calc(100vh - 2rem);
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-in {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .delay-3 { animation-delay: 0.3s; opacity: 0; }
-        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+        :root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-pink:#EC4899;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;overflow-x:hidden}
+        .bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(20,184,166,0.15),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.1),transparent);pointer-events:none;z-index:0}
+        .container{max-width:1400px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+        nav{position:fixed;top:0;left:0;right:0;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+        .logo{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+        .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.95rem;font-weight:500;transition:color 0.3s ease}
+        .nav-links a:hover{color:var(--accent-teal)}
+        .lang-switch{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
+        .lang-switch:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
+        .btn-primary{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;padding:0.75rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:all 0.3s ease;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(20,184,166,0.3)}
+        .hero{min-height:100vh;display:flex;align-items:center;padding:8rem 0 4rem}
+        .hero-content{max-width:800px}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);padding:0.5rem 1rem;border-radius:50px;font-size:0.85rem;color:var(--accent-teal);margin-bottom:2rem;font-weight:500}
+        .hero h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,5.5rem);font-weight:800;line-height:1.05;margin-bottom:1.5rem}
+        .hero h1 .gradient-text{background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue),var(--accent-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-description{font-size:1.25rem;color:var(--text-secondary);max-width:600px;margin-bottom:2.5rem;line-height:1.7}
+        .hero-cta{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+        .btn-secondary{color:var(--text-secondary);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;border:1px solid var(--border);border-radius:8px;transition:all 0.3s ease}
+        .btn-secondary:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
+        .hero-stats{display:flex;gap:3rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border)}
+        .stat{text-align:left}
+        .stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent-teal)}
+        .stat-label{font-size:0.9rem;color:var(--text-muted)}
+        .section{padding:6rem 0}
+        .section-header{text-align:center;max-width:700px;margin:0 auto 4rem}
+        .section-label{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--accent-teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
+        .section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;margin-bottom:1rem}
+        .section-description{color:var(--text-secondary);font-size:1.1rem}
+        .dimensions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+        .dimension-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all 0.3s ease;position:relative;overflow:hidden}
+        .dimension-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--card-accent),transparent)}
+        .dimension-card:hover{transform:translateY(-4px);border-color:rgba(20,184,166,0.3);background:var(--bg-card-hover)}
+        .dimension-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.5rem}
+        .dimension-card h3{font-size:1.25rem;font-weight:600;margin-bottom:0.5rem}
+        .dimension-spectrum{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem}
+        .spectrum-pole{padding:0.25rem 0.75rem;border-radius:4px;background:var(--bg-dark)}
+        .spectrum-line{flex:1;height:2px;background:linear-gradient(90deg,var(--accent-teal),var(--accent-blue))}
+        .dimension-card p{color:var(--text-secondary);font-size:0.95rem}
+        .types-section{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+        .type-filters{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:3rem}
+        .filter-btn{padding:0.6rem 1.25rem;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-secondary);font-family:'Space Grotesk',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.3s ease}
+        .filter-btn:hover,.filter-btn.active{border-color:var(--accent-teal);color:var(--accent-teal);background:var(--accent-teal-dim)}
+        .types-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem}
+        .type-card{background:var(--bg-dark);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all 0.3s ease;cursor:pointer}
+        .type-card:hover{transform:translateY(-4px);border-color:var(--type-color,var(--accent-teal));box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+        .type-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+        .type-code{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;letter-spacing:2px}
+        .type-quadrant{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.5rem;border-radius:4px;background:var(--bg-card);color:var(--text-muted)}
+        .type-name{font-size:1.25rem;font-weight:600;margin-bottom:0.5rem}
+        .type-tagline{font-style:italic;color:var(--text-muted);font-size:0.95rem;margin-bottom:1rem}
+        .type-description{color:var(--text-secondary);font-size:0.9rem;line-height:1.6;margin-bottom:1.25rem}
+        .type-traits{display:flex;gap:0.5rem;flex-wrap:wrap}
+        .trait{font-size:0.75rem;padding:0.3rem 0.6rem;border-radius:4px;font-weight:500}
+        .trait.strength{background:rgba(34,197,94,0.15);color:var(--accent-green)}
+        .trait.blindspot{background:rgba(239,68,68,0.15);color:var(--accent-red)}
+        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+        .modal-overlay.active{display:flex}
+        .modal{background:var(--bg-card);border:1px solid var(--border);border-radius:24px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto}
+        .modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg-card);z-index:10}
+        .modal-close{position:absolute;top:1.5rem;right:1.5rem;width:40px;height:40px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-secondary);font-size:1.25rem;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center}
+        .modal-close:hover{border-color:var(--accent-red);color:var(--accent-red)}
+        .modal-code{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem}
+        .modal-name{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:700;margin-bottom:0.5rem}
+        .modal-tagline{font-style:italic;color:var(--text-muted);font-size:1.1rem}
+        .modal-body{padding:2rem}
+        .modal-section{margin-bottom:2rem}
+        .modal-section:last-child{margin-bottom:0}
+        .modal-section h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem}
+        .modal-section p{color:var(--text-secondary);line-height:1.7}
+        .modal-list{list-style:none}
+        .modal-list li{color:var(--text-secondary);padding:0.5rem 0;padding-left:1.5rem;position:relative}
+        .modal-list li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}
+        .modal-list.strengths li::before{background:var(--accent-green)}
+        .modal-list.blindspots li::before{background:var(--accent-red)}
+        .modal-list.symptoms li::before{background:var(--accent-orange)}
+        .modal-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.25rem}
+        .modal-path h4{color:var(--accent-teal);margin-bottom:0.5rem}
+        .modal-path p{color:var(--text-primary)}
+        .cta-section{text-align:center;padding:8rem 0;position:relative}
+        .cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(20,184,166,0.1),transparent 70%);pointer-events:none}
+        .cta-content{position:relative;z-index:1}
+        .cta-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:1rem}
+        .cta-description{color:var(--text-secondary);font-size:1.2rem;max-width:500px;margin:0 auto 2rem}
+        footer{border-top:1px solid var(--border);padding:3rem 0}
+        .footer-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+        .footer-logo{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text-primary)}
+        .footer-links{display:flex;gap:2rem}
+        .footer-links a{color:var(--text-muted);text-decoration:none;font-size:0.9rem;transition:color 0.3s ease}
+        .footer-links a:hover{color:var(--accent-teal)}
+        .footer-credit{color:var(--text-muted);font-size:0.85rem}
+        .footer-credit a{color:var(--accent-teal);text-decoration:none}
+        @media(max-width:768px){nav{padding:1rem}.nav-links{display:none}.hero{padding:6rem 0 3rem}.hero-stats{flex-direction:column;gap:1.5rem}.types-grid{grid-template-columns:1fr}.modal{margin:1rem;max-height:calc(100vh - 2rem)}.footer-content{flex-direction:column;text-align:center}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .animate-in{animation:fadeInUp 0.6s ease-out forwards}
+        .delay-1{animation-delay:0.1s;opacity:0}
+        .delay-2{animation-delay:0.2s;opacity:0}
+        .delay-3{animation-delay:0.3s;opacity:0}
+        .delay-4{animation-delay:0.4s;opacity:0}
     </style>
 </head>
 <body>
     <div class="bg-gradient"></div>
-
-    <!-- Navigation -->
     <nav>
         <div class="logo">AI-Q</div>
         <ul class="nav-links">
-            <li><a href="#dimensions">The Framework</a></li>
-            <li><a href="#types">16 Types</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="#dimensions" data-en="The Framework" data-es="El Framework">The Framework</a></li>
+            <li><a href="#types" data-en="16 Types" data-es="16 Tipos">16 Types</a></li>
+            <li><a href="#about" data-en="About" data-es="Acerca de">About</a></li>
+            <li><button class="lang-switch" onclick="toggleLang()">ES 🇪🇸</button></li>
         </ul>
-        <a href="#take-test" class="btn-primary">Take the Test →</a>
+        <a href="quiz.html" class="btn-primary" data-en="Take the Test →" data-es="Hacer el Test →">Take the Test →</a>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge animate-in">
-                    <span>⚡</span> The AI Strategy Assessment
-                </div>
-                <h1 class="animate-in delay-1">
-                    What's Your<br>
-                    <span class="gradient-text">AI-Q Type?</span>
-                </h1>
-                <p class="hero-description animate-in delay-2">
-                    Most companies think they have an AI strategy. They have a collection of tools. 
-                    This assessment reveals the truth — and shows you how to fix it.
-                </p>
+                <div class="hero-badge animate-in"><span>⚡</span> <span data-en="The AI Strategy Assessment" data-es="La Evaluación de Estrategia de IA">The AI Strategy Assessment</span></div>
+                <h1 class="animate-in delay-1"><span data-en="What's Your" data-es="¿Cuál es tu">What's Your</span><br><span class="gradient-text" data-en="AI-Q Type?" data-es="Tipo AI-Q?">AI-Q Type?</span></h1>
+                <p class="hero-description animate-in delay-2" data-en="Most companies think they have an AI strategy. They have a collection of tools. This assessment reveals the truth — and shows you how to fix it." data-es="La mayoría de las empresas creen que tienen una estrategia de IA. Tienen una colección de herramientas. Esta evaluación revela la verdad — y te muestra cómo solucionarlo.">Most companies think they have an AI strategy. They have a collection of tools. This assessment reveals the truth — and shows you how to fix it.</p>
                 <div class="hero-cta animate-in delay-3">
-                    <a href="#take-test" class="btn-primary">
-                        Discover Your Type
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <a href="#types" class="btn-secondary">Explore 16 Types</a>
+                    <a href="quiz.html" class="btn-primary" data-en="Discover Your Type →" data-es="Descubre tu Tipo →">Discover Your Type →</a>
+                    <a href="#types" class="btn-secondary" data-en="Explore 16 Types" data-es="Explorar 16 Tipos">Explore 16 Types</a>
                 </div>
                 <div class="hero-stats animate-in delay-4">
-                    <div class="stat">
-                        <div class="stat-number">16</div>
-                        <div class="stat-label">Distinct Types</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">50</div>
-                        <div class="stat-label">Questions</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Dimensions</div>
-                    </div>
+                    <div class="stat"><div class="stat-number">16</div><div class="stat-label" data-en="Distinct Types" data-es="Tipos Distintos">Distinct Types</div></div>
+                    <div class="stat"><div class="stat-number">20</div><div class="stat-label" data-en="Questions" data-es="Preguntas">Questions</div></div>
+                    <div class="stat"><div class="stat-number">4</div><div class="stat-label" data-en="Dimensions" data-es="Dimensiones">Dimensions</div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Dimensions Section -->
     <section class="section" id="dimensions">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">The Framework</div>
-                <h2 class="section-title">Four Dimensions of AI Maturity</h2>
-                <p class="section-description">
-                    Like Myers-Briggs measures personality, AI-Q measures your organization's AI strategy across four critical dimensions.
-                </p>
+                <div class="section-label" data-en="The Framework" data-es="El Framework">The Framework</div>
+                <h2 class="section-title" data-en="Four Dimensions of AI Maturity" data-es="Cuatro Dimensiones de Madurez en IA">Four Dimensions of AI Maturity</h2>
+                <p class="section-description" data-en="Like Myers-Briggs measures personality, AI-Q measures your organization's AI strategy across four critical dimensions." data-es="Como Myers-Briggs mide la personalidad, AI-Q mide la estrategia de IA de tu organización en cuatro dimensiones críticas.">Like Myers-Briggs measures personality, AI-Q measures your organization's AI strategy across four critical dimensions.</p>
             </div>
-
             <div class="dimensions-grid">
-                <div class="dimension-card" style="--card-accent: var(--accent-teal);">
-                    <div class="dimension-icon" style="background: var(--accent-teal-dim); color: var(--accent-teal);">
-                        🗂️
-                    </div>
-                    <h3>Structure</h3>
-                    <div class="dimension-spectrum">
-                        <span class="spectrum-pole">Scattered</span>
-                        <div class="spectrum-line"></div>
-                        <span class="spectrum-pole">Consolidated</span>
-                    </div>
-                    <p>How organized is your AI landscape? Random tools bought by different teams, or a unified, governed ecosystem?</p>
+                <div class="dimension-card" style="--card-accent:var(--accent-teal);">
+                    <div class="dimension-icon" style="background:var(--accent-teal-dim);color:var(--accent-teal);">🗂️</div>
+                    <h3 data-en="Structure" data-es="Estructura">Structure</h3>
+                    <div class="dimension-spectrum"><span class="spectrum-pole" data-en="Scattered" data-es="Disperso">Scattered</span><div class="spectrum-line"></div><span class="spectrum-pole" data-en="Consolidated" data-es="Consolidado">Consolidated</span></div>
+                    <p data-en="How organized is your AI landscape? Random tools bought by different teams, or a unified, governed ecosystem?" data-es="¿Qué tan organizado está tu panorama de IA? ¿Herramientas aleatorias compradas por diferentes equipos, o un ecosistema unificado y gobernado?">How organized is your AI landscape? Random tools bought by different teams, or a unified, governed ecosystem?</p>
                 </div>
-
-                <div class="dimension-card" style="--card-accent: var(--accent-blue);">
-                    <div class="dimension-icon" style="background: rgba(59, 130, 246, 0.15); color: var(--accent-blue);">
-                        🎯
-                    </div>
-                    <h3>Orientation</h3>
-                    <div class="dimension-spectrum">
-                        <span class="spectrum-pole">Reactive</span>
-                        <div class="spectrum-line"></div>
-                        <span class="spectrum-pole">Proactive</span>
-                    </div>
-                    <p>Do you chase AI trends and respond to pressure, or anticipate needs and plan strategically ahead?</p>
+                <div class="dimension-card" style="--card-accent:var(--accent-blue);">
+                    <div class="dimension-icon" style="background:rgba(59,130,246,0.15);color:var(--accent-blue);">🎯</div>
+                    <h3 data-en="Orientation" data-es="Orientación">Orientation</h3>
+                    <div class="dimension-spectrum"><span class="spectrum-pole" data-en="Reactive" data-es="Reactivo">Reactive</span><div class="spectrum-line"></div><span class="spectrum-pole" data-en="Proactive" data-es="Proactivo">Proactive</span></div>
+                    <p data-en="Do you chase AI trends and respond to pressure, or anticipate needs and plan strategically ahead?" data-es="¿Persigues tendencias de IA y respondes a la presión, o anticipas necesidades y planificas estratégicamente?">Do you chase AI trends and respond to pressure, or anticipate needs and plan strategically ahead?</p>
                 </div>
-
-                <div class="dimension-card" style="--card-accent: var(--accent-purple);">
-                    <div class="dimension-icon" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple);">
-                        👥
-                    </div>
-                    <h3>Leadership</h3>
-                    <div class="dimension-spectrum">
-                        <span class="spectrum-pole">Tech-driven</span>
-                        <div class="spectrum-line"></div>
-                        <span class="spectrum-pole">Business-driven</span>
-                    </div>
-                    <p>Who owns AI decisions? IT building capabilities, or business leaders driving outcomes?</p>
+                <div class="dimension-card" style="--card-accent:var(--accent-purple);">
+                    <div class="dimension-icon" style="background:rgba(139,92,246,0.15);color:var(--accent-purple);">👥</div>
+                    <h3 data-en="Leadership" data-es="Liderazgo">Leadership</h3>
+                    <div class="dimension-spectrum"><span class="spectrum-pole" data-en="Tech-driven" data-es="Tech-driven">Tech-driven</span><div class="spectrum-line"></div><span class="spectrum-pole" data-en="Business-driven" data-es="Business-driven">Business-driven</span></div>
+                    <p data-en="Who owns AI decisions? IT building capabilities, or business leaders driving outcomes?" data-es="¿Quién toma las decisiones de IA? ¿IT construyendo capacidades, o líderes de negocio impulsando resultados?">Who owns AI decisions? IT building capabilities, or business leaders driving outcomes?</p>
                 </div>
-
-                <div class="dimension-card" style="--card-accent: var(--accent-orange);">
-                    <div class="dimension-icon" style="background: rgba(249, 115, 22, 0.15); color: var(--accent-orange);">
-                        🔗
-                    </div>
-                    <h3>Integration</h3>
-                    <div class="dimension-spectrum">
-                        <span class="spectrum-pole">Experimental</span>
-                        <div class="spectrum-line"></div>
-                        <span class="spectrum-pole">Integrated</span>
-                    </div>
-                    <p>Are AI tools siloed experiments and pilots, or deeply embedded in daily workflows?</p>
+                <div class="dimension-card" style="--card-accent:var(--accent-orange);">
+                    <div class="dimension-icon" style="background:rgba(249,115,22,0.15);color:var(--accent-orange);">🔗</div>
+                    <h3 data-en="Integration" data-es="Integración">Integration</h3>
+                    <div class="dimension-spectrum"><span class="spectrum-pole" data-en="Experimental" data-es="Experimental">Experimental</span><div class="spectrum-line"></div><span class="spectrum-pole" data-en="Integrated" data-es="Integrado">Integrated</span></div>
+                    <p data-en="Are AI tools siloed experiments and pilots, or deeply embedded in daily workflows?" data-es="¿Las herramientas de IA son experimentos aislados y pilotos, o están profundamente integradas en los flujos de trabajo diarios?">Are AI tools siloed experiments and pilots, or deeply embedded in daily workflows?</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Types Section -->
     <section class="section types-section" id="types">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">The 16 Types</div>
-                <h2 class="section-title">Which One Are You?</h2>
-                <p class="section-description">
-                    Each type has strengths and blind spots. The goal isn't to judge — it's to see clearly and move forward.
-                </p>
+                <div class="section-label" data-en="The 16 Types" data-es="Los 16 Tipos">The 16 Types</div>
+                <h2 class="section-title" data-en="Which One Are You?" data-es="¿Cuál Eres Tú?">Which One Are You?</h2>
+                <p class="section-description" data-en="Each type has strengths and blind spots. The goal isn't to judge — it's to see clearly and move forward." data-es="Cada tipo tiene fortalezas y puntos ciegos. El objetivo no es juzgar — es ver claramente y avanzar.">Each type has strengths and blind spots. The goal isn't to judge — it's to see clearly and move forward.</p>
             </div>
-
             <div class="type-filters">
-                <button class="filter-btn active" data-filter="all">All Types</button>
-                <button class="filter-btn" data-filter="scattered">Scattered (S)</button>
-                <button class="filter-btn" data-filter="consolidated">Consolidated (C)</button>
+                <button class="filter-btn active" data-filter="all" data-en="All Types" data-es="Todos los Tipos">All Types</button>
+                <button class="filter-btn" data-filter="scattered" data-en="Scattered (S)" data-es="Disperso (S)">Scattered (S)</button>
+                <button class="filter-btn" data-filter="consolidated" data-en="Consolidated (C)" data-es="Consolidado (C)">Consolidated (C)</button>
             </div>
-
-            <div class="types-grid" id="types-grid">
-                <!-- Types will be populated by JavaScript -->
-            </div>
+            <div class="types-grid" id="types-grid"></div>
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="section cta-section" id="take-test">
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Ready to discover your type?</h2>
-                <p class="cta-description">
-                    50 questions. 10 minutes. Complete clarity on where you stand and what to do next.
-                </p>
-                <a href="quiz.html" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                    Start the Assessment
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
+                <h2 class="cta-title" data-en="Ready to discover your type?" data-es="¿Listo para descubrir tu tipo?">Ready to discover your type?</h2>
+                <p class="cta-description" data-en="20 questions. 5 minutes. Complete clarity on where you stand and what to do next." data-es="20 preguntas. 5 minutos. Claridad completa sobre dónde estás y qué hacer después.">20 questions. 5 minutes. Complete clarity on where you stand and what to do next.</p>
+                <a href="quiz.html" class="btn-primary" style="font-size:1.1rem;padding:1rem 2.5rem;" data-en="Start the Assessment →" data-es="Comenzar la Evaluación →">Start the Assessment →</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="about">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">AI-Q</div>
                 <div class="footer-links">
-                    <a href="#dimensions">Framework</a>
-                    <a href="#types">Types</a>
-                    <a href="https://www.fedeandino.com" target="_blank">About the Author</a>
+                    <a href="#dimensions" data-en="Framework" data-es="Framework">Framework</a>
+                    <a href="#types" data-en="Types" data-es="Tipos">Types</a>
+                    <a href="https://www.fedeandino.com" target="_blank" data-en="About the Author" data-es="Sobre el Autor">About the Author</a>
                 </div>
-                <div class="footer-credit">
-                    Created by <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a>
-                </div>
+                <div class="footer-credit" data-en="Created by" data-es="Creado por">Created by <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></div>
             </div>
         </div>
     </footer>
 
-    <!-- Type Modal -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal" id="modal">
             <div class="modal-header">
@@ -960,313 +232,98 @@
                 <div class="modal-tagline" id="modal-tagline"></div>
             </div>
             <div class="modal-body">
-                <div class="modal-section">
-                    <h4>Profile</h4>
-                    <p id="modal-description"></p>
-                </div>
-                <div class="modal-section">
-                    <h4>Strengths</h4>
-                    <ul class="modal-list strengths" id="modal-strengths"></ul>
-                </div>
-                <div class="modal-section">
-                    <h4>Blind Spots</h4>
-                    <ul class="modal-list blindspots" id="modal-blindspots"></ul>
-                </div>
-                <div class="modal-section">
-                    <h4>Typical Symptoms</h4>
-                    <ul class="modal-list symptoms" id="modal-symptoms"></ul>
-                </div>
-                <div class="modal-section">
-                    <div class="modal-path">
-                        <h4>→ Path Forward</h4>
-                        <p id="modal-path"></p>
-                    </div>
-                </div>
+                <div class="modal-section"><h4 data-en="Profile" data-es="Perfil">Profile</h4><p id="modal-description"></p></div>
+                <div class="modal-section"><h4 data-en="Strengths" data-es="Fortalezas">Strengths</h4><ul class="modal-list strengths" id="modal-strengths"></ul></div>
+                <div class="modal-section"><h4 data-en="Blind Spots" data-es="Puntos Ciegos">Blind Spots</h4><ul class="modal-list blindspots" id="modal-blindspots"></ul></div>
+                <div class="modal-section"><h4 data-en="Typical Symptoms" data-es="Síntomas Típicos">Typical Symptoms</h4><ul class="modal-list symptoms" id="modal-symptoms"></ul></div>
+                <div class="modal-section"><div class="modal-path"><h4 data-en="→ Path Forward" data-es="→ Camino a Seguir">→ Path Forward</h4><p id="modal-path"></p></div></div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Type Data
-        const types = [
-            {
-                code: "SRTE",
-                name: "The Chaos Pilot",
-                tagline: "We have AI... somewhere.",
-                quadrant: "Scattered",
-                color: "#EF4444",
-                description: "Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other, no clear owner, no measurable outcomes. Every vendor pitch leads to another purchase. You're spending money but can't explain what you're getting.",
-                strengths: ["Willingness to try new things", "Budget available for AI", "No legacy system lock-in"],
-                blindspots: ["No idea what you're actually spending", "Can't measure ROI because you never defined it", "Teams are frustrated and giving up on AI"],
-                symptoms: ["\"We have Copilot, ChatGPT Enterprise, Jasper, and three other tools I can't remember\"", "\"I think marketing bought something last month?\"", "\"Our AI strategy is... we use AI\""],
-                path: "Stop buying. Start auditing. You need a complete inventory before anything else."
-            },
-            {
-                code: "SRTB",
-                name: "The Wishful Thinker",
-                tagline: "Can't AI just do that?",
-                quadrant: "Scattered",
-                color: "#F97316",
-                description: "Leadership is excited about AI but treats it like magic. Requests come down like \"use AI to fix customer churn\" with no specifics. Business drives decisions but reactively — responding to board pressure or competitor announcements. Nothing is consolidated because every request spawns a new initiative.",
-                strengths: ["Executive attention on AI", "Business problems are the focus (even if vague)", "Budget unlocks are possible"],
-                blindspots: ["Unrealistic expectations", "No technical translation layer", "Initiatives die from vagueness"],
-                symptoms: ["\"The CEO read an article and now we need an AI strategy by Friday\"", "\"Can we use ChatGPT to predict which customers will leave?\"", "\"Why isn't this working yet? We bought the enterprise license\""],
-                path: "Translate business wishes into specific, measurable problems. You need a bridge between ambition and execution."
-            },
-            {
-                code: "SPTE",
-                name: "The Over-Engineer",
-                tagline: "The architecture is beautiful. Nobody uses it.",
-                quadrant: "Scattered",
-                color: "#8B5CF6",
-                description: "Your tech team is ahead of the curve. They've built impressive AI infrastructure, proactively explored cutting-edge solutions, and created elegant systems. One problem: business users don't know it exists, don't understand it, or don't see how it solves their problems.",
-                strengths: ["Strong technical capability", "Forward-thinking IT leadership", "Modern infrastructure"],
-                blindspots: ["Disconnect from business reality", "\"Build it and they'll come\" mentality", "Measuring technical metrics, not business outcomes"],
-                symptoms: ["\"We have a world-class ML platform that three people use\"", "\"The data team built an amazing model but ops won't adopt it\"", "\"We're ready for AI — we just need use cases\""],
-                path: "Stop building. Start listening. Embed someone in business teams to find real problems worth solving."
-            },
-            {
-                code: "SPTB",
-                name: "The Ambitious Starter",
-                tagline: "Great strategy, scattered execution.",
-                quadrant: "Scattered",
-                color: "#EC4899",
-                description: "Good intentions, executive buy-in, and a real strategy — on paper. But execution is chaos. Multiple teams interpreting the strategy differently, no coordination, and efforts scattered across too many initiatives. You have the vision but can't translate it into focused action.",
-                strengths: ["Executive sponsorship exists", "Strategic thinking is present", "Business-driven priorities"],
-                blindspots: ["Too many priorities means no priorities", "Execution lacks coordination", "Strategy and reality are diverging"],
-                symptoms: ["\"We have a strategy deck but every team is doing their own thing\"", "\"The vision is clear, the roadmap is... flexible\"", "\"We're aligned on the 'what' but not the 'how'\""],
-                path: "Pick THREE initiatives maximum. Kill everything else. Coordination matters more than ambition right now."
-            },
-            {
-                code: "SRTI",
-                name: "The Accidental Success",
-                tagline: "It works, but don't ask me how.",
-                quadrant: "Scattered",
-                color: "#14B8A6",
-                description: "Against all odds, you have AI integrated into actual workflows. But it happened by accident — a passionate individual, a lucky project, or sheer persistence. There's no documentation, no process, and if that one person leaves, it all falls apart. You're successful but fragile.",
-                strengths: ["Proof that AI can work in your org", "At least one champion exists", "Real business value being created"],
-                blindspots: ["Single point of failure", "Not replicable", "Leadership doesn't know what's working or why"],
-                symptoms: ["\"Sarah in ops built this amazing automation\"", "\"I don't know how the model works, but it's been accurate\"", "\"We should probably document this someday\""],
-                path: "Document everything. Now. Replicate the success intentionally. Turn accidental wins into repeatable processes."
-            },
-            {
-                code: "SRBI",
-                name: "The Shadow IT Hero",
-                tagline: "Don't tell IT, but this is working.",
-                quadrant: "Scattered",
-                color: "#3B82F6",
-                description: "Business users got tired of waiting. They signed up for AI tools with their credit cards, integrated them into workflows, and are getting results. IT doesn't know, compliance hasn't approved, and there's zero governance. It's working — until it isn't.",
-                strengths: ["Bias toward action", "Real business problems being solved", "Proof of demand for AI"],
-                blindspots: ["Security and compliance risks", "No scalability path", "Data silos multiplying"],
-                symptoms: ["\"My team uses Claude but don't tell anyone\"", "\"We expensed it as 'software subscriptions'\"", "\"IT would take six months to approve this\""],
-                path: "Bring it into the light. Partner with IT to legitimize what's working without killing the momentum."
-            },
-            {
-                code: "SPTI",
-                name: "The Rogue Lab",
-                tagline: "Our tech is amazing. The business doesn't care.",
-                quadrant: "Scattered",
-                color: "#6366F1",
-                description: "You have a proactive, talented tech team with integrated AI solutions. They're pushing boundaries, building cool stuff, and fully bought in. But they're operating in a parallel universe — what they're building has little connection to business priorities.",
-                strengths: ["Technical excellence", "Innovation culture", "Integrated AI infrastructure"],
-                blindspots: ["Building for engineers, not users", "Business sees them as a cost center", "No seat at the strategy table"],
-                symptoms: ["\"We could do so much more if business understood AI\"", "\"They asked for a chatbot when they need a knowledge graph\"", "\"We're three years ahead of where the company wants to be\""],
-                path: "Translate your capabilities into business language. Find one executive sponsor and deliver undeniable value."
-            },
-            {
-                code: "SPBI",
-                name: "The Grassroots Movement",
-                tagline: "Pockets of excellence, waiting to connect.",
-                quadrant: "Scattered",
-                color: "#22C55E",
-                description: "Multiple departments are doing AI well — business-driven, proactive, even integrated into workflows. But they're not talking to each other. Marketing's AI success doesn't inform Sales. Operations reinvents what Finance already built. Excellent trees, no forest.",
-                strengths: ["Proven AI success across teams", "Business ownership", "High adoption in pockets"],
-                blindspots: ["Duplicated effort", "Incompatible tools", "No enterprise view"],
-                symptoms: ["\"Every department has their own AI thing going\"", "\"We should probably compare notes sometime\"", "\"Wait, you're using the same vendor?\""],
-                path: "Create a coordination layer — not to control, but to connect. Share learnings, consolidate where it makes sense."
-            },
-            {
-                code: "CRTE",
-                name: "The Controlled Experiment",
-                tagline: "We're piloting... still.",
-                quadrant: "Consolidated",
-                color: "#64748B",
-                description: "You've consolidated your AI tools — good governance, clear ownership, managed costs. But you're stuck in permanent pilot mode. IT controls everything, runs careful experiments, but nothing ever graduates to production. You're not failing, but you're not scaling either.",
-                strengths: ["Low risk of AI disasters", "Clean tool landscape", "Good governance foundation"],
-                blindspots: ["Pilots never become products", "Success metrics are \"we learned something\"", "Business is losing patience"],
-                symptoms: ["\"We've been piloting this for 18 months\"", "\"It works in the test environment\"", "\"We need more data before we can scale\""],
-                path: "Set a kill date for every pilot. Either graduate to production or shut it down. Pilots aren't strategy."
-            },
-            {
-                code: "CRTB",
-                name: "The Waiting Game",
-                tagline: "We're ready to be ready.",
-                quadrant: "Consolidated",
-                color: "#94A3B8",
-                description: "Business owns AI decisions, you've consolidated your tools, but everything is reactive and cautious. You're waiting for the market to stabilize, for competitors to go first, for more proof points. Governance is strong because it's easy to govern inaction.",
-                strengths: ["Clean landscape", "Business alignment", "No expensive mistakes"],
-                blindspots: ["Competitors are moving", "The \"right time\" never comes", "Talent is getting bored and leaving"],
-                symptoms: ["\"We're monitoring AI trends closely\"", "\"We want to be fast followers\"", "\"Once the hype settles, we'll make our move\""],
-                path: "Pick one low-risk, high-visibility initiative. Get in the game. You can't learn from the sidelines."
-            },
-            {
-                code: "CPTE",
-                name: "The Tech Utopia",
-                tagline: "If only people would use what we built.",
-                quadrant: "Consolidated",
-                color: "#A855F7",
-                description: "You've done everything right — technically. Consolidated tools, proactive roadmap, integrated architecture. The only thing missing: people using it. Tech-driven decisions mean beautiful systems optimized for elegance, not adoption.",
-                strengths: ["Solid technical foundation", "Future-proof architecture", "Ready to scale when adoption comes"],
-                blindspots: ["Adoption is THE problem, not an afterthought", "Technical elegance ≠ business value", "Change management was skipped"],
-                symptoms: ["\"The platform is ready — we just need people to use it\"", "\"We built exactly what they asked for\" (but they're not using it)", "\"Training should solve the adoption problem\""],
-                path: "Stop building features. Start building relationships. Embed with users, understand resistance, redesign for adoption."
-            },
-            {
-                code: "CPTB",
-                name: "The Strategy Doc",
-                tagline: "The deck is ready. Execution isn't.",
-                quadrant: "Consolidated",
-                color: "#F59E0B",
-                description: "You've done the work. Beautiful strategy document, executive alignment, clear business priorities, consolidated tool selection. But you're stuck between strategy and execution. Everything is \"planned for Q3\" or \"pending resource allocation.\"",
-                strengths: ["Clear vision", "Stakeholder buy-in", "Prioritized roadmap exists"],
-                blindspots: ["Perfectionism disguised as planning", "Waiting for \"ideal conditions\"", "Strategy is getting stale while you wait"],
-                symptoms: ["\"We're finalizing the implementation plan\"", "\"Once we hire the right person, we'll start\"", "\"The strategy is solid — execution is the next phase\""],
-                path: "Pick ONE initiative. Start THIS WEEK. Imperfect action beats perfect planning."
-            },
-            {
-                code: "CRTI",
-                name: "The Efficient Machine",
-                tagline: "Responsive but not innovative.",
-                quadrant: "Consolidated",
-                color: "#06B6D4",
-                description: "Consolidated, reactive, tech-led, but integrated. IT runs a tight ship responding to business requests. Systems work well, are properly governed, and deliver what's asked. But you're optimizing yesterday's operations, not building tomorrow's advantages.",
-                strengths: ["Reliable execution", "Strong governance", "Efficient operations"],
-                blindspots: ["No innovation pipeline", "Reactive means always behind", "Business sees IT as utility, not partner"],
-                symptoms: ["\"We deliver what the business asks for\"", "\"Our SLAs are excellent\"", "\"Innovation isn't really our mandate\""],
-                path: "Carve out 20% for proactive exploration. Propose one initiative business didn't ask for. Shift from service to partnership."
-            },
-            {
-                code: "CRBI",
-                name: "The Service Desk",
-                tagline: "We deliver what you ask for — nothing more.",
-                quadrant: "Consolidated",
-                color: "#0EA5E9",
-                description: "AI is integrated and business-driven, but entirely reactive. You're a well-oiled machine for fulfilling requests, but you don't shape strategy or anticipate needs. When business asks, you deliver. But you never ask \"what should we build next?\"",
-                strengths: ["Reliable execution", "Business trust", "Working integrations"],
-                blindspots: ["Missing strategic opportunities", "AI as a cost center, not innovation driver", "No proactive roadmap"],
-                symptoms: ["\"We're here to support business initiatives\"", "\"When they bring us requirements, we deliver\"", "\"Strategy isn't our job — we're execution\""],
-                path: "Earn a seat at the strategy table. Start bringing ideas, not just fulfilling requests. Show what's possible."
-            },
-            {
-                code: "CPTI",
-                name: "The Almost There",
-                tagline: "One conversation away from excellence.",
-                quadrant: "Consolidated",
-                color: "#10B981",
-                description: "You've built something impressive. Consolidated tools, proactive roadmap, deeply integrated. Tech-led, but competently so. The only gap: business isn't driving priorities. You're optimizing the right way for potentially the wrong goals.",
-                strengths: ["Strong execution", "Technical excellence", "Integrated workflows"],
-                blindspots: ["Tech priorities ≠ business priorities", "Metrics are technical, not outcomes", "Business sees AI as IT's project"],
-                symptoms: ["\"Our AI is great — we just need better business engagement\"", "\"We measure model accuracy, not business impact\"", "\"Business should be more involved, but they're not interested\""],
-                path: "Make it impossible to ignore. Connect one AI initiative to a metric the CEO cares about. Prove business value, earn the conversation."
-            },
-            {
-                code: "CPBI",
-                name: "The Strategic Leader",
-                tagline: "AI is how we compete.",
-                quadrant: "Consolidated",
-                color: "#14B8A6",
-                description: "You've cracked the code. Your AI tools are consolidated under clear governance, your roadmap anticipates market shifts, business leaders drive priorities, and AI is embedded into daily workflows. You measure outcomes, not activity. Competitors are trying to figure out what you're doing.",
-                strengths: ["Clear ROI metrics", "High adoption rates", "Executive alignment", "Sustainable competitive advantage"],
-                blindspots: ["Risk of complacency", "May over-engineer simple problems", "Talent retention becomes critical"],
-                symptoms: ["\"Our AI initiatives delivered $2M in efficiency gains last quarter\"", "\"Every department has an AI roadmap aligned to business goals\"", "\"We killed three tools last month because they weren't performing\""],
-                path: "Focus on talent, stay paranoid about disruption, and consider how AI reshapes your business model — not just operations."
-            }
-        ];
+<script>
+let currentLang='en';
 
-        // Render Types
-        function renderTypes(filter = 'all') {
-            const grid = document.getElementById('types-grid');
-            grid.innerHTML = '';
+const types=[
+{code:"SRTE",name:{en:"The Chaos Pilot",es:"El Piloto del Caos"},tagline:{en:"We have AI... somewhere.",es:"Tenemos IA... en algún lugar."},quadrant:"Scattered",color:"#EF4444",description:{en:"Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other, no clear owner, no measurable outcomes.",es:"Tu panorama de IA es un cementerio de buenas intenciones. Múltiples herramientas compradas por diferentes equipos, ninguna se comunica con otra, sin dueño claro, sin resultados medibles."},strengths:{en:["Willingness to try new things","Budget available for AI","No legacy system lock-in"],es:["Disposición para probar cosas nuevas","Presupuesto disponible para IA","Sin dependencia de sistemas legacy"]},blindspots:{en:["No idea what you're actually spending","Can't measure ROI","Teams are frustrated"],es:["Sin idea de lo que realmente gastas","No puedes medir ROI","Los equipos están frustrados"]},symptoms:{en:["We have Copilot, ChatGPT Enterprise, and three other tools","I think marketing bought something last month","Our AI strategy is... we use AI"],es:["Tenemos Copilot, ChatGPT Enterprise y tres herramientas más","Creo que marketing compró algo el mes pasado","Nuestra estrategia de IA es... usamos IA"]},path:{en:"Stop buying. Start auditing. You need a complete inventory before anything else.",es:"Deja de comprar. Comienza a auditar. Necesitas un inventario completo antes que nada."}},
+{code:"SRTB",name:{en:"The Wishful Thinker",es:"El Pensador Idealista"},tagline:{en:"Can't AI just do that?",es:"¿No puede la IA simplemente hacer eso?"},quadrant:"Scattered",color:"#F97316",description:{en:"Leadership is excited about AI but treats it like magic. Requests come down like 'use AI to fix customer churn' with no specifics.",es:"El liderazgo está entusiasmado con la IA pero la trata como magia. Las solicitudes llegan como 'usa IA para arreglar la pérdida de clientes' sin especificaciones."},strengths:{en:["Executive attention on AI","Business problems are the focus","Budget unlocks possible"],es:["Atención ejecutiva en IA","Los problemas de negocio son el foco","Desbloqueo de presupuesto posible"]},blindspots:{en:["Unrealistic expectations","No technical translation layer","Initiatives die from vagueness"],es:["Expectativas poco realistas","Sin capa de traducción técnica","Las iniciativas mueren por vaguedad"]},symptoms:{en:["The CEO read an article and now we need an AI strategy by Friday","Can we use ChatGPT to predict which customers will leave?","Why isn't this working yet?"],es:["El CEO leyó un artículo y ahora necesitamos una estrategia de IA para el viernes","¿Podemos usar ChatGPT para predecir qué clientes se irán?","¿Por qué esto aún no funciona?"]},path:{en:"Translate business wishes into specific, measurable problems.",es:"Traduce los deseos del negocio en problemas específicos y medibles."}},
+{code:"SPTE",name:{en:"The Over-Engineer",es:"El Sobre-Ingeniero"},tagline:{en:"The architecture is beautiful. Nobody uses it.",es:"La arquitectura es hermosa. Nadie la usa."},quadrant:"Scattered",color:"#8B5CF6",description:{en:"Your tech team built impressive AI infrastructure. One problem: business users don't know it exists.",es:"Tu equipo técnico construyó una impresionante infraestructura de IA. Un problema: los usuarios de negocio no saben que existe."},strengths:{en:["Strong technical capability","Forward-thinking IT","Modern infrastructure"],es:["Fuerte capacidad técnica","IT con visión de futuro","Infraestructura moderna"]},blindspots:{en:["Disconnect from business reality","Build it and they'll come mentality","Measuring wrong metrics"],es:["Desconexión de la realidad del negocio","Mentalidad de 'constrúyelo y vendrán'","Midiendo métricas incorrectas"]},symptoms:{en:["We have a world-class ML platform that three people use","The data team built an amazing model but ops won't adopt it","We're ready for AI — we just need use cases"],es:["Tenemos una plataforma ML de clase mundial que usan tres personas","El equipo de datos construyó un modelo increíble pero ops no lo adopta","Estamos listos para IA — solo necesitamos casos de uso"]},path:{en:"Stop building. Start listening. Find real problems worth solving.",es:"Deja de construir. Comienza a escuchar. Encuentra problemas reales que valga la pena resolver."}},
+{code:"SPTB",name:{en:"The Ambitious Starter",es:"El Iniciador Ambicioso"},tagline:{en:"Great strategy, scattered execution.",es:"Gran estrategia, ejecución dispersa."},quadrant:"Scattered",color:"#EC4899",description:{en:"Good intentions, executive buy-in, strategy on paper. But execution is chaos.",es:"Buenas intenciones, apoyo ejecutivo, estrategia en papel. Pero la ejecución es caos."},strengths:{en:["Executive sponsorship","Strategic thinking","Business-driven priorities"],es:["Patrocinio ejecutivo","Pensamiento estratégico","Prioridades impulsadas por el negocio"]},blindspots:{en:["Too many priorities","Lacks coordination","Strategy diverging from reality"],es:["Demasiadas prioridades","Falta coordinación","Estrategia divergiendo de la realidad"]},symptoms:{en:["We have a strategy deck but every team is doing their own thing","The vision is clear, the roadmap is... flexible","We're aligned on the 'what' but not the 'how'"],es:["Tenemos un deck de estrategia pero cada equipo hace lo suyo","La visión es clara, el roadmap es... flexible","Estamos alineados en el 'qué' pero no en el 'cómo'"]},path:{en:"Pick THREE initiatives maximum. Kill everything else.",es:"Elige TRES iniciativas máximo. Elimina todo lo demás."}},
+{code:"SRTI",name:{en:"The Accidental Success",es:"El Éxito Accidental"},tagline:{en:"It works, but don't ask me how.",es:"Funciona, pero no me preguntes cómo."},quadrant:"Scattered",color:"#14B8A6",description:{en:"Against all odds, you have AI integrated into workflows. But it happened by accident.",es:"Contra todo pronóstico, tienes IA integrada en los flujos de trabajo. Pero sucedió por accidente."},strengths:{en:["Proof AI can work here","A champion exists","Real value being created"],es:["Prueba de que la IA puede funcionar aquí","Existe un campeón","Se está creando valor real"]},blindspots:{en:["Single point of failure","Not replicable","Leadership unaware"],es:["Punto único de falla","No replicable","Liderazgo no consciente"]},symptoms:{en:["Sarah in ops built this amazing automation","I don't know how the model works, but it's been accurate","We should probably document this someday"],es:["Sarah en operaciones construyó esta automatización increíble","No sé cómo funciona el modelo, pero ha sido preciso","Probablemente deberíamos documentar esto algún día"]},path:{en:"Document everything. Now. Turn accidental wins into repeatable processes.",es:"Documenta todo. Ahora. Convierte los éxitos accidentales en procesos repetibles."}},
+{code:"SRBI",name:{en:"The Shadow IT Hero",es:"El Héroe de Shadow IT"},tagline:{en:"Don't tell IT, but this is working.",es:"No le digas a IT, pero esto está funcionando."},quadrant:"Scattered",color:"#3B82F6",description:{en:"Business users signed up for AI tools with credit cards and are getting results. IT doesn't know.",es:"Los usuarios de negocio se registraron en herramientas de IA con tarjetas de crédito y están obteniendo resultados. IT no lo sabe."},strengths:{en:["Bias toward action","Real problems solved","Proof of demand"],es:["Sesgo hacia la acción","Problemas reales resueltos","Prueba de demanda"]},blindspots:{en:["Security/compliance risks","No scalability path","Data silos"],es:["Riesgos de seguridad/cumplimiento","Sin camino de escalabilidad","Silos de datos"]},symptoms:{en:["My team uses Claude but don't tell anyone","We expensed it as 'software subscriptions'","IT would take six months to approve this"],es:["Mi equipo usa Claude pero no le digas a nadie","Lo pasamos como 'suscripciones de software'","IT tardaría seis meses en aprobar esto"]},path:{en:"Bring it into the light. Partner with IT to legitimize what's working.",es:"Sácalo a la luz. Asóciate con IT para legitimar lo que funciona."}},
+{code:"SPTI",name:{en:"The Rogue Lab",es:"El Laboratorio Rebelde"},tagline:{en:"Our tech is amazing. The business doesn't care.",es:"Nuestra tecnología es increíble. Al negocio no le importa."},quadrant:"Scattered",color:"#6366F1",description:{en:"Proactive tech team with integrated AI. But what they build has little connection to business priorities.",es:"Equipo técnico proactivo con IA integrada. Pero lo que construyen tiene poca conexión con las prioridades del negocio."},strengths:{en:["Technical excellence","Innovation culture","Integrated infrastructure"],es:["Excelencia técnica","Cultura de innovación","Infraestructura integrada"]},blindspots:{en:["Building for engineers","Seen as cost center","No strategy seat"],es:["Construyendo para ingenieros","Vistos como centro de costos","Sin asiento en la estrategia"]},symptoms:{en:["We could do so much more if business understood AI","They asked for a chatbot when they need a knowledge graph","We're three years ahead of where the company wants to be"],es:["Podríamos hacer mucho más si el negocio entendiera IA","Pidieron un chatbot cuando necesitan un knowledge graph","Estamos tres años adelante de donde la empresa quiere estar"]},path:{en:"Translate capabilities into business language. Find one executive sponsor.",es:"Traduce las capacidades al lenguaje del negocio. Encuentra un patrocinador ejecutivo."}},
+{code:"SPBI",name:{en:"The Grassroots Movement",es:"El Movimiento de Base"},tagline:{en:"Pockets of excellence, waiting to connect.",es:"Bolsillos de excelencia, esperando conectarse."},quadrant:"Scattered",color:"#22C55E",description:{en:"Multiple departments doing AI well. But they're not talking to each other.",es:"Múltiples departamentos haciendo bien la IA. Pero no se comunican entre sí."},strengths:{en:["Proven success across teams","Business ownership","High adoption in pockets"],es:["Éxito probado en varios equipos","Propiedad del negocio","Alta adopción en bolsillos"]},blindspots:{en:["Duplicated effort","Incompatible tools","No enterprise view"],es:["Esfuerzo duplicado","Herramientas incompatibles","Sin visión empresarial"]},symptoms:{en:["Every department has their own AI thing going","We should probably compare notes sometime","Wait, you're using the same vendor?"],es:["Cada departamento tiene su propia cosa de IA","Probablemente deberíamos comparar notas algún día","Espera, ¿ustedes usan el mismo proveedor?"]},path:{en:"Create a coordination layer — not to control, but to connect.",es:"Crea una capa de coordinación — no para controlar, sino para conectar."}},
+{code:"CRTE",name:{en:"The Controlled Experiment",es:"El Experimento Controlado"},tagline:{en:"We're piloting... still.",es:"Estamos piloteando... todavía."},quadrant:"Consolidated",color:"#64748B",description:{en:"Consolidated AI tools with good governance. But stuck in permanent pilot mode.",es:"Herramientas de IA consolidadas con buena gobernanza. Pero atascados en modo piloto permanente."},strengths:{en:["Low risk","Clean tool landscape","Good governance"],es:["Bajo riesgo","Panorama de herramientas limpio","Buena gobernanza"]},blindspots:{en:["Pilots never become products","Business losing patience","Vague success metrics"],es:["Los pilotos nunca se convierten en productos","El negocio pierde la paciencia","Métricas de éxito vagas"]},symptoms:{en:["We've been piloting this for 18 months","It works in the test environment","We need more data before we can scale"],es:["Hemos estado piloteando esto por 18 meses","Funciona en el ambiente de pruebas","Necesitamos más datos antes de escalar"]},path:{en:"Set a kill date for every pilot. Graduate to production or shut it down.",es:"Establece una fecha límite para cada piloto. Gradúa a producción o ciérralo."}},
+{code:"CRTB",name:{en:"The Waiting Game",es:"El Juego de la Espera"},tagline:{en:"We're ready to be ready.",es:"Estamos listos para estar listos."},quadrant:"Consolidated",color:"#94A3B8",description:{en:"Business owns AI decisions, consolidated tools, but everything is reactive and cautious.",es:"El negocio es dueño de las decisiones de IA, herramientas consolidadas, pero todo es reactivo y cauteloso."},strengths:{en:["Clean landscape","Business alignment","No expensive mistakes"],es:["Panorama limpio","Alineación del negocio","Sin errores costosos"]},blindspots:{en:["Competitors are moving","Right time never comes","Talent is bored"],es:["Los competidores se están moviendo","El momento correcto nunca llega","El talento está aburrido"]},symptoms:{en:["We're monitoring AI trends closely","We want to be fast followers","Once the hype settles, we'll make our move"],es:["Estamos monitoreando las tendencias de IA de cerca","Queremos ser seguidores rápidos","Una vez que el hype se calme, haremos nuestro movimiento"]},path:{en:"Pick one low-risk, high-visibility initiative. Get in the game.",es:"Elige una iniciativa de bajo riesgo y alta visibilidad. Entra al juego."}},
+{code:"CPTE",name:{en:"The Tech Utopia",es:"La Utopía Tecnológica"},tagline:{en:"If only people would use what we built.",es:"Si tan solo la gente usara lo que construimos."},quadrant:"Consolidated",color:"#A855F7",description:{en:"You've done everything right — technically. The only thing missing: people using it.",es:"Has hecho todo bien — técnicamente. Lo único que falta: gente usándolo."},strengths:{en:["Solid technical foundation","Future-proof architecture","Ready to scale"],es:["Base técnica sólida","Arquitectura a prueba de futuro","Listo para escalar"]},blindspots:{en:["Adoption is THE problem","Change management skipped","Technical elegance ≠ value"],es:["La adopción ES el problema","Se saltaron la gestión del cambio","Elegancia técnica ≠ valor"]},symptoms:{en:["The platform is ready — we just need people to use it","We built exactly what they asked for (but they're not using it)","Training should solve the adoption problem"],es:["La plataforma está lista — solo necesitamos que la gente la use","Construimos exactamente lo que pidieron (pero no lo usan)","El entrenamiento debería resolver el problema de adopción"]},path:{en:"Stop building features. Start building relationships.",es:"Deja de construir funcionalidades. Comienza a construir relaciones."}},
+{code:"CPTB",name:{en:"The Strategy Doc",es:"El Documento de Estrategia"},tagline:{en:"The deck is ready. Execution isn't.",es:"El deck está listo. La ejecución no."},quadrant:"Consolidated",color:"#F59E0B",description:{en:"Beautiful strategy, executive alignment. But stuck between strategy and execution.",es:"Hermosa estrategia, alineación ejecutiva. Pero atascados entre estrategia y ejecución."},strengths:{en:["Clear vision","Stakeholder buy-in","Prioritized roadmap"],es:["Visión clara","Apoyo de stakeholders","Roadmap priorizado"]},blindspots:{en:["Perfectionism as planning","Waiting for ideal conditions","Strategy getting stale"],es:["Perfeccionismo como planificación","Esperando condiciones ideales","La estrategia se vuelve obsoleta"]},symptoms:{en:["We're finalizing the implementation plan","Once we hire the right person, we'll start","The strategy is solid — execution is the next phase"],es:["Estamos finalizando el plan de implementación","Una vez que contratemos a la persona correcta, comenzaremos","La estrategia es sólida — la ejecución es la siguiente fase"]},path:{en:"Pick ONE initiative. Start THIS WEEK. Imperfect action beats perfect planning.",es:"Elige UNA iniciativa. Comienza ESTA SEMANA. La acción imperfecta supera la planificación perfecta."}},
+{code:"CRTI",name:{en:"The Efficient Machine",es:"La Máquina Eficiente"},tagline:{en:"Responsive but not innovative.",es:"Responsivo pero no innovador."},quadrant:"Consolidated",color:"#06B6D4",description:{en:"IT runs a tight ship responding to requests. But optimizing yesterday's operations.",es:"IT maneja un barco ajustado respondiendo a solicitudes. Pero optimizando las operaciones de ayer."},strengths:{en:["Reliable execution","Strong governance","Efficient operations"],es:["Ejecución confiable","Gobernanza fuerte","Operaciones eficientes"]},blindspots:{en:["No innovation pipeline","Reactive means behind","IT seen as utility"],es:["Sin pipeline de innovación","Reactivo significa atrasado","IT visto como utilidad"]},symptoms:{en:["We deliver what the business asks for","Our SLAs are excellent","Innovation isn't really our mandate"],es:["Entregamos lo que el negocio pide","Nuestros SLAs son excelentes","La innovación realmente no es nuestro mandato"]},path:{en:"Carve out 20% for proactive exploration.",es:"Reserva 20% para exploración proactiva."}},
+{code:"CRBI",name:{en:"The Service Desk",es:"El Service Desk"},tagline:{en:"We deliver what you ask for — nothing more.",es:"Entregamos lo que pides — nada más."},quadrant:"Consolidated",color:"#0EA5E9",description:{en:"AI is integrated and business-driven, but entirely reactive.",es:"La IA está integrada y es impulsada por el negocio, pero es completamente reactiva."},strengths:{en:["Reliable execution","Business trust","Working integrations"],es:["Ejecución confiable","Confianza del negocio","Integraciones funcionando"]},blindspots:{en:["Missing opportunities","AI as cost center","No proactive roadmap"],es:["Perdiendo oportunidades","IA como centro de costos","Sin roadmap proactivo"]},symptoms:{en:["We're here to support business initiatives","When they bring us requirements, we deliver","Strategy isn't our job — we're execution"],es:["Estamos aquí para apoyar las iniciativas del negocio","Cuando nos traen requerimientos, entregamos","La estrategia no es nuestro trabajo — somos ejecución"]},path:{en:"Earn a seat at the strategy table. Start bringing ideas.",es:"Gana un asiento en la mesa de estrategia. Comienza a traer ideas."}},
+{code:"CPTI",name:{en:"The Almost There",es:"El Casi Ahí"},tagline:{en:"One conversation away from excellence.",es:"A una conversación de la excelencia."},quadrant:"Consolidated",color:"#10B981",description:{en:"Consolidated, proactive, integrated. The only gap: business isn't driving priorities.",es:"Consolidado, proactivo, integrado. La única brecha: el negocio no impulsa las prioridades."},strengths:{en:["Strong execution","Technical excellence","Integrated workflows"],es:["Ejecución fuerte","Excelencia técnica","Flujos de trabajo integrados"]},blindspots:{en:["Tech ≠ business priorities","Technical metrics only","Business sees AI as IT's"],es:["Tech ≠ prioridades del negocio","Solo métricas técnicas","El negocio ve la IA como de IT"]},symptoms:{en:["Our AI is great — we just need better business engagement","We measure model accuracy, not business impact","Business should be more involved, but they're not interested"],es:["Nuestra IA es genial — solo necesitamos mejor compromiso del negocio","Medimos precisión del modelo, no impacto en el negocio","El negocio debería estar más involucrado, pero no les interesa"]},path:{en:"Connect one AI initiative to a metric the CEO cares about.",es:"Conecta una iniciativa de IA a una métrica que le importe al CEO."}},
+{code:"CPBI",name:{en:"The Strategic Leader",es:"El Líder Estratégico"},tagline:{en:"AI is how we compete.",es:"La IA es cómo competimos."},quadrant:"Consolidated",color:"#14B8A6",description:{en:"You've cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.",es:"Has descifrado el código. Herramientas consolidadas, roadmap proactivo, el negocio impulsa las prioridades, IA integrada en los flujos de trabajo."},strengths:{en:["Clear ROI metrics","High adoption rates","Executive alignment","Competitive advantage"],es:["Métricas de ROI claras","Altas tasas de adopción","Alineación ejecutiva","Ventaja competitiva"]},blindspots:{en:["Risk of complacency","May over-engineer","Talent retention critical"],es:["Riesgo de complacencia","Puede sobre-ingeniería","Retención de talento crítica"]},symptoms:{en:["Our AI initiatives delivered $2M in efficiency gains last quarter","Every department has an AI roadmap aligned to business goals","We killed three tools last month because they weren't performing"],es:["Nuestras iniciativas de IA entregaron $2M en ganancias de eficiencia el último trimestre","Cada departamento tiene un roadmap de IA alineado a los objetivos del negocio","Eliminamos tres herramientas el mes pasado porque no rendían"]},path:{en:"Focus on talent, stay paranoid about disruption, consider how AI reshapes your business model.",es:"Enfócate en el talento, mantente paranoico sobre la disrupción, considera cómo la IA transforma tu modelo de negocio."}}
+];
 
-            const filteredTypes = filter === 'all' 
-                ? types 
-                : types.filter(t => t.quadrant.toLowerCase() === filter);
+function renderTypes(filter='all'){
+    const grid=document.getElementById('types-grid');
+    grid.innerHTML='';
+    const filtered=filter==='all'?types:types.filter(t=>t.quadrant.toLowerCase()===filter);
+    filtered.forEach(type=>{
+        const card=document.createElement('div');
+        card.className='type-card';
+        card.style.setProperty('--type-color',type.color);
+        card.onclick=()=>openModal(type);
+        const q=currentLang==='es'?'Disperso':'Scattered';
+        const quadLabel=type.quadrant==='Scattered'?q:(currentLang==='es'?'Consolidado':'Consolidated');
+        card.innerHTML=`
+            <div class="type-card-header"><div class="type-code" style="color:${type.color}">${type.code}</div><div class="type-quadrant">${quadLabel}</div></div>
+            <div class="type-name">${type.name[currentLang]}</div>
+            <div class="type-tagline">"${type.tagline[currentLang]}"</div>
+            <div class="type-description">${type.description[currentLang].substring(0,150)}...</div>
+            <div class="type-traits"><span class="trait strength">✓ ${type.strengths[currentLang][0]}</span><span class="trait blindspot">✗ ${type.blindspots[currentLang][0]}</span></div>`;
+        grid.appendChild(card);
+    });
+}
 
-            filteredTypes.forEach(type => {
-                const card = document.createElement('div');
-                card.className = 'type-card';
-                card.style.setProperty('--type-color', type.color);
-                card.onclick = () => openModal(type);
+function openModal(type){
+    document.getElementById('modal-code').textContent=type.code;
+    document.getElementById('modal-code').style.color=type.color;
+    document.getElementById('modal-name').textContent=type.name[currentLang];
+    document.getElementById('modal-tagline').textContent=`"${type.tagline[currentLang]}"`;
+    document.getElementById('modal-description').textContent=type.description[currentLang];
+    document.getElementById('modal-strengths').innerHTML=type.strengths[currentLang].map(s=>`<li>${s}</li>`).join('');
+    document.getElementById('modal-blindspots').innerHTML=type.blindspots[currentLang].map(b=>`<li>${b}</li>`).join('');
+    document.getElementById('modal-symptoms').innerHTML=type.symptoms[currentLang].map(s=>`<li>${s}</li>`).join('');
+    document.getElementById('modal-path').textContent=type.path[currentLang];
+    document.getElementById('modal-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+}
 
-                card.innerHTML = `
-                    <div class="type-card-header">
-                        <div class="type-code" style="color: ${type.color}">${type.code}</div>
-                        <div class="type-quadrant">${type.quadrant}</div>
-                    </div>
-                    <div class="type-name">${type.name}</div>
-                    <div class="type-tagline">"${type.tagline}"</div>
-                    <div class="type-description">${type.description.substring(0, 150)}...</div>
-                    <div class="type-traits">
-                        <span class="trait strength">✓ ${type.strengths[0]}</span>
-                        <span class="trait blindspot">✗ ${type.blindspots[0]}</span>
-                    </div>
-                `;
+function closeModal(){
+    document.getElementById('modal-overlay').classList.remove('active');
+    document.body.style.overflow='';
+}
 
-                grid.appendChild(card);
-            });
-        }
+function toggleLang(){
+    currentLang=currentLang==='en'?'es':'en';
+    document.querySelector('.lang-switch').textContent=currentLang==='en'?'ES 🇪🇸':'EN 🇺🇸';
+    document.querySelectorAll('[data-en]').forEach(el=>{
+        el.textContent=el.getAttribute(`data-${currentLang}`);
+    });
+    renderTypes(document.querySelector('.filter-btn.active').dataset.filter);
+}
 
-        // Filter Buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderTypes(btn.dataset.filter);
-            });
-        });
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTypes(btn.dataset.filter);
+    });
+});
 
-        // Modal Functions
-        function openModal(type) {
-            document.getElementById('modal-code').textContent = type.code;
-            document.getElementById('modal-code').style.color = type.color;
-            document.getElementById('modal-name').textContent = type.name;
-            document.getElementById('modal-tagline').textContent = `"${type.tagline}"`;
-            document.getElementById('modal-description').textContent = type.description;
-            
-            const strengthsList = document.getElementById('modal-strengths');
-            strengthsList.innerHTML = type.strengths.map(s => `<li>${s}</li>`).join('');
-            
-            const blindspotsList = document.getElementById('modal-blindspots');
-            blindspotsList.innerHTML = type.blindspots.map(b => `<li>${b}</li>`).join('');
-            
-            const symptomsList = document.getElementById('modal-symptoms');
-            symptomsList.innerHTML = type.symptoms.map(s => `<li>${s}</li>`).join('');
-            
-            document.getElementById('modal-path').textContent = type.path;
-            
-            document.getElementById('modal-overlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('modal-overlay'))closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-        function closeModal() {
-            document.getElementById('modal-overlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal on overlay click
-        document.getElementById('modal-overlay').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('modal-overlay')) {
-                closeModal();
-            }
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        // Initial render
-        renderTypes();
-    </script>
+renderTypes();
+</script>
 </body>
 </html>

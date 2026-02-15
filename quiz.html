@@ -371,3 +371,30 @@ document.addEventListener('keydown',e=>{
 </script>
 </body>
 </html>
+n${t.tg.en}\n\n${t.desc.en}\n\nStrengths:\n${t.str.en.map(s=>'• '+s).join('\n')}\n\nPath Forward:\n${t.path.en}\n\nTake the assessment: ai-q.fit`:`Mi Tipo AI-Q: ${code} - "${t.n.es}"\n\n${t.tg.es}\n\n${t.desc.es}\n\nFortalezas:\n${t.str.es.map(s=>'• '+s).join('\n')}\n\nCamino a Seguir:\n${t.path.es}\n\nHaz la evaluación: ai-q.fit`;
+    navigator.clipboard.writeText(txt).then(()=>alert(lang==='en'?'Results copied!':'¡Resultados copiados!'));
+}
+
+function retakeQuiz(){
+    cur=0;ans=Array(20).fill(null);user={name:'',email:'',company:'',industry:'',size:''};
+    document.getElementById('user-name').value='';
+    document.getElementById('user-email').value='';
+    document.getElementById('company-name').value='';
+    document.getElementById('industry').value='';
+    document.getElementById('company-size').value='';
+    document.getElementById('btn-start').disabled=true;
+    document.getElementById('email-sent').style.display='none';
+    document.getElementById('btn-send-report').disabled=false;
+    document.getElementById('results-screen').classList.remove('active');
+    document.getElementById('intro-screen').classList.add('active');
+}
+
+document.addEventListener('keydown',e=>{
+    if(!document.getElementById('question-screen').classList.contains('active'))return;
+    if(e.key>='1'&&e.key<='5')select(parseInt(e.key));
+    else if((e.key==='ArrowRight'||e.key==='Enter')&&ans[cur]!==null)nextQuestion();
+    else if(e.key==='ArrowLeft')prevQuestion();
+});
+</script>
+</body>
+</html>
