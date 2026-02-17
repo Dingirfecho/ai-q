@@ -60,11 +60,14 @@
         .types-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem}
         .type-card{background:var(--bg-dark);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all 0.3s ease;cursor:pointer}
         .type-card:hover{transform:translateY(-4px);border-color:var(--type-color,var(--accent-teal));box-shadow:0 20px 40px rgba(0,0,0,0.3)}
-        .type-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+        .type-card-top{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem}
+        .type-card-illustration{width:80px;height:80px;border-radius:12px;flex-shrink:0;object-fit:cover}
+        .type-card-info{flex:1}
+        .type-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem}
         .type-code{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;letter-spacing:2px}
         .type-quadrant{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.5rem;border-radius:4px;background:var(--bg-card);color:var(--text-muted)}
-        .type-name{font-size:1.25rem;font-weight:600;margin-bottom:0.5rem}
-        .type-tagline{font-style:italic;color:var(--text-muted);font-size:0.95rem;margin-bottom:1rem}
+        .type-name{font-size:1.1rem;font-weight:600;margin-bottom:0.25rem}
+        .type-tagline{font-style:italic;color:var(--text-muted);font-size:0.85rem}
         .type-description{color:var(--text-secondary);font-size:0.9rem;line-height:1.6;margin-bottom:1.25rem}
         .type-traits{display:flex;gap:0.5rem;flex-wrap:wrap}
         .trait{font-size:0.75rem;padding:0.3rem 0.6rem;border-radius:4px;font-weight:500}
@@ -73,9 +76,10 @@
         .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
         .modal-overlay.active{display:flex}
         .modal{background:var(--bg-card);border:1px solid var(--border);border-radius:24px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto}
-        .modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg-card);z-index:10}
+        .modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg-card);z-index:10;text-align:center}
         .modal-close{position:absolute;top:1.5rem;right:1.5rem;width:40px;height:40px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-secondary);font-size:1.25rem;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center}
         .modal-close:hover{border-color:var(--accent-red);color:var(--accent-red)}
+        .modal-illustration{width:120px;height:120px;border-radius:16px;margin:0 auto 1rem;display:block}
         .modal-code{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem}
         .modal-name{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:700;margin-bottom:0.5rem}
         .modal-tagline{font-style:italic;color:var(--text-muted);font-size:1.1rem}
@@ -227,6 +231,7 @@
         <div class="modal" id="modal">
             <div class="modal-header">
                 <button class="modal-close" onclick="closeModal()">×</button>
+                <img class="modal-illustration" id="modal-illustration" src="" alt="">
                 <div class="modal-code" id="modal-code"></div>
                 <div class="modal-name" id="modal-name"></div>
                 <div class="modal-tagline" id="modal-tagline"></div>
@@ -275,9 +280,14 @@ function renderTypes(filter='all'){
         const q=currentLang==='es'?'Disperso':'Scattered';
         const quadLabel=type.quadrant==='Scattered'?q:(currentLang==='es'?'Consolidado':'Consolidated');
         card.innerHTML=`
-            <div class="type-card-header"><div class="type-code" style="color:${type.color}">${type.code}</div><div class="type-quadrant">${quadLabel}</div></div>
-            <div class="type-name">${type.name[currentLang]}</div>
-            <div class="type-tagline">"${type.tagline[currentLang]}"</div>
+            <div class="type-card-top">
+                <img src="types/${type.code}.svg" alt="${type.name[currentLang]}" class="type-card-illustration">
+                <div class="type-card-info">
+                    <div class="type-card-header"><div class="type-code" style="color:${type.color}">${type.code}</div><div class="type-quadrant">${quadLabel}</div></div>
+                    <div class="type-name">${type.name[currentLang]}</div>
+                    <div class="type-tagline">"${type.tagline[currentLang]}"</div>
+                </div>
+            </div>
             <div class="type-description">${type.description[currentLang].substring(0,150)}...</div>
             <div class="type-traits"><span class="trait strength">✓ ${type.strengths[currentLang][0]}</span><span class="trait blindspot">✗ ${type.blindspots[currentLang][0]}</span></div>`;
         grid.appendChild(card);
@@ -285,6 +295,8 @@ function renderTypes(filter='all'){
 }
 
 function openModal(type){
+    document.getElementById('modal-illustration').src='types/'+type.code+'.svg';
+    document.getElementById('modal-illustration').alt=type.name[currentLang];
     document.getElementById('modal-code').textContent=type.code;
     document.getElementById('modal-code').style.color=type.color;
     document.getElementById('modal-name').textContent=type.name[currentLang];
