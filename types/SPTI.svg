@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bg-spti" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bg-spti)" rx="20"/>
+  <!-- Lab flask on left - glowing with innovation -->
+  <g transform="translate(25, 60)">
+    <!-- Flask -->
+    <path d="M25,0 L25,40 L5,80 L45,80 L25,40 L25,0" fill="#6366F1" fill-opacity="0.3" stroke="#6366F1" stroke-width="2"/>
+    <!-- Liquid inside -->
+    <path d="M10,65 L40,65 L25,45 Z" fill="#6366F1" opacity="0.5"/>
+    <!-- Bubbles -->
+    <circle cx="20" cy="55" r="3" fill="#6366F1" opacity="0.7"/>
+    <circle cx="30" cy="60" r="2" fill="#6366F1" opacity="0.6"/>
+    <circle cx="25" cy="50" r="2" fill="#6366F1" opacity="0.5"/>
+    <!-- Steam/innovation coming out -->
+    <path d="M20,0 Q15,-10 20,-20" stroke="#6366F1" stroke-width="2" fill="none" opacity="0.5"/>
+    <path d="M30,0 Q35,-10 30,-20" stroke="#6366F1" stroke-width="2" fill="none" opacity="0.5"/>
+  </g>
+  <!-- Business building on right - unaware -->
+  <g transform="translate(120, 50)">
+    <!-- Building -->
+    <rect x="0" y="30" width="50" height="70" fill="#64748B" fill-opacity="0.3" stroke="#64748B" stroke-width="2"/>
+    <!-- Windows (dark - no one cares) -->
+    <rect x="8" y="40" width="12" height="12" fill="#1a1a2e"/>
+    <rect x="28" y="40" width="12" height="12" fill="#1a1a2e"/>
+    <rect x="8" y="60" width="12" height="12" fill="#1a1a2e"/>
+    <rect x="28" y="60" width="12" height="12" fill="#1a1a2e"/>
+    <rect x="8" y="80" width="12" height="12" fill="#1a1a2e"/>
+    <rect x="28" y="80" width="12" height="12" fill="#1a1a2e"/>
+    <!-- Door -->
+    <rect x="17" y="85" width="15" height="15" fill="#1a1a2e"/>
+  </g>
+  <!-- Broken/missing connection between them -->
+  <g stroke="#64748B" stroke-width="2" stroke-dasharray="5,5" opacity="0.4">
+    <line x1="75" y1="100" x2="115" y2="100"/>
+  </g>
+  <!-- X mark on connection -->
+  <g transform="translate(88, 93)">
+    <line x1="0" y1="0" x2="14" y2="14" stroke="#EF4444" stroke-width="2"/>
+    <line x1="14" y1="0" x2="0" y2="14" stroke="#EF4444" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bg-cpbi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="trophy-cpbi" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#14B8A6"/>
+      <stop offset="100%" style="stop-color:#0D9488"/>
+    </linearGradient>
+    <linearGradient id="glow-cpbi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14B8A6;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bg-cpbi)" rx="20"/>
+  <!-- Glow effect -->
+  <circle cx="100" cy="90" r="60" fill="url(#glow-cpbi)"/>
+  <!-- Trophy -->
+  <g transform="translate(60, 35)">
+    <!-- Cup -->
+    <path d="M20,0 L60,0 L55,50 Q40,65 25,50 L20,0" fill="url(#trophy-cpbi)" opacity="0.9"/>
+    <!-- Handles -->
+    <path d="M20,10 Q5,10 5,25 Q5,40 20,40" fill="none" stroke="#14B8A6" stroke-width="4"/>
+    <path d="M60,10 Q75,10 75,25 Q75,40 60,40" fill="none" stroke="#14B8A6" stroke-width="4"/>
+    <!-- Stem -->
+    <rect x="35" y="55" width="10" height="20" fill="#14B8A6" opacity="0.8"/>
+    <!-- Base -->
+    <rect x="25" y="75" width="30" height="8" fill="#14B8A6" opacity="0.7" rx="2"/>
+    <rect x="20" y="83" width="40" height="10" fill="#14B8A6" opacity="0.6" rx="2"/>
+    <!-- Star on trophy -->
+    <polygon points="40,20 43,30 53,30 45,36 48,46 40,40 32,46 35,36 27,30 37,30" fill="#FCD34D" opacity="0.9"/>
+  </g>
+  <!-- Connected elements around - showing integration -->
+  <g stroke="#14B8A6" stroke-width="2" opacity="0.5">
+    <!-- Orbiting elements -->
+    <circle cx="100" cy="90" r="70" fill="none" stroke-dasharray="5,5"/>
+  </g>
+  <!-- 4 dimension icons orbiting -->
+  <g fill="#14B8A6" opacity="0.7">
+    <circle cx="100" cy="20" r="8"/>
+    <circle cx="170" cy="90" r="8"/>
+    <circle cx="100" cy="160" r="8"/>
+    <circle cx="30" cy="90" r="8"/>
+  </g>
+  <!-- Connecting lines -->
+  <g stroke="#14B8A6" stroke-width="1.5" opacity="0.4">
+    <line x1="100" y1="28" x2="100" y2="50"/>
+    <line x1="162" y1="90" x2="140" y2="90"/>
+    <line x1="100" y1="152" x2="100" y2="130"/>
+    <line x1="38" y1="90" x2="60" y2="90"/>
+  </g>
+  <!-- Sparkles -->
+  <g fill="#FCD34D" opacity="0.6">
+    <polygon points="45,50 47,55 52,55 48,58 50,63 45,60 40,63 42,58 38,55 43,55" transform="scale(0.6) translate(30,30)"/>
+    <polygon points="45,50 47,55 52,55 48,58 50,63 45,60 40,63 42,58 38,55 43,55" transform="scale(0.5) translate(260,40)"/>
+  </g>
+</svg>

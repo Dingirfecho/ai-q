@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bg-cptb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bg-cptb)" rx="20"/>
+  <!-- Perfect strategy document/deck -->
+  <g transform="translate(55, 40)">
+    <!-- Document stack -->
+    <rect x="5" y="8" width="80" height="100" fill="#F59E0B" opacity="0.15" rx="3"/>
+    <rect x="2" y="4" width="80" height="100" fill="#F59E0B" opacity="0.2" rx="3"/>
+    <rect x="0" y="0" width="80" height="100" fill="#F59E0B" opacity="0.3" stroke="#F59E0B" stroke-width="2" rx="3"/>
+    <!-- Content lines - perfect and organized -->
+    <text x="15" y="25" font-family="Arial" font-size="12" font-weight="bold" fill="#F59E0B" opacity="0.8">AI STRATEGY</text>
+    <line x1="10" y1="35" x2="70" y2="35" stroke="#F59E0B" stroke-width="2" opacity="0.5"/>
+    <line x1="10" y1="48" x2="65" y2="48" stroke="#F59E0B" stroke-width="1.5" opacity="0.4"/>
+    <line x1="10" y1="58" x2="60" y2="58" stroke="#F59E0B" stroke-width="1.5" opacity="0.4"/>
+    <line x1="10" y1="68" x2="55" y2="68" stroke="#F59E0B" stroke-width="1.5" opacity="0.4"/>
+    <!-- Checkmarks - all approved -->
+    <path d="M60,45 L65,50 L75,40" stroke="#22C55E" stroke-width="2" fill="none"/>
+    <path d="M60,55 L65,60 L75,50" stroke="#22C55E" stroke-width="2" fill="none"/>
+    <path d="M60,65 L65,70 L75,60" stroke="#22C55E" stroke-width="2" fill="none"/>
+    <!-- Star rating -->
+    <text x="25" y="90" font-family="Arial" font-size="12" fill="#F59E0B">★★★★★</text>
+  </g>
+  <!-- Dust particles -->
+  <g fill="#64748B" opacity="0.3">
+    <circle cx="50" cy="60" r="2"/>
+    <circle cx="145" cy="75" r="1.5"/>
+    <circle cx="60" cy="130" r="1"/>
+    <circle cx="150" cy="50" r="2"/>
+    <circle cx="45" cy="90" r="1"/>
+  </g>
+  <!-- Cobweb in corner -->
+  <g stroke="#64748B" stroke-width="0.5" opacity="0.3">
+    <path d="M140,35 Q150,45 160,35" fill="none"/>
+    <path d="M145,30 Q150,40 155,30" fill="none"/>
+    <line x1="150" y1="25" x2="150" y2="45"/>
+  </g>
+  <!-- "When do we start?" text -->
+  <text x="40" y="170" font-family="Arial" font-size="12" fill="#F59E0B" opacity="0.5">when do we start?</text>
+</svg>
