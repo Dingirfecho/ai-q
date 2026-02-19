@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPTE: The Over-Engineer | AI-Q</title>
+    <meta name="description" content="You're an Over-Engineer. Perfect architecture, no users. Here's your 90-day roadmap to ship something real.">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B;--type-color:#8B5CF6}
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6}.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(139,92,246,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}.container{max-width:1000px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}.nav-links{display:flex;gap:1.5rem;align-items:center}.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;transition:color 0.2s}.nav-links a:hover{color:var(--accent-teal)}.btn-nav{background:var(--accent-teal);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:0.9rem}.btn-nav:hover{background:#0D9488}.hero{padding:8rem 0 4rem;text-align:center}.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);padding:0.4rem 1rem;border-radius:50px;font-size:0.85rem;color:var(--type-color);margin-bottom:1.5rem;font-family:'JetBrains Mono',monospace}.hero-illustration{width:180px;height:180px;margin:0 auto 2rem;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(139,92,246,0.2)}.hero-illustration img{width:100%;height:100%}.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:800;margin-bottom:0.5rem}.hero h1 .type-code{color:var(--type-color)}.hero .tagline{font-size:1.5rem;color:var(--text-muted);font-style:italic;margin-bottom:2rem}.hero-description{font-size:1.1rem;color:var(--text-secondary);max-width:700px;margin:0 auto 2rem;line-height:1.8}.section{padding:4rem 0}.section-header{margin-bottom:2.5rem}.section-label{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--type-color);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.5rem}.section-title{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700}.quick-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:4rem}.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center}.stat-value{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--type-color)}.stat-label{font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:4rem}.profile-box{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem}.profile-box h3{font-size:1rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1.25rem}.profile-box.strengths h3{color:var(--accent-green)}.profile-box.blindspots h3{color:var(--accent-red)}.profile-box ul{list-style:none}.profile-box li{padding:0.6rem 0;padding-left:1.5rem;position:relative;color:var(--text-secondary);border-bottom:1px solid var(--border)}.profile-box li:last-child{border-bottom:none}.profile-box li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%}.profile-box.strengths li::before{background:var(--accent-green)}.profile-box.blindspots li::before{background:var(--accent-red)}.artifacts-section{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:3rem;margin-bottom:4rem}.artifacts-intro{color:var(--text-secondary);margin-bottom:2rem;font-size:1.05rem}.artifact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}.artifact-card{background:var(--bg-dark);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all 0.2s}.artifact-card:hover{border-color:var(--type-color);transform:translateY(-2px)}.artifact-icon{font-size:2rem;margin-bottom:1rem}.artifact-name{font-weight:600;font-size:1.1rem;margin-bottom:0.5rem}.artifact-desc{font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}.artifact-example{background:var(--bg-card);border-radius:8px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-secondary)}.artifact-example-label{font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;font-family:'Space Grotesk',sans-serif}.roadmap-section{margin-bottom:4rem}.roadmap-intro{color:var(--text-secondary);margin-bottom:2.5rem;font-size:1.05rem;max-width:700px}.roadmap{position:relative}.roadmap::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--type-color),var(--accent-teal))}.roadmap-phase{position:relative;padding-left:4rem;padding-bottom:3rem}.roadmap-phase:last-child{padding-bottom:0}.phase-marker{position:absolute;left:0;top:0;width:50px;height:50px;background:var(--bg-card);border:2px solid var(--type-color);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--type-color)}.phase-content{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem}.phase-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:1rem}.phase-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700}.phase-duration{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--type-color);background:rgba(139,92,246,0.15);padding:0.3rem 0.8rem;border-radius:20px}.phase-goal{color:var(--text-secondary);margin-bottom:1.5rem;font-size:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}.phase-tasks h4{font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:1rem}.task-list{display:grid;gap:0.75rem}.task{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem;background:var(--bg-dark);border-radius:8px}.task-check{width:20px;height:20px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px}.task-text{font-size:0.95rem;color:var(--text-secondary)}.task-text strong{color:var(--text-primary)}.phase-outcome{margin-top:1.5rem;padding:1rem;background:rgba(20,184,166,0.1);border:1px solid rgba(20,184,166,0.2);border-radius:8px}.phase-outcome-label{font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent-teal);margin-bottom:0.5rem}.phase-outcome-text{color:var(--text-primary);font-weight:500}.cta-section{text-align:center;padding:4rem 0}.cta-box{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:24px;padding:4rem 3rem}.cta-title{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;margin-bottom:1rem}.cta-description{color:var(--text-secondary);font-size:1.1rem;max-width:500px;margin:0 auto 2rem}.cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}.btn-primary{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;padding:1rem 2rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.3s}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,184,166,0.3)}.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:1rem 2rem;border-radius:10px;text-decoration:none;font-weight:500;transition:all 0.2s}.btn-secondary:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.other-types{padding:4rem 0;border-top:1px solid var(--border)}.types-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}.type-link{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1rem;text-decoration:none;text-align:center;transition:all 0.2s}.type-link:hover{border-color:var(--accent-teal);transform:translateY(-2px)}.type-link-code{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:600;margin-bottom:0.25rem}.type-link-name{font-size:0.8rem;color:var(--text-muted)}footer{border-top:1px solid var(--border);padding:2rem 0;text-align:center}footer a{color:var(--accent-teal);text-decoration:none}footer p{color:var(--text-muted);font-size:0.9rem}@media(max-width:768px){.quick-stats{grid-template-columns:repeat(2,1fr)}.profile-grid,.artifact-grid{grid-template-columns:1fr}.types-grid{grid-template-columns:repeat(2,1fr)}.roadmap::before{left:20px}.phase-marker{width:42px;height:42px;font-size:1rem}.roadmap-phase{padding-left:3.5rem}}
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <nav>
+        <a href="../index.html" class="logo">AI-Q</a>
+        <div class="nav-links">
+            <a href="../index.html#types">All 16 Types</a>
+            <a href="../quiz.html" class="btn-nav">Take the Assessment</a>
+        </div>
+    </nav>
+    <main class="container">
+        <section class="hero">
+            <div class="hero-badge">SPTE • Scattered / Proactive / Tech-driven / Experimental</div>
+            <div class="hero-illustration">
+                <img src="SPTE.svg" alt="Over-Engineer illustration">
+            </div>
+            <h1><span class="type-code">SPTE</span>: The Over-Engineer</h1>
+            <p class="tagline">"The platform will be ready in 18 months."</p>
+            <p class="hero-description">
+                You're building the AI infrastructure to end all AI infrastructure. The architecture diagrams are beautiful. The technical specifications are pristine. There's just one problem: nobody's using any of it yet. You've got proactive planning but it's disconnected from business needs, and the tech teams are building capabilities that may never see daylight.
+            </p>
+        </section>
+        <section class="quick-stats">
+            <div class="stat-card"><div class="stat-value">S</div><div class="stat-label">Scattered Tools</div></div>
+            <div class="stat-card"><div class="stat-value">P</div><div class="stat-label">Proactive Planning</div></div>
+            <div class="stat-card"><div class="stat-value">T</div><div class="stat-label">Tech-driven</div></div>
+            <div class="stat-card"><div class="stat-value">E</div><div class="stat-label">Experimental</div></div>
+        </section>
+        <section class="profile-grid">
+            <div class="profile-box strengths">
+                <h3>✓ Your Strengths</h3>
+                <ul>
+                    <li>Strong technical talent and capabilities</li>
+                    <li>Forward-thinking architecture and planning</li>
+                    <li>Understanding of AI technology landscape</li>
+                    <li>Investment in building vs. just buying</li>
+                    <li>Solid foundation being laid (even if premature)</li>
+                </ul>
+            </div>
+            <div class="profile-box blindspots">
+                <h3>✗ Your Blind Spots</h3>
+                <ul>
+                    <li>Building capabilities nobody asked for</li>
+                    <li>Disconnected from actual business problems</li>
+                    <li>Perfectionism delaying any real value delivery</li>
+                    <li>Technical complexity outpacing organizational readiness</li>
+                    <li>Risk of building a "platform to nowhere"</li>
+                </ul>
+            </div>
+        </section>
+        <section class="artifacts-section">
+            <div class="section-header">
+                <div class="section-label">Deliverables</div>
+                <h2 class="section-title">Artifacts You Need to Build</h2>
+            </div>
+            <p class="artifacts-intro">
+                As an Over-Engineer, your job is to connect your technical capabilities to business value. These artifacts help you ship real products while preserving your architectural vision.
+            </p>
+            <div class="artifact-grid">
+                <div class="artifact-card">
+                    <div class="artifact-icon">🎯</div>
+                    <div class="artifact-name">Business Problem Registry</div>
+                    <div class="artifact-desc">A list of actual business problems that need solving, ranked by urgency and impact — not technical elegance.</div>
+                    <div class="artifact-example">
+                        <div class="artifact-example-label">Example Entry</div>
+                        Problem: Customer support overwhelmed<br>
+                        Pain: 3-day response time, low NPS<br>
+                        Business Impact: $500K/yr in churn<br>
+                        Urgency: High (exec visibility)<br>
+                        Technical complexity: Medium
+                    </div>
+                </div>
+                <div class="artifact-card">
+                    <div class="artifact-icon">🚀</div>
+                    <div class="artifact-name">MVP Specifications</div>
+                    <div class="artifact-desc">Stripped-down versions of your grand plans that can ship in 4-6 weeks and prove value.</div>
+                    <div class="artifact-example">
+                        <div class="artifact-example-label">Example Comparison</div>
+                        Full Vision: Universal AI platform<br>
+                        MVP: Email classifier for support<br>
+                        Scope cut: 90% features removed<br>
+                        Time to value: 4 weeks vs 18 months<br>
+                        Success metric: Reduce response time 50%
+                    </div>
+                </div>
+                <div class="artifact-card">
+                    <div class="artifact-icon">📊</div>
+                    <div class="artifact-name">Value Delivery Timeline</div>
+                    <div class="artifact-desc">A roadmap that delivers incremental business value monthly, not a single big bang after years of building.</div>
+                    <div class="artifact-example">
+                        <div class="artifact-example-label">Example Timeline</div>
+                        Month 1: Email triage (save 20hrs/wk)<br>
+                        Month 2: Auto-responses (save 40hrs/wk)<br>
+                        Month 3: Sentiment routing (faster escalation)<br>
+                        Month 6: Full agent assist<br>
+                        Each milestone = measurable win
+                    </div>
+                </div>
+                <div class="artifact-card">
+                    <div class="artifact-icon">🤝</div>
+                    <div class="artifact-name">Business Partner Alignment Doc</div>
+                    <div class="artifact-desc">Agreement with a specific business unit to be your first customer and co-develop solutions with you.</div>
+                    <div class="artifact-example">
+                        <div class="artifact-example-label">Example Agreement</div>
+                        Partner: Customer Support team<br>
+                        Their commitment: 2 hrs/wk feedback<br>
+                        Our commitment: Usable tool in 6 wks<br>
+                        Success criteria: They define it<br>
+                        Escalation: Joint exec sponsor
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="roadmap-section">
+            <div class="section-header">
+                <div class="section-label">Your Path Forward</div>
+                <h2 class="section-title">90-Day Roadmap: Architecture to Adoption</h2>
+            </div>
+            <p class="roadmap-intro">
+                Your goal is to prove value before your perfect platform is ready. Ship something ugly that works. Then iterate.
+            </p>
+            <div class="roadmap">
+                <div class="roadmap-phase">
+                    <div class="phase-marker">1</div>
+                    <div class="phase-content">
+                        <div class="phase-header">
+                            <h3 class="phase-title">Business Problem Discovery</h3>
+                            <span class="phase-duration">Days 1-30</span>
+                        </div>
+                        <p class="phase-goal">Get out of the tech bubble and find out what problems actually need solving urgently.</p>
+                        <div class="phase-tasks">
+                            <h4>Key Tasks</h4>
+                            <div class="task-list">
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 1:</strong> Interview 5 business leaders. Ask: "What's costing you the most time or money right now?"</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 2:</strong> Shadow frontline workers in 2 departments. See their actual pain points firsthand.</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 3:</strong> Map business problems to your existing technical capabilities. What can you actually solve NOW?</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 4:</strong> Select ONE problem with urgent business need + technical feasibility. Get business sponsor sign-off.</div></div>
+                            </div>
+                        </div>
+                        <div class="phase-outcome">
+                            <div class="phase-outcome-label">✓ Milestone</div>
+                            <div class="phase-outcome-text">Business Problem Registry created. One problem selected with committed business partner.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">2</div>
+                    <div class="phase-content">
+                        <div class="phase-header">
+                            <h3 class="phase-title">Ugly MVP Delivery</h3>
+                            <span class="phase-duration">Days 31-60</span>
+                        </div>
+                        <p class="phase-goal">Ship something that works in 4 weeks. It doesn't need to be pretty or scalable. It needs to prove value.</p>
+                        <div class="phase-tasks">
+                            <h4>Key Tasks</h4>
+                            <div class="task-list">
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 5:</strong> Define MVP scope ruthlessly. What's the smallest thing that solves the problem?</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 6:</strong> Build MVP using shortcuts and off-the-shelf components. Resist urge to build "right."</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 7:</strong> Deploy MVP to business partner. Get real users on it immediately.</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 8:</strong> Collect feedback daily. Iterate rapidly. Measure impact on the business problem.</div></div>
+                            </div>
+                        </div>
+                        <div class="phase-outcome">
+                            <div class="phase-outcome-label">✓ Milestone</div>
+                            <div class="phase-outcome-text">Working MVP in production with real users. Measurable impact on business problem documented.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">3</div>
+                    <div class="phase-content">
+                        <div class="phase-header">
+                            <h3 class="phase-title">Scale What Works</h3>
+                            <span class="phase-duration">Days 61-90</span>
+                        </div>
+                        <p class="phase-goal">Now that you've proven value, you can earn the right to build more of your grand vision.</p>
+                        <div class="phase-tasks">
+                            <h4>Key Tasks</h4>
+                            <div class="task-list">
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 9:</strong> Document MVP success with hard numbers. Build internal case study.</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 10:</strong> Identify next business problem using same model. Repeat the partner approach.</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 11:</strong> Create Value Delivery Timeline showing monthly business impact, not technical milestones.</div></div>
+                                <div class="task"><div class="task-check"></div><div class="task-text"><strong>Week 12:</strong> Present to leadership: "Here's what we delivered, here's what we can do next." Secure expanded mandate.</div></div>
+                            </div>
+                        </div>
+                        <div class="phase-outcome">
+                            <div class="phase-outcome-label">✓ Milestone</div>
+                            <div class="phase-outcome-text">Proven delivery model. Business credibility established. Organization moving from SPTE toward SPTI (Rogue Lab with Integration).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="cta-section">
+            <div class="cta-box">
+                <h2 class="cta-title">Ready to Ship Something Real?</h2>
+                <p class="cta-description">The AI Strategy Sprint helps you identify the right first problem and deliver your MVP in 2 weeks.</p>
+                <div class="cta-buttons">
+                    <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-primary">Book a Discovery Call →</a>
+                    <a href="../quiz.html" class="btn-secondary">Retake the Assessment</a>
+                </div>
+            </div>
+        </section>
+        <section class="other-types">
+            <div class="section-header">
+                <div class="section-label">Explore</div>
+                <h2 class="section-title">Other AI-Q Types</h2>
+            </div>
+            <div class="types-grid">
+                <a href="srte.html" class="type-link"><div class="type-link-code" style="color:#EF4444">SRTE</div><div class="type-link-name">Chaos Pilot</div></a>
+                <a href="srtb.html" class="type-link"><div class="type-link-code" style="color:#F97316">SRTB</div><div class="type-link-name">Wishful Thinker</div></a>
+                <a href="sptb.html" class="type-link"><div class="type-link-code" style="color:#EC4899">SPTB</div><div class="type-link-name">Ambitious Starter</div></a>
+                <a href="srti.html" class="type-link"><div class="type-link-code" style="color:#14B8A6">SRTI</div><div class="type-link-name">Accidental Success</div></a>
+                <a href="srbi.html" class="type-link"><div class="type-link-code" style="color:#3B82F6">SRBI</div><div class="type-link-name">Shadow IT Hero</div></a>
+                <a href="spti.html" class="type-link"><div class="type-link-code" style="color:#6366F1">SPTI</div><div class="type-link-name">Rogue Lab</div></a>
+                <a href="spbi.html" class="type-link"><div class="type-link-code" style="color:#22C55E">SPBI</div><div class="type-link-name">Grassroots Movement</div></a>
+                <a href="crte.html" class="type-link"><div class="type-link-code" style="color:#64748B">CRTE</div><div class="type-link-name">Controlled Experiment</div></a>
+                <a href="crtb.html" class="type-link"><div class="type-link-code" style="color:#94A3B8">CRTB</div><div class="type-link-name">Waiting Game</div></a>
+                <a href="cpte.html" class="type-link"><div class="type-link-code" style="color:#A855F7">CPTE</div><div class="type-link-name">Tech Utopia</div></a>
+                <a href="cptb.html" class="type-link"><div class="type-link-code" style="color:#F59E0B">CPTB</div><div class="type-link-name">Strategy Doc</div></a>
+                <a href="crti.html" class="type-link"><div class="type-link-code" style="color:#06B6D4">CRTI</div><div class="type-link-name">Efficient Machine</div></a>
+                <a href="crbi.html" class="type-link"><div class="type-link-code" style="color:#0EA5E9">CRBI</div><div class="type-link-name">Service Desk</div></a>
+                <a href="cpti.html" class="type-link"><div class="type-link-code" style="color:#10B981">CPTI</div><div class="type-link-name">Almost There</div></a>
+                <a href="cpbi.html" class="type-link"><div class="type-link-code" style="color:#14B8A6">CPBI</div><div class="type-link-name">Strategic Leader</div></a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>AI-Q by <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a> • <a href="../index.html">ai-q.fit</a></p>
+        </div>
+    </footer>
+</body>
+</html>
