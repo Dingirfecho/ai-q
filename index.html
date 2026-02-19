@@ -97,6 +97,9 @@
         .modal-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.25rem}
         .modal-path h4{color:var(--accent-teal);margin-bottom:0.5rem}
         .modal-path p{color:var(--text-primary)}
+        .modal-cta{text-align:center;padding-top:1rem}
+        .btn-type-page{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));color:white;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;text-decoration:none;transition:all 0.3s ease;border:none}
+        .btn-type-page:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,0.3)}
         .cta-section{text-align:center;padding:8rem 0;position:relative}
         .cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(20,184,166,0.1),transparent 70%);pointer-events:none}
         .cta-content{position:relative;z-index:1}
@@ -247,6 +250,7 @@
                 <div class="modal-section"><h4 data-en="Blind Spots" data-es="Puntos Ciegos">Blind Spots</h4><ul class="modal-list blindspots" id="modal-blindspots"></ul></div>
                 <div class="modal-section"><h4 data-en="Typical Symptoms" data-es="Síntomas Típicos">Typical Symptoms</h4><ul class="modal-list symptoms" id="modal-symptoms"></ul></div>
                 <div class="modal-section"><div class="modal-path"><h4 data-en="→ Path Forward" data-es="→ Camino a Seguir">→ Path Forward</h4><p id="modal-path"></p></div></div>
+                <div class="modal-section modal-cta"><a href="#" id="modal-type-link" class="btn-type-page" target="_blank"><span data-en="📖 See Full Guide" data-es="📖 Ver Guía Completa">📖 See Full Guide</span> →</a></div>
             </div>
         </div>
     </div>
@@ -311,6 +315,8 @@ function openModal(type){
     document.getElementById('modal-blindspots').innerHTML=type.blindspots[currentLang].map(b=>`<li>${b}</li>`).join('');
     document.getElementById('modal-symptoms').innerHTML=type.symptoms[currentLang].map(s=>`<li>${s}</li>`).join('');
     document.getElementById('modal-path').textContent=type.path[currentLang];
+    var suffix = currentLang === 'es' ? '-es' : '';
+    document.getElementById('modal-type-link').href = 'types/' + type.code.toLowerCase() + suffix + '.html';
     document.getElementById('modal-overlay').classList.add('active');
     document.body.style.overflow='hidden';
 }
