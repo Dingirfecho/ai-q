@@ -102,6 +102,8 @@
         .cta-content{position:relative;z-index:1}
         .cta-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:1rem}
         .cta-description{color:var(--text-secondary);font-size:1.2rem;max-width:500px;margin:0 auto 2rem}
+        .cta-buttons{display:flex;flex-direction:column;align-items:center;gap:1rem}
+        .cta-buttons .btn-secondary{font-size:0.95rem}
         footer{border-top:1px solid var(--border);padding:3rem 0}
         .footer-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
         .footer-logo{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text-primary)}
@@ -208,7 +210,10 @@
             <div class="cta-content">
                 <h2 class="cta-title" data-en="Ready to discover your type?" data-es="¿Listo para descubrir tu tipo?">Ready to discover your type?</h2>
                 <p class="cta-description" data-en="20 questions. 5 minutes. Complete clarity on where you stand and what to do next." data-es="20 preguntas. 5 minutos. Claridad completa sobre dónde estás y qué hacer después.">20 questions. 5 minutes. Complete clarity on where you stand and what to do next.</p>
-                <a href="quiz.html" class="btn-primary" style="font-size:1.1rem;padding:1rem 2.5rem;" data-en="Start the Assessment →" data-es="Comenzar la Evaluación →">Start the Assessment →</a>
+                <div class="cta-buttons">
+                    <a href="quiz.html" class="btn-primary" style="font-size:1.1rem;padding:1rem 2.5rem;" data-en="Start the Assessment →" data-es="Comenzar la Evaluación →">Start the Assessment →</a>
+                    <a href="AI-Q-Types-Guide.pdf" id="downloadGuide" class="btn-secondary" download data-en="📄 Download the Complete Guide (PDF)" data-es="📄 Descargar la Guía Completa (PDF)">📄 Download the Complete Guide (PDF)</a>
+                </div>
             </div>
         </div>
     </section>
@@ -317,11 +322,33 @@ function closeModal(){
 
 function toggleLang(){
     currentLang=currentLang==='en'?'es':'en';
+    localStorage.setItem('aiq-lang', currentLang);
     document.querySelector('.lang-switch').textContent=currentLang==='en'?'ES 🇪🇸':'EN 🇺🇸';
     document.querySelectorAll('[data-en]').forEach(el=>{
         el.textContent=el.getAttribute(`data-${currentLang}`);
     });
+    updateDownloadLink();
     renderTypes(document.querySelector('.filter-btn.active').dataset.filter);
+}
+
+function updateDownloadLink(){
+    const link = document.getElementById('downloadGuide');
+    if(link){
+        link.href = currentLang==='en' ? 'AI-Q-Types-Guide.pdf' : 'AI-Q-Guia-de-Tipos-ES.pdf';
+    }
+}
+
+function initLang(){
+    const saved = localStorage.getItem('aiq-lang');
+    if(saved && saved !== currentLang){
+        currentLang = saved;
+        document.querySelector('.lang-switch').textContent=currentLang==='en'?'ES 🇪🇸':'EN 🇺🇸';
+        document.querySelectorAll('[data-en]').forEach(el=>{
+            el.textContent=el.getAttribute(`data-${currentLang}`);
+        });
+        updateDownloadLink();
+        renderTypes('all');
+    }
 }
 
 document.querySelectorAll('.filter-btn').forEach(btn=>{
@@ -335,6 +362,7 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
 document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('modal-overlay'))closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
+initLang();
 renderTypes();
 </script>
 </body>

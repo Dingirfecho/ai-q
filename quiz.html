@@ -197,9 +197,24 @@ function updateUI(){
     document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
 }
 
-function toggleLang(){lang=lang==='en'?'es':'en';updateUI();if(document.getElementById('questionScreen').classList.contains('active'))render();}
+function toggleLang(){
+    lang=lang==='en'?'es':'en';
+    localStorage.setItem('aiq-lang', lang);
+    document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
+    updateUI();
+    if(document.getElementById('questionScreen').classList.contains('active'))render();
+}
 function validate(){document.getElementById('btnStart').disabled=!document.getElementById('userName').value.trim();}
-document.addEventListener('DOMContentLoaded',function(){document.getElementById('userName').addEventListener('input',validate);updateUI();});
+document.addEventListener('DOMContentLoaded',function(){
+    // Check localStorage for saved language
+    var savedLang = localStorage.getItem('aiq-lang');
+    if(savedLang && savedLang !== lang){
+        lang = savedLang;
+        document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
+    }
+    document.getElementById('userName').addEventListener('input',validate);
+    updateUI();
+});
 
 function startQuiz(){
     usr={name:document.getElementById('userName').value.trim(),email:document.getElementById('userEmail').value.trim(),company:document.getElementById('companyName').value.trim(),industry:document.getElementById('industry').value,size:document.getElementById('companySize').value};
