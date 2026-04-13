@@ -1,179 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Q Assessment</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <style>
-        :root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B}
-        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;min-height:100vh}.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(20,184,166,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}header{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}.header-right{display:flex;align-items:center;gap:1rem}.lang-switch{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}.lang-switch:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.header-progress{display:flex;align-items:center;gap:1rem}.progress-text{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted)}.progress-bar-container{width:200px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent-teal),var(--accent-blue));width:0%;transition:width 0.3s ease}.container{max-width:800px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;z-index:1}.screen{display:none;animation:fadeIn 0.4s ease}.screen.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.intro-screen{text-align:center;padding:2rem 0}.intro-screen h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:800;margin-bottom:1.5rem;line-height:1.1}.intro-screen h1 .gradient{background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.intro-screen>p{font-size:1.2rem;color:var(--text-secondary);max-width:500px;margin:0 auto 2rem}.intro-stats{display:flex;justify-content:center;gap:3rem;margin-bottom:2.5rem}.intro-stat{text-align:center}.intro-stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent-teal)}.intro-stat-label{font-size:0.9rem;color:var(--text-muted)}.wiifm-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}.wiifm-section h3{font-size:1.2rem;color:var(--accent-teal);margin-bottom:1.5rem;text-align:center}.wiifm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}.wiifm-item{display:flex;gap:1rem;align-items:flex-start}.wiifm-icon{font-size:1.5rem;flex-shrink:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--accent-teal-dim);border-radius:10px}.wiifm-content h4{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:0.25rem}.wiifm-content p{font-size:0.85rem;color:var(--text-muted);line-height:1.5}@media(max-width:600px){.wiifm-grid{grid-template-columns:1fr}}.preview-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2.5rem;text-align:left}.preview-section h3{font-size:1.1rem;color:var(--accent-teal);margin-bottom:1.25rem;text-align:center}.preview-types{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.preview-type{background:var(--bg-dark);border-radius:10px;padding:1rem}.preview-type-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem}.preview-type-code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}.preview-type-name{font-weight:600;font-size:0.95rem}.preview-type-desc{font-size:0.85rem;color:var(--text-muted)}.preview-sample{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.preview-sample h4{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;text-align:center}.sample-result{display:flex;gap:1rem;align-items:center}.sample-bars{flex:1}.sample-bar{margin-bottom:0.5rem}.sample-bar-label{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem}.sample-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}.sample-bar-fill{height:100%;border-radius:3px}.sample-insights{flex:1;font-size:0.85rem;color:var(--text-secondary)}.sample-insights li{margin-bottom:0.35rem;list-style:none;padding-left:1.25rem;position:relative}.sample-insights li::before{content:'→';position:absolute;left:0;color:var(--accent-teal)}.registration-form{max-width:480px;margin:0 auto 2rem;text-align:left}.form-group{margin-bottom:1rem}.form-label{display:block;font-size:0.9rem;font-weight:500;color:var(--text-secondary);margin-bottom:0.4rem}.form-label .required{color:var(--accent-red)}.form-label .optional{color:var(--text-muted);font-weight:400;font-size:0.8rem}.form-input,.form-select{width:100%;padding:0.8rem 1rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:var(--text-primary);transition:all 0.2s ease}.form-input:focus,.form-select:focus{outline:none;border-color:var(--accent-teal);background:var(--bg-card-hover)}.form-input::placeholder{color:var(--text-muted)}.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer;appearance:none}.form-select option{background:var(--bg-dark);color:var(--text-primary)}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}@media(max-width:500px){.form-row,.preview-types{grid-template-columns:1fr}.sample-result{flex-direction:column}}.form-note{text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem}.btn-start{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1.25rem 3rem;font-size:1.2rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:0.75rem;width:100%;max-width:320px;justify-content:center}.btn-start:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(20,184,166,0.3)}.btn-start:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}.intro-note{margin-top:1.5rem;font-size:0.85rem;color:var(--text-muted)}.question-screen{padding:2rem 0}.question-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.question-dimension{font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.4rem 0.8rem;border-radius:6px;background:var(--accent-teal-dim);color:var(--accent-teal)}.question-number{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--text-muted)}.question-text{font-size:clamp(1.5rem,4vw,2rem);font-weight:600;margin-bottom:3rem;line-height:1.4}.answer-options{display:flex;flex-direction:column;gap:0.85rem}.answer-option{background:var(--bg-card);border:2px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:1rem}.answer-option:hover{border-color:var(--accent-teal);background:var(--bg-card-hover)}.answer-option.selected{border-color:var(--accent-teal);background:var(--accent-teal-dim)}.answer-radio{width:22px;height:22px;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s ease}.answer-option:hover .answer-radio{border-color:var(--accent-teal)}.answer-option.selected .answer-radio{border-color:var(--accent-teal);background:var(--accent-teal)}.answer-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--bg-dark);opacity:0;transition:opacity 0.2s ease}.answer-option.selected .answer-radio::after{opacity:1}.answer-label{font-size:1rem;color:var(--text-secondary)}.answer-option.selected .answer-label{color:var(--text-primary)}.question-nav{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.btn-nav{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.5rem}.btn-nav:hover:not(:disabled){border-color:var(--accent-teal);color:var(--accent-teal)}.btn-nav:disabled{opacity:0.3;cursor:not-allowed}.btn-nav.primary{background:var(--accent-teal);border-color:var(--accent-teal);color:var(--bg-dark)}.btn-nav.primary:hover:not(:disabled){background:#0D9488;color:white}.results-screen{padding:2rem 0;text-align:center}.results-header{display:flex;align-items:center;justify-content:center;gap:2rem;margin-bottom:2.5rem;flex-wrap:wrap}.results-illustration{width:150px;height:150px;border-radius:20px;overflow:hidden;flex-shrink:0;box-shadow:0 10px 40px rgba(0,0,0,0.3)}.results-illustration img{width:100%;height:100%;object-fit:cover}.results-type-info{text-align:left}.results-type-code{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:700;letter-spacing:6px;margin-bottom:0.25rem}.results-type-name{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;margin-bottom:0.25rem}.results-type-tagline{font-size:1.1rem;color:var(--text-muted);font-style:italic}@media(max-width:600px){.results-header{flex-direction:column;text-align:center}.results-type-info{text-align:center}.results-illustration{width:120px;height:120px}.results-type-code{font-size:2.5rem;letter-spacing:4px}.results-type-name{font-size:1.5rem}}.dimension-scores{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem;text-align:left}.dimension-score{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.dimension-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}.dimension-score-name{font-weight:600;font-size:0.95rem}.dimension-score-result{font-family:'JetBrains Mono',monospace;font-size:0.85rem;padding:0.25rem 0.6rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}.dimension-score-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:0.75rem}.dimension-score-fill{height:100%;border-radius:4px;transition:width 1s ease}.dimension-score-labels{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted)}.results-profile{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}.results-profile h3{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:1rem}.results-profile p{color:var(--text-secondary);line-height:1.7;font-size:1.05rem}.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;text-align:left}.results-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.results-box h3{font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}.results-box.strengths h3{color:var(--accent-green)}.results-box.blindspots h3{color:var(--accent-red)}.results-box ul{list-style:none}.results-box li{padding:0.5rem 0;padding-left:1.25rem;position:relative;color:var(--text-secondary);font-size:0.95rem}.results-box li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}.results-box.strengths li::before{background:var(--accent-green)}.results-box.blindspots li::before{background:var(--accent-red)}.results-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.5rem 2rem;margin-bottom:2rem;text-align:left}.results-path h3{color:var(--accent-teal);font-size:1rem;margin-bottom:0.75rem}.results-path p{color:var(--text-primary);font-size:1.05rem;line-height:1.6}.email-report{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:2rem;text-align:center}.email-report h4{font-size:1rem;margin-bottom:0.75rem}.email-report p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}.email-form{display:flex;gap:0.75rem;max-width:400px;margin:0 auto}.email-form input{flex:1;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-dark);color:var(--text-primary);font-family:'Space Grotesk',sans-serif}.email-form input:focus{outline:none;border-color:var(--accent-teal)}.email-form button{padding:0.75rem 1.25rem;background:var(--accent-teal);border:none;border-radius:8px;color:white;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif}.email-form button:hover{background:#0D9488}.email-form button:disabled{opacity:0.5}.email-sent{color:var(--accent-green);font-size:0.9rem;margin-top:0.75rem;display:none}.results-cta{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem}.results-cta h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}.results-cta p{color:var(--text-secondary);margin-bottom:1.5rem}.btn-cta{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:10px;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-block}.btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,184,166,0.3)}.results-share{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}.btn-share{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;text-decoration:none;display:inline-block}.btn-share:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.btn-share.primary{background:var(--accent-teal);color:white;border-color:var(--accent-teal)}.btn-share.primary:hover{background:#0D9488}.share-card-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:center}.share-card-section h4{font-size:1.1rem;margin-bottom:0.5rem}.share-card-section>p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1.5rem}.share-card-preview{background:var(--bg-dark);border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;justify-content:center}.share-card-preview img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.4)}.share-card-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}.linkedin-post-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:center}.linkedin-post-section h4{font-size:1.1rem;margin-bottom:0.5rem}.linkedin-post-section>p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}.share-steps{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}.share-step{display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--text-secondary)}.step-num{width:24px;height:24px;background:var(--accent-teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;flex-shrink:0}.post-templates{text-align:left}.post-template-tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}.post-tab{background:var(--bg-dark);border:1px solid var(--border);color:var(--text-secondary);padding:0.5rem 1rem;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;border-radius:6px;cursor:pointer;transition:all 0.2s}.post-tab:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.post-tab.active{background:var(--accent-teal);border-color:var(--accent-teal);color:white}.post-preview{background:var(--bg-dark);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;white-space:pre-wrap;font-size:0.95rem;line-height:1.6;color:var(--text-primary);max-height:300px;overflow-y:auto}.post-actions{display:flex;align-items:center;gap:1rem;justify-content:center}.copy-confirm{color:var(--accent-green);font-size:0.9rem;opacity:0;transition:opacity 0.3s}.copy-confirm.show{opacity:1}.type-page-link{text-align:center;margin-bottom:2rem}.btn-type-page{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));color:white;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;text-decoration:none;transition:all 0.3s ease;border:none}.btn-type-page:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,0.3)}@media(max-width:768px){.container{padding:5rem 1.25rem 3rem}header{padding:1rem}.progress-bar-container{width:100px}.intro-stats{gap:1.5rem}.intro-stat-number{font-size:2rem}.dimension-scores,.results-grid{grid-template-columns:1fr}.results-type-code{font-size:3rem;letter-spacing:4px}.results-type-name{font-size:1.75rem}.email-form{flex-direction:column}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Q Assessment</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<style>
+:root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6;min-height:100vh}.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(20,184,166,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}header{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}.header-right{display:flex;align-items:center;gap:1rem}.lang-switch{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}.lang-switch:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.header-progress{display:flex;align-items:center;gap:1rem}.progress-text{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted)}.progress-bar-container{width:200px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent-teal),var(--accent-blue));width:0%;transition:width 0.3s ease}.container{max-width:800px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;z-index:1}.screen{display:none;animation:fadeIn 0.4s ease}.screen.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.intro-screen{text-align:center;padding:2rem 0}.intro-screen h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:800;margin-bottom:1.5rem;line-height:1.1}.intro-screen h1 .gradient{background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.intro-screen>p{font-size:1.2rem;color:var(--text-secondary);max-width:500px;margin:0 auto 2rem}.intro-stats{display:flex;justify-content:center;gap:3rem;margin-bottom:2.5rem}.intro-stat{text-align:center}.intro-stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--accent-teal)}.intro-stat-label{font-size:0.9rem;color:var(--text-muted)}.wiifm-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}.wiifm-section h3{font-size:1.2rem;color:var(--accent-teal);margin-bottom:1.5rem;text-align:center}.wiifm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}.wiifm-item{display:flex;gap:1rem;align-items:flex-start}.wiifm-icon{font-size:1.5rem;flex-shrink:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--accent-teal-dim);border-radius:10px}.wiifm-content h4{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:0.25rem}.wiifm-content p{font-size:0.85rem;color:var(--text-muted);line-height:1.5}@media(max-width:600px){.wiifm-grid{grid-template-columns:1fr}}.preview-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2.5rem;text-align:left}.preview-section h3{font-size:1.1rem;color:var(--accent-teal);margin-bottom:1.25rem;text-align:center}.preview-types{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.preview-type{background:var(--bg-dark);border-radius:10px;padding:1rem}.preview-type-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem}.preview-type-code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}.preview-type-name{font-weight:600;font-size:0.95rem}.preview-type-desc{font-size:0.85rem;color:var(--text-muted)}.preview-sample{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.preview-sample h4{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;text-align:center}.sample-result{display:flex;gap:1rem;align-items:center}.sample-bars{flex:1}.sample-bar{margin-bottom:0.5rem}.sample-bar-label{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem}.sample-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}.sample-bar-fill{height:100%;border-radius:3px}.sample-insights{flex:1;font-size:0.85rem;color:var(--text-secondary)}.sample-insights li{margin-bottom:0.35rem;list-style:none;padding-left:1.25rem;position:relative}.sample-insights li::before{content:'→';position:absolute;left:0;color:var(--accent-teal)}.registration-form{max-width:480px;margin:0 auto 2rem;text-align:left}.form-group{margin-bottom:1rem}.form-label{display:block;font-size:0.9rem;font-weight:500;color:var(--text-secondary);margin-bottom:0.4rem}.form-label .required{color:var(--accent-red)}.form-label .optional{color:var(--text-muted);font-weight:400;font-size:0.8rem}.form-input,.form-select{width:100%;padding:0.8rem 1rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;background:var(--bg-card);border:2px solid var(--border);border-radius:10px;color:var(--text-primary);transition:all 0.2s ease}.form-input:focus,.form-select:focus{outline:none;border-color:var(--accent-teal);background:var(--bg-card-hover)}.form-input::placeholder{color:var(--text-muted)}.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer;appearance:none}.form-select option{background:var(--bg-dark);color:var(--text-primary)}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}@media(max-width:500px){.form-row,.preview-types{grid-template-columns:1fr}.sample-result{flex-direction:column}}.form-note{text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem}.btn-start{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1.25rem 3rem;font-size:1.2rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:0.75rem;width:100%;max-width:320px;justify-content:center}.btn-start:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(20,184,166,0.3)}.btn-start:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}.intro-note{margin-top:1.5rem;font-size:0.85rem;color:var(--text-muted)}.question-screen{padding:2rem 0}.question-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.question-dimension{font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:0.4rem 0.8rem;border-radius:6px;background:var(--accent-teal-dim);color:var(--accent-teal)}.question-number{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--text-muted)}.question-text{font-size:clamp(1.5rem,4vw,2rem);font-weight:600;margin-bottom:3rem;line-height:1.4}.answer-options{display:flex;flex-direction:column;gap:0.85rem}.answer-option{background:var(--bg-card);border:2px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:1rem}.answer-option:hover{border-color:var(--accent-teal);background:var(--bg-card-hover)}.answer-option.selected{border-color:var(--accent-teal);background:var(--accent-teal-dim)}.answer-radio{width:22px;height:22px;border:2px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s ease}.answer-option:hover .answer-radio{border-color:var(--accent-teal)}.answer-option.selected .answer-radio{border-color:var(--accent-teal);background:var(--accent-teal)}.answer-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--bg-dark);opacity:0;transition:opacity 0.2s ease}.answer-option.selected .answer-radio::after{opacity:1}.answer-label{font-size:1rem;color:var(--text-secondary)}.answer-option.selected .answer-label{color:var(--text-primary)}.question-nav{display:flex;justify-content:space-between;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.btn-nav{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:1rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:0.5rem}.btn-nav:hover:not(:disabled){border-color:var(--accent-teal);color:var(--accent-teal)}.btn-nav:disabled{opacity:0.3;cursor:not-allowed}.btn-nav.primary{background:var(--accent-teal);border-color:var(--accent-teal);color:var(--bg-dark)}.btn-nav.primary:hover:not(:disabled){background:#0D9488;color:white}.results-screen{padding:2rem 0;text-align:center}.results-header{display:flex;align-items:center;justify-content:center;gap:2rem;margin-bottom:2.5rem;flex-wrap:wrap}.results-illustration{width:150px;height:150px;border-radius:20px;overflow:hidden;flex-shrink:0;box-shadow:0 10px 40px rgba(0,0,0,0.3)}.results-illustration img{width:100%;height:100%;object-fit:cover}.results-type-info{text-align:left}.results-type-code{font-family:'JetBrains Mono',monospace;font-size:3.5rem;font-weight:700;letter-spacing:6px;margin-bottom:0.25rem}.results-type-name{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;margin-bottom:0.25rem}.results-type-tagline{font-size:1.1rem;color:var(--text-muted);font-style:italic}@media(max-width:600px){.results-header{flex-direction:column;text-align:center}.results-type-info{text-align:center}.results-illustration{width:120px;height:120px}.results-type-code{font-size:2.5rem;letter-spacing:4px}.results-type-name{font-size:1.5rem}}.dimension-scores{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem;text-align:left}.dimension-score{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.dimension-score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}.dimension-score-name{font-weight:600;font-size:0.95rem}.dimension-score-result{font-family:'JetBrains Mono',monospace;font-size:0.85rem;padding:0.25rem 0.6rem;border-radius:4px;background:var(--accent-teal-dim);color:var(--accent-teal)}.dimension-score-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:0.75rem}.dimension-score-fill{height:100%;border-radius:4px;transition:width 1s ease}.dimension-score-labels{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted)}.results-profile{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:left}.results-profile h3{font-size:1rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:1rem}.results-profile p{color:var(--text-secondary);line-height:1.7;font-size:1.05rem}.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem;text-align:left}.results-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.results-box h3{font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}.results-box.strengths h3{color:var(--accent-green)}.results-box.blindspots h3{color:var(--accent-red)}.results-box ul{list-style:none}.results-box li{padding:0.5rem 0;padding-left:1.25rem;position:relative;color:var(--text-secondary);font-size:0.95rem}.results-box li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}.results-box.strengths li::before{background:var(--accent-green)}.results-box.blindspots li::before{background:var(--accent-red)}.results-path{background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);border-radius:12px;padding:1.5rem 2rem;margin-bottom:2rem;text-align:left}.results-path h3{color:var(--accent-teal);font-size:1rem;margin-bottom:0.75rem}.results-path p{color:var(--text-primary);font-size:1.05rem;line-height:1.6}
+/* Book Promo Section */
+.book-promo{background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid rgba(249,115,22,0.3);border-radius:16px;padding:2rem;margin-bottom:2rem;display:flex;gap:2rem;align-items:center}
+.book-promo-image{width:120px;flex-shrink:0}
+.book-promo-image img{width:100%;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+.book-promo-content{flex:1}
+.book-promo-content h4{font-family:'Syne',sans-serif;font-size:1.25rem;margin-bottom:0.5rem;color:var(--accent-orange)}
+.book-promo-content p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:1rem;line-height:1.6}
+.book-promo-btn{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent-orange),#ea580c);color:white;padding:0.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:all 0.3s ease}
+.book-promo-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(249,115,22,0.3)}
+@media(max-width:600px){.book-promo{flex-direction:column;text-align:center}.book-promo-image{width:100px}}
+.email-report{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:2rem;text-align:center}.email-report h4{font-size:1rem;margin-bottom:0.75rem}.email-report p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}.email-form{display:flex;gap:0.75rem;max-width:400px;margin:0 auto}.email-form input{flex:1;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-dark);color:var(--text-primary);font-family:'Space Grotesk',sans-serif}.email-form input:focus{outline:none;border-color:var(--accent-teal)}.email-form button{padding:0.75rem 1.25rem;background:var(--accent-teal);border:none;border-radius:8px;color:white;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif}.email-form button:hover{background:#0D9488}.email-form button:disabled{opacity:0.5}.email-sent{color:var(--accent-green);font-size:0.9rem;margin-top:0.75rem;display:none}.results-cta{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:2rem}.results-cta h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}.results-cta p{color:var(--text-secondary);margin-bottom:1.5rem}.btn-cta{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;border:none;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:10px;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-block}.btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(20,184,166,0.3)}.results-share{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}.btn-share{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.75rem 1.5rem;font-size:0.95rem;font-family:'Space Grotesk',sans-serif;font-weight:500;border-radius:8px;cursor:pointer;transition:all 0.2s ease;text-decoration:none;display:inline-block}.btn-share:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.btn-share.primary{background:var(--accent-teal);color:white;border-color:var(--accent-teal)}.btn-share.primary:hover{background:#0D9488}.share-card-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:center}.share-card-section h4{font-size:1.1rem;margin-bottom:0.5rem}.share-card-section>p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1.5rem}.share-card-preview{background:var(--bg-dark);border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;justify-content:center}.share-card-preview img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.4)}.share-card-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}.linkedin-post-section{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:2rem;text-align:center}.linkedin-post-section h4{font-size:1.1rem;margin-bottom:0.5rem}.linkedin-post-section>p{font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}.share-steps{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}.share-step{display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--text-secondary)}.step-num{width:24px;height:24px;background:var(--accent-teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;flex-shrink:0}.post-templates{text-align:left}.post-template-tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}.post-tab{background:var(--bg-dark);border:1px solid var(--border);color:var(--text-secondary);padding:0.5rem 1rem;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;border-radius:6px;cursor:pointer;transition:all 0.2s}.post-tab:hover{border-color:var(--accent-teal);color:var(--accent-teal)}.post-tab.active{background:var(--accent-teal);border-color:var(--accent-teal);color:white}.post-preview{background:var(--bg-dark);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;white-space:pre-wrap;font-size:0.95rem;line-height:1.6;color:var(--text-primary);max-height:300px;overflow-y:auto}.post-actions{display:flex;align-items:center;gap:1rem;justify-content:center}.copy-confirm{color:var(--accent-green);font-size:0.9rem;opacity:0;transition:opacity 0.3s}.copy-confirm.show{opacity:1}.type-page-link{text-align:center;margin-bottom:2rem}.btn-type-page{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));color:white;padding:1rem 2rem;font-size:1.1rem;font-weight:600;font-family:'Space Grotesk',sans-serif;border-radius:12px;text-decoration:none;transition:all 0.3s ease;border:none}.btn-type-page:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(99,102,241,0.3)}@media(max-width:768px){.container{padding:5rem 1.25rem 3rem}header{padding:1rem}.progress-bar-container{width:100px}.intro-stats{gap:1.5rem}.intro-stat-number{font-size:2rem}.dimension-scores,.results-grid{grid-template-columns:1fr}.results-type-code{font-size:3rem;letter-spacing:4px}.results-type-name{font-size:1.75rem}.email-form{flex-direction:column}}
+</style>
 </head>
 <body>
 <div class="bg-gradient"></div>
 <header>
-    <a href="index.html" class="logo">AI-Q</a>
-    <div class="header-right">
-        <button class="lang-switch" onclick="toggleLang()">ES</button>
-        <div class="header-progress" id="headerProgress" style="display:none">
-            <span class="progress-text"><span id="progressCount">0</span>/20</span>
-            <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
-        </div>
-    </div>
+<a href="index.html" class="logo">AI-Q</a>
+<div class="header-right">
+<button class="lang-switch" onclick="toggleLang()">EN</button>
+<div class="header-progress" id="headerProgress" style="display:none">
+<span class="progress-text"><span id="progressCount">0</span>/20</span>
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+</div>
 </header>
 <div class="container">
-    <div class="screen active" id="introScreen">
-        <div class="intro-screen">
-            <h1 id="titleMain">Discover Your<br><span class="gradient">AI-Q Type</span></h1>
-            <p id="subtitle">Like Myers-Briggs, but for your company's AI strategy.</p>
-            <div class="intro-stats">
-                <div class="intro-stat"><div class="intro-stat-number">20</div><div class="intro-stat-label" id="lblQuestions">Questions</div></div>
-                <div class="intro-stat"><div class="intro-stat-number">5</div><div class="intro-stat-label" id="lblMinutes">Minutes</div></div>
-                <div class="intro-stat"><div class="intro-stat-number">16</div><div class="intro-stat-label" id="lblTypes">Types</div></div>
-            </div>
-            <div class="wiifm-section">
-                <h3 id="wiifmTitle">What's in it for you?</h3>
-                <div class="wiifm-grid">
-                    <div class="wiifm-item"><div class="wiifm-icon">🎯</div><div class="wiifm-content"><h4 id="wiifm1Title">Clarity on where you stand</h4><p id="wiifm1Desc">Stop guessing. Know exactly where your AI strategy is strong and where it's failing.</p></div></div>
-                    <div class="wiifm-item"><div class="wiifm-icon">🗺️</div><div class="wiifm-content"><h4 id="wiifm2Title">A clear path forward</h4><p id="wiifm2Desc">Get specific, actionable recommendations based on your unique situation.</p></div></div>
-                    <div class="wiifm-item"><div class="wiifm-icon">💬</div><div class="wiifm-content"><h4 id="wiifm3Title">Language to explain it</h4><p id="wiifm3Desc">Finally articulate what's wrong (or right) to your team and leadership.</p></div></div>
-                    <div class="wiifm-item"><div class="wiifm-icon">📊</div><div class="wiifm-content"><h4 id="wiifm4Title">Benchmark yourself</h4><p id="wiifm4Desc">See how your organization compares across 4 critical dimensions.</p></div></div>
-                </div>
-            </div>
-            <div class="preview-section">
-                <h3 id="previewTitle">What you'll discover</h3>
-                <div class="preview-types">
-                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTE</span><span class="preview-type-name" id="pn1">Chaos Pilot</span></div><p class="preview-type-desc" id="pd1">Tools everywhere, strategy nowhere</p></div>
-                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPBI</span><span class="preview-type-name" id="pn2">Strategic Leader</span></div><p class="preview-type-desc" id="pd2">AI is how you compete</p></div>
-                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTB</span><span class="preview-type-name" id="pn3">Wishful Thinker</span></div><p class="preview-type-desc" id="pd3">"Can't AI just do that?"</p></div>
-                    <div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPTE</span><span class="preview-type-name" id="pn4">Tech Utopia</span></div><p class="preview-type-desc" id="pd4">Built it, they didn't come</p></div>
-                </div>
-                <div class="preview-sample">
-                    <h4 id="sampleTitle">Sample result</h4>
-                    <div class="sample-result">
-                        <div class="sample-bars">
-                            <div class="sample-bar"><div class="sample-bar-label" id="dim1">Structure</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:35%;background:var(--accent-teal)"></div></div></div>
-                            <div class="sample-bar"><div class="sample-bar-label" id="dim2">Orientation</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:65%;background:var(--accent-blue)"></div></div></div>
-                            <div class="sample-bar"><div class="sample-bar-label" id="dim3">Leadership</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:80%;background:var(--accent-purple)"></div></div></div>
-                            <div class="sample-bar"><div class="sample-bar-label" id="dim4">Integration</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:45%;background:var(--accent-orange)"></div></div></div>
-                        </div>
-                        <ul class="sample-insights"><li id="ins1">Your type & what it means</li><li id="ins2">Strengths to leverage</li><li id="ins3">Blind spots to watch</li><li id="ins4">Clear path forward</li></ul>
-                    </div>
-                </div>
-            </div>
-            <form class="registration-form" onsubmit="return false">
-                <div class="form-group"><label class="form-label"><span id="lblName">Your Name</span> <span class="required">*</span></label><input type="text" class="form-input" id="userName" placeholder="Maria Garcia" required></div>
-                <div class="form-row">
-                    <div class="form-group"><label class="form-label"><span id="lblEmail">Email</span> <span class="optional" id="optTxt">(optional)</span></label><input type="email" class="form-input" id="userEmail" placeholder="maria@acme.com"></div>
-                    <div class="form-group"><label class="form-label"><span id="lblCompany">Company</span> <span class="optional">(optional)</span></label><input type="text" class="form-input" id="companyName" placeholder="Acme Corp"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label class="form-label"><span id="lblIndustry">Industry</span> <span class="optional">(optional)</span></label><select class="form-select" id="industry"><option value="">Select...</option><option value="technology">Technology</option><option value="financial">Financial</option><option value="healthcare">Healthcare</option><option value="manufacturing">Manufacturing</option><option value="retail">Retail</option><option value="professional">Professional Services</option><option value="other">Other</option></select></div>
-                    <div class="form-group"><label class="form-label"><span id="lblSize">Company Size</span> <span class="optional">(optional)</span></label><select class="form-select" id="companySize"><option value="">Select...</option><option value="1-50">1-50</option><option value="51-200">51-200</option><option value="201-1000">201-1,000</option><option value="1001+">1,001+</option></select></div>
-                </div>
-            </form>
-            <p class="form-note" id="formNote">Only your name is required. We respect your privacy.</p>
-            <button class="btn-start" id="btnStart" onclick="startQuiz()" disabled><span id="btnStartTxt">Start Assessment →</span></button>
-            <p class="intro-note" id="introNote">Answer based on how things actually are, not how you wish they were.</p>
-        </div>
-    </div>
-    <div class="screen" id="questionScreen">
-        <div class="question-screen">
-            <div class="question-meta"><span class="question-dimension" id="qDimension">Structure</span><span class="question-number" id="qNumber">Question 1 of 20</span></div>
-            <h2 class="question-text" id="qText">Loading...</h2>
-            <div class="answer-options" id="answerOptions"></div>
-            <div class="question-nav">
-                <button class="btn-nav" id="btnPrev" onclick="prevQ()" disabled><span id="btnPrevTxt">← Previous</span></button>
-                <button class="btn-nav primary" id="btnNext" onclick="nextQ()" disabled><span id="btnNextTxt">Next →</span></button>
-            </div>
-        </div>
-    </div>
-    <div class="screen" id="resultsScreen">
-        <div class="results-screen">
-            <div class="results-header">
-                <div class="results-illustration" id="resIllustration"></div>
-                <div class="results-type-info">
-                    <div class="results-type-code" id="resCode">----</div>
-                    <div class="results-type-name" id="resName">Loading...</div>
-                    <div class="results-type-tagline" id="resTagline">"..."</div>
-                </div>
-            </div>
-            <div class="dimension-scores" id="dimScores"></div>
-            <div class="results-profile"><h3 id="profileTitle">Your Profile</h3><p id="resDesc">Loading...</p></div>
-            <div class="results-grid">
-                <div class="results-box strengths"><h3 id="strTitle">✓ Strengths</h3><ul id="resStr"></ul></div>
-                <div class="results-box blindspots"><h3 id="blTitle">✗ Blind Spots</h3><ul id="resBl"></ul></div>
-            </div>
-            <div class="results-path"><h3 id="pathTitle">→ Your Path Forward</h3><p id="resPath">Loading...</p></div>
-            <div class="type-page-link">
-                <a href="#" id="typePageBtn" class="btn-type-page" target="_blank">📖 <span id="typePageText">See Full Guide for Your Type →</span></a>
-            </div>
-            <div class="email-report">
-                <h4 id="reportTitle">📧 Get your full report via email</h4>
-                <p id="reportDesc">Receive a detailed report with your results and recommendations.</p>
-                <div class="email-form"><input type="email" id="reportEmail" placeholder="your@email.com"><button onclick="sendReport()" id="btnReport">Send</button></div>
-                <div class="email-sent" id="emailSent">✓ Report sent!</div>
-            </div>
-            <div class="results-cta">
-                <h3 id="ctaTitle">Want to become a Strategic Leader?</h3>
-                <p id="ctaDesc">The AI Strategy Sprint gives you a complete roadmap in 2 weeks.</p>
-                <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-cta" id="ctaBtn">Book a Discovery Call →</a>
-            </div>
-            <div class="share-card-section">
-                <h4 id="shareCardTitle">📸 Share Your Results</h4>
-                <p id="shareCardDesc">Download your result card, then share it on LinkedIn with the caption below.</p>
-                <div class="share-card-preview" id="shareCardPreview"></div>
-                <div class="share-card-buttons">
-                    <button class="btn-share primary" onclick="downloadCard()" id="btnDownload">⬇️ Download Image</button>
-                </div>
-            </div>
-            <div class="linkedin-post-section">
-                <h4 id="linkedinPostTitle">✍️ Ready-to-Post LinkedIn Caption</h4>
-                <p id="linkedinPostDesc">Copy this caption, then paste it on LinkedIn with your downloaded image.</p>
-                <div class="share-steps">
-                    <div class="share-step"><span class="step-num">1</span><span id="step1">Download the image above</span></div>
-                    <div class="share-step"><span class="step-num">2</span><span id="step2">Copy the caption below</span></div>
-                    <div class="share-step"><span class="step-num">3</span><span id="step3">Go to LinkedIn, paste caption & upload image</span></div>
-                </div>
-                <div class="post-templates">
-                    <div class="post-template-tabs">
-                        <button class="post-tab active" onclick="selectPostTemplate(0)" id="tabCasual">Casual</button>
-                        <button class="post-tab" onclick="selectPostTemplate(1)" id="tabPro">Professional</button>
-                        <button class="post-tab" onclick="selectPostTemplate(2)" id="tabChallenge">Challenge</button>
-                    </div>
-                    <div class="post-preview" id="postPreview"></div>
-                    <div class="post-actions">
-                        <button class="btn-share primary" onclick="copyPost()" id="btnCopyPost">📋 Copy Caption</button>
-                        <a href="https://www.linkedin.com/feed/" target="_blank" class="btn-share" id="btnGoLinkedIn">🔗 Open LinkedIn</a>
-                        <span class="copy-confirm" id="copyConfirm">✓ Copied!</span>
-                    </div>
-                </div>
-            </div>
-            <div class="results-share">
-                <button class="btn-share" onclick="copyRes()" id="btnCopy">📋 Copy Full Results</button>
-                <button class="btn-share" onclick="retake()" id="btnRetake">🔄 Retake Quiz</button>
-            </div>
-            <canvas id="shareCanvas" width="1200" height="630" style="display:none;"></canvas>
-        </div>
-    </div>
+<div class="screen active" id="introScreen">
+<div class="intro-screen">
+<h1 id="titleMain">Descubre Tu<br><span class="gradient">Tipo AI-Q</span></h1>
+<p id="subtitle">Como Myers-Briggs, pero para la estrategia de IA de tu empresa.</p>
+<div class="intro-stats">
+<div class="intro-stat"><div class="intro-stat-number">20</div><div class="intro-stat-label" id="lblQuestions">Preguntas</div></div>
+<div class="intro-stat"><div class="intro-stat-number">5</div><div class="intro-stat-label" id="lblMinutes">Minutos</div></div>
+<div class="intro-stat"><div class="intro-stat-number">16</div><div class="intro-stat-label" id="lblTypes">Tipos</div></div>
+</div>
+<div class="wiifm-section">
+<h3 id="wiifmTitle">¿Qué ganas con esto?</h3>
+<div class="wiifm-grid">
+<div class="wiifm-item"><div class="wiifm-icon">🎯</div><div class="wiifm-content"><h4 id="wiifm1Title">Claridad sobre dónde estás</h4><p id="wiifm1Desc">Deja de adivinar. Sabe exactamente dónde tu estrategia de IA es fuerte y dónde está fallando.</p></div></div>
+<div class="wiifm-item"><div class="wiifm-icon">🗺️</div><div class="wiifm-content"><h4 id="wiifm2Title">Un camino claro hacia adelante</h4><p id="wiifm2Desc">Obtén recomendaciones específicas y accionables basadas en tu situación única.</p></div></div>
+<div class="wiifm-item"><div class="wiifm-icon">💬</div><div class="wiifm-content"><h4 id="wiifm3Title">Lenguaje para explicarlo</h4><p id="wiifm3Desc">Por fin articula qué está mal (o bien) a tu equipo y liderazgo.</p></div></div>
+<div class="wiifm-item"><div class="wiifm-icon">📊</div><div class="wiifm-content"><h4 id="wiifm4Title">Compárate</h4><p id="wiifm4Desc">Ve cómo tu organización se compara en 4 dimensiones críticas.</p></div></div>
+</div>
+</div>
+<div class="preview-section">
+<h3 id="previewTitle">Lo que descubrirás</h3>
+<div class="preview-types">
+<div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTE</span><span class="preview-type-name" id="pn1">Piloto del Caos</span></div><p class="preview-type-desc" id="pd1">Herramientas por todas partes, estrategia ninguna</p></div>
+<div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPBI</span><span class="preview-type-name" id="pn2">Líder Estratégico</span></div><p class="preview-type-desc" id="pd2">La IA es cómo compites</p></div>
+<div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">SRTB</span><span class="preview-type-name" id="pn3">Pensador Idealista</span></div><p class="preview-type-desc" id="pd3">"¿No puede la IA hacer eso?"</p></div>
+<div class="preview-type"><div class="preview-type-header"><span class="preview-type-code">CPTE</span><span class="preview-type-name" id="pn4">Utopía Tech</span></div><p class="preview-type-desc" id="pd4">Lo construiste, no vinieron</p></div>
+</div>
+<div class="preview-sample">
+<h4 id="sampleTitle">Resultado de ejemplo</h4>
+<div class="sample-result">
+<div class="sample-bars">
+<div class="sample-bar"><div class="sample-bar-label" id="dim1">Estructura</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:35%;background:var(--accent-teal)"></div></div></div>
+<div class="sample-bar"><div class="sample-bar-label" id="dim2">Orientación</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:65%;background:var(--accent-blue)"></div></div></div>
+<div class="sample-bar"><div class="sample-bar-label" id="dim3">Liderazgo</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:80%;background:var(--accent-purple)"></div></div></div>
+<div class="sample-bar"><div class="sample-bar-label" id="dim4">Integración</div><div class="sample-bar-track"><div class="sample-bar-fill" style="width:45%;background:var(--accent-orange)"></div></div></div>
+</div>
+<ul class="sample-insights"><li id="ins1">Tu tipo y qué significa</li><li id="ins2">Fortalezas a aprovechar</li><li id="ins3">Puntos ciegos a vigilar</li><li id="ins4">Camino claro a seguir</li></ul>
+</div>
+</div>
+</div>
+<form class="registration-form" onsubmit="return false">
+<div class="form-group"><label class="form-label"><span id="lblName">Tu Nombre</span> <span class="required">*</span></label><input type="text" class="form-input" id="userName" placeholder="Maria Garcia" required></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label"><span id="lblEmail">Email</span> <span class="optional" id="optTxt">(opcional)</span></label><input type="email" class="form-input" id="userEmail" placeholder="maria@acme.com"></div>
+<div class="form-group"><label class="form-label"><span id="lblCompany">Empresa</span> <span class="optional">(opcional)</span></label><input type="text" class="form-input" id="companyName" placeholder="Acme Corp"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label class="form-label"><span id="lblIndustry">Industria</span> <span class="optional">(opcional)</span></label><select class="form-select" id="industry"><option value="">Seleccionar...</option><option value="technology">Tecnología</option><option value="financial">Finanzas</option><option value="healthcare">Salud</option><option value="manufacturing">Manufactura</option><option value="retail">Retail</option><option value="professional">Servicios Profesionales</option><option value="other">Otro</option></select></div>
+<div class="form-group"><label class="form-label"><span id="lblSize">Tamaño</span> <span class="optional">(opcional)</span></label><select class="form-select" id="companySize"><option value="">Seleccionar...</option><option value="1-50">1-50</option><option value="51-200">51-200</option><option value="201-1000">201-1,000</option><option value="1001+">1,001+</option></select></div>
+</div>
+</form>
+<p class="form-note" id="formNote">Solo tu nombre es requerido. Respetamos tu privacidad.</p>
+<button class="btn-start" id="btnStart" onclick="startQuiz()" disabled><span id="btnStartTxt">Comenzar →</span></button>
+<p class="intro-note" id="introNote">Responde basándote en cómo son las cosas, no cómo desearías.</p>
+</div>
+</div>
+<div class="screen" id="questionScreen">
+<div class="question-screen">
+<div class="question-meta"><span class="question-dimension" id="qDimension">Estructura</span><span class="question-number" id="qNumber">Pregunta 1 de 20</span></div>
+<h2 class="question-text" id="qText">Cargando...</h2>
+<div class="answer-options" id="answerOptions"></div>
+<div class="question-nav">
+<button class="btn-nav" id="btnPrev" onclick="prevQ()" disabled><span id="btnPrevTxt">← Anterior</span></button>
+<button class="btn-nav primary" id="btnNext" onclick="nextQ()" disabled><span id="btnNextTxt">Siguiente →</span></button>
+</div>
+</div>
+</div>
+<div class="screen" id="resultsScreen">
+<div class="results-screen">
+<div class="results-header">
+<div class="results-illustration" id="resIllustration"></div>
+<div class="results-type-info">
+<div class="results-type-code" id="resCode">----</div>
+<div class="results-type-name" id="resName">Cargando...</div>
+<div class="results-type-tagline" id="resTagline">"..."</div>
+</div>
+</div>
+<div class="dimension-scores" id="dimScores"></div>
+<div class="results-profile"><h3 id="profileTitle">Tu Perfil</h3><p id="resDesc">Cargando...</p></div>
+<div class="results-grid">
+<div class="results-box strengths"><h3 id="strTitle">✓ Fortalezas</h3><ul id="resStr"></ul></div>
+<div class="results-box blindspots"><h3 id="blTitle">✗ Puntos Ciegos</h3><ul id="resBl"></ul></div>
+</div>
+<div class="results-path"><h3 id="pathTitle">→ Tu Camino a Seguir</h3><p id="resPath">Cargando...</p></div>
+<div class="type-page-link">
+<a href="#" id="typePageBtn" class="btn-type-page" target="_blank">📖 <span id="typePageText">Ver Guía Completa para Tu Tipo →</span></a>
+</div>
+<!-- Book Promotion Section -->
+<div class="book-promo" id="bookPromo">
+<div class="book-promo-image">
+<img src="https://m.media-amazon.com/images/I/71mF5MxVZIL._SY522_.jpg" alt="AI-Q Book Cover" onerror="this.src='types/CPBI.svg'">
+</div>
+<div class="book-promo-content">
+<h4 id="bookTitle">📚 Profundiza: Obtén el Libro Completo AI-Q</h4>
+<p id="bookDesc">Aprende el framework completo, los 16 tipos en detalle, estrategias de transformación y casos de estudio reales. La guía definitiva para la transformación de IA empresarial.</p>
+<a href="https://www.amazon.com/dp/B0DP5DR919" target="_blank" class="book-promo-btn" id="bookBtn">📖 Obtener el Libro en Amazon →</a>
+</div>
+</div>
+<div class="email-report">
+<h4 id="reportTitle">📧 Recibe tu reporte por email</h4>
+<p id="reportDesc">Recibe un reporte detallado con tus resultados y recomendaciones.</p>
+<div class="email-form"><input type="email" id="reportEmail" placeholder="tu@email.com"><button onclick="sendReport()" id="btnReport">Enviar</button></div>
+<div class="email-sent" id="emailSent">✓ ¡Reporte enviado!</div>
+</div>
+<div class="results-cta">
+<h3 id="ctaTitle">¿Quieres ser un Líder Estratégico?</h3>
+<p id="ctaDesc">El AI Strategy Sprint te da un roadmap completo en 2 semanas.</p>
+<a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-cta" id="ctaBtn">Agendar Llamada →</a>
+</div>
+<div class="share-card-section">
+<h4 id="shareCardTitle">📸 Comparte Tus Resultados</h4>
+<p id="shareCardDesc">Descarga tu tarjeta y compártela en LinkedIn con el texto de abajo.</p>
+<div class="share-card-preview" id="shareCardPreview"></div>
+<div class="share-card-buttons">
+<button class="btn-share primary" onclick="downloadCard()" id="btnDownload">⬇️ Descargar Imagen</button>
+</div>
+</div>
+<div class="linkedin-post-section">
+<h4 id="linkedinPostTitle">✍️ Caption Lista para LinkedIn</h4>
+<p id="linkedinPostDesc">Copia este texto y pégalo en LinkedIn junto con tu imagen.</p>
+<div class="share-steps">
+<div class="share-step"><span class="step-num">1</span><span id="step1">Descarga la imagen de arriba</span></div>
+<div class="share-step"><span class="step-num">2</span><span id="step2">Copia el texto de abajo</span></div>
+<div class="share-step"><span class="step-num">3</span><span id="step3">Ve a LinkedIn, pega y sube</span></div>
+</div>
+<div class="post-templates">
+<div class="post-template-tabs">
+<button class="post-tab active" onclick="selectPostTemplate(0)" id="tabCasual">Casual</button>
+<button class="post-tab" onclick="selectPostTemplate(1)" id="tabPro">Profesional</button>
+<button class="post-tab" onclick="selectPostTemplate(2)" id="tabChallenge">Desafío</button>
+</div>
+<div class="post-preview" id="postPreview"></div>
+<div class="post-actions">
+<button class="btn-share primary" onclick="copyPost()" id="btnCopyPost">📋 Copiar Caption</button>
+<a href="https://www.linkedin.com/feed/" target="_blank" class="btn-share" id="btnGoLinkedIn">🔗 Abrir LinkedIn</a>
+<span class="copy-confirm" id="copyConfirm">✓ ¡Copiado!</span>
+</div>
+</div>
+</div>
+<div class="results-share">
+<button class="btn-share" onclick="copyRes()" id="btnCopy">📋 Copiar Resultados</button>
+<button class="btn-share" onclick="retake()" id="btnRetake">🔄 Repetir</button>
+</div>
+<canvas id="shareCanvas" width="1200" height="630" style="display:none;"></canvas>
+</div>
+</div>
 </div>
 <script>
+// Polyfill for roundRect (fixes freezing in older browsers)
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+    if (typeof r === 'undefined') r = 0;
+    if (typeof r === 'number') r = {tl: r, tr: r, br: r, bl: r};
+    this.beginPath();
+    this.moveTo(x + r.tl, y);
+    this.lineTo(x + w - r.tr, y);
+    this.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+    this.lineTo(x + w, y + h - r.br);
+    this.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+    this.lineTo(x + r.bl, y + h);
+    this.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+    this.lineTo(x, y + r.tl);
+    this.quadraticCurveTo(x, y, x + r.tl, y);
+    this.closePath();
+    return this;
+  };
+}
+
 const WEBHOOK='https://script.google.com/macros/s/AKfycbzl0mvlsVQU79or7pxl8KUUaWYdwiWRhUFA2uaqbwRs8JKjYu6YvqjertvLMrOazx7u/exec';
-let lang='en',cur=0,ans=Array(20).fill(null),usr={};
-
+let lang='es',cur=0,ans=Array(20).fill(null),usr={};
 const TXT={
-en:{title:'Discover Your<br><span class="gradient">AI-Q Type</span>',sub:'Like Myers-Briggs, but for your company\'s AI strategy.',questions:'Questions',minutes:'Minutes',types:'Types',wiifm:'What\'s in it for you?',wiifm1t:'Clarity on where you stand',wiifm1d:'Stop guessing. Know exactly where your AI strategy is strong and where it\'s failing.',wiifm2t:'A clear path forward',wiifm2d:'Get specific, actionable recommendations based on your unique situation.',wiifm3t:'Language to explain it',wiifm3d:'Finally articulate what\'s wrong (or right) to your team and leadership.',wiifm4t:'Benchmark yourself',wiifm4d:'See how your organization compares across 4 critical dimensions.',preview:'What you\'ll discover',sample:'Sample result',pn1:'Chaos Pilot',pd1:'Tools everywhere, strategy nowhere',pn2:'Strategic Leader',pd2:'AI is how you compete',pn3:'Wishful Thinker',pd3:'"Can\'t AI just do that?"',pn4:'Tech Utopia',pd4:'Built it, they didn\'t come',dim1:'Structure',dim2:'Orientation',dim3:'Leadership',dim4:'Integration',ins1:'Your type & what it means',ins2:'Strengths to leverage',ins3:'Blind spots to watch',ins4:'Clear path forward',name:'Your Name',email:'Email',company:'Company',industry:'Industry',size:'Company Size',note:'Only your name is required. We respect your privacy.',start:'Start Assessment →',intro:'Answer based on how things actually are, not how you wish they were.',prev:'← Previous',next:'Next →',results:'See Results →',profile:'Your Profile',str:'✓ Strengths',bl:'✗ Blind Spots',path:'→ Your Path Forward',report:'📧 Get your full report via email',reportD:'Receive a detailed report with your results and recommendations.',send:'Send',sent:'✓ Report sent!',cta:'Want to become a Strategic Leader?',ctaD:'The AI Strategy Sprint gives you a complete roadmap in 2 weeks.',ctaB:'Book a Discovery Call →',copy:'📋 Copy Full Results',retake:'🔄 Retake Quiz',qof:'Question Q of 20',scat:'Scattered',cons:'Consolidated',react:'Reactive',proact:'Proactive',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrated',sd:'Strongly Disagree',d:'Disagree',n:'Neutral',a:'Agree',sa:'Strongly Agree',shareTitle:'📸 Share Your Results',shareDesc:'Download your result card, then share it on LinkedIn with the caption below.',download:'⬇️ Download Image',postTitle:'✍️ Ready-to-Post LinkedIn Caption',postDesc:'Copy this caption, then paste it on LinkedIn with your downloaded image.',step1:'Download the image above',step2:'Copy the caption below',step3:'Go to LinkedIn, paste & upload',tabCasual:'Casual',tabPro:'Professional',tabChallenge:'Challenge',copyPost:'📋 Copy Caption',goLinkedIn:'🔗 Open LinkedIn',copied:'✓ Copied!'},
-es:{title:'Descubre Tu<br><span class="gradient">Tipo AI-Q</span>',sub:'Como Myers-Briggs, pero para la estrategia de IA de tu empresa.',questions:'Preguntas',minutes:'Minutos',types:'Tipos',wiifm:'¿Qué ganas con esto?',wiifm1t:'Claridad sobre dónde estás',wiifm1d:'Deja de adivinar. Sabe exactamente dónde tu estrategia de IA es fuerte y dónde está fallando.',wiifm2t:'Un camino claro hacia adelante',wiifm2d:'Obtén recomendaciones específicas y accionables basadas en tu situación única.',wiifm3t:'Lenguaje para explicarlo',wiifm3d:'Por fin articula qué está mal (o bien) a tu equipo y liderazgo.',wiifm4t:'Compárate',wiifm4d:'Ve cómo tu organización se compara en 4 dimensiones críticas.',preview:'Lo que descubrirás',sample:'Resultado de ejemplo',pn1:'Piloto del Caos',pd1:'Herramientas por todas partes, estrategia ninguna',pn2:'Líder Estratégico',pd2:'La IA es cómo compites',pn3:'Pensador Idealista',pd3:'"¿No puede la IA hacer eso?"',pn4:'Utopía Tech',pd4:'Lo construiste, no vinieron',dim1:'Estructura',dim2:'Orientación',dim3:'Liderazgo',dim4:'Integración',ins1:'Tu tipo y qué significa',ins2:'Fortalezas a aprovechar',ins3:'Puntos ciegos a vigilar',ins4:'Camino claro a seguir',name:'Tu Nombre',email:'Email',company:'Empresa',industry:'Industria',size:'Tamaño',note:'Solo tu nombre es requerido. Respetamos tu privacidad.',start:'Comenzar →',intro:'Responde basándote en cómo son las cosas, no cómo desearías.',prev:'← Anterior',next:'Siguiente →',results:'Ver Resultados →',profile:'Tu Perfil',str:'✓ Fortalezas',bl:'✗ Puntos Ciegos',path:'→ Tu Camino a Seguir',report:'📧 Recibe tu reporte por email',reportD:'Recibe un reporte detallado con tus resultados.',send:'Enviar',sent:'✓ Reporte enviado!',cta:'¿Quieres ser un Líder Estratégico?',ctaD:'El AI Strategy Sprint te da un roadmap completo en 2 semanas.',ctaB:'Agendar Llamada →',copy:'📋 Copiar Resultados',retake:'🔄 Repetir',qof:'Pregunta Q de 20',scat:'Disperso',cons:'Consolidado',react:'Reactivo',proact:'Proactivo',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrado',sd:'Muy en Desacuerdo',d:'En Desacuerdo',n:'Neutral',a:'De Acuerdo',sa:'Muy de Acuerdo',shareTitle:'📸 Comparte Tus Resultados',shareDesc:'Descarga tu tarjeta y compártela en LinkedIn con el texto de abajo.',download:'⬇️ Descargar Imagen',postTitle:'✍️ Caption Lista para LinkedIn',postDesc:'Copia este texto y pégalo en LinkedIn junto con tu imagen.',step1:'Descarga la imagen de arriba',step2:'Copia el texto de abajo',step3:'Ve a LinkedIn, pega y sube',tabCasual:'Casual',tabPro:'Profesional',tabChallenge:'Desafío',copyPost:'📋 Copiar Caption',goLinkedIn:'🔗 Abrir LinkedIn',copied:'✓ ¡Copiado!'}
+en:{title:'Discover Your<br><span class="gradient">AI-Q Type</span>',sub:'Like Myers-Briggs, but for your company\'s AI strategy.',questions:'Questions',minutes:'Minutes',types:'Types',wiifm:'What\'s in it for you?',wiifm1t:'Clarity on where you stand',wiifm1d:'Stop guessing. Know exactly where your AI strategy is strong and where it\'s failing.',wiifm2t:'A clear path forward',wiifm2d:'Get specific, actionable recommendations based on your unique situation.',wiifm3t:'Language to explain it',wiifm3d:'Finally articulate what\'s wrong (or right) to your team and leadership.',wiifm4t:'Benchmark yourself',wiifm4d:'See how your organization compares across 4 critical dimensions.',preview:'What you\'ll discover',sample:'Sample result',pn1:'Chaos Pilot',pd1:'Tools everywhere, strategy nowhere',pn2:'Strategic Leader',pd2:'AI is how you compete',pn3:'Wishful Thinker',pd3:'"Can\'t AI just do that?"',pn4:'Tech Utopia',pd4:'Built it, they didn\'t come',dim1:'Structure',dim2:'Orientation',dim3:'Leadership',dim4:'Integration',ins1:'Your type & what it means',ins2:'Strengths to leverage',ins3:'Blind spots to watch',ins4:'Clear path forward',name:'Your Name',email:'Email',company:'Company',industry:'Industry',size:'Company Size',note:'Only your name is required. We respect your privacy.',start:'Start Assessment →',intro:'Answer based on how things actually are, not how you wish they were.',prev:'← Previous',next:'Next →',results:'See Results →',profile:'Your Profile',str:'✓ Strengths',bl:'✗ Blind Spots',path:'→ Your Path Forward',report:'📧 Get your full report via email',reportD:'Receive a detailed report with your results and recommendations.',send:'Send',sent:'✓ Report sent!',cta:'Want to become a Strategic Leader?',ctaD:'The AI Strategy Sprint gives you a complete roadmap in 2 weeks.',ctaB:'Book a Discovery Call →',copy:'📋 Copy Full Results',retake:'🔄 Retake Quiz',qof:'Question # of 20',scat:'Scattered',cons:'Consolidated',react:'Reactive',proact:'Proactive',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrated',sd:'Strongly Disagree',d:'Disagree',n:'Neutral',a:'Agree',sa:'Strongly Agree',shareTitle:'📸 Share Your Results',shareDesc:'Download your result card, then share it on LinkedIn with the caption below.',download:'⬇️ Download Image',postTitle:'✍️ Ready-to-Post LinkedIn Caption',postDesc:'Copy this caption, then paste it on LinkedIn with your downloaded image.',step1:'Download the image above',step2:'Copy the caption below',step3:'Go to LinkedIn, paste & upload',tabCasual:'Casual',tabPro:'Professional',tabChallenge:'Challenge',copyPost:'📋 Copy Caption',goLinkedIn:'🔗 Open LinkedIn',copied:'✓ Copied!',bookTitle:'📚 Go Deeper: Get the Full AI-Q Book',bookDesc:'Learn the complete framework, all 16 types in detail, transformation strategies, and real-world case studies.',bookBtn:'📖 Get the Book on Amazon →'},
+es:{title:'Descubre Tu<br><span class="gradient">Tipo AI-Q</span>',sub:'Como Myers-Briggs, pero para la estrategia de IA de tu empresa.',questions:'Preguntas',minutes:'Minutos',types:'Tipos',wiifm:'¿Qué ganas con esto?',wiifm1t:'Claridad sobre dónde estás',wiifm1d:'Deja de adivinar. Sabe exactamente dónde tu estrategia de IA es fuerte y dónde está fallando.',wiifm2t:'Un camino claro hacia adelante',wiifm2d:'Obtén recomendaciones específicas y accionables basadas en tu situación única.',wiifm3t:'Lenguaje para explicarlo',wiifm3d:'Por fin articula qué está mal (o bien) a tu equipo y liderazgo.',wiifm4t:'Compárate',wiifm4d:'Ve cómo tu organización se compara en 4 dimensiones críticas.',preview:'Lo que descubrirás',sample:'Resultado de ejemplo',pn1:'Piloto del Caos',pd1:'Herramientas por todas partes, estrategia ninguna',pn2:'Líder Estratégico',pd2:'La IA es cómo compites',pn3:'Pensador Idealista',pd3:'"¿No puede la IA hacer eso?"',pn4:'Utopía Tech',pd4:'Lo construiste, no vinieron',dim1:'Estructura',dim2:'Orientación',dim3:'Liderazgo',dim4:'Integración',ins1:'Tu tipo y qué significa',ins2:'Fortalezas a aprovechar',ins3:'Puntos ciegos a vigilar',ins4:'Camino claro a seguir',name:'Tu Nombre',email:'Email',company:'Empresa',industry:'Industria',size:'Tamaño',note:'Solo tu nombre es requerido. Respetamos tu privacidad.',start:'Comenzar →',intro:'Responde basándote en cómo son las cosas, no cómo desearías.',prev:'← Anterior',next:'Siguiente →',results:'Ver Resultados →',profile:'Tu Perfil',str:'✓ Fortalezas',bl:'✗ Puntos Ciegos',path:'→ Tu Camino a Seguir',report:'📧 Recibe tu reporte por email',reportD:'Recibe un reporte detallado con tus resultados.',send:'Enviar',sent:'✓ ¡Reporte enviado!',cta:'¿Quieres ser un Líder Estratégico?',ctaD:'El AI Strategy Sprint te da un roadmap completo en 2 semanas.',ctaB:'Agendar Llamada →',copy:'📋 Copiar Resultados',retake:'🔄 Repetir',qof:'Pregunta # de 20',scat:'Disperso',cons:'Consolidado',react:'Reactivo',proact:'Proactivo',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrado',sd:'Muy en Desacuerdo',d:'En Desacuerdo',n:'Neutral',a:'De Acuerdo',sa:'Muy de Acuerdo',shareTitle:'📸 Comparte Tus Resultados',shareDesc:'Descarga tu tarjeta y compártela en LinkedIn con el texto de abajo.',download:'⬇️ Descargar Imagen',postTitle:'✍️ Caption Lista para LinkedIn',postDesc:'Copia este texto y pégalo en LinkedIn junto con tu imagen.',step1:'Descarga la imagen de arriba',step2:'Copia el texto de abajo',step3:'Ve a LinkedIn, pega y sube',tabCasual:'Casual',tabPro:'Profesional',tabChallenge:'Desafío',copyPost:'📋 Copiar Caption',goLinkedIn:'🔗 Abrir LinkedIn',copied:'✓ ¡Copiado!',bookTitle:'📚 Profundiza: Obtén el Libro Completo AI-Q',bookDesc:'Aprende el framework completo, los 16 tipos en detalle, estrategias de transformación y casos de estudio reales.',bookBtn:'📖 Obtener el Libro en Amazon →'}
 };
-
 const Q={
 en:[{d:'Structure',t:'We have a complete inventory of all AI tools being used across the organization.',p:1},{d:'Structure',t:'Different departments have purchased their own AI tools without central coordination.',p:-1},{d:'Structure',t:'Our AI tools are governed under a unified policy and ownership structure.',p:1},{d:'Structure',t:'Teams often discover they are using duplicate AI tools for similar purposes.',p:-1},{d:'Structure',t:'We regularly audit and consolidate our AI tool portfolio.',p:1},{d:'Orientation',t:'We have a 12-month AI roadmap that anticipates future needs.',p:1},{d:'Orientation',t:'Most of our AI initiatives started because a competitor did something.',p:-1},{d:'Orientation',t:'We have a clear vision for how AI will transform our business in 3 years.',p:1},{d:'Orientation',t:'Our AI decisions are often driven by the latest article the CEO read.',p:-1},{d:'Orientation',t:'We have said no to AI opportunities that did not fit our strategic plan.',p:1},{d:'Leadership',t:'Business leaders define what problems AI should solve.',p:1},{d:'Leadership',t:'IT or the data team decides which AI projects to pursue.',p:-1},{d:'Leadership',t:'Business outcomes like revenue and efficiency drive AI prioritization.',p:1},{d:'Leadership',t:'Our AI team builds impressive things that few people actually use.',p:-1},{d:'Leadership',t:'Our CEO could explain our AI ROI to the board with confidence.',p:1},{d:'Integration',t:'AI tools are embedded in our daily workflows, not just special projects.',p:1},{d:'Integration',t:'Most of our AI initiatives are still in pilot or proof of concept phase.',p:-1},{d:'Integration',t:'Employees use AI tools as a natural part of their work.',p:1},{d:'Integration',t:'We have impressive AI demos that have not translated to real usage.',p:-1},{d:'Integration',t:'We have retired old processes because AI does them better.',p:1}],
 es:[{d:'Estructura',t:'Tenemos un inventario completo de todas las herramientas de IA en la organización.',p:1},{d:'Estructura',t:'Diferentes departamentos han comprado herramientas de IA sin coordinación central.',p:-1},{d:'Estructura',t:'Nuestras herramientas de IA están bajo una política unificada.',p:1},{d:'Estructura',t:'Los equipos descubren que usan herramientas de IA duplicadas.',p:-1},{d:'Estructura',t:'Regularmente auditamos y consolidamos nuestro portafolio de IA.',p:1},{d:'Orientación',t:'Tenemos un roadmap de IA de 12 meses que anticipa necesidades.',p:1},{d:'Orientación',t:'La mayoría de nuestras iniciativas de IA comenzaron porque un competidor hizo algo.',p:-1},{d:'Orientación',t:'Tenemos una visión clara de cómo la IA transformará nuestro negocio en 3 años.',p:1},{d:'Orientación',t:'Nuestras decisiones de IA son impulsadas por el último artículo que leyó el CEO.',p:-1},{d:'Orientación',t:'Hemos dicho no a oportunidades de IA que no encajaban con nuestro plan.',p:1},{d:'Liderazgo',t:'Los líderes de negocio definen qué problemas debe resolver la IA.',p:1},{d:'Liderazgo',t:'IT o el equipo de datos decide qué proyectos de IA perseguir.',p:-1},{d:'Liderazgo',t:'Los resultados de negocio impulsan la priorización de IA.',p:1},{d:'Liderazgo',t:'Nuestro equipo de IA construye cosas impresionantes que poca gente usa.',p:-1},{d:'Liderazgo',t:'Nuestro CEO podría explicar nuestro ROI de IA al directorio con confianza.',p:1},{d:'Integración',t:'Las herramientas de IA están integradas en nuestros flujos de trabajo diarios.',p:1},{d:'Integración',t:'La mayoría de nuestras iniciativas de IA aún están en fase piloto.',p:-1},{d:'Integración',t:'Los empleados usan herramientas de IA como parte natural de su trabajo.',p:1},{d:'Integración',t:'Tenemos demos de IA impresionantes que no se han traducido a uso real.',p:-1},{d:'Integración',t:'Hemos retirado procesos antiguos porque la IA los hace mejor.',p:1}]
 };
-
 const T={
 SRTE:{n:{en:'The Chaos Pilot',es:'El Piloto del Caos'},tg:{en:'We have AI... somewhere.',es:'Tenemos IA... en algún lugar.'},c:'#EF4444',desc:{en:'Your AI landscape is a graveyard of good intentions. Multiple tools bought by different teams, none talking to each other.',es:'Tu panorama de IA es un cementerio de buenas intenciones. Múltiples herramientas compradas por diferentes equipos.'},str:{en:['Willingness to try new things','Budget available for AI','No legacy lock-in'],es:['Disposición para probar cosas nuevas','Presupuesto disponible','Sin dependencia legacy']},bl:{en:['No idea what you spend','Cannot measure ROI','Teams frustrated'],es:['Sin idea de lo que gastas','No puedes medir ROI','Equipos frustrados']},path:{en:'Stop buying. Start auditing. You need a complete inventory first.',es:'Deja de comprar. Comienza a auditar. Necesitas un inventario completo primero.'}},
 SRTB:{n:{en:'The Wishful Thinker',es:'El Pensador Idealista'},tg:{en:'Can\'t AI just do that?',es:'¿No puede la IA simplemente hacer eso?'},c:'#F97316',desc:{en:'Leadership is excited about AI but treats it like magic.',es:'El liderazgo está entusiasmado con la IA pero la trata como magia.'},str:{en:['Executive attention on AI','Business problems are focus','Budget unlocks possible'],es:['Atención ejecutiva en IA','Foco en problemas de negocio','Desbloqueo de presupuesto posible']},bl:{en:['Unrealistic expectations','No technical translation','Initiatives die from vagueness'],es:['Expectativas poco realistas','Sin traducción técnica','Iniciativas mueren por vaguedad']},path:{en:'Translate business wishes into specific, measurable problems.',es:'Traduce los deseos del negocio en problemas específicos y medibles.'}},
@@ -192,534 +231,27 @@ CRBI:{n:{en:'The Service Desk',es:'La Mesa de Servicio'},tg:{en:'We deliver what
 CPTI:{n:{en:'The Almost There',es:'El Casi Llega'},tg:{en:'One conversation away from excellence.',es:'A una conversación de la excelencia.'},c:'#10B981',desc:{en:'Consolidated, proactive, integrated. The only gap: business is not driving priorities.',es:'Consolidado, proactivo, integrado. La única brecha: el negocio no impulsa las prioridades.'},str:{en:['Strong execution','Technical excellence','Integrated workflows'],es:['Ejecución fuerte','Excelencia técnica','Flujos de trabajo integrados']},bl:{en:['Tech not business priorities','Technical metrics only','Business sees AI as IT'],es:['Tech no prioridades del negocio','Solo métricas técnicas','El negocio ve IA como de IT']},path:{en:'Connect one AI initiative to a metric the CEO cares about.',es:'Conecta una iniciativa de IA a una métrica que le importe al CEO.'}},
 CPBI:{n:{en:'The Strategic Leader',es:'El Líder Estratégico'},tg:{en:'AI is how we compete.',es:'La IA es cómo competimos.'},c:'#14B8A6',desc:{en:'You have cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.',es:'Has descifrado el código. Herramientas consolidadas, roadmap proactivo, el negocio impulsa prioridades.'},str:{en:['Clear ROI metrics','High adoption rates','Executive alignment','Competitive advantage'],es:['Métricas de ROI claras','Altas tasas de adopción','Alineación ejecutiva','Ventaja competitiva']},bl:{en:['Risk of complacency','May over-engineer','Talent retention critical'],es:['Riesgo de complacencia','Puede sobre-ingeniar','Retención de talento crítica']},path:{en:'Focus on talent, stay paranoid about disruption.',es:'Enfócate en el talento, mantente paranoico sobre la disrupción.'}}
 };
-
-function updateUI(){
-    const t=TXT[lang];
-    document.getElementById('titleMain').innerHTML=t.title;
-    document.getElementById('subtitle').textContent=t.sub;
-    document.getElementById('lblQuestions').textContent=t.questions;
-    document.getElementById('lblMinutes').textContent=t.minutes;
-    document.getElementById('lblTypes').textContent=t.types;
-    document.getElementById('wiifmTitle').textContent=t.wiifm;
-    document.getElementById('wiifm1Title').textContent=t.wiifm1t;document.getElementById('wiifm1Desc').textContent=t.wiifm1d;
-    document.getElementById('wiifm2Title').textContent=t.wiifm2t;document.getElementById('wiifm2Desc').textContent=t.wiifm2d;
-    document.getElementById('wiifm3Title').textContent=t.wiifm3t;document.getElementById('wiifm3Desc').textContent=t.wiifm3d;
-    document.getElementById('wiifm4Title').textContent=t.wiifm4t;document.getElementById('wiifm4Desc').textContent=t.wiifm4d;
-    document.getElementById('previewTitle').textContent=t.preview;
-    document.getElementById('sampleTitle').textContent=t.sample;
-    document.getElementById('pn1').textContent=t.pn1;document.getElementById('pd1').textContent=t.pd1;
-    document.getElementById('pn2').textContent=t.pn2;document.getElementById('pd2').textContent=t.pd2;
-    document.getElementById('pn3').textContent=t.pn3;document.getElementById('pd3').textContent=t.pd3;
-    document.getElementById('pn4').textContent=t.pn4;document.getElementById('pd4').textContent=t.pd4;
-    document.getElementById('dim1').textContent=t.dim1;document.getElementById('dim2').textContent=t.dim2;
-    document.getElementById('dim3').textContent=t.dim3;document.getElementById('dim4').textContent=t.dim4;
-    document.getElementById('ins1').textContent=t.ins1;document.getElementById('ins2').textContent=t.ins2;
-    document.getElementById('ins3').textContent=t.ins3;document.getElementById('ins4').textContent=t.ins4;
-    document.getElementById('lblName').textContent=t.name;document.getElementById('lblEmail').textContent=t.email;
-    document.getElementById('lblCompany').textContent=t.company;document.getElementById('lblIndustry').textContent=t.industry;
-    document.getElementById('lblSize').textContent=t.size;document.getElementById('formNote').textContent=t.note;
-    document.getElementById('btnStartTxt').textContent=t.start;document.getElementById('introNote').textContent=t.intro;
-    document.getElementById('btnPrevTxt').textContent=t.prev;
-    document.getElementById('profileTitle').textContent=t.profile;document.getElementById('strTitle').textContent=t.str;
-    document.getElementById('blTitle').textContent=t.bl;document.getElementById('pathTitle').textContent=t.path;
-    document.getElementById('reportTitle').textContent=t.report;document.getElementById('reportDesc').textContent=t.reportD;
-    document.getElementById('btnReport').textContent=t.send;
-    document.getElementById('ctaTitle').textContent=t.cta;document.getElementById('ctaDesc').textContent=t.ctaD;
-    document.getElementById('ctaBtn').textContent=t.ctaB;document.getElementById('btnCopy').textContent=t.copy;
-    document.getElementById('btnRetake').textContent=t.retake;
-    document.getElementById('shareCardTitle').textContent=t.shareTitle;
-    document.getElementById('shareCardDesc').textContent=t.shareDesc;
-    document.getElementById('btnDownload').textContent=t.download;
-    document.getElementById('linkedinPostTitle').textContent=t.postTitle;
-    document.getElementById('linkedinPostDesc').textContent=t.postDesc;
-    document.getElementById('step1').textContent=t.step1;
-    document.getElementById('step2').textContent=t.step2;
-    document.getElementById('step3').textContent=t.step3;
-    document.getElementById('tabCasual').textContent=t.tabCasual;
-    document.getElementById('tabPro').textContent=t.tabPro;
-    document.getElementById('tabChallenge').textContent=t.tabChallenge;
-    document.getElementById('btnCopyPost').textContent=t.copyPost;
-    document.getElementById('btnGoLinkedIn').textContent=t.goLinkedIn;
-    document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
-}
-
-function toggleLang(){
-    lang=lang==='en'?'es':'en';
-    localStorage.setItem('aiq-lang', lang);
-    document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
-    updateUI();
-    if(document.getElementById('questionScreen').classList.contains('active'))render();
-    // Update type page link if on results screen
-    if(document.getElementById('resultsScreen').classList.contains('active')){
-        var sc=calcScores(),code=getType(sc);
-        var typePageSuffix = lang === 'es' ? '-es' : '';
-        document.getElementById('typePageBtn').href = 'types/' + code.toLowerCase() + typePageSuffix + '.html';
-        document.getElementById('typePageText').textContent = lang === 'en' ? 'See Full Guide for ' + code + ' →' : 'Ver Guía Completa para ' + code + ' →';
-    }
-}
-function validate(){document.getElementById('btnStart').disabled=!document.getElementById('userName').value.trim();}
-document.addEventListener('DOMContentLoaded',function(){
-    // Check localStorage for saved language
-    var savedLang = localStorage.getItem('aiq-lang');
-    if(savedLang && savedLang !== lang){
-        lang = savedLang;
-        document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN';
-    }
-    document.getElementById('userName').addEventListener('input',validate);
-    updateUI();
-});
-
-function startQuiz(){
-    usr={name:document.getElementById('userName').value.trim(),email:document.getElementById('userEmail').value.trim(),company:document.getElementById('companyName').value.trim(),industry:document.getElementById('industry').value,size:document.getElementById('companySize').value};
-    document.getElementById('introScreen').classList.remove('active');
-    document.getElementById('questionScreen').classList.add('active');
-    document.getElementById('headerProgress').style.display='flex';
-    render();
-}
-
-function render(){
-    var q=Q[lang][cur],t=TXT[lang];
-    document.getElementById('qDimension').textContent=q.d;
-    document.getElementById('qNumber').textContent=t.qof.replace('Q',cur+1);
-    document.getElementById('qText').textContent=q.t;
-    var opts=[{v:1,l:t.sd},{v:2,l:t.d},{v:3,l:t.n},{v:4,l:t.a},{v:5,l:t.sa}];
-    document.getElementById('answerOptions').innerHTML=opts.map(function(o){return '<div class="answer-option '+(ans[cur]===o.v?'selected':'')+'" onclick="sel('+o.v+')"><div class="answer-radio"></div><span class="answer-label">'+o.l+'</span></div>';}).join('');
-    document.getElementById('btnPrev').disabled=cur===0;
-    document.getElementById('btnNext').disabled=ans[cur]===null;
-    document.getElementById('btnNextTxt').textContent=cur===19?t.results:t.next;
-    var cnt=ans.filter(function(a){return a!==null;}).length;
-    document.getElementById('progressCount').textContent=cnt;
-    document.getElementById('progressBar').style.width=(cnt/20*100)+'%';
-}
-
-function sel(v){ans[cur]=v;render();}
-function nextQ(){if(cur<19){cur++;render();}else{showResults();}}
-function prevQ(){if(cur>0){cur--;render();}}
-
-function calcScores(){
-    var dims={Structure:{s:0,c:0},Orientation:{s:0,c:0},Leadership:{s:0,c:0},Integration:{s:0,c:0}};
-    var map=lang==='es'?{Estructura:'Structure',Orientación:'Orientation',Liderazgo:'Leadership',Integración:'Integration'}:{Structure:'Structure',Orientation:'Orientation',Leadership:'Leadership',Integration:'Integration'};
-    Q[lang].forEach(function(q,i){if(ans[i]===null)return;var d=dims[map[q.d]];d.s+=q.p===1?ans[i]-1:5-ans[i];d.c++;});
-    var r={};for(var k in dims){var v=dims[k];r[k]={score:v.s,max:v.c*4,pct:v.c>0?v.s/(v.c*4)*100:50};}
-    return r;
-}
-
-function getType(sc){var c='';c+=sc.Structure.pct<=50?'S':'C';c+=sc.Orientation.pct<=50?'R':'P';c+=sc.Leadership.pct<=50?'T':'B';c+=sc.Integration.pct<=50?'E':'I';return c;}
-
-function showResults(){
-    document.getElementById('questionScreen').classList.remove('active');
-    document.getElementById('resultsScreen').classList.add('active');
-    document.getElementById('headerProgress').style.display='none';
-    var sc=calcScores(),code=getType(sc),t=T[code],txt=TXT[lang];
-    fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:usr.name,email:usr.email,company:usr.company,industry:usr.industry,size:usr.size,role:'',typeCode:code,typeName:t.n[lang],structureScore:Math.round(sc.Structure.pct),orientationScore:Math.round(sc.Orientation.pct),leadershipScore:Math.round(sc.Leadership.pct),integrationScore:Math.round(sc.Integration.pct),language:lang})}).catch(function(e){console.error(e);});
-    document.getElementById('resIllustration').innerHTML='<img src="types/'+code+'.svg" alt="'+t.n[lang]+'">';
-    document.getElementById('resCode').textContent=code;document.getElementById('resCode').style.color=t.c;
-    document.getElementById('resName').textContent=t.n[lang];document.getElementById('resName').style.color=t.c;
-    document.getElementById('resTagline').textContent='"'+t.tg[lang]+'"';
-    document.getElementById('resDesc').textContent=t.desc[lang];document.getElementById('resPath').textContent=t.path[lang];
-    document.getElementById('resStr').innerHTML=t.str[lang].map(function(s){return '<li>'+s+'</li>';}).join('');
-    document.getElementById('resBl').innerHTML=t.bl[lang].map(function(b){return '<li>'+b+'</li>';}).join('');
-    if(usr.email)document.getElementById('reportEmail').value=usr.email;
-    var dc=[{k:'Structure',l:txt.scat,r:txt.cons,c:'#14B8A6',n:txt.dim1},{k:'Orientation',l:txt.react,r:txt.proact,c:'#3B82F6',n:txt.dim2},{k:'Leadership',l:txt.tech,r:txt.biz,c:'#8B5CF6',n:txt.dim3},{k:'Integration',l:txt.exp,r:txt.integ,c:'#F97316',n:txt.dim4}];
-    document.getElementById('dimScores').innerHTML=dc.map(function(d){var s=sc[d.k],lbl=s.pct>50?d.r:d.l;return '<div class="dimension-score"><div class="dimension-score-header"><span class="dimension-score-name">'+d.n+'</span><span class="dimension-score-result">'+lbl+'</span></div><div class="dimension-score-bar"><div class="dimension-score-fill" style="width:'+s.pct+'%;background:'+d.c+'"></div></div><div class="dimension-score-labels"><span>'+d.l+'</span><span>'+d.r+'</span></div></div>';}).join('');
-    // Generate share card and post templates
-    setTimeout(function(){ 
-        generateShareCard(sc, code, t);
-        generatePostTemplates(sc, code, t);
-    }, 100);
-    // Set type page link
-    var typePageSuffix = lang === 'es' ? '-es' : '';
-    document.getElementById('typePageBtn').href = 'types/' + code.toLowerCase() + typePageSuffix + '.html';
-    document.getElementById('typePageText').textContent = lang === 'en' ? 'See Full Guide for ' + code + ' →' : 'Ver Guía Completa para ' + code + ' →';
-}
-
-function sendReport(){
-    var email=document.getElementById('reportEmail').value;
-    if(!email||email.indexOf('@')<0){alert(lang==='en'?'Please enter a valid email':'Por favor ingresa un email válido');return;}
-    var sc=calcScores(),code=getType(sc),t=T[code];
-    
-    document.getElementById('btnReport').disabled=true;
-    document.getElementById('btnReport').textContent=lang==='en'?'Sending...':'Enviando...';
-    
-    emailjs.init('z7UZ8dVqOJfWTaC8U');
-    emailjs.send('service_dfe4v9x', 'template_a9rvtrr', {
-        to_email: email,
-        name: usr.name || 'Friend',
-        typeCode: code,
-        typeName: t.n[lang],
-        description: t.desc[lang],
-        strengths: t.str[lang].join(', '),
-        blindspots: t.bl[lang].join(', '),
-        path: t.path[lang],
-        structureScore: Math.round(sc.Structure.pct),
-        orientationScore: Math.round(sc.Orientation.pct),
-        leadershipScore: Math.round(sc.Leadership.pct),
-        integrationScore: Math.round(sc.Integration.pct)
-    }).then(function(){
-        document.getElementById('emailSent').style.display='block';
-        document.getElementById('btnReport').textContent=lang==='en'?'Sent!':'¡Enviado!';
-    }).catch(function(err){
-        console.error('EmailJS error:',err);
-        alert(lang==='en'?'Error sending email. Please try again.':'Error al enviar. Intenta de nuevo.');
-        document.getElementById('btnReport').disabled=false;
-        document.getElementById('btnReport').textContent=lang==='en'?'Send':'Enviar';
-    });
-}
-
-function copyRes(){
-    var sc=calcScores(),code=getType(sc),t=T[code];
-    var txt=lang==='en'?'My AI-Q Type: '+code+' - "'+t.n.en+'"\n\n'+t.tg.en+'\n\n'+t.desc.en+'\n\nStrengths:\n'+t.str.en.map(function(s){return '- '+s;}).join('\n')+'\n\nPath Forward:\n'+t.path.en+'\n\nTake the assessment: ai-q.fit':'Mi Tipo AI-Q: '+code+' - "'+t.n.es+'"\n\n'+t.tg.es+'\n\n'+t.desc.es+'\n\nFortalezas:\n'+t.str.es.map(function(s){return '- '+s;}).join('\n')+'\n\nCamino a Seguir:\n'+t.path.es+'\n\nHaz la evaluación: ai-q.fit';
-    navigator.clipboard.writeText(txt).then(function(){alert(lang==='en'?'Results copied!':'¡Resultados copiados!');});
-}
-
-function retake(){
-    cur=0;ans=Array(20).fill(null);usr={};
-    document.getElementById('userName').value='';document.getElementById('userEmail').value='';
-    document.getElementById('companyName').value='';document.getElementById('industry').value='';
-    document.getElementById('companySize').value='';document.getElementById('btnStart').disabled=true;
-    document.getElementById('emailSent').style.display='none';document.getElementById('btnReport').disabled=false;
-    document.getElementById('resultsScreen').classList.remove('active');
-    document.getElementById('introScreen').classList.add('active');
-}
-
-var cardDataUrl = null;
-
-function generateShareCard(sc, code, t) {
-    var canvas = document.getElementById('shareCanvas');
-    var ctx = canvas.getContext('2d');
-    var w = 1200, h = 630;
-    
-    // Background gradient
-    var bgGrad = ctx.createLinearGradient(0, 0, w, h);
-    bgGrad.addColorStop(0, '#07090E');
-    bgGrad.addColorStop(1, '#0D1117');
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, w, h);
-    
-    // Subtle grid pattern
-    ctx.strokeStyle = 'rgba(20, 184, 166, 0.03)';
-    ctx.lineWidth = 1;
-    for (var i = 100; i < h; i += 100) {
-        ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(w, i); ctx.stroke();
-    }
-    for (var j = 200; j < w; j += 200) {
-        ctx.beginPath(); ctx.moveTo(j, 0); ctx.lineTo(j, h); ctx.stroke();
-    }
-    
-    // Decorative circles
-    ctx.fillStyle = 'rgba(20, 184, 166, 0.05)';
-    ctx.beginPath(); ctx.arc(100, 100, 150, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = 'rgba(59, 130, 246, 0.05)';
-    ctx.beginPath(); ctx.arc(1100, 530, 200, 0, Math.PI * 2); ctx.fill();
-    
-    // Left side - Type info
-    var leftX = 80;
-    
-    // Type code
-    ctx.font = 'bold 120px Arial';
-    ctx.fillStyle = t.c;
-    ctx.fillText(code, leftX, 200);
-    
-    // Type name
-    ctx.font = 'bold 48px Arial';
-    ctx.fillStyle = '#F1F5F9';
-    ctx.fillText(t.n[lang], leftX, 270);
-    
-    // Tagline
-    ctx.font = 'italic 28px Arial';
-    ctx.fillStyle = '#64748B';
-    ctx.fillText('"' + t.tg[lang] + '"', leftX, 320);
-    
-    // Dimension bars
-    var dims = [
-        { name: lang === 'en' ? 'Structure' : 'Estructura', pct: sc.Structure.pct, color: '#14B8A6' },
-        { name: lang === 'en' ? 'Orientation' : 'Orientación', pct: sc.Orientation.pct, color: '#3B82F6' },
-        { name: lang === 'en' ? 'Leadership' : 'Liderazgo', pct: sc.Leadership.pct, color: '#8B5CF6' },
-        { name: lang === 'en' ? 'Integration' : 'Integración', pct: sc.Integration.pct, color: '#F97316' }
-    ];
-    
-    var barY = 380;
-    var barWidth = 450;
-    var barHeight = 24;
-    
-    dims.forEach(function(dim, i) {
-        var y = barY + i * 55;
-        
-        // Label
-        ctx.font = '18px Arial';
-        ctx.fillStyle = '#94A3B8';
-        ctx.fillText(dim.name, leftX, y - 8);
-        
-        // Percentage
-        ctx.fillStyle = dim.color;
-        ctx.textAlign = 'right';
-        ctx.fillText(Math.round(dim.pct) + '%', leftX + barWidth, y - 8);
-        ctx.textAlign = 'left';
-        
-        // Bar background
-        ctx.fillStyle = '#1E293B';
-        ctx.beginPath();
-        ctx.roundRect(leftX, y, barWidth, barHeight, 6);
-        ctx.fill();
-        
-        // Bar fill
-        ctx.fillStyle = dim.color;
-        ctx.beginPath();
-        ctx.roundRect(leftX, y, barWidth * dim.pct / 100, barHeight, 6);
-        ctx.fill();
-    });
-    
-    // Right side - branding and CTA
-    var rightX = 650;
-    
-    // AI-Q logo
-    ctx.font = 'bold 72px Arial';
-    var logoGrad = ctx.createLinearGradient(rightX, 120, rightX + 200, 120);
-    logoGrad.addColorStop(0, '#14B8A6');
-    logoGrad.addColorStop(1, '#3B82F6');
-    ctx.fillStyle = logoGrad;
-    ctx.fillText('AI-Q', rightX, 180);
-    
-    // Subtitle
-    ctx.font = '24px Arial';
-    ctx.fillStyle = '#94A3B8';
-    var subtitle = lang === 'en' ? 'AI Strategy Assessment' : 'Evaluación de Estrategia de IA';
-    ctx.fillText(subtitle, rightX, 220);
-    
-    // Decorative box for user name
-    ctx.fillStyle = 'rgba(20, 184, 166, 0.1)';
-    ctx.beginPath();
-    ctx.roundRect(rightX, 280, 470, 120, 16);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(20, 184, 166, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    
-    // User name
-    var displayName = usr.name || (lang === 'en' ? 'Your' : 'Tu');
-    ctx.font = '20px Arial';
-    ctx.fillStyle = '#64748B';
-    ctx.fillText(lang === 'en' ? 'Results for' : 'Resultados de', rightX + 24, 320);
-    ctx.font = 'bold 32px Arial';
-    ctx.fillStyle = '#F1F5F9';
-    // Truncate name if too long
-    var nameText = displayName;
-    if (ctx.measureText(nameText).width > 420) {
-        while (ctx.measureText(nameText + '...').width > 420 && nameText.length > 0) {
-            nameText = nameText.slice(0, -1);
-        }
-        nameText += '...';
-    }
-    ctx.fillText(nameText, rightX + 24, 365);
-    
-    // CTA
-    ctx.fillStyle = '#14B8A6';
-    ctx.beginPath();
-    ctx.roundRect(rightX, 440, 470, 70, 12);
-    ctx.fill();
-    
-    ctx.font = 'bold 26px Arial';
-    ctx.fillStyle = '#FFFFFF';
-    ctx.textAlign = 'center';
-    var ctaText = lang === 'en' ? 'Discover yours at ai-q.fit' : 'Descubre el tuyo en ai-q.fit';
-    ctx.fillText(ctaText, rightX + 235, 485);
-    ctx.textAlign = 'left';
-    
-    // Footer
-    ctx.font = '16px Arial';
-    ctx.fillStyle = '#64748B';
-    ctx.fillText('© Dr. Federico Andino', rightX, 580);
-    
-    // Convert to data URL
-    cardDataUrl = canvas.toDataURL('image/png');
-    
-    // Show preview
-    var preview = document.getElementById('shareCardPreview');
-    preview.innerHTML = '<img src="' + cardDataUrl + '" alt="Share Card" style="max-width:100%;height:auto;">';
-}
-
-function downloadCard() {
-    if (!cardDataUrl) return;
-    var link = document.createElement('a');
-    link.download = 'AI-Q-Result-' + getType(calcScores()) + '.png';
-    link.href = cardDataUrl;
-    link.click();
-}
-
-var currentPostTemplate = 0;
-var postTemplates = { en: [], es: [] };
-
-function generatePostTemplates(sc, code, t) {
-    var scores = {
-        structure: Math.round(sc.Structure.pct),
-        orientation: Math.round(sc.Orientation.pct),
-        leadership: Math.round(sc.Leadership.pct),
-        integration: Math.round(sc.Integration.pct)
-    };
-    
-    postTemplates.en = [
-        // Casual
-`Just took the AI-Q assessment and discovered I'm a ${code} — "${t.n.en}"
-
-${t.tg.en}
-
-My scores:
-📊 Structure: ${scores.structure}%
-🎯 Orientation: ${scores.orientation}%
-👥 Leadership: ${scores.leadership}%
-🔗 Integration: ${scores.integration}%
-
-The eye-opener? ${t.str.en[0]} is a strength, but ${t.bl.en[0].toLowerCase()} is a blind spot I need to work on.
-
-Curious what your AI strategy type is? Takes 5 minutes: ai-q.fit
-
-#AIStrategy #DigitalTransformation #AI`,
-
-        // Professional
-`After 20 questions and some honest reflection, I got my AI-Q results.
-
-Type: ${code} — ${t.n.en}
-
-What it means: ${t.desc.en.substring(0, 200)}...
-
-Key insight: ${t.path.en}
-
-The framework measures 4 dimensions:
-→ Structure (Scattered vs Consolidated)
-→ Orientation (Reactive vs Proactive)  
-→ Leadership (Tech-driven vs Business-driven)
-→ Integration (Experimental vs Integrated)
-
-For leaders thinking about AI strategy, this is worth 5 minutes: ai-q.fit
-
-What's your type?
-
-#EnterpriseAI #Leadership #Strategy #AITransformation`,
-
-        // Challenge
-`I just found out my company's AI strategy type.
-
-${code}: "${t.n.en}"
-
-"${t.tg.en}"
-
-Ouch. But also... accurate.
-
-Here's the thing — you can't fix what you can't name. 
-
-Now I know:
-✓ What we're doing well: ${t.str.en[0]}
-✗ What we're missing: ${t.bl.en[0]}
-→ What to do next: ${t.path.en}
-
-Your turn. What's YOUR AI-Q type?
-
-Take it here (5 min): ai-q.fit
-
-Drop your type in the comments — I'm curious how we compare 👇
-
-#AI #Strategy #Leadership`
-    ];
-    
-    postTemplates.es = [
-        // Casual
-`Acabo de tomar la evaluación AI-Q y descubrí que soy ${code} — "${t.n.es}"
-
-${t.tg.es}
-
-Mis puntajes:
-📊 Estructura: ${scores.structure}%
-🎯 Orientación: ${scores.orientation}%
-👥 Liderazgo: ${scores.leadership}%
-🔗 Integración: ${scores.integration}%
-
-¿Lo revelador? ${t.str.es[0]} es una fortaleza, pero ${t.bl.es[0].toLowerCase()} es un punto ciego en el que debo trabajar.
-
-¿Curioso cuál es tu tipo de estrategia de IA? Toma 5 minutos: ai-q.fit
-
-#EstrategiaIA #TransformaciónDigital #IA`,
-
-        // Professional  
-`Después de 20 preguntas y algo de reflexión honesta, obtuve mis resultados de AI-Q.
-
-Tipo: ${code} — ${t.n.es}
-
-Qué significa: ${t.desc.es.substring(0, 200)}...
-
-Insight clave: ${t.path.es}
-
-El framework mide 4 dimensiones:
-→ Estructura (Disperso vs Consolidado)
-→ Orientación (Reactivo vs Proactivo)
-→ Liderazgo (Tech-driven vs Business-driven)
-→ Integración (Experimental vs Integrado)
-
-Para líderes pensando en estrategia de IA, vale 5 minutos: ai-q.fit
-
-¿Cuál es tu tipo?
-
-#IAEmpresarial #Liderazgo #Estrategia #TransformaciónIA`,
-
-        // Challenge
-`Acabo de descubrir el tipo de estrategia de IA de mi empresa.
-
-${code}: "${t.n.es}"
-
-"${t.tg.es}"
-
-Auch. Pero también... preciso.
-
-La cuestión es — no puedes arreglar lo que no puedes nombrar.
-
-Ahora sé:
-✓ Lo que hacemos bien: ${t.str.es[0]}
-✗ Lo que nos falta: ${t.bl.es[0]}
-→ Qué hacer: ${t.path.es}
-
-Tu turno. ¿Cuál es TU tipo AI-Q?
-
-Tómalo aquí (5 min): ai-q.fit
-
-Deja tu tipo en los comentarios — tengo curiosidad de comparar 👇
-
-#IA #Estrategia #Liderazgo`
-    ];
-    
-    updatePostPreview();
-}
-
-function selectPostTemplate(index) {
-    currentPostTemplate = index;
-    document.querySelectorAll('.post-tab').forEach(function(tab, i) {
-        tab.classList.toggle('active', i === index);
-    });
-    updatePostPreview();
-}
-
-function updatePostPreview() {
-    var templates = postTemplates[lang] || postTemplates.en;
-    if (templates.length > 0) {
-        document.getElementById('postPreview').textContent = templates[currentPostTemplate];
-    }
-}
-
-function copyPost() {
-    var templates = postTemplates[lang] || postTemplates.en;
-    if (templates.length === 0) return;
-    
-    navigator.clipboard.writeText(templates[currentPostTemplate]).then(function() {
-        var confirm = document.getElementById('copyConfirm');
-        confirm.classList.add('show');
-        setTimeout(function() { confirm.classList.remove('show'); }, 2000);
-    });
-}
-
-document.addEventListener('keydown',function(e){
-    if(!document.getElementById('questionScreen').classList.contains('active'))return;
-    if(e.key>='1'&&e.key<='5')sel(parseInt(e.key));
-    else if((e.key==='ArrowRight'||e.key==='Enter')&&ans[cur]!==null)nextQ();
-    else if(e.key==='ArrowLeft')prevQ();
-});
+let posts=[];let selPost=0;
+function u(){const t=TXT[lang];document.getElementById('titleMain').innerHTML=t.title;document.getElementById('subtitle').textContent=t.sub;document.getElementById('lblQuestions').textContent=t.questions;document.getElementById('lblMinutes').textContent=t.minutes;document.getElementById('lblTypes').textContent=t.types;document.getElementById('wiifmTitle').textContent=t.wiifm;document.getElementById('wiifm1Title').textContent=t.wiifm1t;document.getElementById('wiifm1Desc').textContent=t.wiifm1d;document.getElementById('wiifm2Title').textContent=t.wiifm2t;document.getElementById('wiifm2Desc').textContent=t.wiifm2d;document.getElementById('wiifm3Title').textContent=t.wiifm3t;document.getElementById('wiifm3Desc').textContent=t.wiifm3d;document.getElementById('wiifm4Title').textContent=t.wiifm4t;document.getElementById('wiifm4Desc').textContent=t.wiifm4d;document.getElementById('previewTitle').textContent=t.preview;document.getElementById('sampleTitle').textContent=t.sample;document.getElementById('pn1').textContent=t.pn1;document.getElementById('pd1').textContent=t.pd1;document.getElementById('pn2').textContent=t.pn2;document.getElementById('pd2').textContent=t.pd2;document.getElementById('pn3').textContent=t.pn3;document.getElementById('pd3').textContent=t.pd3;document.getElementById('pn4').textContent=t.pn4;document.getElementById('pd4').textContent=t.pd4;document.getElementById('dim1').textContent=t.dim1;document.getElementById('dim2').textContent=t.dim2;document.getElementById('dim3').textContent=t.dim3;document.getElementById('dim4').textContent=t.dim4;document.getElementById('ins1').textContent=t.ins1;document.getElementById('ins2').textContent=t.ins2;document.getElementById('ins3').textContent=t.ins3;document.getElementById('ins4').textContent=t.ins4;document.getElementById('lblName').textContent=t.name;document.getElementById('lblEmail').textContent=t.email;document.getElementById('lblCompany').textContent=t.company;document.getElementById('lblIndustry').textContent=t.industry;document.getElementById('lblSize').textContent=t.size;document.getElementById('formNote').textContent=t.note;document.getElementById('btnStartTxt').textContent=t.start;document.getElementById('introNote').textContent=t.intro;document.getElementById('btnPrevTxt').textContent=t.prev;document.getElementById('btnNextTxt').textContent=cur<19?t.next:t.results;document.getElementById('profileTitle').textContent=t.profile;document.getElementById('strTitle').textContent=t.str;document.getElementById('blTitle').textContent=t.bl;document.getElementById('pathTitle').textContent=t.path;document.getElementById('reportTitle').textContent=t.report;document.getElementById('reportDesc').textContent=t.reportD;document.getElementById('btnReport').textContent=t.send;document.getElementById('ctaTitle').textContent=t.cta;document.getElementById('ctaDesc').textContent=t.ctaD;document.getElementById('ctaBtn').textContent=t.ctaB;document.getElementById('btnCopy').textContent=t.copy;document.getElementById('btnRetake').textContent=t.retake;document.getElementById('shareCardTitle').textContent=t.shareTitle;document.getElementById('shareCardDesc').textContent=t.shareDesc;document.getElementById('btnDownload').textContent=t.download;document.getElementById('linkedinPostTitle').textContent=t.postTitle;document.getElementById('linkedinPostDesc').textContent=t.postDesc;document.getElementById('step1').textContent=t.step1;document.getElementById('step2').textContent=t.step2;document.getElementById('step3').textContent=t.step3;document.getElementById('tabCasual').textContent=t.tabCasual;document.getElementById('tabPro').textContent=t.tabPro;document.getElementById('tabChallenge').textContent=t.tabChallenge;document.getElementById('btnCopyPost').textContent=t.copyPost;document.getElementById('btnGoLinkedIn').textContent=t.goLinkedIn;document.getElementById('bookTitle').textContent=t.bookTitle;document.getElementById('bookDesc').textContent=t.bookDesc;document.getElementById('bookBtn').textContent=t.bookBtn;document.querySelector('.lang-switch').textContent=lang==='en'?'ES':'EN'}
+function toggleLang(){lang=lang==='en'?'es':'en';u()}
+document.getElementById('userName').addEventListener('input',function(){document.getElementById('btnStart').disabled=!this.value.trim()});
+function startQuiz(){usr={name:document.getElementById('userName').value.trim(),email:document.getElementById('userEmail').value.trim(),company:document.getElementById('companyName').value.trim(),industry:document.getElementById('industry').value,size:document.getElementById('companySize').value};document.getElementById('introScreen').classList.remove('active');document.getElementById('questionScreen').classList.add('active');document.getElementById('headerProgress').style.display='flex';renderQ()}
+function renderQ(){const qs=Q[lang];const q=qs[cur];const t=TXT[lang];document.getElementById('qDimension').textContent=q.d;document.getElementById('qNumber').textContent=t.qof.replace('#',cur+1);document.getElementById('qText').textContent=q.t;const opts=document.getElementById('answerOptions');opts.innerHTML='';const lbls=[t.sd,t.d,t.n,t.a,t.sa];[1,2,3,4,5].forEach((v,i)=>{const o=document.createElement('div');o.className='answer-option'+(ans[cur]===v?' selected':'');o.onclick=()=>selectAns(v);o.innerHTML=`<div class="answer-radio"></div><span class="answer-label">${lbls[i]}</span>`;opts.appendChild(o)});document.getElementById('btnPrev').disabled=cur===0;document.getElementById('btnNext').disabled=ans[cur]===null;document.getElementById('btnNextTxt').textContent=cur<19?t.next:t.results;document.getElementById('progressBar').style.width=((cur+1)/20*100)+'%';document.getElementById('progressCount').textContent=cur+1}
+function selectAns(v){ans[cur]=v;renderQ()}
+function prevQ(){if(cur>0){cur--;renderQ()}}
+function nextQ(){if(ans[cur]===null)return;if(cur<19){cur++;renderQ()}else{calcResults()}}
+function calcResults(){const qs=Q[lang];let sc={S:0,O:0,L:0,I:0};const dmap={Structure:'S',Estructura:'S',Orientation:'O',Orientación:'O',Leadership:'L',Liderazgo:'L',Integration:'I',Integración:'I'};qs.forEach((q,i)=>{const dim=dmap[q.d];const raw=ans[i]-3;sc[dim]+=raw*q.p});const type=(sc.S>=0?'C':'S')+(sc.O>=0?'P':'R')+(sc.L>=0?'B':'T')+(sc.I>=0?'I':'E');showResults(type,sc)}
+function showResults(type,sc){document.getElementById('questionScreen').classList.remove('active');document.getElementById('resultsScreen').classList.add('active');document.getElementById('headerProgress').style.display='none';const info=T[type];const t=TXT[lang];document.getElementById('resIllustration').innerHTML=`<img src="types/${type}.svg" alt="${type}" style="width:100%;height:100%;object-fit:cover;">`;document.getElementById('resCode').textContent=type;document.getElementById('resCode').style.color=info.c;document.getElementById('resName').textContent=info.n[lang];document.getElementById('resTagline').textContent=`"${info.tg[lang]}"`;document.getElementById('resDesc').textContent=info.desc[lang];document.getElementById('resStr').innerHTML=info.str[lang].map(s=>`<li>${s}</li>`).join('');document.getElementById('resBl').innerHTML=info.bl[lang].map(b=>`<li>${b}</li>`).join('');document.getElementById('resPath').textContent=info.path[lang];var suffix=lang==='es'?'-es':'';document.getElementById('typePageBtn').href='types/'+type.toLowerCase()+suffix+'.html';document.getElementById('typePageText').textContent=lang==='en'?'See Full Guide for Your Type →':'Ver Guía Completa para Tu Tipo →';const dims=[{k:'S',n:t.dim1,l:t.scat,r:t.cons,c:'var(--accent-teal)'},{k:'O',n:t.dim2,l:t.react,r:t.proact,c:'var(--accent-blue)'},{k:'L',n:t.dim3,l:t.tech,r:t.biz,c:'var(--accent-purple)'},{k:'I',n:t.dim4,l:t.exp,r:t.integ,c:'var(--accent-orange)'}];const dsEl=document.getElementById('dimScores');dsEl.innerHTML='';dims.forEach(d=>{const pct=Math.min(100,Math.max(0,(sc[d.k]+10)/20*100));const res=sc[d.k]>=0?d.r:d.l;const card=document.createElement('div');card.className='dimension-score';card.innerHTML=`<div class="dimension-score-header"><span class="dimension-score-name">${d.n}</span><span class="dimension-score-result">${res}</span></div><div class="dimension-score-bar"><div class="dimension-score-fill" style="width:${pct}%;background:${d.c}"></div></div><div class="dimension-score-labels"><span>${d.l}</span><span>${d.r}</span></div>`;dsEl.appendChild(card)});const ue=document.getElementById('userEmail').value.trim();if(ue)document.getElementById('reportEmail').value=ue;try{generateShareCard(type,info,sc,dims);generatePostTemplates(type,info)}catch(e){console.log('Share card generation skipped:',e)}sendToWebhook(type,sc)}
+function sendToWebhook(type,sc){const data={timestamp:new Date().toISOString(),name:usr.name,email:usr.email||'',company:usr.company||'',industry:usr.industry||'',size:usr.size||'',type:type,scores:sc,language:lang};fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{})}
+function generateShareCard(type,info,sc,dims){const canvas=document.getElementById('shareCanvas');const ctx=canvas.getContext('2d');ctx.fillStyle='#07090E';ctx.fillRect(0,0,1200,630);const grd=ctx.createRadialGradient(200,0,0,200,0,500);grd.addColorStop(0,'rgba(20,184,166,0.15)');grd.addColorStop(1,'transparent');ctx.fillStyle=grd;ctx.fillRect(0,0,1200,630);ctx.fillStyle=info.c;ctx.font='bold 120px Syne, sans-serif';ctx.textAlign='left';ctx.fillText(type,80,180);ctx.fillStyle='#F1F5F9';ctx.font='bold 42px Space Grotesk, sans-serif';ctx.fillText(info.n[lang],80,240);ctx.fillStyle='#94A3B8';ctx.font='italic 28px Space Grotesk, sans-serif';ctx.fillText(`"${info.tg[lang]}"`,80,290);const barY=340;const barW=400;const barH=24;dims.forEach((d,i)=>{const y=barY+i*55;ctx.fillStyle='#94A3B8';ctx.font='500 18px Space Grotesk, sans-serif';ctx.fillText(d.n,80,y-8);const pct=Math.min(100,Math.max(0,(sc[d.k]+10)/20*100));ctx.fillStyle='#1E293B';ctx.beginPath();ctx.roundRect(80,y,barW,barH,6);ctx.fill();ctx.fillStyle=d.c.replace('var(--accent-teal)','#14B8A6').replace('var(--accent-blue)','#3B82F6').replace('var(--accent-purple)','#8B5CF6').replace('var(--accent-orange)','#F97316');ctx.beginPath();ctx.roundRect(80,y,barW*(pct/100),barH,6);ctx.fill()});ctx.fillStyle='#F1F5F9';ctx.font='bold 32px Syne, sans-serif';ctx.fillText('AI-Q',80,590);ctx.fillStyle='#64748B';ctx.font='20px Space Grotesk, sans-serif';ctx.fillText('ai-q.fit',180,590);ctx.fillStyle='#0D1117';ctx.fillRect(600,80,520,470);ctx.strokeStyle='#1E293B';ctx.lineWidth=2;ctx.strokeRect(600,80,520,470);ctx.fillStyle='#F1F5F9';ctx.font='bold 24px Space Grotesk, sans-serif';ctx.textAlign='center';ctx.fillText(lang==='en'?'Profile':'Perfil',860,130);ctx.textAlign='left';ctx.fillStyle='#CBD5E1';ctx.font='18px Space Grotesk, sans-serif';const desc=info.desc[lang];const words=desc.split(' ');let lines=[];let line='';words.forEach(w=>{const test=line+w+' ';if(ctx.measureText(test).width>460){lines.push(line);line=w+' '}else{line=test}});if(line)lines.push(line);lines.slice(0,4).forEach((l,i)=>{ctx.fillText(l.trim(),630,170+i*28)});const strY=290;ctx.fillStyle='#22C55E';ctx.font='bold 18px Space Grotesk, sans-serif';ctx.fillText(lang==='en'?'Strengths':'Fortalezas',630,strY);ctx.fillStyle='#94A3B8';ctx.font='16px Space Grotesk, sans-serif';info.str[lang].slice(0,2).forEach((s,i)=>{ctx.fillText('• '+s,640,strY+25+i*24)});const blY=380;ctx.fillStyle='#EF4444';ctx.font='bold 18px Space Grotesk, sans-serif';ctx.fillText(lang==='en'?'Blind Spots':'Puntos Ciegos',630,blY);ctx.fillStyle='#94A3B8';ctx.font='16px Space Grotesk, sans-serif';info.bl[lang].slice(0,2).forEach((b,i)=>{ctx.fillText('• '+b,640,blY+25+i*24)});const pathY=470;ctx.fillStyle='#14B8A6';ctx.font='bold 18px Space Grotesk, sans-serif';ctx.fillText(lang==='en'?'Path Forward':'Camino a Seguir',630,pathY);ctx.fillStyle='#F1F5F9';ctx.font='16px Space Grotesk, sans-serif';const pathWords=info.path[lang].split(' ');let pathLines=[];let pathLine='';pathWords.forEach(w=>{const test=pathLine+w+' ';if(ctx.measureText(test).width>440){pathLines.push(pathLine);pathLine=w+' '}else{pathLine=test}});if(pathLine)pathLines.push(pathLine);pathLines.slice(0,2).forEach((l,i)=>{ctx.fillText(l.trim(),640,pathY+25+i*22)});const preview=document.getElementById('shareCardPreview');const img=new Image();img.src=canvas.toDataURL('image/png');img.style.maxWidth='100%';img.style.borderRadius='8px';preview.innerHTML='';preview.appendChild(img)}
+function generatePostTemplates(type,info){const name=usr.name.split(' ')[0];const typeName=info.n[lang];const tagline=info.tg[lang];if(lang==='en'){posts=[`Just took the AI-Q Assessment and got ${type}: ${typeName}.\n\n"${tagline}"\n\nPretty accurate, not gonna lie. 😅\n\nIf you're curious where your org stands on AI strategy, it's free and takes 5 min:\n→ ai-q.fit\n\nWhat's your type? 👇`,`I've been thinking about AI strategy a lot lately. Just took the AI-Q Assessment.\n\nMy result: ${type} - ${typeName}\n\n"${tagline}"\n\nThe framework breaks down AI maturity into 4 dimensions:\n• Structure (scattered vs consolidated)\n• Orientation (reactive vs proactive)\n• Leadership (tech vs business driven)\n• Integration (experimental vs embedded)\n\nWorth 5 minutes if you're working on AI initiatives:\n→ ai-q.fit`,`Challenge for my network:\n\nTake the AI-Q Assessment and share your type.\n\nI'm ${type}: ${typeName}\n\nLet's see the distribution. My guess:\n- Most will be in the "Scattered" quadrant\n- Very few CPBIs (Strategic Leaders)\n\nProve me wrong: ai-q.fit\n\n#AIStrategy #Leadership`]}else{posts=[`Acabo de hacer el Assessment AI-Q y soy ${type}: ${typeName}.\n\n"${tagline}"\n\nBastante preciso, la verdad. 😅\n\nSi quieres saber dónde está tu organización en estrategia de IA, es gratis y toma 5 min:\n→ ai-q.fit\n\n¿Cuál es tu tipo? 👇`,`He estado pensando mucho sobre estrategia de IA. Acabo de hacer el Assessment AI-Q.\n\nMi resultado: ${type} - ${typeName}\n\n"${tagline}"\n\nEl framework analiza la madurez de IA en 4 dimensiones:\n• Estructura (disperso vs consolidado)\n• Orientación (reactivo vs proactivo)\n• Liderazgo (tech vs business driven)\n• Integración (experimental vs integrado)\n\nVale la pena 5 minutos si trabajas en iniciativas de IA:\n→ ai-q.fit`,`Desafío para mi red:\n\nHagan el Assessment AI-Q y compartan su tipo.\n\nYo soy ${type}: ${typeName}\n\nVeamos la distribución. Mi apuesta:\n- La mayoría estará en el cuadrante "Disperso"\n- Muy pocos CPBIs (Líderes Estratégicos)\n\nDemuestren que me equivoco: ai-q.fit\n\n#EstrategiaIA #Liderazgo`]}document.getElementById('postPreview').textContent=posts[0]}
+function selectPostTemplate(i){selPost=i;document.querySelectorAll('.post-tab').forEach((tab,idx)=>{tab.classList.toggle('active',idx===i)});document.getElementById('postPreview').textContent=posts[i]}
+function copyPost(){navigator.clipboard.writeText(posts[selPost]);const c=document.getElementById('copyConfirm');c.classList.add('show');setTimeout(()=>c.classList.remove('show'),2000)}
+function downloadCard(){const canvas=document.getElementById('shareCanvas');const link=document.createElement('a');link.download='AI-Q-Result-'+document.getElementById('resCode').textContent+'.png';link.href=canvas.toDataURL('image/png');link.click()}
+function sendReport(){const email=document.getElementById('reportEmail').value.trim();if(!email)return;const type=document.getElementById('resCode').textContent;const data={to_email:email,to_name:usr.name,type_code:type,type_name:T[type].n[lang],type_tagline:T[type].tg[lang],type_description:T[type].desc[lang],strengths:T[type].str[lang].join(', '),blindspots:T[type].bl[lang].join(', '),path:T[type].path[lang]};emailjs.init('YOUR_PUBLIC_KEY');emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',data).then(()=>{document.getElementById('emailSent').style.display='block'}).catch(()=>{document.getElementById('emailSent').textContent=lang==='en'?'Error sending':'Error al enviar';document.getElementById('emailSent').style.display='block'})}
+function copyRes(){const type=document.getElementById('resCode').textContent;const t=T[type];const txt=`AI-Q Result: ${type} - ${t.n[lang]}\n"${t.tg[lang]}"\n\n${t.desc[lang]}\n\nStrengths: ${t.str[lang].join(', ')}\nBlind Spots: ${t.bl[lang].join(', ')}\n\nPath Forward: ${t.path[lang]}\n\nTake the test: ai-q.fit`;navigator.clipboard.writeText(txt);const btn=document.getElementById('btnCopy');btn.textContent='✓ Copied!'||'✓ ¡Copiado!';setTimeout(()=>btn.textContent=TXT[lang].copy,2000)}
+function retake(){cur=0;ans=Array(20).fill(null);document.getElementById('resultsScreen').classList.remove('active');document.getElementById('introScreen').classList.add('active')}
+u();
 </script>
 </body>
 </html>
