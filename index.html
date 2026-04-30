@@ -19,8 +19,19 @@
         nav{position:fixed;top:0;left:0;right:0;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
         .logo{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
         .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+        .nav-links>li{position:relative}
         .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.95rem;font-weight:500;transition:color 0.3s ease}
         .nav-links a:hover{color:var(--accent-teal)}
+        .dropdown-toggle{color:var(--text-secondary);background:none;border:none;font-family:inherit;font-size:0.95rem;font-weight:500;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.3s ease}
+        .dropdown-toggle:hover{color:var(--accent-teal)}
+        .dropdown-toggle::after{content:'▾';font-size:0.75rem;opacity:0.7}
+        .dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;box-shadow:0 16px 40px rgba(0,0,0,0.4);list-style:none;margin-top:0.6rem}
+        .nav-links li:hover .dropdown-menu,.nav-links li:focus-within .dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+        .dropdown-menu li{display:block}
+        .dropdown-menu a{display:block;padding:0.7rem 0.85rem;border-radius:8px;color:var(--text-secondary);font-size:0.9rem;line-height:1.4;font-weight:400}
+        .dropdown-menu a:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+        .dropdown-menu a strong{display:block;color:var(--text-primary);font-weight:600;margin-bottom:0.15rem;font-size:0.92rem}
+        .dropdown-menu a small{display:block;color:var(--text-muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace}
         .lang-switch{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
         .lang-switch:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
         .btn-primary{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;padding:0.75rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:all 0.3s ease;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem}
@@ -132,8 +143,20 @@
             <li><a href="#dimensions" data-en="The Framework" data-es="El Framework">El Framework</a></li>
             <li><a href="#types" data-en="16 Types" data-es="16 Tipos">16 Tipos</a></li>
             <li><a href="sama.html" data-en="SAMA" data-es="SAMA">SAMA</a></li>
-            <li><a href="retenciones.html" data-en="Retenciones" data-es="Retenciones">Retenciones</a></li>
-            <li><a href="amortizaciones.html" data-en="Amortizaciones" data-es="Amortizaciones">Amortizaciones</a></li>
+            <li>
+                <button class="dropdown-toggle" aria-haspopup="true" data-en="Solutions" data-es="Soluciones">Soluciones</button>
+                <ul class="dropdown-menu">
+                    <li><a href="retenciones.html"><strong data-en="Retenciones" data-es="Retenciones">Retenciones</strong><small data-en="Withholding processor" data-es="Procesador de constancias">Procesador de constancias</small></a></li>
+                    <li><a href="amortizaciones.html"><strong data-en="Amortizaciones" data-es="Amortizaciones">Amortizaciones</strong><small data-en="Fixed-asset reporting" data-es="Reporte de activos fijos">Reporte de activos fijos</small></a></li>
+                </ul>
+            </li>
+            <li>
+                <button class="dropdown-toggle" aria-haspopup="true" data-en="Consulting" data-es="Consultoría">Consultoría</button>
+                <ul class="dropdown-menu">
+                    <li><a href="consultoria.html"><strong data-en="Servicios (ES)" data-es="Servicios (ES)">Servicios (ES)</strong><small data-en="Sprint &amp; Quarter" data-es="Sprint &amp; Quarter">Sprint &amp; Quarter</small></a></li>
+                    <li><a href="consultoria-en.html"><strong data-en="Services (EN)" data-es="Services (EN)">Services (EN)</strong><small data-en="Sprint &amp; Quarter" data-es="Sprint &amp; Quarter">Sprint &amp; Quarter</small></a></li>
+                </ul>
+            </li>
             <li><a href="#resources" data-en="Case Studies" data-es="Casos de Estudio">Casos de Estudio</a></li>
             <li><a href="#about" data-en="About" data-es="Acerca de">Acerca de</a></li>
             <li><button class="lang-switch" onclick="toggleLang()">EN 🇺🇸</button></li>

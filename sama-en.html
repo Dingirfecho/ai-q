@@ -18,6 +18,18 @@ nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-c
 .nav-links{display:flex;gap:1.5rem;align-items:center}
 .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
 .nav-links a:hover{color:var(--accent-teal)}
+.nav-links>li,.nav-links{position:relative}
+.nav-links{list-style:none}
+.dropdown-toggle{color:var(--text-secondary);background:none;border:none;font-family:inherit;font-size:0.9rem;cursor:pointer;padding:0.5rem 0;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s}
+.dropdown-toggle:hover{color:var(--accent-teal)}
+.dropdown-toggle::after{content:'▾';font-size:0.75rem;opacity:0.7}
+.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;box-shadow:0 16px 40px rgba(0,0,0,0.4);list-style:none;margin-top:0.4rem;z-index:101}
+.nav-links li:hover .dropdown-menu,.nav-links li:focus-within .dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.dropdown-menu li{display:block}
+.dropdown-menu a{display:block;padding:0.7rem 0.85rem;border-radius:8px;color:var(--text-secondary);font-size:0.9rem;line-height:1.4}
+.dropdown-menu a:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+.dropdown-menu a strong{display:block;color:var(--text-primary);font-weight:600;margin-bottom:0.15rem}
+.dropdown-menu a small{display:block;color:var(--text-muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace}
 .btn-nav{background:var(--accent-teal);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:0.9rem}
 .btn-nav:hover{background:#0D9488}
 
@@ -124,7 +136,7 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 .metrics-wrapper{padding:1.5rem}
 .metrics-table{font-size:0.85rem}
 .metrics-table th,.metrics-table td{padding:0.75rem 0.5rem}
-.nav-links a:not(.btn-nav){display:none}
+.nav-links{display:none}
 }
 </style>
 </head>
@@ -133,11 +145,26 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 
 <nav>
 <a href="index.html" class="logo">AI-Q</a>
-<div class="nav-links">
-<a href="index.html#types">The 16 Types</a>
-<a href="sama.html" class="lang-switch" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem">ES 🇪🇸</a>
-<a href="quiz.html" class="btn-nav">Take the Assessment</a>
-</div>
+<ul class="nav-links">
+<li><a href="index.html#types">The 16 Types</a></li>
+<li><a href="sama-en.html">SAMA</a></li>
+<li>
+<button class="dropdown-toggle" aria-haspopup="true">Solutions</button>
+<ul class="dropdown-menu">
+<li><a href="retenciones.html"><strong>Retenciones</strong><small>Withholding processor</small></a></li>
+<li><a href="amortizaciones.html"><strong>Amortizaciones</strong><small>Fixed-asset reporting</small></a></li>
+</ul>
+</li>
+<li>
+<button class="dropdown-toggle" aria-haspopup="true">Consulting</button>
+<ul class="dropdown-menu">
+<li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+<li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+</ul>
+</li>
+<li><a href="sama.html" class="lang-switch" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;text-decoration:none">ES 🇪🇸</a></li>
+</ul>
+<a href="quiz.html" class="btn-nav">Take the Test</a>
 </nav>
 
 <main class="container">

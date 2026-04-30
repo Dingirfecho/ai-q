@@ -18,6 +18,19 @@ nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-c
 .nav-links{display:flex;gap:1.5rem;align-items:center}
 .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
 .nav-links a:hover{color:var(--page-color)}
+.nav-links{list-style:none}
+.nav-links>li{position:relative}
+.dropdown-toggle{color:var(--text-secondary);background:none;border:none;font-family:inherit;font-size:0.9rem;cursor:pointer;padding:0.5rem 0;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s}
+.dropdown-toggle:hover{color:var(--page-color)}
+.dropdown-toggle::after{content:'▾';font-size:0.75rem;opacity:0.7}
+.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;box-shadow:0 16px 40px rgba(0,0,0,0.4);list-style:none;margin-top:0.4rem;z-index:101}
+.nav-links li:hover .dropdown-menu,.nav-links li:focus-within .dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.dropdown-menu li{display:block}
+.dropdown-menu a{display:block;padding:0.7rem 0.85rem;border-radius:8px;color:var(--text-secondary);font-size:0.9rem;line-height:1.4}
+.dropdown-menu a:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+.dropdown-menu a strong{display:block;color:var(--text-primary);font-weight:600;margin-bottom:0.15rem}
+.dropdown-menu a small{display:block;color:var(--text-muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace}
+
 .btn-nav{background:var(--accent-teal);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:0.9rem}
 .btn-nav:hover{background:#0D9488}
 
@@ -127,7 +140,7 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 .compare-cell.before{border-right:none;border-bottom:1px solid var(--border)}
 .compare-cell.header-cell.before{display:none}
 .cta-box{padding:2.5rem 1.5rem}
-.nav-links a:not(.btn-nav):not(.lang-switch){display:none}
+.nav-links{display:none}
 }
 </style>
 </head>
@@ -136,12 +149,25 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 
 <nav>
 <a href="index.html" class="logo">AI-Q</a>
-<div class="nav-links">
-<a href="index.html#types">Los 16 Tipos</a>
-<a href="sama.html">SAMA</a>
-<a href="retenciones.html">Retenciones</a>
+<ul class="nav-links">
+<li><a href="index.html#types">Los 16 Tipos</a></li>
+<li><a href="sama.html">SAMA</a></li>
+<li>
+<button class="dropdown-toggle" aria-haspopup="true">Soluciones</button>
+<ul class="dropdown-menu">
+<li><a href="retenciones.html"><strong>Retenciones</strong><small>Procesador de constancias</small></a></li>
+<li><a href="amortizaciones.html"><strong>Amortizaciones</strong><small>Reporte de activos fijos</small></a></li>
+</ul>
+</li>
+<li>
+<button class="dropdown-toggle" aria-haspopup="true">Consultoría</button>
+<ul class="dropdown-menu">
+<li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+<li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+</ul>
+</li>
+</ul>
 <a href="quiz.html" class="btn-nav">Hacer la Evaluación</a>
-</div>
 </nav>
 
 <main class="container">
