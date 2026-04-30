@@ -32,6 +32,27 @@ nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-c
 .lang-switch:hover{border-color:var(--page-color);color:var(--page-color)}
 .btn-nav{background:var(--accent-teal);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:0.9rem}
 .btn-nav:hover{background:#0D9488}
+/* mobile menu */
+.mobile-menu-toggle{display:none;background:transparent;border:1px solid var(--border);color:var(--text-secondary);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.3rem;line-height:1;align-items:center;justify-content:center;padding:0;transition:all 0.2s}
+.mobile-menu-toggle:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
+.mobile-menu-toggle .icon-close{display:none}
+.mobile-menu-toggle.open .icon-open{display:none}
+.mobile-menu-toggle.open .icon-close{display:inline}
+@media(max-width:768px){
+.mobile-menu-toggle{display:inline-flex}
+.nav-links{position:fixed;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg-card);border-bottom:1px solid var(--border);padding:1rem 1.25rem 2rem;max-height:calc(100vh - 64px);overflow-y:auto;transform:translateY(-12px);opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;box-shadow:0 16px 40px rgba(0,0,0,0.4);z-index:99}
+.nav-links.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-links>li{position:static;border-bottom:1px solid var(--border)}
+.nav-links>li:last-child{border-bottom:none}
+.nav-links>li>a,.nav-links>li>.dropdown-toggle,.nav-links>li>button{display:flex;width:100%;padding:0.95rem 0.25rem;font-size:1rem;text-align:left}
+.dropdown-toggle::after{margin-left:auto;font-size:0.9rem}
+.dropdown-menu{position:static;transform:none!important;opacity:1!important;pointer-events:auto!important;background:transparent;border:none;box-shadow:none;padding:0 0 0.75rem 1rem;margin:0;min-width:0;display:block}
+.dropdown-menu a{padding:0.55rem 0.4rem;font-size:0.92rem;border-left:2px solid var(--border);padding-left:0.85rem;border-radius:0;margin-left:0.25rem}
+.dropdown-menu a:hover{background:transparent;border-left-color:var(--accent-teal)}
+.dropdown-menu a strong{font-size:0.92rem}
+.lang-switch{display:inline-block;margin-top:0.25rem}
+}
+
 
 .hero{padding:8rem 0 3rem;text-align:center}
 .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-purple-dim);border:1px solid rgba(139,92,246,0.3);padding:0.4rem 1rem;border-radius:50px;font-size:0.85rem;color:var(--page-color);margin-bottom:1.5rem;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px}
@@ -116,7 +137,7 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 .section{padding:3rem 0}
 .icp-wrapper,.problem-block{padding:1.75rem}
 .cta-box{padding:2.5rem 1.5rem}
-.nav-links{display:none}
+/* mobile nav rules now in mobile menu block */
 }
 </style>
 </head>
@@ -144,6 +165,7 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 </li>
 <li class="lang-item"><a href="consultoria.html" class="lang-switch">ES 🇪🇸</a></li>
 </ul>
+<button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false"><span class="icon-open">☰</span><span class="icon-close">✕</span></button>
 <a href="quiz.html" class="btn-nav">Take the Test</a>
 </nav>
 
@@ -290,5 +312,14 @@ footer p{color:var(--text-muted);font-size:0.9rem}
 </div>
 </footer>
 
+<script>
+(function(){
+function getNav(){return document.querySelector('.nav-links');}
+function getBtn(){return document.querySelector('.mobile-menu-toggle');}
+function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
+document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
+})();
+</script>
 </body>
 </html>

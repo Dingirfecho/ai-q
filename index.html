@@ -36,6 +36,27 @@
         .lang-switch:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
         .btn-primary{background:linear-gradient(135deg,var(--accent-teal),#0D9488);color:white;padding:0.75rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:all 0.3s ease;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem}
         .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(20,184,166,0.3)}
+/* mobile menu */
+.mobile-menu-toggle{display:none;background:transparent;border:1px solid var(--border);color:var(--text-secondary);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.3rem;line-height:1;align-items:center;justify-content:center;padding:0;transition:all 0.2s}
+.mobile-menu-toggle:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
+.mobile-menu-toggle .icon-close{display:none}
+.mobile-menu-toggle.open .icon-open{display:none}
+.mobile-menu-toggle.open .icon-close{display:inline}
+@media(max-width:768px){
+.mobile-menu-toggle{display:inline-flex}
+.nav-links{position:fixed;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg-card);border-bottom:1px solid var(--border);padding:1rem 1.25rem 2rem;max-height:calc(100vh - 64px);overflow-y:auto;transform:translateY(-12px);opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;box-shadow:0 16px 40px rgba(0,0,0,0.4);z-index:99}
+.nav-links.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.nav-links>li{position:static;border-bottom:1px solid var(--border)}
+.nav-links>li:last-child{border-bottom:none}
+.nav-links>li>a,.nav-links>li>.dropdown-toggle,.nav-links>li>button{display:flex;width:100%;padding:0.95rem 0.25rem;font-size:1rem;text-align:left}
+.dropdown-toggle::after{margin-left:auto;font-size:0.9rem}
+.dropdown-menu{position:static;transform:none!important;opacity:1!important;pointer-events:auto!important;background:transparent;border:none;box-shadow:none;padding:0 0 0.75rem 1rem;margin:0;min-width:0;display:block}
+.dropdown-menu a{padding:0.55rem 0.4rem;font-size:0.92rem;border-left:2px solid var(--border);padding-left:0.85rem;border-radius:0;margin-left:0.25rem}
+.dropdown-menu a:hover{background:transparent;border-left-color:var(--accent-teal)}
+.dropdown-menu a strong{font-size:0.92rem}
+.lang-switch{display:inline-block;margin-top:0.25rem}
+}
+
         .hero{min-height:100vh;display:flex;align-items:center;padding:8rem 0 4rem}
         .hero-content{max-width:800px}
         .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-teal-dim);border:1px solid rgba(20,184,166,0.3);padding:0.5rem 1rem;border-radius:50px;font-size:0.85rem;color:var(--accent-teal);margin-bottom:2rem;font-weight:500}
@@ -126,7 +147,7 @@
         .footer-links a:hover{color:var(--accent-teal)}
         .footer-credit{color:var(--text-muted);font-size:0.85rem}
         .footer-credit a{color:var(--accent-teal);text-decoration:none}
-        @media(max-width:768px){nav{padding:1rem}.nav-links{display:none}.hero{padding:6rem 0 3rem}.hero-stats{flex-direction:column;gap:1.5rem}.types-grid{grid-template-columns:1fr}.modal{margin:1rem;max-height:calc(100vh - 2rem)}.footer-content{flex-direction:column;text-align:center}}
+        @media(max-width:768px){nav{padding:1rem}.hero{padding:6rem 0 3rem}.hero-stats{flex-direction:column;gap:1.5rem}.types-grid{grid-template-columns:1fr}.modal{margin:1rem;max-height:calc(100vh - 2rem)}.footer-content{flex-direction:column;text-align:center}}
         @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
         .animate-in{animation:fadeInUp 0.6s ease-out forwards}
         .delay-1{animation-delay:0.1s;opacity:0}
@@ -161,7 +182,8 @@
             <li><a href="#about" data-en="About" data-es="Acerca de">Acerca de</a></li>
             <li><button class="lang-switch" onclick="toggleLang()">EN 🇺🇸</button></li>
         </ul>
-        <a href="quiz.html" class="btn-primary" data-en="Take the Test →" data-es="Hacer el Test →">Hacer el Test →</a>
+        <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false"><span class="icon-open">☰</span><span class="icon-close">✕</span></button>
+<a href="quiz.html" class="btn-primary" data-en="Take the Test →" data-es="Hacer el Test →">Hacer el Test →</a>
     </nav>
 
     <section class="hero">
@@ -424,6 +446,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 initLang();
 renderTypes();
+</script>
+<script>
+(function(){
+function getNav(){return document.querySelector('.nav-links');}
+function getBtn(){return document.querySelector('.mobile-menu-toggle');}
+function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
+document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
+})();
 </script>
 </body>
 </html>
