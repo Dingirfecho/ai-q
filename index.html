@@ -581,10 +581,27 @@
 <!-- ============ NAV ============ -->
 <nav class="deco-nav">
   <a href="#" class="aiq-mark">AI<span class="dot"></span>Q</a>
+  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
+    <span class="icon-open">☰</span><span class="icon-close">✕</span>
+  </button>
   <div class="deco-nav-links">
     <a href="#dimensions" data-en="The Framework" data-es="El Framework">El Framework</a>
     <a href="#types" data-en="16 Types" data-es="16 Tipos">16 Tipos</a>
     <a href="sama.html" data-en="SAMA" data-es="SAMA">SAMA</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true" data-en="Solutions" data-es="Soluciones">Soluciones</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="retenciones.html"><strong data-en="Retenciones Impositivas" data-es="Retenciones Impositivas">Retenciones Impositivas</strong><small data-en="Withholding processor" data-es="Procesador de constancias">Procesador de constancias</small></a></li>
+        <li><a href="amortizaciones.html"><strong data-en="Activos Fijos · AxI" data-es="Activos Fijos · AxI">Activos Fijos · AxI</strong><small data-en="Fixed-asset reporting" data-es="Reporte de activos fijos">Reporte de activos fijos</small></a></li>
+      </ul>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true" data-en="Consulting" data-es="Consultoría">Consultoría</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="consultoria.html"><strong data-en="Services (ES)" data-es="Servicios (ES)">Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+        <li><a href="consultoria-en.html"><strong data-en="Services (EN)" data-es="Services (EN)">Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+      </ul>
+    </div>
     <a href="#resources" data-en="Case Studies" data-es="Casos de Estudio">Casos de Estudio</a>
     <a href="#about" data-en="About" data-es="Acerca de">Acerca de</a>
     <span class="lang-toggle">
@@ -1001,6 +1018,15 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 // Init lang
 const savedLang = localStorage.getItem('aiq-lang') || 'es';
 setLang(savedLang);
+
+// Mobile menu toggle
+(function(){
+  function getNav(){return document.querySelector('.deco-nav-links');}
+  function getBtn(){return document.querySelector('.mobile-menu-toggle');}
+  function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+  window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
+  document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
+})();
 </script>
 </body>
 </html>

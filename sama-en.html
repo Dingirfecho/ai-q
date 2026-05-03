@@ -88,10 +88,27 @@ a:hover{ color:var(--gold-1); }
 <div class="bg-vapor"></div>
 <nav class="deco-nav">
   <a class="aiq-mark" href="index.html"><span>AI</span><span class="dot"></span><span>Q</span></a>
+  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
+    <span class="icon-open">☰</span><span class="icon-close">✕</span>
+  </button>
   <div class="deco-nav-links">
     <a href="index.html#framework">The Framework</a>
     <a href="index.html#types">The 16 Types</a>
     <a href="sama-en.html">SAMA</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Solutions</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Withholding processor</small></a></li>
+        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Fixed-asset reporting</small></a></li>
+      </ul>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Consulting</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+      </ul>
+    </div>
     <div class="lang-toggle">
       <a href="sama.html">ES</a>
       <a class="on" href="sama-en.html">EN</a>

@@ -6,397 +6,290 @@
 <title>Retenciones Impositivas — Procesador de Constancias | AI-Q</title>
 <meta name="description" content="Solución end-to-end para equipos contables y de tesorería: convierta cada certificado de retención en una fila lista para SAP, sin tipear y con auditoría incorporada.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deco.css">
 <style>
-:root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-orange-dim:rgba(249,115,22,0.15);--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B;--page-color:#F97316}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6}
-.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(249,115,22,0.10),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(20,184,166,0.08),transparent);pointer-events:none;z-index:0}
-.container{max-width:1000px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
-nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
-.nav-links{display:flex;gap:1.5rem;align-items:center}
-.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
-.nav-links a:hover{color:var(--page-color)}
-.nav-links{list-style:none}
-.nav-links>li{position:relative}
-.dropdown-toggle{color:var(--text-secondary);background:none;border:none;font-family:inherit;font-size:0.9rem;cursor:pointer;padding:0.5rem 0;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.2s}
-.dropdown-toggle:hover{color:var(--page-color)}
-.dropdown-toggle::after{content:'▾';font-size:0.75rem;opacity:0.7}
-.dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0.5rem;opacity:0;pointer-events:none;transition:opacity 0.18s,transform 0.18s;box-shadow:0 16px 40px rgba(0,0,0,0.4);list-style:none;margin-top:0.4rem;z-index:101}
-.nav-links li:hover .dropdown-menu,.nav-links li:focus-within .dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-.dropdown-menu li{display:block}
-.dropdown-menu a{display:block;padding:0.7rem 0.85rem;border-radius:8px;color:var(--text-secondary);font-size:0.9rem;line-height:1.4}
-.dropdown-menu a:hover{background:var(--bg-card-hover);color:var(--text-primary)}
-.dropdown-menu a strong{display:block;color:var(--text-primary);font-weight:600;margin-bottom:0.15rem}
-.dropdown-menu a small{display:block;color:var(--text-muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace}
+  main.container{ padding-top: 2rem; padding-bottom: 4rem; max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+  section{ margin-bottom: 4.5rem; position:relative; }
 
-.btn-nav{background:var(--accent-teal);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:0.9rem}
-.btn-nav:hover{background:#0D9488}
-/* mobile menu */
-.mobile-menu-toggle{display:none;background:transparent;border:1px solid var(--border);color:var(--text-secondary);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.3rem;line-height:1;align-items:center;justify-content:center;padding:0;transition:all 0.2s}
-.mobile-menu-toggle:hover{border-color:var(--accent-teal);color:var(--accent-teal)}
-.mobile-menu-toggle .icon-close{display:none}
-.mobile-menu-toggle.open .icon-open{display:none}
-.mobile-menu-toggle.open .icon-close{display:inline}
-@media(max-width:768px){
-.mobile-menu-toggle{display:inline-flex}
-.nav-links{position:fixed;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg-card);border-bottom:1px solid var(--border);padding:1rem 1.25rem 2rem;max-height:calc(100vh - 64px);overflow-y:auto;transform:translateY(-12px);opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;box-shadow:0 16px 40px rgba(0,0,0,0.4);z-index:99}
-.nav-links.open{opacity:1;pointer-events:auto;transform:translateY(0)}
-.nav-links>li{position:static;border-bottom:1px solid var(--border)}
-.nav-links>li:last-child{border-bottom:none}
-.nav-links>li>a,.nav-links>li>.dropdown-toggle,.nav-links>li>button{display:flex;width:100%;padding:0.95rem 0.25rem;font-size:1rem;text-align:left}
-.dropdown-toggle::after{margin-left:auto;font-size:0.9rem}
-.dropdown-menu{position:static;transform:none!important;opacity:1!important;pointer-events:auto!important;background:transparent;border:none;box-shadow:none;padding:0 0 0.75rem 1rem;margin:0;min-width:0;display:block}
-.dropdown-menu a{padding:0.55rem 0.4rem;font-size:0.92rem;border-left:2px solid var(--border);padding-left:0.85rem;border-radius:0;margin-left:0.25rem}
-.dropdown-menu a:hover{background:transparent;border-left-color:var(--accent-teal)}
-.dropdown-menu a strong{font-size:0.92rem}
-.lang-switch{display:inline-block;margin-top:0.25rem}
-}
+  .hero{ text-align:center; padding: 5rem 0 2rem; }
+  .hero-badge{
+    display:inline-block; font-family: var(--f-mono); font-size:0.78rem;
+    letter-spacing:3px; text-transform:uppercase; color:var(--gold-2);
+    border:1px solid var(--gold-line); padding:8px 18px; border-radius:50px;
+    background:rgba(26,20,10,0.7); margin-bottom:1.5rem;
+  }
+  h1{ font-family:var(--f-display); font-size:clamp(2.4rem, 6vw, 4rem);
+      letter-spacing:6px; text-transform:uppercase; margin:0 0 1rem; line-height:1.1; }
+  h1 .accent{
+    background:var(--grad-gold); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 18px rgba(227,184,92,0.30));
+  }
+  .tagline{ font-family:var(--f-display); font-size:1.2rem; letter-spacing:2px;
+      color:var(--gold-2); margin:0.5rem 0 1.5rem; font-style:italic; }
+  .hero-description{ color:var(--text); font-size:1.05rem; line-height:1.8;
+      max-width:720px; margin:0 auto; }
 
+  .steps-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:2rem; position:relative; }
+  .steps-grid::before{ content:''; position:absolute; top:2.4rem; left:5%; right:5%; height:1px; background:linear-gradient(to right, transparent, var(--gold-line) 10%, var(--gold-line) 90%, transparent); z-index:0; }
+  .step-card{ background: var(--grad-card); border: 1px solid var(--gold-line); border-radius: var(--r-lg); padding: 1.5rem 1.1rem; position:relative; z-index:1; text-align:center; transition: all 0.3s var(--ease); }
+  .step-card:hover{ transform: translateY(-3px); border-color: var(--gold-2); box-shadow: var(--shadow-card-hover); }
+  .step-num{ width:2.6rem; height:2.6rem; border-radius:50%; background: var(--bg-deep); border:1px solid var(--gold-2); color: var(--gold-1); display:flex; align-items:center; justify-content:center; font-family:var(--f-display); font-size:1.05rem; margin:0 auto 0.85rem; }
+  .step-title{ font-family:var(--f-display); font-size:0.92rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold-1); margin-bottom:0.4rem; }
+  .step-desc{ font-size:0.82rem; color:var(--text-dim); line-height:1.5; }
 
-.hero{padding:8rem 0 3rem;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent-orange-dim);border:1px solid rgba(249,115,22,0.3);padding:0.4rem 1rem;border-radius:50px;font-size:0.85rem;color:var(--page-color);margin-bottom:1.5rem;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:800;margin-bottom:0.75rem;letter-spacing:-0.02em}
-.hero h1 .accent{color:var(--page-color)}
-.hero .tagline{font-size:1.25rem;color:var(--text-muted);font-style:italic;margin-bottom:2rem}
-.hero-description{font-size:1.1rem;color:var(--text-secondary);max-width:720px;margin:0 auto;line-height:1.8}
+  .features-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1.4rem; margin-top:1rem; }
+  .feature-card{ background: var(--grad-card); border: 1px solid var(--gold-line); border-radius: var(--r-xl); padding:1.8rem; transition: all 0.3s var(--ease); }
+  .feature-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .feature-icon{ width:2.6rem; height:2.6rem; border-radius:var(--r-md); background: rgba(184,135,58,0.12); border:1px solid var(--gold-line-soft); display:flex; align-items:center; justify-content:center; font-size:1.15rem; margin-bottom:1rem; color: var(--gold-1); }
+  .feature-title{ font-family:var(--f-display); font-size:1.05rem; letter-spacing:3px; text-transform:uppercase; color: var(--gold-1); margin-bottom:0.6rem; }
+  .feature-desc{ color: var(--text-dim); font-size:0.93rem; line-height:1.65; }
+  .feature-desc code{ font-family:var(--f-mono); font-size:0.82em; background: var(--bg-deep); padding:0.1em 0.4em; border-radius: var(--r-sm); color: var(--gold-1); border:1px solid var(--gold-line-soft); }
+  .feature-desc strong{ color: var(--text-bright); font-weight:600; }
 
-.section{padding:4rem 0}
-.section-header{margin-bottom:2.5rem}
-.section-label{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--page-color);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.5rem}
-.section-title{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-0.01em}
-.section-intro{color:var(--text-secondary);margin-bottom:1.5rem;font-size:1.05rem;max-width:760px;line-height:1.8}
-.section-intro strong{color:var(--text-primary);font-weight:600}
+  .why-block{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-xl); padding: 2.4rem; margin-top: 1rem; }
+  .why-block p{ color:var(--text); font-size:1rem; line-height:1.8; margin-bottom:1.2rem; }
+  .why-block p:last-child{ margin-bottom:0; }
+  .why-block strong{ color:var(--text-bright); font-weight:600; }
+  .tech-pills{ display:flex; flex-wrap:wrap; gap:0.55rem; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--gold-line-soft); }
+  .tech-pill{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; padding:0.42rem 0.85rem; background: var(--bg-deep); border:1px solid var(--gold-line-soft); border-radius: var(--r-pill); color:var(--text-dim); }
 
-/* Problem block */
-.problem-block{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--page-color);border-radius:12px;padding:2rem 2.5rem;margin-top:1.5rem}
-.problem-stat{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--page-color);margin-bottom:0.5rem}
-.problem-stat strong{font-size:1.8rem}
+  .usecases-list{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; margin-top:1rem; }
+  .usecase-card{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-md); padding:1.4rem 1.5rem; display:flex; gap:1rem; align-items:flex-start; transition: all 0.3s var(--ease); }
+  .usecase-card:hover{ border-color: var(--gold-2); }
+  .usecase-mark{ flex-shrink:0; width:2rem; height:2rem; border-radius:50%; background:rgba(184,135,58,0.12); border:1px solid var(--gold-line); color:var(--gold-1); display:flex; align-items:center; justify-content:center; font-family:var(--f-mono); font-size:0.75rem; font-weight:700; }
+  .usecase-text{ color:var(--text-dim); font-size:0.94rem; line-height:1.6; }
+  .usecase-text strong{ color:var(--text-bright); font-weight:600; }
 
-/* Process steps */
-.steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem;position:relative}
-.steps-grid::before{content:'';position:absolute;top:2.4rem;left:5%;right:5%;height:2px;background:linear-gradient(to right,transparent,var(--border) 10%,var(--border) 90%,transparent);z-index:0}
-.step-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.25rem;position:relative;z-index:1;transition:all 0.2s}
-.step-card:hover{border-color:var(--page-color);transform:translateY(-3px)}
-.step-num{width:2.5rem;height:2.5rem;border-radius:50%;background:var(--bg-dark);border:2px solid var(--page-color);color:var(--page-color);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
-.step-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;text-align:center;margin-bottom:0.5rem;color:var(--text-primary)}
-.step-desc{font-size:0.85rem;color:var(--text-muted);text-align:center;line-height:1.5}
+  .steps-next{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1.5rem; margin-top:1rem; }
+  .next-card{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-xl); padding:2rem; position:relative; overflow:hidden; transition: all 0.3s var(--ease); }
+  .next-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); }
+  .next-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
+  .next-eyebrow{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color: var(--gold-3); margin-bottom:0.7rem; }
+  .next-title{ font-family:var(--f-display); font-size:1.4rem; letter-spacing:4px; text-transform:uppercase; color: var(--gold-1); margin-bottom:0.7rem; }
+  .next-desc{ color:var(--text-dim); font-size:0.95rem; line-height:1.7; }
+  .next-desc strong{ color:var(--text-bright); font-weight:600; }
 
-/* Metrics table */
-.metrics-wrapper{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:2rem 2.5rem;margin-top:1rem}
-.metrics-table{width:100%;border-collapse:collapse}
-.metrics-table tr{border-bottom:1px solid var(--border)}
-.metrics-table tr:last-child{border-bottom:none}
-.metrics-table td{padding:1.1rem 0;vertical-align:middle;font-size:0.98rem}
-.metrics-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);width:40%}
-.metrics-table td:last-child{color:var(--text-primary);font-weight:500}
-.metric-highlight{color:var(--page-color);font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700}
-
-/* Features grid */
-.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:1rem}
-.feature-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all 0.2s}
-.feature-card:hover{border-color:var(--page-color);transform:translateY(-2px)}
-.feature-icon{width:2.5rem;height:2.5rem;border-radius:10px;background:var(--accent-orange-dim);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}
-.feature-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:0.5rem;color:var(--page-color)}
-.feature-desc{color:var(--text-secondary);font-size:0.95rem;line-height:1.65}
-.feature-desc code{font-family:'JetBrains Mono',monospace;font-size:0.85em;background:var(--bg-dark);padding:0.1em 0.4em;border-radius:4px;color:var(--text-primary);border:1px solid var(--border)}
-.feature-desc strong{color:var(--text-primary);font-weight:600}
-
-/* Why-it-works block */
-.why-block{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:20px;padding:2.5rem;margin-top:1rem}
-.why-block p{color:var(--text-secondary);font-size:1.05rem;line-height:1.8;margin-bottom:1.25rem}
-.why-block p:last-child{margin-bottom:0}
-.why-block strong{color:var(--text-primary);font-weight:600}
-.tech-pills{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-.tech-pill{font-family:'JetBrains Mono',monospace;font-size:0.78rem;padding:0.4rem 0.85rem;background:var(--bg-dark);border:1px solid var(--border);border-radius:50px;color:var(--text-secondary)}
-
-/* Use cases */
-.usecases-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem}
-.usecase-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
-.usecase-mark{flex-shrink:0;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--accent-orange-dim);color:var(--page-color);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:0.9rem}
-.usecase-text{color:var(--text-secondary);font-size:0.95rem;line-height:1.6}
-.usecase-text strong{color:var(--text-primary);font-weight:600}
-
-/* Next steps */
-.steps-next{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:1rem}
-.next-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
-.next-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--page-color)}
-.next-eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:0.75rem}
-.next-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.75rem;color:var(--text-primary)}
-.next-desc{color:var(--text-secondary);font-size:0.95rem;line-height:1.7}
-.next-desc strong{color:var(--text-primary);font-weight:600}
-
-/* CTA */
-.cta-section{text-align:center;padding:4rem 0 2rem}
-.cta-box{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--border);border-radius:24px;padding:3.5rem 3rem;position:relative;overflow:hidden}
-.cta-box::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(249,115,22,0.10),transparent 70%);pointer-events:none}
-.cta-title{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;margin-bottom:1rem;position:relative}
-.cta-description{color:var(--text-secondary);font-size:1.05rem;max-width:560px;margin:0 auto 2rem;position:relative}
-.cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
-.btn-primary{background:linear-gradient(135deg,var(--page-color),#EA580C);color:white;padding:1rem 2rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.3s}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(249,115,22,0.3)}
-.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text-secondary);padding:1rem 2rem;border-radius:10px;text-decoration:none;font-weight:500;transition:all 0.2s}
-.btn-secondary:hover{border-color:var(--page-color);color:var(--page-color)}
-
-footer{border-top:1px solid var(--border);padding:2rem 0;text-align:center;margin-top:2rem}
-footer a{color:var(--accent-teal);text-decoration:none}
-footer p{color:var(--text-muted);font-size:0.9rem}
-
-@media(max-width:900px){
-.steps-grid{grid-template-columns:repeat(2,1fr)}
-.steps-grid::before{display:none}
-.features-grid,.usecases-list,.steps-next{grid-template-columns:1fr}
-.metrics-table td:first-child{width:auto}
-}
-@media(max-width:600px){
-.container{padding:0 1.25rem}
-.hero{padding:6rem 0 2rem}
-.section{padding:3rem 0}
-.steps-grid{grid-template-columns:1fr}
-.metrics-wrapper,.why-block{padding:1.5rem}
-.cta-box{padding:2.5rem 1.5rem}
-/* mobile nav rules now in mobile menu block */
-}
+  @media(max-width:900px){
+    .steps-grid{ grid-template-columns: repeat(2,1fr); }
+    .steps-grid::before{ display:none; }
+    .features-grid, .usecases-list, .steps-next{ grid-template-columns: 1fr; }
+  }
+  @media(max-width:600px){
+    .steps-grid{ grid-template-columns: 1fr; }
+    .why-block{ padding: 1.5rem; }
+  }
 </style>
 </head>
 <body>
-<div class="bg-gradient"></div>
+<div class="bg-vapor"></div>
 
-<nav>
-<a href="index.html" class="logo">AI-Q</a>
-<ul class="nav-links">
-<li><a href="index.html#types">Los 16 Tipos</a></li>
-<li><a href="sama.html">SAMA</a></li>
-<li>
-<button class="dropdown-toggle" aria-haspopup="true">Soluciones</button>
-<ul class="dropdown-menu">
-<li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Procesador de constancias</small></a></li>
-<li><a href="amortizaciones.html"><strong>Activos Fijos - AxI</strong><small>Reporte de activos fijos</small></a></li>
-</ul>
-</li>
-<li>
-<button class="dropdown-toggle" aria-haspopup="true">Consultoría</button>
-<ul class="dropdown-menu">
-<li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
-<li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
-</ul>
-</li>
-</ul>
-<button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false"><span class="icon-open">☰</span><span class="icon-close">✕</span></button>
-<a href="quiz.html" class="btn-nav">Hacer la Evaluación</a>
+<nav class="deco-nav">
+  <a href="index.html" class="aiq-mark">AI<span class="dot"></span>Q</a>
+  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
+    <span class="icon-open">☰</span><span class="icon-close">✕</span>
+  </button>
+  <div class="deco-nav-links">
+    <a href="index.html#dimensions">El Framework</a>
+    <a href="index.html#types">16 Tipos</a>
+    <a href="sama.html">SAMA</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Soluciones</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Procesador de constancias</small></a></li>
+        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Reporte de activos fijos</small></a></li>
+      </ul>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Consultoría</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+      </ul>
+    </div>
+    <a href="quiz.html" class="btn btn-primary">Hacer el Test →</a>
+  </div>
 </nav>
+<div class="nav-spacer"></div>
 
 <main class="container">
 
 <section class="hero">
-<div class="hero-badge">SOLUCIÓN • CONTABILIDAD &amp; TESORERÍA</div>
-<h1>Procesador automático de <span class="accent">Retenciones Impositivas</span></h1>
-<p class="tagline">"Sin tipear, sin demoras, con auditoría incorporada."</p>
-<p class="hero-description">
-Convierta cada certificado de retención que recibe — PDF, escaneo o foto — en una fila lista para SAP en su planilla. Una solución end-to-end diseñada específicamente para equipos contables argentinos.
-</p>
+  <div class="hero-badge">SOLUCIÓN · CONTABILIDAD &amp; TESORERÍA</div>
+  <h1>Procesador automático de <span class="accent">Retenciones Impositivas</span></h1>
+  <p class="tagline">"Sin tipear, sin demoras, con auditoría incorporada."</p>
+  <p class="hero-description">
+    Convierta cada certificado de retención que recibe — PDF, escaneo o foto — en una fila lista para SAP en su planilla. Una solución end-to-end diseñada específicamente para equipos contables argentinos.
+  </p>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">El problema</div>
-<h2 class="section-title">Días de trabajo perdidos cada mes</h2>
-</div>
-<p class="section-intro">
-Si su equipo abre cada constancia de retención, identifica al agente, separa los impuestos línea por línea, busca el código de cuenta SAP correcto y lo carga manualmente en una planilla, está perdiendo entre <strong>3 y 8 minutos por documento</strong>. Multiplicado por el volumen mensual habitual de una empresa mediana, son días de trabajo administrativo que se pueden recuperar.
-</p>
-<div class="problem-block">
-<div class="problem-stat">+ <strong>3 a 8 min</strong> por documento</div>
-<p style="color:var(--text-secondary);font-size:0.98rem">Y eso sin contar los errores de tipeo, los códigos SAP mal asignados, y el tiempo que después se pierde en correcciones contables.</p>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">El problema</div>
+    <h2 class="section-title">Días perdidos cada mes</h2>
+  </div>
+  <p class="section-intro">
+    Si su equipo abre cada constancia, identifica al agente, separa los impuestos línea por línea, busca el código SAP y lo carga manualmente, está perdiendo entre <strong>3 y 8 minutos por documento</strong>. Multiplicado por el volumen mensual habitual, son días de trabajo administrativo que se pueden recuperar.
+  </p>
+  <div class="quote-block" style="text-align:center; font-style:normal; max-width:580px;">
+    <span style="font-family:var(--f-display); font-size:1.6rem; letter-spacing:2px; color:var(--gold-1)">+ 3 a 8 min</span>
+    <span style="display:block; margin-top:0.4rem; font-size:0.95rem; color:var(--text-dim);">Y eso sin contar errores de tipeo, códigos SAP mal asignados y el tiempo en correcciones contables.</span>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">La solución</div>
-<h2 class="section-title">Cómo funciona, en 5 pasos</h2>
-</div>
-<p class="section-intro">
-Una automatización end-to-end que recibe los certificados como llegan — en cualquier formato — y los entrega procesados, clasificados y listos para imputar en su sistema contable.
-</p>
-
-<div class="steps-grid">
-<div class="step-card">
-<div class="step-num">1</div>
-<div class="step-title">Drop en Drive</div>
-<div class="step-desc">El certificado se deja en una carpeta de Google Drive, o llega por mail si prefiere ese flujo.</div>
-</div>
-<div class="step-card">
-<div class="step-num">2</div>
-<div class="step-title">Lectura OCR</div>
-<div class="step-desc">El documento se digitaliza, incluso si es un escaneo de baja calidad o una foto del celular.</div>
-</div>
-<div class="step-card">
-<div class="step-num">3</div>
-<div class="step-title">Extracción IA</div>
-<div class="step-desc">Identifica al agente de retención (no al sujeto retenido) y separa cada impuesto en líneas independientes.</div>
-</div>
-<div class="step-card">
-<div class="step-num">4</div>
-<div class="step-title">Mapeo a SAP</div>
-<div class="step-desc">Cada retención se asigna a su cuenta de mayor exacta — Ganancias, IIBB de las 24 jurisdicciones, o reclasificación.</div>
-</div>
-<div class="step-card">
-<div class="step-num">5</div>
-<div class="step-title">Planilla lista</div>
-<div class="step-desc">Una fila por línea de impuesto se carga en Sheets, con formato argentino y todos los campos para conciliación.</div>
-</div>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">La solución</div>
+    <h2 class="section-title">Cómo funciona, en 5 pasos</h2>
+  </div>
+  <p class="section-intro">
+    Una automatización end-to-end que recibe los certificados como llegan — en cualquier formato — y los entrega procesados, clasificados y listos para imputar.
+  </p>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">1</div><div class="step-title">Drop en Drive</div><div class="step-desc">El certificado se deja en una carpeta de Google Drive, o llega por mail si prefiere ese flujo.</div></div>
+    <div class="step-card"><div class="step-num">2</div><div class="step-title">Lectura OCR</div><div class="step-desc">El documento se digitaliza, incluso si es un escaneo de baja calidad o una foto del celular.</div></div>
+    <div class="step-card"><div class="step-num">3</div><div class="step-title">Extracción IA</div><div class="step-desc">Identifica al agente de retención y separa cada impuesto en líneas independientes.</div></div>
+    <div class="step-card"><div class="step-num">4</div><div class="step-title">Mapeo a SAP</div><div class="step-desc">Cada retención se asigna a su cuenta de mayor exacta — Ganancias, IIBB o reclasificación.</div></div>
+    <div class="step-card"><div class="step-num">5</div><div class="step-title">Planilla lista</div><div class="step-desc">Una fila por línea de impuesto en Sheets, con formato argentino y campos para conciliación.</div></div>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">Métricas de servicio</div>
-<h2 class="section-title">Lo que puede esperar</h2>
-</div>
-<div class="metrics-wrapper">
-<table class="metrics-table">
-<tr><td>Tiempo por documento</td><td><span class="metric-highlight">~45 segundos</span> end-to-end</td></tr>
-<tr><td>Volumen soportado</td><td><span class="metric-highlight">Cientos</span> de documentos por día</td></tr>
-<tr><td>Intervención humana</td><td>Solo por excepción <span style="color:var(--text-muted)">(5–15% de los casos)</span></td></tr>
-<tr><td>Disponibilidad</td><td><span class="metric-highlight">24/7</span>, sin supervisión</td></tr>
-</table>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">Métricas de servicio</div>
+    <h2 class="section-title">Lo que puede esperar</h2>
+  </div>
+  <div class="metrics-wrapper">
+    <table class="metrics-table">
+      <tr><td>Tiempo por documento</td><td><span class="metric-highlight">~45 segundos</span> end-to-end</td></tr>
+      <tr><td>Volumen soportado</td><td><span class="metric-highlight">Cientos</span> de documentos por día</td></tr>
+      <tr><td>Intervención humana</td><td>Solo por excepción <span style="color:var(--text-mute)">(5–15% de los casos)</span></td></tr>
+      <tr><td>Disponibilidad</td><td><span class="metric-highlight">24/7</span>, sin supervisión</td></tr>
+    </table>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">Qué incluye</div>
-<h2 class="section-title">Una solución completa</h2>
-</div>
-
-<div class="features-grid">
-<div class="feature-card">
-<div class="feature-icon">🔍</div>
-<div class="feature-title">Trazabilidad por fila</div>
-<div class="feature-desc">Cada registro carga con score de confianza (0–100), link directo al archivo original, nombre de archivo y timestamp de procesamiento. <strong>Auditar un dato toma segundos, no minutos.</strong></div>
-</div>
-
-<div class="feature-card">
-<div class="feature-icon">⚠️</div>
-<div class="feature-title">Salvaguardas para casos dudosos</div>
-<div class="feature-desc">Cuando la herramienta no está segura, lo dice — marca el registro como "Revisar" o lo asigna a una cuenta de reclasificación, en lugar de adivinar. El control de calidad se vuelve una rutina diaria de pocos minutos.</div>
-</div>
-
-<div class="feature-card">
-<div class="feature-icon">🇦🇷</div>
-<div class="feature-title">Reglas contables argentinas</div>
-<div class="feature-desc">Normalización al formato <code>NNNN-NNNNNNNN</code>, corrección de alícuotas mal leídas por el OCR e identificación robusta de las <strong>24 jurisdicciones de IIBB</strong> con sus aliases (CABA, AGIP, ARBA, etc.) más Ganancias de AFIP.</div>
-</div>
-
-<div class="feature-card">
-<div class="feature-icon">⚙️</div>
-<div class="feature-title">Configuración a su plan de cuentas</div>
-<div class="feature-desc">El diccionario SAP se ajusta a su nomenclatura interna. Su <strong>CUIT y razón social</strong> quedan protegidos por reglas explícitas para que la IA no los confunda con el agente de retención — un error común de soluciones genéricas.</div>
-</div>
-
-<div class="feature-card" style="grid-column:1/-1">
-<div class="feature-icon">🚀</div>
-<div class="feature-title">Implementación llave en mano</div>
-<div class="feature-desc">Setup técnico, conexiones a Drive y Sheets, configuración del plan de cuentas, plan de pruebas con casos reales y capacitación al equipo. <strong>Funcionando en días, no semanas.</strong></div>
-</div>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">Qué incluye</div>
+    <h2 class="section-title">Una solución completa</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Trazabilidad por fila</div>
+      <div class="feature-desc">Cada registro carga con score de confianza (0–100), link al archivo original, nombre y timestamp. <strong>Auditar un dato toma segundos, no minutos.</strong></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚠</div>
+      <div class="feature-title">Salvaguardas</div>
+      <div class="feature-desc">Cuando la herramienta no está segura, lo dice — marca el registro como "Revisar" o lo asigna a una cuenta de reclasificación, en lugar de adivinar.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">▲</div>
+      <div class="feature-title">Reglas argentinas embebidas</div>
+      <div class="feature-desc">Normalización al formato <code>NNNN-NNNNNNNN</code>, corrección de alícuotas e identificación de las <strong>24 jurisdicciones de IIBB</strong> con sus aliases.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◇</div>
+      <div class="feature-title">Plan de cuentas a medida</div>
+      <div class="feature-desc">El diccionario SAP se ajusta a su nomenclatura interna. Su <strong>CUIT y razón social</strong> quedan protegidos por reglas explícitas — un error común de soluciones genéricas.</div>
+    </div>
+    <div class="feature-card" style="grid-column:1/-1">
+      <div class="feature-icon">★</div>
+      <div class="feature-title">Implementación llave en mano</div>
+      <div class="feature-desc">Setup técnico, conexiones a Drive y Sheets, configuración del plan de cuentas, plan de pruebas con casos reales y capacitación. <strong>Funcionando en días, no semanas.</strong></div>
+    </div>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">Por qué funciona</div>
-<h2 class="section-title">No es un wrapper de ChatGPT</h2>
-</div>
-<div class="why-block">
-<p>
-Esta no es una herramienta genérica de OCR ni un wrapper de ChatGPT. Es una <strong>solución diseñada específicamente para constancias de retención argentinas</strong>, con el conocimiento contable y fiscal incorporado en cada paso del proceso.
-</p>
-<p>
-Construida sobre infraestructura de nivel empresarial y configurada con las particularidades de su operación. Sin servidores que administrar, sin desarrollo a medida, sin lock-in: si mañana quiere modificar el flujo, está todo a la vista y editable.
-</p>
-<div class="tech-pills">
-<span class="tech-pill">Make.com</span>
-<span class="tech-pill">Google Cloud</span>
-<span class="tech-pill">Gemini 2.5</span>
-<span class="tech-pill">Google Drive</span>
-<span class="tech-pill">Google Sheets</span>
-<span class="tech-pill">SAP-ready</span>
-</div>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">Por qué funciona</div>
+    <h2 class="section-title">No es un wrapper de ChatGPT</h2>
+  </div>
+  <div class="why-block">
+    <p>Esta no es una herramienta genérica de OCR ni un wrapper de ChatGPT. Es una <strong>solución diseñada específicamente para constancias de retención argentinas</strong>, con el conocimiento contable y fiscal incorporado en cada paso del proceso.</p>
+    <p>Construida sobre infraestructura de nivel empresarial y configurada con las particularidades de su operación. Sin servidores que administrar, sin desarrollo a medida, sin lock-in: si mañana quiere modificar el flujo, está todo a la vista y editable.</p>
+    <div class="tech-pills">
+      <span class="tech-pill">Make.com</span>
+      <span class="tech-pill">Google Cloud</span>
+      <span class="tech-pill">Gemini 2.5</span>
+      <span class="tech-pill">Google Drive</span>
+      <span class="tech-pill">Google Sheets</span>
+      <span class="tech-pill">SAP-ready</span>
+    </div>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">Casos de uso ideales</div>
-<h2 class="section-title">Para quién es esta solución</h2>
-</div>
-<div class="usecases-list">
-<div class="usecase-card">
-<div class="usecase-mark">01</div>
-<div class="usecase-text">Empresas medianas y grandes que reciben <strong>+50 constancias de retención por mes</strong>.</div>
-</div>
-<div class="usecase-card">
-<div class="usecase-mark">02</div>
-<div class="usecase-text">Equipos <strong>contables o de tesorería</strong> que hoy procesan certificados manualmente.</div>
-</div>
-<div class="usecase-card">
-<div class="usecase-mark">03</div>
-<div class="usecase-text">Operaciones con alto volumen de <strong>IIBB multi-jurisdicción</strong>, donde la clasificación SAP es la mayor fuente de errores.</div>
-</div>
-<div class="usecase-card">
-<div class="usecase-mark">04</div>
-<div class="usecase-text">Organizaciones que ya usan <strong>Google Workspace + SAP</strong> y buscan integrar sin reemplazar.</div>
-</div>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">Casos de uso ideales</div>
+    <h2 class="section-title">Para quién es esta solución</h2>
+  </div>
+  <div class="usecases-list">
+    <div class="usecase-card"><div class="usecase-mark">01</div><div class="usecase-text">Empresas medianas y grandes que reciben <strong>+50 constancias de retención por mes</strong>.</div></div>
+    <div class="usecase-card"><div class="usecase-mark">02</div><div class="usecase-text">Equipos <strong>contables o de tesorería</strong> que hoy procesan certificados manualmente.</div></div>
+    <div class="usecase-card"><div class="usecase-mark">03</div><div class="usecase-text">Operaciones con alto volumen de <strong>IIBB multi-jurisdicción</strong>, donde la clasificación SAP es la mayor fuente de errores.</div></div>
+    <div class="usecase-card"><div class="usecase-mark">04</div><div class="usecase-text">Organizaciones que ya usan <strong>Google Workspace + SAP</strong> y buscan integrar sin reemplazar.</div></div>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-header">
-<div class="section-label">Próximos pasos</div>
-<h2 class="section-title">Cómo avanzamos</h2>
-</div>
-<div class="steps-next">
-<div class="next-card">
-<div class="next-eyebrow">PASO 01 · 30 minutos</div>
-<div class="next-title">Demo en vivo</div>
-<div class="next-desc">Le mostramos la herramienta procesando <strong>sus propios documentos</strong>, con su plan de cuentas. Si después de la demo no ve el valor, no hay siguiente paso.</div>
-</div>
-<div class="next-card">
-<div class="next-eyebrow">PASO 02 · 2 semanas</div>
-<div class="next-title">Implementación piloto</div>
-<div class="next-desc">Setup completo, plan de pruebas con un mes de sus retenciones reales, ajuste fino del diccionario SAP y capacitación del equipo. Al cierre del piloto, queda funcionando en producción.</div>
-</div>
-</div>
+<section>
+  <div class="section-header">
+    <div class="section-label">Próximos pasos</div>
+    <h2 class="section-title">Cómo avanzamos</h2>
+  </div>
+  <div class="steps-next">
+    <div class="next-card">
+      <div class="next-eyebrow">PASO 01 · 30 minutos</div>
+      <div class="next-title">Demo en vivo</div>
+      <div class="next-desc">Le mostramos la herramienta procesando <strong>sus propios documentos</strong>, con su plan de cuentas. Si después de la demo no ve el valor, no hay siguiente paso.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-eyebrow">PASO 02 · 2 semanas</div>
+      <div class="next-title">Implementación piloto</div>
+      <div class="next-desc">Setup completo, plan de pruebas con un mes de sus retenciones reales, ajuste fino del diccionario SAP y capacitación. Al cierre del piloto, queda funcionando en producción.</div>
+    </div>
+  </div>
 </section>
 
 <section class="cta-section">
-<div class="cta-box">
-<h2 class="cta-title">¿Listo para recuperar esos días?</h2>
-<p class="cta-description">Agendemos 30 minutos para que vea la herramienta procesando sus propios certificados. Sin compromiso, sin slides genéricas.</p>
-<div class="cta-buttons">
-<a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-primary">Solicitar una demo →</a>
-<a href="mailto:fede@fedeandino.com?subject=Consulta%20-%20Procesador%20de%20retenciones" class="btn-secondary">Hablar con un consultor</a>
-</div>
-</div>
+  <div class="cta-box">
+    <h2 class="cta-title">¿Listo para recuperar esos días?</h2>
+    <p class="cta-description">Agendemos 30 minutos para que vea la herramienta procesando sus propios certificados. Sin compromiso, sin slides genéricas.</p>
+    <div class="cta-buttons">
+      <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn btn-primary">Solicitar una demo →</a>
+      <a href="mailto:fede@fedeandino.com?subject=Consulta%20Retenciones%20Impositivas" class="btn btn-ghost">◆ Hablar con un consultor</a>
+    </div>
+  </div>
 </section>
 
 </main>
 
-<footer>
-<div class="container">
-<p>AI-Q por <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a> • <a href="index.html">ai-q.fit</a></p>
-</div>
+<footer class="deco-footer">
+  <div class="container">
+    <div class="deco-footer-content">
+      <a href="index.html" class="aiq-mark" style="font-size: 1.2rem;">AI<span class="dot"></span>Q</a>
+      <div class="deco-nav-links">
+        <a href="index.html#dimensions">Framework</a>
+        <a href="index.html#types">Tipos</a>
+        <a href="sama.html">SAMA</a>
+        <a href="amortizaciones.html">Amortizaciones</a>
+        <a href="consultoria.html">Consultoría</a>
+      </div>
+      <div class="credit">Creado por <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></div>
+    </div>
+  </div>
 </footer>
 
 <script>
 (function(){
-function getNav(){return document.querySelector('.nav-links');}
-function getBtn(){return document.querySelector('.mobile-menu-toggle');}
-function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
-window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
-document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
+  function getNav(){return document.querySelector('.deco-nav-links');}
+  function getBtn(){return document.querySelector('.mobile-menu-toggle');}
+  function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+  window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
+  document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
 })();
 </script>
 </body>

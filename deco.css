@@ -420,7 +420,417 @@ p{ color: var(--text); }
 /* Responsive */
 @media (max-width: 900px){
   .deco-nav-links{ gap: 1rem; font-size: 0.7rem; }
-  .deco-nav-links a:not(.btn){ display:none; }
+  /* old rule removed - mobile nav now uses hamburger menu (see below) */
   .container, .container-narrow{ padding: 0 1.25rem; }
   .section{ padding: 3.5rem 0; }
+}
+
+/* ========================================================================
+   Service-page atoms — section headers, dim cards, pillars, cycles,
+   conditions, metrics, CTAs, dropdowns. Used by sama.html and the
+   solution/consulting pages.
+   ======================================================================== */
+
+/* Generic section atoms */
+.section-header{ text-align:center; margin-bottom: 2.6rem; }
+.section-label{
+  display:inline-block;
+  font-family: var(--f-mono); font-size: 0.72rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-3);
+  padding: 0.35rem 0.95rem;
+  border: 1px solid var(--gold-line-soft);
+  border-radius: var(--r-pill);
+  background: rgba(26,20,10,0.55);
+  margin-bottom: 1rem;
+}
+.section-title{
+  font-family: var(--f-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  letter-spacing: 6px; text-transform: uppercase;
+  color: var(--text-bright);
+  margin: 0 0 0.5rem;
+}
+.section-intro{
+  color: var(--text); font-size: 1.05rem; line-height: 1.8;
+  max-width: 760px; margin: 0 auto 1.6rem; text-align: center;
+}
+.section-intro strong{ color: var(--gold-1); font-weight: 600; }
+
+/* AI-Q dimensions cards (used in SAMA's diagnostic section) */
+.dimension-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap: 1.2rem; margin-top: 1.5rem;
+}
+.dimension-card{
+  background: var(--grad-card); border: 1px solid var(--gold-line);
+  border-radius: var(--r-lg); padding: 1.6rem 1.4rem;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  text-align:center;
+}
+.dimension-card:hover{
+  transform: translateY(-3px); border-color: var(--gold-2);
+  box-shadow: var(--shadow-card-hover);
+}
+.dim-icon{ font-size: 1.8rem; margin-bottom: 0.6rem; }
+.dim-name{
+  font-family: var(--f-display); font-size: 1.05rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-1); margin-bottom: 0.85rem;
+}
+.dim-spectrum{
+  display:flex; align-items:center; gap: 0.5rem;
+  font-family: var(--f-mono); font-size: 0.7rem;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-mute); margin-bottom: 0.85rem;
+}
+.dim-spectrum-bar{
+  flex:1; height: 2px;
+  background: linear-gradient(90deg, var(--jewel-slate), var(--gold-2));
+  border-radius: 2px;
+}
+.dim-spectrum-left, .dim-spectrum-right{ white-space: nowrap; }
+.dim-desc{
+  font-size: 0.9rem; color: var(--text-dim); line-height: 1.6;
+}
+
+/* Pillar cards (SAMA's three pillars) */
+.pillars-section{ position: relative; }
+.pillars{
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+}
+.pillar-card{
+  background: var(--grad-card); border: 1px solid var(--gold-line);
+  border-radius: var(--r-xl); padding: 2.2rem 2rem;
+  box-shadow: var(--shadow-card); position: relative;
+}
+.pillar-card.storytelling{ border-left: 3px solid var(--jewel-orange); }
+.pillar-card.mindfulness { border-left: 3px solid var(--jewel-emerald); }
+.pillar-card.agile       { border-left: 3px solid var(--jewel-violet); }
+.pillar-header{
+  display:flex; align-items:baseline; gap: 1.2rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem; margin-bottom: 1.4rem;
+  border-bottom: 1px solid var(--gold-line-soft);
+}
+.pillar-label{
+  font-family: var(--f-mono); font-size: 0.72rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold-3); flex-shrink: 0;
+}
+.pillar-name{
+  font-family: var(--f-display); font-size: 1.6rem;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold-1);
+}
+.pillar-tagline{
+  font-family: var(--f-body); font-style: italic;
+  color: var(--text-dim); font-size: 1rem;
+  margin-left: auto;
+}
+.pillar-lead{ color: var(--text); font-size: 1rem; line-height: 1.75; margin-bottom: 1.4rem; }
+.pillar-components{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.component, .pillar-components > div{
+  background: var(--bg-well); border: 1px solid var(--gold-line-soft);
+  border-radius: var(--r-md); padding: 1rem 1.1rem;
+}
+.component-title{
+  font-family: var(--f-mono); font-size: 0.78rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--gold-2); margin-bottom: 0.4rem;
+}
+.component-desc{
+  font-size: 0.9rem; color: var(--text-dim); line-height: 1.55; margin: 0;
+}
+
+/* SAMA cycle (6-week phases) */
+.cycle-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem; margin-top: 1rem; position: relative;
+}
+.cycle-phase{
+  background: var(--grad-card); border: 1px solid var(--gold-line);
+  border-radius: var(--r-lg); padding: 1.4rem 1.2rem;
+  position: relative; transition: all 0.3s var(--ease);
+}
+.cycle-phase:hover{
+  border-color: var(--gold-2); transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+.cycle-week{
+  font-family: var(--f-mono); font-size: 0.7rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold-3); margin-bottom: 0.5rem;
+}
+.cycle-name{
+  font-family: var(--f-display); font-size: 1.15rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-1); margin-bottom: 0.6rem;
+}
+.cycle-desc{ font-size: 0.88rem; color: var(--text-dim); line-height: 1.55; }
+
+/* Generic conditions / step / number cards */
+.conditions-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.1rem;
+}
+.condition-card{
+  background: var(--grad-card); border: 1px solid var(--gold-line);
+  border-radius: var(--r-lg); padding: 1.4rem 1.4rem 1.2rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s var(--ease);
+}
+.condition-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); }
+.condition-number{
+  font-family: var(--f-display); font-size: 1.8rem;
+  background: var(--grad-gold); -webkit-background-clip: text;
+  background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 2px; line-height: 1;
+  margin-bottom: 0.6rem;
+}
+.condition-title{
+  font-family: var(--f-display); font-size: 1.05rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-1); margin-bottom: 0.55rem;
+}
+.condition-desc{
+  font-size: 0.92rem; color: var(--text-dim); line-height: 1.6;
+}
+
+/* Quote block */
+.quote-block{
+  border-left: 3px solid var(--gold-2);
+  background: var(--bg-well);
+  padding: 1.3rem 1.6rem;
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-family: var(--f-body); font-style: italic;
+  color: var(--text-bright); font-size: 1.05rem;
+  margin: 1.5rem auto; max-width: 720px;
+}
+
+/* Metrics table */
+.metrics-wrapper{
+  background: var(--grad-card); border: 1px solid var(--gold-line);
+  border-radius: var(--r-xl); padding: 1.6rem 2rem;
+  margin-top: 1rem;
+}
+.metrics-table{ width: 100%; border-collapse: collapse; }
+.metrics-table tr{ border-bottom: 1px solid var(--gold-line-soft); }
+.metrics-table tr:last-child{ border-bottom: none; }
+.metrics-table td{ padding: 1rem 0; vertical-align: middle; }
+.metrics-table td:first-child{
+  font-family: var(--f-mono); font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--text-mute); width: 40%;
+}
+.metrics-table td:last-child{ color: var(--text-bright); font-weight: 500; }
+.metric-highlight{
+  font-family: var(--f-display); font-size: 1.1rem;
+  background: var(--grad-gold); -webkit-background-clip: text;
+  background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 1.5px;
+}
+
+/* CTA box (used at end of every service/consulting page) */
+.cta-section{ padding: 5rem 0 3rem; text-align: center; }
+.cta-box{
+  background: linear-gradient(180deg, rgba(26,20,10,0.9), rgba(10,9,6,0.95));
+  border: 1px solid var(--gold-line);
+  border-radius: var(--r-xl); padding: 3.5rem 3rem;
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(244,211,122,0.15), 0 20px 60px rgba(0,0,0,0.4);
+}
+.cta-box::before{
+  content: ''; position: absolute;
+  top: -1px; left: 18%; right: 18%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-sheen), transparent);
+}
+.cta-box::after{
+  content: ''; position: absolute;
+  inset: -50% -10% auto auto; width: 60%; aspect-ratio: 1;
+  background: radial-gradient(ellipse, rgba(227,184,92,0.10), transparent 70%);
+  pointer-events: none;
+}
+.cta-title{
+  font-family: var(--f-display); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--text-bright); margin: 0 0 1rem; position: relative;
+}
+.cta-description{
+  color: var(--text); font-size: 1.05rem;
+  max-width: 560px; margin: 0 auto 2rem;
+  position: relative; line-height: 1.75;
+}
+.cta-buttons{
+  display: flex; gap: 1rem; justify-content: center;
+  flex-wrap: wrap; position: relative;
+}
+
+/* ================ NAV DROPDOWNS (Soluciones / Consultoría) ================ */
+.deco-nav-links{ position: relative; }
+.nav-dropdown{ position: relative; display: inline-block; }
+.nav-dropdown-toggle{
+  background: none; border: none; cursor: pointer;
+  font-family: var(--f-mono); font-size: 0.78rem;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--text-bright); padding: 0;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  transition: color 0.2s;
+}
+.nav-dropdown-toggle::after{
+  content: '◆'; font-size: 0.55em; opacity: 0.7;
+  color: var(--gold-2);
+  transition: transform 0.2s;
+}
+.nav-dropdown-toggle:hover{ color: var(--gold-1); }
+.nav-dropdown-toggle:hover::after{ transform: translateY(2px); }
+.nav-dropdown-menu{
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  min-width: 250px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--gold-line);
+  padding: 0.5rem;
+  margin-top: 0.85rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(244,211,122,0.15);
+  list-style: none;
+  z-index: 110;
+}
+.nav-dropdown-menu::before{
+  content: ''; position: absolute;
+  top: -1px; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-sheen), transparent);
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu{
+  opacity: 1; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu li{ list-style: none; }
+.nav-dropdown-menu a{
+  display: block; padding: 0.7rem 0.9rem;
+  text-decoration: none;
+  font-family: var(--f-body) !important;
+  font-size: 0.88rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--text) !important;
+  line-height: 1.45;
+  border-radius: var(--r-sm);
+  transition: background 0.15s, color 0.15s;
+}
+.nav-dropdown-menu a:hover{
+  background: rgba(184,135,58,0.12);
+  color: var(--gold-1) !important;
+}
+.nav-dropdown-menu a strong{
+  display: block; color: var(--text-bright);
+  font-family: var(--f-display); font-weight: 400;
+  font-size: 0.92rem; letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.nav-dropdown-menu a small{
+  display: block; color: var(--text-mute);
+  font-family: var(--f-mono); font-size: 0.7rem;
+  letter-spacing: 1px; line-height: 1.4;
+}
+
+/* ============== MOBILE HAMBURGER MENU ============== */
+.mobile-menu-toggle{
+  display: none;
+  background: transparent;
+  border: 1px solid var(--gold-line);
+  color: var(--gold-1);
+  width: 42px; height: 42px;
+  border-radius: var(--r-sm);
+  cursor: pointer; font-size: 1.15rem; line-height: 1;
+  align-items: center; justify-content: center;
+  padding: 0; transition: all 0.2s;
+}
+.mobile-menu-toggle:hover{
+  border-color: var(--gold-2);
+  background: rgba(184,135,58,0.1);
+}
+.mobile-menu-toggle .icon-close{ display: none; }
+.mobile-menu-toggle.open .icon-open{ display: none; }
+.mobile-menu-toggle.open .icon-close{ display: inline; }
+
+@media (max-width: 900px){
+  .mobile-menu-toggle{ display: inline-flex; }
+  .deco-nav-links{
+    position: fixed; top: 64px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch;
+    gap: 0;
+    background: #07060A;
+    border-bottom: 1px solid var(--gold-line);
+    padding: 1rem 1.25rem 2rem;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    transform: translateY(-12px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+  .deco-nav-links.open{
+    opacity: 1; pointer-events: auto;
+    transform: translateY(0);
+  }
+  /* On mobile show ALL links inside the menu, including dropdowns expanded */
+  .deco-nav-links > a:not(.btn),
+  .deco-nav-links > .nav-dropdown,
+  .deco-nav-links > .lang-toggle,
+  .deco-nav-links > .btn{
+    display: flex !important;
+    width: 100%;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--gold-line-soft);
+  }
+  .deco-nav-links .lang-toggle{ justify-content: flex-start; gap: 0.5rem; padding: 0.85rem 0.25rem; }
+  .deco-nav-links .btn{ justify-content: center; margin-top: 0.5rem; border: 1px solid var(--gold-deep); }
+  .nav-dropdown{ flex-direction: column; align-items: flex-start; padding-bottom: 0.4rem !important; }
+  .nav-dropdown-toggle{
+    width: 100%; padding: 0.5rem 0;
+    justify-content: flex-start;
+  }
+  .nav-dropdown-menu{
+    position: static; transform: none !important;
+    opacity: 1 !important; pointer-events: auto !important;
+    background: transparent; border: none; box-shadow: none;
+    padding: 0.4rem 0 0.4rem 0.5rem;
+    margin: 0; min-width: 0;
+    width: 100%;
+  }
+  .nav-dropdown-menu::before{ display: none; }
+  .nav-dropdown-menu a{
+    border-left: 2px solid var(--gold-line-soft);
+    padding-left: 0.85rem;
+    margin-left: 0.25rem;
+    border-radius: 0;
+    display: block !important;
+    width: auto !important;
+  }
+  .nav-dropdown-menu a strong,
+  .nav-dropdown-menu a small{
+    display: block !important;
+    width: 100%;
+  }
+  .nav-dropdown-menu a:hover{
+    border-left-color: var(--gold-2);
+    background: transparent;
+  }
+}
+
+/* Pillar header collapses on small screens */
+@media (max-width: 700px){
+  .pillar-header{ flex-direction: column; gap: 0.4rem; align-items: flex-start; }
+  .pillar-tagline{ margin-left: 0; }
+  .cta-box{ padding: 2.5rem 1.5rem; }
 }

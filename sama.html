@@ -88,10 +88,27 @@ a:hover{ color:var(--gold-1); }
 <div class="bg-vapor"></div>
 <nav class="deco-nav">
   <a class="aiq-mark" href="index.html"><span>AI</span><span class="dot"></span><span>Q</span></a>
+  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
+    <span class="icon-open">☰</span><span class="icon-close">✕</span>
+  </button>
   <div class="deco-nav-links">
     <a href="index.html#framework">El Framework</a>
     <a href="index.html#types">Los 16 Tipos</a>
     <a href="sama.html">SAMA</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Soluciones</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Procesador de constancias</small></a></li>
+        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Reporte de activos fijos</small></a></li>
+      </ul>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Consultoría</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+      </ul>
+    </div>
     <div class="lang-toggle">
       <a class="on" href="sama.html">ES</a>
       <a href="sama-en.html">EN</a>
@@ -415,5 +432,14 @@ Cuatro condiciones sin las cuales el framework no puede entregar resultados. No 
     <div><a href="index.html#types">Los 16 Tipos</a> · <a href="quiz.html">Hacer el Test</a></div>
   </div>
 </footer>
+<script>
+(function(){
+  function getNav(){return document.querySelector('.deco-nav-links');}
+  function getBtn(){return document.querySelector('.mobile-menu-toggle');}
+  function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+  window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
+  document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
+})();
+</script>
 </body>
 </html>
