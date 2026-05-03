@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>A.I.·Q Cases</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Limelight&family=JetBrains+Mono:wght@400;500&display=swap');
+@page { size: letter; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: #0A0906;
+  color: #F5EBD3;
+}
+.page {
+  width: 8.5in; min-height: 11in; padding: 0.9in 0.85in;
+  background:
+    radial-gradient(ellipse 60% 35% at 20% 0%, rgba(227,184,92,0.10), transparent 60%),
+    radial-gradient(ellipse 70% 40% at 80% 100%, rgba(155,122,46,0.08), transparent 60%),
+    #0A0906;
+  position: relative;
+  page-break-after: always;
+  border-top: 1px solid #3A2E15;
+  border-bottom: 1px solid #3A2E15;
+}
+.page::before, .page::after {
+  content:''; position:absolute; left:0.85in; right:0.85in; height:1px;
+  background: linear-gradient(90deg, transparent, #E3B85C 20%, #F4D37A 50%, #E3B85C 80%, transparent);
+  opacity: 0.6;
+}
+.page::before { top: 0.5in; }
+.page::after { bottom: 0.5in; }
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: #C99540; font-size: 10px; text-align: center;
+}
+h1.deco {
+  font-family: 'Limelight', serif;
+  letter-spacing: 8px; text-transform: uppercase;
+  text-align: center; font-size: 48px; line-height: 1.2;
+  background: linear-gradient(135deg, #F4D37A 0%, #E3B85C 50%, #C99540 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 1.5rem 0 1rem;
+}
+h2.deco {
+  font-family: 'Limelight', serif;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: #E3B85C; font-size: 22px; margin: 2rem 0 1rem;
+}
+h3.deco {
+  font-family: 'Limelight', serif;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: #E3B85C; font-size: 14px; margin: 1.5rem 0 0.5rem;
+}
+.diamond { display: block; text-align: center; color: #E3B85C; font-size: 14px; letter-spacing: 4px; margin: 1rem 0; }
+.rule {
+  height: 1px; max-width: 240px; margin: 1.2rem auto;
+  background: linear-gradient(90deg, transparent, #E3B85C 50%, transparent);
+}
+p { font-size: 12px; line-height: 1.7; margin-bottom: 0.7rem; color: #F5EBD3; }
+.lead { font-size: 14px; font-style: italic; color: #C9B788; text-align: center; margin: 0.8rem 0 1.5rem; }
+.tagline {
+  font-family: 'Limelight', serif;
+  letter-spacing: 5px; text-transform: uppercase;
+  text-align: center; color: #E3B85C; font-size: 14px;
+  font-style: italic; margin: 1.5rem 0;
+}
+.toc { list-style: none; }
+.toc li {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  font-size: 10px; padding: 0.4rem 0;
+  border-bottom: 1px dotted #3A2E15;
+  display: flex; justify-content: space-between;
+  color: #C9B788;
+}
+.toc li .num { color: #C99540; }
+.types-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 1rem 0;
+}
+.tcard {
+  border: 1px solid #3A2E15;
+  background: linear-gradient(180deg, #1F1810 0%, #16110A 100%);
+  padding: 0.6rem 0.7rem; position: relative;
+}
+.tcard::before {
+  content:''; position:absolute; top:0; left:18%; right:18%; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(227,184,92,0.6), transparent);
+}
+.tcode {
+  font-family: 'Limelight', serif; letter-spacing: 4px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #F4D37A, #C99540);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.tname { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1px; color: #C9B788; text-transform: uppercase; margin-top: 2px; }
+.case {
+  border: 1px solid #3A2E15;
+  background: linear-gradient(180deg, #1F1810 0%, #16110A 100%);
+  padding: 1rem; margin: 1rem 0; position: relative;
+}
+.case::before {
+  content:''; position:absolute; top:0; left:18%; right:18%; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(227,184,92,0.6), transparent);
+}
+.case h3 { margin-top: 0; }
+.meta {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1.5px; font-size: 9px;
+  color: #C99540; text-transform: uppercase; margin-bottom: 0.5rem;
+}
+ul.gold { list-style: none; padding-left: 0; }
+ul.gold li {
+  font-size: 11px; padding-left: 1.2rem; position: relative;
+  margin-bottom: 0.3rem; color: #F5EBD3; line-height: 1.6;
+}
+ul.gold li::before {
+  content: '◆'; color: #C99540; position: absolute; left: 0; top: 0;
+  font-size: 7px;
+}
+.cover-mark {
+  font-family: 'Limelight', serif; letter-spacing: 6px;
+  text-align: center; font-size: 14px; color: #E3B85C;
+  margin: 2rem 0;
+}
+.author {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  text-align: center; color: #C9B788; font-size: 13px; margin-top: auto;
+}
+.cover { display: flex; flex-direction: column; justify-content: center; min-height: 9in; text-align: center; }
+.sun {
+  width: 200px; height: 100px; margin: 0 auto 2rem;
+  position: relative; overflow: hidden;
+}
+.sun svg { width: 100%; height: 100%; }
+@media print { body { background: #0A0906 !important; } }
+</style></head>
+<body>
+
+<section class="page cover">
+  <div class="eyebrow">EST · MMXXV · A.I.·Q</div>
+  <div class="sun"><svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g" x1="0" x2="0" y1="1" y2="0">
+      <stop offset="0" stop-color="#C99540" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#F4D37A" stop-opacity="0.4"/>
+    </linearGradient></defs>
+    <line x1="100" y1="100" x2="100.0" y2="5.0" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="124.6" y2="8.2" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="147.5" y2="17.7" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="167.2" y2="32.8" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="182.3" y2="52.5" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="191.8" y2="75.4" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="195.0" y2="100.0" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="191.8" y2="124.6" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="182.3" y2="147.5" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="167.2" y2="167.2" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="147.5" y2="182.3" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="124.6" y2="191.8" stroke="url(#g)" stroke-width="0.8"/><line x1="100" y1="100" x2="100.0" y2="195.0" stroke="url(#g)" stroke-width="0.8"/>
+    <circle cx="100" cy="100" r="6" fill="#E3B85C"/>
+  </svg></div>
+  <h1 class="deco">A.I.·Q Cases</h1>
+  <div class="rule"></div>
+  <p class="tagline">Field Notes from Sixteen Strategic Engagements</p>
+  <div class="cover-mark">◆ ◆ ◆</div>
+  <p class="author">Dr. Federico Andino<br>ai-q.fit</p>
+</section>
+
+
+<section class="page">
+  <div class="eyebrow">CASE STUDIES · 2024</div>
+  <h2 class="deco">Introduction</h2>
+  <div class="rule"></div>
+  <p class="lead">Sixteen organizations. Sixteen types. Sixteen turning points.</p>
+        <p>The cases that follow are sanitized composites drawn from engagements between 2022 and 2024. Names, industries, and figures are altered; the patterns are real. Each is mapped to one of the A.I.·Q types so you can locate yourself by analogy.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">A.I.·Q Cases</div>
+  <h2 class="deco">Case · CPBI · Financial Services</h2>
+  <div class="rule"></div>
+  <div class="case"><div class="meta">Strategic Leader · Banking · 12,000 employees</div>
+        <h3 class="deco">The Edge That Almost Eroded</h3>
+        <p>A regional bank had three years of compounding AI advantage in fraud detection. By month thirty-six, the model was a generation behind newer entrants and the team was complacent.</p>
+        <p><strong>Intervention:</strong> Quarterly disruption-scanning council, dedicated retention budget for senior modelers, and a forced-rotation policy that kept the team intellectually mobile.</p></div>
+</section>
+<section class="page">
+  <div class="eyebrow">A.I.·Q Cases</div>
+  <h2 class="deco">Case · SRTE · Manufacturing</h2>
+  <div class="rule"></div>
+  <div class="case"><div class="meta">Chaos Pilot · Industrial · 4,200 employees</div>
+        <h3 class="deco">Forty-One Tools, One Strategy</h3>
+        <p>Audit revealed forty-one separate AI/ML tools across business units, with no shared inventory and overlapping vendor contracts.</p>
+        <p><strong>Intervention:</strong> Ninety-day moratorium on new procurement, centralized inventory, sunset criteria, and a single VP-of-AI accountability line.</p></div>
+</section>
+<section class="page">
+  <div class="eyebrow">A.I.·Q Cases</div>
+  <h2 class="deco">Case · SPTE · Retail</h2>
+  <div class="rule"></div>
+  <div class="case"><div class="meta">Over-Engineer · DTC Apparel · 800 employees</div>
+        <h3 class="deco">The Recommendation Engine Nobody Asked For</h3>
+        <p>An eight-person ML team shipped a sophisticated recommendation system in six months. Adoption: 3%. The merchandising team had a different mental model of "similar."</p>
+        <p><strong>Intervention:</strong> Reframe the team's charter from <em>build</em> to <em>diagnose</em>. Embed an ML engineer with merchandising for one quarter before any new model is greenlit.</p></div>
+</section>
+
+</body></html>

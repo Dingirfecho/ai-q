@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAMA — La Capa de Gestión del Cambio | A.I.·Q</title>
+<meta name="description" content="SAMA suma Storytelling, diagnóstico A.I.-Q, Mindfulness y Agile a cualquier transformación de I.A.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Limelight&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --aiq-ink:#0A0906; --aiq-ink2:#14100A; --aiq-gold-hi:#FFF2C2; --aiq-gold-light:#F4D37A;
+  --aiq-gold:#E3B85C; --aiq-gold-deep:#B8873A; --aiq-gold-shadow:#7A5A1E;
+  --aiq-cream:#F5EAD2; --aiq-parch:#D9C9A3; --aiq-mute:#94886A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(ellipse 90% 60% at 50% -10%, rgba(227,184,92,0.14), transparent 70%),
+    radial-gradient(ellipse 80% 50% at 20% 110%, rgba(184,135,58,0.12), transparent 70%),
+    linear-gradient(180deg,#0A0906,#14100A 50%,#0A0906);
+  background-attachment:fixed; color:var(--aiq-cream);
+  font-family:'Space Grotesk',ui-sans-serif,system-ui; line-height:1.65; min-height:100vh;
+}
+body::after{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:linear-gradient(90deg, rgba(184,135,58,0.18) 0 1px, transparent 1px 6px, rgba(184,135,58,0.10) 6px 7px, transparent 7px 100%) 0 0/12px 100% no-repeat,
+    linear-gradient(270deg, rgba(184,135,58,0.18) 0 1px, transparent 1px 6px, rgba(184,135,58,0.10) 6px 7px, transparent 7px 100%) 100% 0/12px 100% no-repeat;
+}
+a{color:inherit;text-decoration:none}
+.page{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 32px}
+
+nav.deco-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:rgba(10,9,6,0.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(184,135,58,0.4)}
+nav.deco-nav .logo{font-family:'Limelight',serif;font-size:22px;letter-spacing:5px;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 50%,var(--aiq-gold-shadow));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 1px 0 rgba(0,0,0,0.6)}
+nav.deco-nav .nav-links{display:flex;gap:24px;align-items:center}
+nav.deco-nav .nav-links a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--aiq-parch)}
+nav.deco-nav .nav-links a:hover{color:var(--aiq-gold-hi)}
+.lang-toggle{display:flex;gap:0;border:1px solid rgba(184,135,58,0.5);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px}
+.lang-toggle a{padding:6px 10px;color:var(--aiq-mute)}
+.lang-toggle a.on{color:var(--aiq-ink);background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 60%,var(--aiq-gold-deep))}
+.btn-cta{font-family:'Limelight',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--aiq-ink);background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 50%,var(--aiq-gold-deep));padding:10px 18px;border:1px solid var(--aiq-gold-deep);box-shadow:inset 0 1px 0 rgba(255,242,194,0.5),0 4px 12px rgba(184,135,58,0.3)}
+.btn-cta:hover{filter:brightness(1.08)}
+
+.hero{padding:140px 0 40px;text-align:center}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--aiq-gold-deep);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.sama-mark{margin:0 auto 24px;width:340px;height:120px;position:relative}
+.sama-mark .ring{position:absolute;inset:0;border:1px solid rgba(184,135,58,0.5);border-radius:60px}
+.sama-mark .ring2{position:absolute;inset:6px;border:1px solid rgba(244,211,122,0.3);border-radius:54px}
+.sama-mark .letters{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Limelight',serif;font-size:54px;letter-spacing:6px;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold-light) 30%,var(--aiq-gold) 55%,var(--aiq-gold-deep) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sama-mark .letters span.dia{display:inline-block;width:14px;height:14px;background:linear-gradient(135deg,var(--aiq-gold-hi),var(--aiq-gold-deep));-webkit-text-fill-color:initial;transform:rotate(45deg);align-self:center;margin:0 6px}
+.hero-title{font-family:'Limelight',serif;font-size:clamp(44px,7vw,92px);letter-spacing:8px;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold-light) 35%,var(--aiq-gold) 55%,var(--aiq-gold-deep) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 2px 0 rgba(0,0,0,0.6);margin-bottom:8px;text-transform:uppercase}
+.hero-sub{font-family:'Space Grotesk',sans-serif;font-style:italic;font-size:clamp(18px,2.4vw,24px);color:var(--aiq-cream);margin-bottom:24px;letter-spacing:1px}
+.hero-lead{max-width:720px;margin:0 auto;color:var(--aiq-parch);font-size:17px;line-height:1.85;text-wrap:pretty}
+.section-divider{display:flex;justify-content:center;margin:36px 0}
+
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--aiq-gold-deep);text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:14px;justify-content:center}
+.section-title{font-family:'Limelight',serif;font-size:clamp(26px,3.6vw,40px);letter-spacing:3px;text-transform:uppercase;text-align:center;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 60%,var(--aiq-gold-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 2px 0 rgba(0,0,0,0.5);margin-bottom:24px;text-wrap:balance}
+
+.framed{position:relative;padding:40px 32px;background:linear-gradient(180deg,rgba(36,26,16,0.95),rgba(10,9,6,0.95));border:1px solid rgba(184,135,58,0.55);box-shadow:inset 0 1px 0 rgba(255,242,194,0.15),0 20px 60px rgba(0,0,0,0.5);margin:24px 0}
+.framed .crown-mark{position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:120px;height:10px}
+.framed .inner-rule{position:absolute;inset:10px;border:1px solid rgba(244,211,122,0.32);pointer-events:none}
+.framed .inner-rule-2{position:absolute;inset:14px;border:1px solid rgba(184,135,58,0.22);pointer-events:none}
+.framed .zig-tl,.framed .zig-tr,.framed .zig-bl,.framed .zig-br{position:absolute;width:46px;height:46px;pointer-events:none}
+.framed .zig-tl{top:4px;left:4px}.framed .zig-tr{top:4px;right:4px}
+.framed .zig-bl{bottom:4px;left:4px}.framed .zig-br{bottom:4px;right:4px}
+.framed > .frame-body{position:relative;z-index:1}
+
+.why-frame{padding:48px 36px}
+.why-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--aiq-gold-light);text-transform:uppercase;text-align:center;margin-bottom:14px}
+.why-title{font-family:'Limelight',serif;font-size:clamp(24px,3vw,34px);letter-spacing:2px;color:var(--aiq-gold-hi);text-align:center;margin-bottom:20px;text-wrap:balance}
+.why-body{color:var(--aiq-parch);font-size:17px;line-height:1.85;max-width:780px;margin:0 auto;text-align:center;text-wrap:pretty;white-space:pre-line}
+
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin:32px 0}
+.pillar{position:relative;padding:32px 28px;background:linear-gradient(180deg,rgba(36,26,16,0.7),rgba(10,9,6,0.85));border:1px solid rgba(184,135,58,0.5)}
+.pillar::before{content:'';position:absolute;inset:8px;border:1px solid rgba(244,211,122,0.22);pointer-events:none}
+.pillar-key{position:absolute;top:-22px;left:32px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,rgba(244,211,122,0.2),rgba(10,9,6,0.95) 70%);border:2px solid var(--aiq-gold);border-radius:50%;font-family:'Limelight',serif;font-size:22px;background-clip:padding-box}
+.pillar-key span{background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 55%,var(--aiq-gold-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.pillar-name{font-family:'Limelight',serif;font-size:22px;letter-spacing:3px;color:var(--aiq-gold-hi);text-transform:uppercase;margin-bottom:4px;margin-top:6px;position:relative;z-index:1}
+.pillar-tag{font-family:'Space Grotesk',sans-serif;font-style:italic;color:var(--aiq-gold-light);font-size:14px;margin-bottom:14px;position:relative;z-index:1}
+.pillar-desc{color:var(--aiq-parch);font-size:15px;line-height:1.7;margin-bottom:18px;position:relative;z-index:1;text-wrap:pretty}
+.pillar-list{list-style:none;position:relative;z-index:1;border-top:1px solid rgba(184,135,58,0.25);padding-top:14px}
+.pillar-list li{padding:8px 0 8px 22px;position:relative;color:var(--aiq-parch);font-size:14px;line-height:1.5}
+.pillar-list li::before{content:'';position:absolute;left:0;top:14px;width:8px;height:8px;transform:rotate(45deg);background:linear-gradient(135deg,var(--aiq-gold-hi),var(--aiq-gold-deep))}
+
+.flow-intro{color:var(--aiq-parch);font-size:16px;line-height:1.85;max-width:720px;margin:0 auto 32px;text-align:center;text-wrap:pretty}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+.step{position:relative;padding:26px 22px;background:linear-gradient(180deg,rgba(36,26,16,0.7),rgba(10,9,6,0.85));border:1px solid rgba(184,135,58,0.5)}
+.step::before{content:'';position:absolute;inset:6px;border:1px solid rgba(244,211,122,0.22);pointer-events:none}
+.step-num{font-family:'Limelight',serif;font-size:22px;letter-spacing:2px;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 55%,var(--aiq-gold-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;position:relative;z-index:1}
+.step-name{font-family:'Limelight',serif;font-size:14px;letter-spacing:2px;color:var(--aiq-gold-hi);text-transform:uppercase;margin-bottom:10px;position:relative;z-index:1}
+.step-body{color:var(--aiq-parch);font-size:13.5px;line-height:1.65;position:relative;z-index:1;text-wrap:pretty}
+
+.cta-frame{padding:56px 36px;text-align:center;margin:60px 0 40px}
+.cta-title{font-family:'Limelight',serif;font-size:clamp(24px,3vw,34px);letter-spacing:4px;text-transform:uppercase;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 60%,var(--aiq-gold-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;text-wrap:balance}
+.cta-desc{color:var(--aiq-parch);font-size:17px;max-width:560px;margin:0 auto 28px;line-height:1.75;text-wrap:pretty}
+.cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{font-family:'Limelight',serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--aiq-ink);padding:16px 32px;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 50%,var(--aiq-gold-deep));border:1px solid var(--aiq-gold-deep);box-shadow:inset 0 1px 0 rgba(255,242,194,0.5),0 6px 20px rgba(184,135,58,0.4)}
+.btn-primary:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.btn-secondary{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--aiq-gold-light);padding:16px 32px;background:transparent;border:1px solid rgba(184,135,58,0.6)}
+.btn-secondary:hover{border-color:var(--aiq-gold-hi);color:var(--aiq-gold-hi)}
+
+footer{margin-top:60px;padding:32px 0;border-top:1px solid rgba(184,135,58,0.4);text-align:center}
+footer .footer-rule{display:flex;justify-content:center;margin-bottom:18px}
+footer p{color:var(--aiq-mute);font-size:13px}
+
+@media (max-width:840px){
+  .pillars{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(2,1fr)}
+  nav.deco-nav .nav-links a:not(.btn-cta):not(.lang-toggle a){display:none}
+  .hero{padding-top:120px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<linearGradient id="dcGold" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#FFF2C2"/><stop offset="0.3" stop-color="#F4D37A"/>
+<stop offset="0.55" stop-color="#E3B85C"/><stop offset="0.85" stop-color="#B8873A"/>
+<stop offset="1" stop-color="#7A5A1E"/>
+</linearGradient>
+<linearGradient id="dcGoldH" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="transparent"/><stop offset="0.15" stop-color="#7A5A1E"/>
+<stop offset="0.5" stop-color="#FFF2C2"/><stop offset="0.85" stop-color="#7A5A1E"/>
+<stop offset="1" stop-color="transparent"/>
+</linearGradient>
+<linearGradient id="dcGoldDiag" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#FFF2C2"/><stop offset="0.5" stop-color="#E3B85C"/>
+<stop offset="1" stop-color="#7A5A1E"/>
+</linearGradient>
+<radialGradient id="dcGoldR" cx="0.5" cy="0.45" r="0.6">
+<stop offset="0" stop-color="#FFF2C2"/><stop offset="0.5" stop-color="#E3B85C"/>
+<stop offset="1" stop-color="#7A5A1E"/>
+</radialGradient>
+</defs>
+</svg>
+
+<nav class="deco-nav">
+  <a href="index.html" class="logo">A.I.&middot;Q</a>
+  <div class="nav-links">
+    <a href="index.html#types">Los 16 Tipos</a>
+    <div class="lang-toggle">
+      <a href="sama.html" class="">EN</a>
+      <a href="sama-es.html" class="on">ES</a>
+    </div>
+    <a href="quiz.html" class="btn-cta">Hacer la Evaluación</a>
+  </div>
+</nav>
+
+<div class="page">
+  <section class="hero">
+    <div class="hero-eyebrow"><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg><span>El Acompañante de Gestión del Cambio</span><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg></div>
+    <div class="sama-mark"><div class="ring"></div><div class="ring2"></div><div class="letters">S<span class="dia"></span>A<span class="dia"></span>M<span class="dia"></span>A</div></div>
+    <h1 class="hero-title">SAMA</h1>
+    <p class="hero-sub">Storytelling · A.I.-Q · Mindfulness · Agile</p>
+    <p class="hero-lead">Un diagnóstico sin un sistema de entrega es un póster colgado en la pared. SAMA es el método de cuatro pilares que usamos para convertir un resultado A.I.-Q en una transformación que funciona — narrativa que la organización puede repetir, evidencia para actuar, calma bajo presión, y cadencia de embarcar-ahora.</p>
+    <div class="section-divider"><svg class="chev" width="520" height="40" viewBox="0 0 520 40" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="20" x2="200" y2="20" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="0" y1="23" x2="200" y2="23" stroke="url(#dcGoldH)" stroke-width="0.5" opacity="0.5"/><line x1="320" y1="20" x2="520" y2="20" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="320" y1="23" x2="520" y2="23" stroke="url(#dcGoldH)" stroke-width="0.5" opacity="0.5"/><g transform="translate(260 20)"><g stroke="url(#dcGold)" stroke-width="1.2" fill="none"><path d="M-40 0 L-32 -8 L-24 0"/><path d="M-24 0 L-16 -8 L-8 0"/><path d="M8 0 L16 -8 L24 0"/><path d="M24 0 L32 -8 L40 0"/><path d="M-40 0 L-32 8 L-24 0"/><path d="M-24 0 L-16 8 L-8 0"/><path d="M8 0 L16 8 L24 0"/><path d="M24 0 L32 8 L40 0"/></g><path d="M-6 0 L0 -10 L6 0 L0 10 Z" fill="url(#dcGoldDiag)"/><path d="M-2.5 0 L0 -4 L2.5 0 L0 4 Z" fill="#0A0906"/></g></svg></div>
+  </section>
+
+  <div class="framed why-frame">
+    <div class="crown-mark"><svg width="120" height="10" viewBox="0 0 120 10" aria-hidden="true"><path d="M0 10 L60 0 L120 10" fill="none" stroke="url(#dcGold)" stroke-width="1.2"/><path d="M56 10 L60 2 L64 10 Z" fill="url(#dcGoldDiag)"/></svg></div><div class="inner-rule"></div><div class="inner-rule-2"></div><div class="zig-tl"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(0deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div><div class="zig-tr"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(90deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div><div class="zig-bl"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(270deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div><div class="zig-br"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(180deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div>
+    <div class="frame-body">
+      <div class="why-label">Por qué existe SAMA</div>
+      <h2 class="why-title">La mayoría de las transformaciones de I.A. se estancan después del deck.</h2>
+      <p class="why-body">Tenés una hoja de ruta. Tenés presupuesto. Y seguís sin nada en producción seis meses después. El cuello de botella casi nunca es la tecnología — es la historia que la gente cuenta sobre el trabajo, la verdad sobre dónde estás realmente, el pánico del tercer mes, y la ausencia de un ritmo que convierta planes en sistemas embarcados.
+
+SAMA te da los cuatro.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><svg class="chev" width="520" height="40" viewBox="0 0 520 40" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="20" x2="200" y2="20" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="0" y1="23" x2="200" y2="23" stroke="url(#dcGoldH)" stroke-width="0.5" opacity="0.5"/><line x1="320" y1="20" x2="520" y2="20" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="320" y1="23" x2="520" y2="23" stroke="url(#dcGoldH)" stroke-width="0.5" opacity="0.5"/><g transform="translate(260 20)"><g stroke="url(#dcGold)" stroke-width="1.2" fill="none"><path d="M-40 0 L-32 -8 L-24 0"/><path d="M-24 0 L-16 -8 L-8 0"/><path d="M8 0 L16 -8 L24 0"/><path d="M24 0 L32 -8 L40 0"/><path d="M-40 0 L-32 8 L-24 0"/><path d="M-24 0 L-16 8 L-8 0"/><path d="M8 0 L16 8 L24 0"/><path d="M24 0 L32 8 L40 0"/></g><path d="M-6 0 L0 -10 L6 0 L0 10 Z" fill="url(#dcGoldDiag)"/><path d="M-2.5 0 L0 -4 L2.5 0 L0 4 Z" fill="#0A0906"/></g></svg></div>
+
+  <section>
+    <div class="section-eyebrow"><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg><span>Los Cuatro Pilares</span><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg></div>
+    <h2 class="section-title">Una capa completa de gestión del cambio</h2>
+    <div class="pillars">
+      <div class="pillar"><div class="pillar-key"><span>S</span></div><h3 class="pillar-name">Storytelling</h3><div class="pillar-tag">La narrativa que la empresa puede repetir.</div><p class="pillar-desc">Una transformación vive o muere por la historia que los ejecutivos cuentan en ascensores y reuniones generales. SAMA-S te ayuda a escribirla: quién es el héroe, contra qué pelea, por qué ahora.</p><ul class="pillar-list"><li>Narrativa norte de un párrafo</li><li>Encuadres por stakeholder (board, mandos medios, ops)</li><li>Anti-historias — qué NO estamos haciendo</li><li>Cadencia trimestral de hitos</li></ul></div><div class="pillar"><div class="pillar-key"><span>A</span></div><h3 class="pillar-name">A.I.-Q</h3><div class="pillar-tag">El diagnóstico que dice la verdad.</div><p class="pillar-desc">Antes de prescribir, medís. La evaluación A.I.-Q te ubica en las cuatro dimensiones — Estructura, Orientación, Liderazgo, Integración — y te da el arquetipo.</p><ul class="pillar-list"><li>Diagnóstico de 20 preguntas, 5 minutos</li><li>Puntaje de 4 dimensiones con intervalos</li><li>Uno de 16 arquetipos</li><li>Prescripción de 90 días por arquetipo</li></ul></div><div class="pillar"><div class="pillar-key"><span>M</span></div><h3 class="pillar-name">Mindfulness</h3><div class="pillar-tag">La compostura que sobrevive al bajón.</div><p class="pillar-desc">Toda transformación pega un valle donde la prueba todavía no llegó y los escépticos suben el volumen. SAMA-M es la práctica que evita que el equipo de liderazgo se acobarde.</p><ul class="pillar-list"><li>Higiene de decisiones bajo incertidumbre</li><li>Rituales pre-mortem para apuestas grandes</li><li>Revisión semanal de métricas, no vibras</li><li>Habilidad: aguantar el aburrido medio</li></ul></div><div class="pillar"><div class="pillar-key"><span>A</span></div><h3 class="pillar-name">Agile</h3><div class="pillar-tag">La cadencia que embarca.</div><p class="pillar-desc">Los decks de estrategia no son artefactos de progreso. SAMA-A es el ritmo operativo — iteraciones de dos semanas, demos duros, criterios de cierre — que convierte planes en sistemas funcionando.</p><ul class="pillar-list"><li>Cadencia de iteración de 2 semanas</li><li>Reviews tipo demo-o-morí</li><li>Criterios de cierre pre-establecidos</li><li>Máximo tres apuestas a la vez</li></ul></div>
+    </div>
+  </section>
+
+  <div class="section-divider"><svg class="chev" width="520" height="40" viewBox="0 0 520 40" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="20" x2="200" y2="20" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="0" y1="23" x2="200" y2="23" stroke="url(#dcGoldH)" stroke-width="0.5" opacity="0.5"/><line x1="320" y1="20" x2="520" y2="20" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="320" y1="23" x2="520" y2="23" stroke="url(#dcGoldH)" stroke-width="0.5" opacity="0.5"/><g transform="translate(260 20)"><g stroke="url(#dcGold)" stroke-width="1.2" fill="none"><path d="M-40 0 L-32 -8 L-24 0"/><path d="M-24 0 L-16 -8 L-8 0"/><path d="M8 0 L16 -8 L24 0"/><path d="M24 0 L32 -8 L40 0"/><path d="M-40 0 L-32 8 L-24 0"/><path d="M-24 0 L-16 8 L-8 0"/><path d="M8 0 L16 8 L24 0"/><path d="M24 0 L32 8 L40 0"/></g><path d="M-6 0 L0 -10 L6 0 L0 10 Z" fill="url(#dcGoldDiag)"/><path d="M-2.5 0 L0 -4 L2.5 0 L0 4 Z" fill="#0A0906"/></g></svg></div>
+
+  <section>
+    <div class="section-eyebrow"><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg><span>Cómo se secuencia</span><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg></div>
+    <h2 class="section-title">El ciclo SAMA de 90 días</h2>
+    <p class="flow-intro">SAMA es secuencial la primera vez y continuo después. Corrélo una vez para armar el músculo; después vive como tu sistema operativo.</p>
+    <div class="flow">
+      <div class="step"><div class="step-num">01</div><div class="step-name">Diagnosticar (Semana 1–2)</div><div class="step-body">Corré A.I.-Q en el equipo de liderazgo y tres funciones clave. Triangulá el arquetipo. Mostrá dónde la gente discrepa sobre tu propia madurez — ahí está el trabajo.</div></div><div class="step"><div class="step-num">02</div><div class="step-name">Narrar (Semana 3–4)</div><div class="step-body">Escribí la historia. Probala con cinco ejecutivos, tres escépticos y un ingeniero. Reescribila hasta que puedan repetirla sin el deck.</div></div><div class="step"><div class="step-num">03</div><div class="step-name">Pacear (Semana 5–10)</div><div class="step-body">Elegí tres apuestas. Armá iteraciones de dos semanas. Definí criterios de cierre al inicio, no cuando llegan los resultados. Demo cada dos semanas a una audiencia real.</div></div><div class="step"><div class="step-num">04</div><div class="step-name">Sostener (Semana 11–13)</div><div class="step-body">Vas a pegar el bajón cerca de la semana ocho. Las prácticas de mindfulness evitan que sobre-corrijas. Revisá el diagnóstico. Ajustá pilares, no planes.</div></div>
+    </div>
+  </section>
+
+  <div class="framed cta-frame">
+    <div class="crown-mark"><svg width="120" height="10" viewBox="0 0 120 10" aria-hidden="true"><path d="M0 10 L60 0 L120 10" fill="none" stroke="url(#dcGold)" stroke-width="1.2"/><path d="M56 10 L60 2 L64 10 Z" fill="url(#dcGoldDiag)"/></svg></div><div class="inner-rule"></div><div class="inner-rule-2"></div><div class="zig-tl"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(0deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div><div class="zig-tr"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(90deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div><div class="zig-bl"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(270deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div><div class="zig-br"><svg width="46" height="46" viewBox="0 0 60 60" aria-hidden="true" style="transform:rotate(180deg)"><g stroke="url(#dcGold)" stroke-width="1.4" fill="none" stroke-linejoin="miter"><path d="M2 58 L2 46 L10 46 L10 38 L18 38 L18 30 L26 30 L26 22 L34 22 L34 14 L42 14 L42 6 L58 6"/></g><g fill="url(#dcGold)" opacity="0.55"><circle cx="10" cy="50" r="1.4"/><circle cx="22" cy="38" r="1.4"/><circle cx="34" cy="26" r="1.4"/><circle cx="46" cy="14" r="1.4"/></g></svg></div>
+    <div class="frame-body">
+      <h2 class="cta-title">Vé desde dónde estás arrancando de verdad.</h2>
+      <p class="cta-desc">SAMA es el sistema de entrega. A.I.-Q es el diagnóstico que te dice qué versión necesitás. Hacé la evaluación de 5 minutos para empezar.</p>
+      <div class="cta-buttons">
+        <a href="quiz.html" class="btn-primary">Hacer la Evaluación →</a>
+        <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-secondary">Reservar una Llamada</a>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="footer-rule"><svg class="dingbat" width="70" height="14" viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="24" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><line x1="46" y1="7" x2="70" y2="7" stroke="url(#dcGoldH)" stroke-width="1"/><path d="M35 0 L39 7 L35 14 L31 7 Z" fill="url(#dcGoldDiag)"/><path d="M35 3.5 L37 7 L35 10.5 L33 7 Z" fill="#0A0906"/></svg></div><p>A.I.·Q por Dr. Federico Andino · ai-q.fit</p></footer>
+</div>
+</body>
+</html>

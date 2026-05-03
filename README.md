@@ -1,71 +1,46 @@
-# AI-Q: The AI Strategy Type Indicator
+# A.I.·Q — The A.I. Strategy Type Indicator
 
-**Discover your organization's AI maturity type.**
+Static site for **ai-q.fit** by Dr. Federico Andino.
+Art-Deco visual system, fully bilingual (Spanish default · English secondary).
 
-Like Myers-Briggs for personality, AI-Q measures your AI strategy across 4 dimensions and reveals which of 16 types you are.
+## What's in this bundle
 
-## Live Demo
+```
+.
+├── index.html                     ← Homepage (default: ES)
+├── quiz.html                      ← 20-question assessment (bilingual)
+├── sama.html / sama-en.html       ← SAMA framework page (ES / EN)
+├── types/                         ← 32 type pages (16 codes × ES/EN)
+│     ├── cpbi.html, cpbi-es.html
+│     ├── cptb.html, cptb-es.html
+│     └── … (all 16)
+├── AI-Q-Types-Guide.html          ← Types guide (EN, print-ready)
+├── AI-Q-Guia-de-Tipos-ES.html     ← Guía de Tipos (ES, print-ready)
+├── AIQCasesEng.html               ← Case studies (EN, print-ready)
+├── AIQCasosESP.html               ← Casos (ES, print-ready)
+├── deco.css                       ← Shared design system
+├── favicon.svg                    ← Diamond mark
+├── assets/                        ← Type illustrations (SVG)
+└── README.md
+```
 
-🔗 [Take the Assessment](https://YOUR-USERNAME.github.io/ai-q/)
+All HTML files are self-contained — no build step, no JS framework, no external runtime dependencies. Fonts come from Google Fonts.
 
-## The Framework
+## Print-ready guides
 
-### 4 Dimensions
+The four `*Guide*` and `*Cases*` HTML files replace the previous PDF placeholders. Each has a deco cover spread plus content pages styled with `@page { size: letter }` so users can:
 
-| Dimension | Spectrum | What It Measures |
-|-----------|----------|------------------|
-| **Structure** | Scattered ↔ Consolidated | How organized is your AI landscape? |
-| **Orientation** | Reactive ↔ Proactive | Do you chase trends or anticipate them? |
-| **Leadership** | Tech-driven ↔ Business-driven | Who owns AI decisions? |
-| **Integration** | Experimental ↔ Integrated | Are AI tools siloed or embedded? |
+1. Open the file in a browser
+2. Cmd+P / Ctrl+P → **Save as PDF**
 
-### 16 Types
+This produces a properly branded PDF on demand without shipping a binary in the repo.
 
-**Scattered Landscape:**
-- SRTE - The Chaos Pilot
-- SRTB - The Wishful Thinker
-- SPTE - The Over-Engineer
-- SPTB - The Ambitious Starter
-- SRTI - The Accidental Success
-- SRBI - The Shadow IT Hero
-- SPTI - The Rogue Lab
-- SPBI - The Grassroots Movement
+## Deployment (GitHub Pages)
 
-**Consolidated Landscape:**
-- CRTE - The Controlled Experiment
-- CRTB - The Waiting Game
-- CPTE - The Tech Utopia
-- CPTB - The Strategy Doc
-- CRTI - The Efficient Machine
-- CRBI - The Service Desk
-- CPTI - The Almost There
-- CPBI - The Strategic Leader
-
-## Deployment
-
-Single HTML file. Deploy anywhere:
-
-### GitHub Pages
-1. Push to GitHub
-2. Settings → Pages → Deploy from main branch
-3. Live at `https://YOUR-USERNAME.github.io/ai-q/`
-
-### Other Options
-- Netlify (drag & drop)
-- Vercel
-- Any static hosting
-
-## Files
-
-- `index.html` - Homepage with all 16 type descriptions
-- `quiz.html` - The 50-question assessment (coming soon)
+1. Drop everything in this folder at the **root** of `Dingirfecho/ai-q`
+2. **Settings → Pages → Branch: `main` / `(root)` → Save**
+3. Live at `https://dingirfecho.github.io/ai-q/` (or your custom domain)
 
 ## Author
 
-**Dr. Federico Andino**  
-AI Transformation Strategist  
-[www.fedeandino.com](https://www.fedeandino.com)
-
----
-
-*Want help with your AI strategy? [Let's talk.](https://www.fedeandino.com)*
+Dr. Federico Andino · ai-q.fit
