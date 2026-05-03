@@ -418,8 +418,12 @@ p{ color: var(--text); }
 }
 
 /* Responsive */
+@media (max-width: 1024px){
+  .deco-nav-links{ gap: 1.1rem; font-size: 0.72rem; }
+  .deco-nav{ padding: 1rem 1.25rem; }
+}
 @media (max-width: 900px){
-  .deco-nav-links{ gap: 1rem; font-size: 0.7rem; }
+  .deco-nav-links{ gap: 0.9rem; font-size: 0.68rem; }
   /* old rule removed - mobile nav now uses hamburger menu (see below) */
   .container, .container-narrow{ padding: 0 1.25rem; }
   .section{ padding: 3.5rem 0; }
@@ -762,7 +766,7 @@ p{ color: var(--text); }
 .mobile-menu-toggle.open .icon-open{ display: none; }
 .mobile-menu-toggle.open .icon-close{ display: inline; }
 
-@media (max-width: 900px){
+@media (max-width: 1024px){
   .mobile-menu-toggle{ display: inline-flex; }
   .deco-nav-links{
     position: fixed; top: 64px; left: 0; right: 0;
