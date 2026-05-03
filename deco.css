@@ -317,6 +317,10 @@ p{ color: var(--text); }
 }
 .deco-nav-links a{ color: var(--text); text-decoration: none; transition: color 0.2s; }
 .deco-nav-links a:hover{ color: var(--gold-2); }
+.deco-nav-links a.btn-primary{ color: #1A140A; }
+.deco-nav-links a.btn-primary:hover{ color: #1A140A; }
+.deco-nav-links a.btn-secondary{ color: var(--gold-2); }
+.deco-nav-links a.btn-secondary:hover{ color: var(--gold-1); }
 .deco-nav .lang-toggle{
   display:flex; gap: 4px;
   border: 1px solid var(--gold-line);
