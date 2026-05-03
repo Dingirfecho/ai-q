@@ -117,6 +117,171 @@
             .roadmap-phase{padding-left:3.5rem}
         }
     </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Limelight&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style id="deco-override">
+:root{
+  --bg-dark:#0A0906; --bg-card:#16110A; --bg-card-hover:#1F1810;
+  --accent-teal:#9C7A2E; --accent-teal-dim:rgba(227,184,92,0.18);
+  --accent-blue:#7A6B3A; --accent-purple:#6B4E7A; --accent-orange:#B8853C;
+  --accent-red:#9A4A3E; --accent-green:#6B9A6E;
+  --text-primary:#F5EBD3; --text-secondary:#C9B788; --text-muted:#7E6E48;
+  --border:#3A2E15; --type-color:#E3B85C;
+}
+body{
+  font-family:'Cormorant Garamond','Space Grotesk',serif !important;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% -10%, rgba(227,184,92,0.10), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 110%, rgba(155,122,46,0.08), transparent 60%),
+    #0A0906 !important;
+  color:#F5EBD3 !important;
+}
+.bg-gradient{ display:none !important; }
+
+/* Type wash by axis — keeps each page subtly distinct via dimension tints */
+[lang][class*="cp"], [data-type^="CP"]{ --type-color:#E3B85C; }
+
+.logo, h1, h2, h3, .type-name, .stat-num, .quote-text,
+.section-title, .stat-value, .results-type-code{
+  font-family: 'Limelight','Syne',serif !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase;
+}
+h4, h5, .label, .badge, .stat-label, .quote-author, .progress-text,
+.dimension-name, .question-meta, .nav-links a{
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+p, li, .description, .lead, blockquote{
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 1.05rem; line-height: 1.75;
+}
+
+nav{
+  background: rgba(10,9,6,0.92) !important;
+  border-bottom: 1px solid #3A2E15 !important;
+  position: relative;
+}
+nav::after{
+  content:''; position:absolute; left:0; right:0; bottom:-4px; height:1px;
+  background: linear-gradient(90deg, transparent, #E3B85C 20%, #F4D37A 50%, #E3B85C 80%, transparent);
+  opacity:0.6;
+}
+.logo{
+  background: linear-gradient(135deg, #F4D37A 0%, #E3B85C 50%, #C99540 100%) !important;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-family: 'Limelight', serif !important;
+  letter-spacing: 6px !important;
+}
+.nav-links a{ color:#C9B788 !important; }
+.nav-links a:hover{ color:#F4D37A !important; }
+.btn-nav, .btn-primary, .btn-cta, .cta-btn{
+  background: linear-gradient(135deg, #F4D37A 0%, #E3B85C 50%, #C99540 100%) !important;
+  color: #1A140A !important;
+  border: 0;
+  font-family: 'Limelight', serif !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase;
+  box-shadow: 0 6px 22px rgba(227,184,92,0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.hero-badge{
+  background: rgba(26,20,10,0.7) !important;
+  border: 1px solid rgba(227,184,92,0.35) !important;
+  color: #E3B85C !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase;
+}
+.hero-illustration{
+  background: radial-gradient(circle, rgba(227,184,92,0.15), transparent 70%) !important;
+  border: 1px solid #3A2E15 !important;
+  border-radius: 50% !important;
+  filter: sepia(0.3) hue-rotate(20deg) saturate(0.7) brightness(0.95);
+  box-shadow: 0 20px 60px rgba(227,184,92,0.20) !important;
+}
+.type-code, .type-name{
+  background: linear-gradient(135deg, #F4D37A 0%, #E3B85C 50%, #C99540 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(227,184,92,0.30));
+}
+.tagline{
+  font-family: 'Limelight','Syne',serif !important;
+  color: #E3B85C !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase;
+  font-style: italic;
+}
+.stat-card, .quick-stat, .dimension-card, .strength-card, .blindspot-card,
+.symptom-card, .deliverable-card, .artifact-card, .phase-card, .reality-card,
+.warning-card, .insight-card, .truth-card{
+  background: linear-gradient(180deg, #1F1810 0%, #16110A 100%) !important;
+  border: 1px solid #3A2E15 !important;
+  border-radius: 14px !important;
+  position: relative;
+}
+.stat-card::before, .dimension-card::before, .strength-card::before, .blindspot-card::before,
+.symptom-card::before, .deliverable-card::before, .artifact-card::before,
+.phase-card::before, .reality-card::before, .warning-card::before,
+.insight-card::before, .truth-card::before, .quick-stat::before{
+  content:''; position:absolute; top:0; left:18%; right:18%; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(227,184,92,0.6), transparent);
+}
+.stat-num, .quick-stat-value, .dim-letter, .stat-value{
+  background: linear-gradient(135deg, #F4D37A 0%, #E3B85C 50%, #C99540 100%) !important;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-family: 'Limelight','Syne',serif !important;
+}
+.section-label, .label{
+  color: #C99540 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.section-header::after{
+  content:''; display:block; width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, #E3B85C, transparent);
+  margin: 1rem auto 0;
+}
+.dim-bar, .progress-bar-container{
+  background: #16110A !important;
+  border: 1px solid #3A2E15;
+}
+.dim-bar-fill, .progress-bar{
+  background: linear-gradient(90deg, #C99540, #F4D37A) !important;
+}
+.btn-back, .btn-back-top, .btn-share{
+  background: rgba(22,17,10,0.7) !important;
+  border: 1px solid #3A2E15 !important;
+  color: #C9B788 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase;
+}
+strong, b{ color: #F5EBD3 !important; font-weight: 600 !important; }
+em, i{ color: #E3B85C !important; font-style: italic !important; }
+a{ color: #E3B85C; }
+a:hover{ color: #F4D37A; }
+ul li::marker{ color: #C99540; }
+.cta-section, .cta-banner{
+  background: linear-gradient(180deg, #1F1810 0%, #16110A 100%) !important;
+  border: 1px solid #3A2E15 !important;
+  border-radius: 16px !important;
+  position: relative;
+}
+.cta-section::before, .cta-banner::before{
+  content:''; position:absolute; top:0; left:18%; right:18%; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(227,184,92,0.6), transparent);
+}
+.warning-icon, .strength-icon, .blindspot-icon{
+  filter: sepia(0.3) saturate(0.7) brightness(1.1) hue-rotate(20deg);
+}
+</style>
 </head>
 <body>
     <div class="bg-gradient"></div>

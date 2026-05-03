@@ -1,58 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
   <defs>
-    <linearGradient id="bg-cpbi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e"/>
-      <stop offset="100%" style="stop-color:#16213e"/>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF2C2"></stop>
+      <stop offset="0.45" stop-color="#F4D37A"></stop>
+      <stop offset="0.65" stop-color="#E3B85C"></stop>
+      <stop offset="1" stop-color="#7A5A1E"></stop>
     </linearGradient>
-    <linearGradient id="trophy-cpbi" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#14B8A6"/>
-      <stop offset="100%" style="stop-color:#0D9488"/>
-    </linearGradient>
-    <linearGradient id="glow-cpbi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#14B8A6;stop-opacity:0.3"/>
-      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.1"/>
-    </linearGradient>
+    <radialGradient id="bg" cx="0.5" cy="0.4" r="0.75">
+      <stop offset="0" stop-color="#1F1709"></stop>
+      <stop offset="1" stop-color="#0A0906"></stop>
+    </radialGradient>
+    <radialGradient id="bgInner" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#0A0906"></stop>
+      <stop offset="1" stop-color="#000000"></stop>
+    </radialGradient>
   </defs>
-  <rect width="200" height="200" fill="url(#bg-cpbi)" rx="20"/>
-  <!-- Glow effect -->
-  <circle cx="100" cy="90" r="60" fill="url(#glow-cpbi)"/>
-  <!-- Trophy -->
-  <g transform="translate(60, 35)">
-    <!-- Cup -->
-    <path d="M20,0 L60,0 L55,50 Q40,65 25,50 L20,0" fill="url(#trophy-cpbi)" opacity="0.9"/>
-    <!-- Handles -->
-    <path d="M20,10 Q5,10 5,25 Q5,40 20,40" fill="none" stroke="#14B8A6" stroke-width="4"/>
-    <path d="M60,10 Q75,10 75,25 Q75,40 60,40" fill="none" stroke="#14B8A6" stroke-width="4"/>
-    <!-- Stem -->
-    <rect x="35" y="55" width="10" height="20" fill="#14B8A6" opacity="0.8"/>
-    <!-- Base -->
-    <rect x="25" y="75" width="30" height="8" fill="#14B8A6" opacity="0.7" rx="2"/>
-    <rect x="20" y="83" width="40" height="10" fill="#14B8A6" opacity="0.6" rx="2"/>
-    <!-- Star on trophy -->
-    <polygon points="40,20 43,30 53,30 45,36 48,46 40,40 32,46 35,36 27,30 37,30" fill="#FCD34D" opacity="0.9"/>
+  <rect width="240" height="240" rx="10" fill="url(#bg)"></rect>
+  
+  <rect x="6" y="6" width="228" height="228" rx="6" fill="none" stroke="url(#g)" stroke-width="0.7" opacity="0.6"></rect>
+  <rect x="11" y="11" width="218" height="218" rx="4" fill="none" stroke="url(#g)" stroke-width="0.4" opacity="0.4"></rect>
+  
+  <line x1="60" y1="6" x2="180" y2="6" stroke="#F4D37A" stroke-width="0.8" opacity="0.85"></line>
+  
+  <g fill="url(#g)" opacity="0.85">
+    <path d="M 18 18 L 24 18 L 21 21 Z"></path>
+    <path d="M 222 18 L 216 18 L 219 21 Z"></path>
+    <path d="M 18 222 L 24 222 L 21 219 Z"></path>
+    <path d="M 222 222 L 216 222 L 219 219 Z"></path>
   </g>
-  <!-- Connected elements around - showing integration -->
-  <g stroke="#14B8A6" stroke-width="2" opacity="0.5">
-    <!-- Orbiting elements -->
-    <circle cx="100" cy="90" r="70" fill="none" stroke-dasharray="5,5"/>
-  </g>
-  <!-- 4 dimension icons orbiting -->
-  <g fill="#14B8A6" opacity="0.7">
-    <circle cx="100" cy="20" r="8"/>
-    <circle cx="170" cy="90" r="8"/>
-    <circle cx="100" cy="160" r="8"/>
-    <circle cx="30" cy="90" r="8"/>
-  </g>
-  <!-- Connecting lines -->
-  <g stroke="#14B8A6" stroke-width="1.5" opacity="0.4">
-    <line x1="100" y1="28" x2="100" y2="50"/>
-    <line x1="162" y1="90" x2="140" y2="90"/>
-    <line x1="100" y1="152" x2="100" y2="130"/>
-    <line x1="38" y1="90" x2="60" y2="90"/>
-  </g>
-  <!-- Sparkles -->
-  <g fill="#FCD34D" opacity="0.6">
-    <polygon points="45,50 47,55 52,55 48,58 50,63 45,60 40,63 42,58 38,55 43,55" transform="scale(0.6) translate(30,30)"/>
-    <polygon points="45,50 47,55 52,55 48,58 50,63 45,60 40,63 42,58 38,55 43,55" transform="scale(0.5) translate(260,40)"/>
-  </g>
+  
+    <g transform="translate(120 56)">
+      
+      <path d="M -28 -14 L 0 14 L 28 -14" fill="none" stroke="url(#g)" stroke-width="1.2" opacity="0.95"></path>
+      <path d="M -22 -8 L 0 14 L 22 -8" fill="none" stroke="url(#g)" stroke-width="1" opacity="0.7"></path>
+      <path d="M -16 -2 L 0 14 L 16 -2" fill="none" stroke="url(#g)" stroke-width="0.8" opacity="0.5"></path>
+      
+      <line x1="-32" y1="-16" x2="32" y2="-16" stroke="url(#g)" stroke-width="0.6" opacity="0.55"></line>
+      <line x1="-32" y1="-19" x2="32" y2="-19" stroke="url(#g)" stroke-width="0.4" opacity="0.4"></line>
+      
+      <path d="M 0 14 L 4 18 L 0 22 L -4 18 Z" fill="url(#g)"></path>
+    </g>
+  
+    <g transform="translate(120 0)" stroke="url(#g)" fill="none" stroke-width="1">
+      
+      <rect x="-66" y="80" width="22" height="14" rx="1.5"></rect>
+      <rect x="-72" y="96" width="34" height="14" rx="1.5"></rect>
+      <rect x="-66" y="112" width="22" height="50" rx="1.5"></rect>
+      
+      <rect x="44" y="80" width="22" height="14" rx="1.5"></rect>
+      <rect x="38" y="96" width="34" height="14" rx="1.5"></rect>
+      <rect x="44" y="112" width="22" height="50" rx="1.5"></rect>
+      
+      <path d="M -38 110 Q 0 86 38 110 L 38 116 Q 0 98 -38 116 Z" fill="url(#g)" opacity="0.32" stroke="url(#g)" stroke-width="0.7"></path>
+      
+      <path d="M -6 90 L 6 90 L 8 100 L -8 100 Z" fill="url(#g)" opacity="0.7"></path>
+      <path d="M 0 88 L 4 92 L 0 96 L -4 92 Z" fill="url(#g)"></path>
+      
+      <rect x="-22" y="118" width="44" height="44" fill="url(#bgInner)" stroke="url(#g)" stroke-width="0.6"></rect>
+      <rect x="-22" y="120" width="44" height="22" fill="url(#g)" opacity="0.32"></rect>
+      <g transform="translate(0 131)"><path d="M 0 -7 L 7 0 L 0 7 L -7 0 Z" fill="url(#g)"></path><circle r="1.4" fill="#1A140A"></circle></g>
+      
+      <rect x="-58" y="164" width="116" height="16" rx="1.5"></rect>
+      
+      <rect x="-72" y="182" width="144" height="18" rx="1.5"></rect>
+      
+      <line x1="-50" y1="184" x2="-50" y2="198" opacity="0.5"></line>
+      <line x1="-25" y1="184" x2="-25" y2="198" opacity="0.5"></line>
+      <line x1="0" y1="184" x2="0" y2="198" opacity="0.5"></line>
+      <line x1="25" y1="184" x2="25" y2="198" opacity="0.5"></line>
+      <line x1="50" y1="184" x2="50" y2="198" opacity="0.5"></line>
+    </g>
+  
+  <line x1="80" y1="216" x2="160" y2="216" stroke="url(#g)" stroke-width="0.4" opacity="0.5"></line>
+  <text x="120" y="230" text-anchor="middle" font-family="Limelight, serif" font-size="14" letter-spacing="6" fill="url(#g)" opacity="0.95">CPBI</text>
 </svg>
