@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automation for Gyms & Academies | AI-Q</title>
+<meta name="description" content="End-to-end automation for gyms, martial arts schools and fitness studios: reporting, payment tracking and member reactivation — running on your existing spreadsheet.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="deco.css">
+<style>
+  main.container{ padding-top: 2rem; padding-bottom: 4rem; max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+  section{ margin-bottom: 4.5rem; position:relative; }
+
+  .hero{ text-align:center; padding: 5rem 0 2rem; }
+  .hero-badge{
+    display:inline-block; font-family: var(--f-mono); font-size:0.78rem;
+    letter-spacing:3px; text-transform:uppercase; color:var(--gold-2);
+    border:1px solid var(--gold-line); padding:8px 18px; border-radius:50px;
+    background:rgba(26,20,10,0.7); margin-bottom:1.5rem;
+  }
+  h1{ font-family:var(--f-display); font-size:clamp(2.4rem, 6vw, 4rem);
+      letter-spacing:6px; text-transform:uppercase; margin:0 0 1rem; line-height:1.1; }
+  h1 .accent{
+    background:var(--grad-gold); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 18px rgba(227,184,92,0.30));
+  }
+  .tagline{ font-family:var(--f-display); font-size:1.2rem; letter-spacing:2px;
+      color:var(--gold-2); margin:0.5rem 0 1.5rem; font-style:italic; }
+  .hero-description{ color:var(--text); font-size:1.05rem; line-height:1.8;
+      max-width:720px; margin:0 auto 2.5rem; }
+
+  /* Hero marquee — large commercial numbers */
+  .hero-marquee{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem;
+    max-width:920px; margin:0 auto; padding-top:0.5rem;
+  }
+  .marquee-cell{
+    background: var(--grad-card); border:1px solid var(--gold-line);
+    border-radius: var(--r-xl); padding:1.6rem 1.2rem; text-align:center;
+    transition: all 0.3s var(--ease);
+  }
+  .marquee-cell:hover{ border-color: var(--gold-2); box-shadow: var(--shadow-card-hover); }
+  .marquee-cell.lead{
+    background: linear-gradient(180deg, rgba(244,211,122,0.10), rgba(26,20,10,0.95));
+    border-color: var(--gold-2);
+  }
+  .marquee-number{
+    font-family: var(--f-display);
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    letter-spacing: 3px; line-height:1;
+    background: var(--grad-gold); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+    filter: drop-shadow(0 0 14px rgba(227,184,92,0.25));
+    margin-bottom: 0.4rem;
+  }
+  .marquee-label{
+    font-family: var(--f-mono); font-size:0.72rem; letter-spacing:2px;
+    text-transform:uppercase; color: var(--gold-3); margin-bottom:0.3rem;
+  }
+  .marquee-desc{ color: var(--text-dim); font-size:0.85rem; line-height:1.5; }
+
+  .steps-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-top:2rem; position:relative; }
+  .steps-grid::before{ content:''; position:absolute; top:2.4rem; left:5%; right:5%; height:1px; background:linear-gradient(to right, transparent, var(--gold-line) 10%, var(--gold-line) 90%, transparent); z-index:0; }
+  .step-card{ background: var(--grad-card); border: 1px solid var(--gold-line); border-radius: var(--r-lg); padding: 1.8rem 1.4rem; position:relative; z-index:1; text-align:center; transition: all 0.3s var(--ease); }
+  .step-card:hover{ transform: translateY(-3px); border-color: var(--gold-2); box-shadow: var(--shadow-card-hover); }
+  .step-num{ width:2.6rem; height:2.6rem; border-radius:50%; background: var(--bg-deep); border:1px solid var(--gold-2); color: var(--gold-1); display:flex; align-items:center; justify-content:center; font-family:var(--f-display); font-size:1.05rem; margin:0 auto 0.85rem; }
+  .step-title{ font-family:var(--f-display); font-size:1rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold-1); margin-bottom:0.6rem; }
+  .step-desc{ font-size:0.88rem; color:var(--text-dim); line-height:1.6; }
+  .step-desc strong{ color: var(--text-bright); font-weight:600; }
+
+  .features-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1.4rem; margin-top:1rem; }
+  .feature-card{ background: var(--grad-card); border: 1px solid var(--gold-line); border-radius: var(--r-xl); padding:1.8rem; transition: all 0.3s var(--ease); }
+  .feature-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .feature-icon{ width:2.6rem; height:2.6rem; border-radius:var(--r-md); background: rgba(184,135,58,0.12); border:1px solid var(--gold-line-soft); display:flex; align-items:center; justify-content:center; font-size:1.15rem; margin-bottom:1rem; color: var(--gold-1); }
+  .feature-title{ font-family:var(--f-display); font-size:1.05rem; letter-spacing:3px; text-transform:uppercase; color: var(--gold-1); margin-bottom:0.6rem; }
+  .feature-desc{ color: var(--text-dim); font-size:0.93rem; line-height:1.65; }
+  .feature-desc code{ font-family:var(--f-mono); font-size:0.82em; background: var(--bg-deep); padding:0.1em 0.4em; border-radius: var(--r-sm); color: var(--gold-1); border:1px solid var(--gold-line-soft); }
+  .feature-desc strong{ color: var(--text-bright); font-weight:600; }
+
+  .why-block{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-xl); padding: 2.4rem; margin-top: 1rem; }
+  .why-block p{ color:var(--text); font-size:1rem; line-height:1.8; margin-bottom:1.2rem; }
+  .why-block p:last-child{ margin-bottom:0; }
+  .why-block strong{ color:var(--text-bright); font-weight:600; }
+  .tech-pills{ display:flex; flex-wrap:wrap; gap:0.55rem; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--gold-line-soft); }
+  .tech-pill{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; padding:0.42rem 0.85rem; background: var(--bg-deep); border:1px solid var(--gold-line-soft); border-radius: var(--r-pill); color:var(--text-dim); }
+
+  .usecases-list{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; margin-top:1rem; }
+  .usecase-card{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-md); padding:1.4rem 1.5rem; display:flex; gap:1rem; align-items:flex-start; transition: all 0.3s var(--ease); }
+  .usecase-card:hover{ border-color: var(--gold-2); }
+  .usecase-mark{ flex-shrink:0; width:2rem; height:2rem; border-radius:50%; background:rgba(184,135,58,0.12); border:1px solid var(--gold-line); color:var(--gold-1); display:flex; align-items:center; justify-content:center; font-family:var(--f-mono); font-size:0.75rem; font-weight:700; }
+  .usecase-text{ color:var(--text-dim); font-size:0.94rem; line-height:1.6; }
+  .usecase-text strong{ color:var(--text-bright); font-weight:600; }
+
+  .signals-block{ background: var(--grad-card-soft); border:1px solid var(--gold-line-soft); border-radius: var(--r-xl); padding: 2rem 2.4rem; margin-top:1.4rem; }
+  .signals-block h4{ font-family:var(--f-display); font-size:1rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold-1); margin:0 0 1rem; }
+  .signals-list{ list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:0.7rem 1.5rem; }
+  .signals-list li{ color:var(--text-dim); font-size:0.93rem; line-height:1.55; padding-left:1.4rem; position:relative; }
+  .signals-list li::before{ content:'◆'; position:absolute; left:0; top:0.05rem; color:var(--gold-2); font-size:0.7rem; }
+
+  .steps-next{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem; margin-top:1rem; }
+  .next-card{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-xl); padding:1.8rem; position:relative; overflow:hidden; transition: all 0.3s var(--ease); }
+  .next-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); }
+  .next-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
+  .next-eyebrow{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color: var(--gold-3); margin-bottom:0.7rem; }
+  .next-title{ font-family:var(--f-display); font-size:1.2rem; letter-spacing:3px; text-transform:uppercase; color: var(--gold-1); margin-bottom:0.7rem; }
+  .next-desc{ color:var(--text-dim); font-size:0.92rem; line-height:1.65; }
+  .next-desc strong{ color:var(--text-bright); font-weight:600; }
+
+  /* Lang toggle (same pattern as consultoria) */
+  .lang-link{
+    font-family:var(--f-mono);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;
+    padding:0.35rem 0.6rem;border:1px solid var(--gold-line);color:var(--text-dim);
+    background:var(--bg-deep);
+  }
+  .lang-link:hover{ color: var(--gold-1); border-color: var(--gold-2); }
+
+  @media(max-width:900px){
+    .hero-marquee{ grid-template-columns: 1fr; gap:1rem; }
+    .steps-grid{ grid-template-columns: 1fr; }
+    .steps-grid::before{ display:none; }
+    .features-grid, .usecases-list, .steps-next{ grid-template-columns: 1fr; }
+    .signals-list{ grid-template-columns: 1fr; }
+  }
+  @media(max-width:600px){
+    .why-block{ padding: 1.5rem; }
+    .signals-block{ padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-vapor"></div>
+
+<nav class="deco-nav">
+  <a href="index.html" class="aiq-mark">AI<span class="dot"></span>Q</a>
+  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
+    <span class="icon-open">☰</span><span class="icon-close">✕</span>
+  </button>
+  <div class="deco-nav-links">
+    <a href="index.html#dimensions">The Framework</a>
+    <a href="index.html#types">16 Types</a>
+    <a href="sama-en.html">SAMA</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Solutions</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Withholding processor</small></a></li>
+        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Fixed-asset reporting</small></a></li>
+        <li><a href="gimnasios-en.html"><strong>Gyms &amp; Academies</strong><small>Reporting, billing &amp; reactivation</small></a></li>
+      </ul>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-toggle" aria-haspopup="true">Consulting</button>
+      <ul class="nav-dropdown-menu">
+        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
+        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
+      </ul>
+    </div>
+    <a href="gimnasios.html" class="lang-link">ES</a>
+    <a href="quiz.html" class="btn btn-primary">Take the Test →</a>
+  </div>
+</nav>
+<div class="nav-spacer"></div>
+
+<main class="container">
+
+<section class="hero">
+  <div class="hero-badge">SOLUTION · GYMS &amp; ACADEMIES</div>
+  <h1>End-to-end automation for <span class="accent">Gyms &amp; Academies</span></h1>
+  <p class="tagline">"Your spreadsheet stops being a dead file and starts working for you."</p>
+  <p class="hero-description">
+    Turn your existing Google Sheets into a system that reports, collects and communicates on its own. No tool switching, no expensive software contracts. Three automations that run in the background and give you back hours every week.
+  </p>
+  <div class="hero-marquee">
+    <div class="marquee-cell lead">
+      <div class="marquee-number">50%</div>
+      <div class="marquee-label">Revenue recovered</div>
+      <div class="marquee-desc">Late payers caught early and dropouts reactivated that would otherwise be lost.</div>
+    </div>
+    <div class="marquee-cell">
+      <div class="marquee-number">2–4 hr</div>
+      <div class="marquee-label">Saved each week</div>
+      <div class="marquee-desc">The time you currently lose on spreadsheets and follow-up emails drops to zero.</div>
+    </div>
+    <div class="marquee-cell">
+      <div class="marquee-number">30–500</div>
+      <div class="marquee-label">Members supported</div>
+      <div class="marquee-desc">Scales the same regardless of size. Grow without breaking anything.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-label">The problem</div>
+    <h2 class="section-title">A spreadsheet that doesn't work for you</h2>
+  </div>
+  <p class="section-intro">
+    If you run your gym on a spreadsheet — like most owners — <strong>80% of the work is already done</strong>. What's missing is for that file to stop sitting there and start telling you who hasn't paid, how much each plan brings in, and sending the follow-up emails without you writing them one by one.
+  </p>
+  <div class="quote-block" style="text-align:center; font-style:normal; max-width:640px;">
+    <span style="font-family:var(--f-display); font-size:1.5rem; letter-spacing:2px; color:var(--gold-1)">"You don't know exactly what each plan earns, or how many late payers you have this month."</span>
+    <span style="display:block; margin-top:0.6rem; font-size:0.95rem; color:var(--text-dim);">And every member who drops out without follow-up is revenue walking out the door for no reason.</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-label">The solution</div>
+    <h2 class="section-title">Three automations, one spreadsheet</h2>
+  </div>
+  <p class="section-intro">
+    Three independent scenarios that share your existing Google Sheets. Each one solves a concrete pain and runs <strong>manually with one click, or on a schedule</strong> (every Monday at 9am, for example).
+  </p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Plans Report</div>
+      <div class="step-desc">Per-plan detail: <strong>price, active members and projected revenue</strong>. In seconds you know which plan is most profitable and what you should be billing this month.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Payment Status</div>
+      <div class="step-desc">Cross-checks members vs. payments and returns <strong>up-to-date list, late payers and amounts owed</strong>. Lands in your inbox without you opening the sheet or filtering anything.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Reactivation</div>
+      <div class="step-desc">Identifies dropouts and paused members and sends them a <strong>reactivation email</strong> in the tone you define. The automation with the highest ROI.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-label">Who it's for</div>
+    <h2 class="section-title">Built for these businesses</h2>
+  </div>
+  <div class="usecases-list">
+    <div class="usecase-card"><div class="usecase-mark">01</div><div class="usecase-text"><strong>Gyms and training centers</strong> with 30 to 500 active members.</div></div>
+    <div class="usecase-card"><div class="usecase-mark">02</div><div class="usecase-text"><strong>Martial arts schools</strong> and sports academies that juggle multiple disciplines and plans.</div></div>
+    <div class="usecase-card"><div class="usecase-mark">03</div><div class="usecase-text"><strong>Yoga, pilates, crossfit and functional training studios</strong> charging monthly fees or class passes.</div></div>
+    <div class="usecase-card"><div class="usecase-mark">04</div><div class="usecase-text">Any <strong>recurring-membership business</strong> currently managing billing and sign-ups on a spreadsheet.</div></div>
+  </div>
+
+  <div class="signals-block">
+    <h4>◆ Signs you need this</h4>
+    <ul class="signals-list">
+      <li>You have a spreadsheet with members, plans and payment status, but you update it by hand.</li>
+      <li>You're losing revenue because members drop out and nobody follows up with them.</li>
+      <li>You don't know exactly what each plan earns or how many late payers you have right now.</li>
+      <li>You send payment reminders one at a time, copying and pasting.</li>
+      <li>You want to professionalize operations without buying expensive software.</li>
+      <li>You don't want to switch tools or migrate anything.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-label">What's included</div>
+    <h2 class="section-title">A complete solution</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">◆</div>
+      <div class="feature-title">Zero stack change</div>
+      <div class="feature-desc">You keep using <code>Google Sheets</code> and <code>Gmail</code>. <strong>Nothing new to learn</strong>, nothing to migrate. Your team already knows how to operate everything.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">▲</div>
+      <div class="feature-title">Reports to your inbox</div>
+      <div class="feature-desc">The system sends reports <strong>straight to your email</strong>, no need to open the sheet. Read them from your phone whenever you need to.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◇</div>
+      <div class="feature-title">Communication in your voice</div>
+      <div class="feature-desc">Reactivation emails go out in <strong>your tone, your offer and your style</strong> — not a generic template. Configure once, runs by itself after that.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚙</div>
+      <div class="feature-title">Manual or scheduled</div>
+      <div class="feature-desc">Trigger reports with <strong>one click when you need them</strong>, or schedule them to land automatically every Monday at 9am.</div>
+    </div>
+    <div class="feature-card" style="grid-column:1/-1">
+      <div class="feature-icon">★</div>
+      <div class="feature-title">Scales without rewrites</div>
+      <div class="feature-desc">Works the same with 30 members as with 500. The spreadsheet can grow, the automations <strong>don't break</strong>. Add disciplines, plans and locations without touching the engine.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">The architecture, at a glance</h2>
+  </div>
+  <div class="why-block">
+    <p>This is not a migration to a new system, nor an expensive gym-management tool. It's <strong>an intelligence layer on top of your current spreadsheet</strong>: the database doesn't change, the people using it don't either. The only thing that changes is that the spreadsheet starts producing reports and communicating on its own.</p>
+    <p>Three independent scenarios in Make.com read your Google Sheets, process the data and trigger the actions. No servers to maintain, no code to keep alive, no lock-in: if tomorrow you want to tweak an email or the report schedule, everything is visible and editable.</p>
+    <div class="tech-pills">
+      <span class="tech-pill">Google Sheets</span>
+      <span class="tech-pill">Make.com</span>
+      <span class="tech-pill">Gmail</span>
+      <span class="tech-pill">Google Workspace</span>
+      <span class="tech-pill">No lock-in</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-label">Next steps</div>
+    <h2 class="section-title">How we implement it</h2>
+  </div>
+  <div class="steps-next">
+    <div class="next-card">
+      <div class="next-eyebrow">STEP 01 · 30 minutes</div>
+      <div class="next-title">Diagnostic</div>
+      <div class="next-desc">We review your current spreadsheet and define <strong>which automation you need first</strong>. If you don't have a structured sheet yet, we set it up as part of onboarding.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-eyebrow">STEP 02 · 2 to 5 days</div>
+      <div class="next-title">Configuration</div>
+      <div class="next-desc">We adapt the scenarios to <strong>your columns, your plans and your communication tone</strong>. You don't write code; we wire up the pieces and hand them over running.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-eyebrow">STEP 03 · 1 day</div>
+      <div class="next-title">Testing &amp; handoff</div>
+      <div class="next-desc">We run tests with <strong>your real data</strong> and leave the system live, documented and ready for you to operate independently.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-box">
+    <h2 class="cta-title">Want to see it running?</h2>
+    <p class="cta-description">Book a call and we'll show you the system live, with a real gym case. No commitment, no generic slides — the spreadsheet, the emails, the report.</p>
+    <div class="cta-buttons">
+      <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn btn-primary">Book a demo →</a>
+      <a href="mailto:fede@fedeandino.com?subject=Gym%20Automation%20Inquiry" class="btn btn-ghost">◆ Talk to a consultant</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="deco-footer">
+  <div class="container">
+    <div class="deco-footer-content">
+      <a href="index.html" class="aiq-mark" style="font-size: 1.2rem;">AI<span class="dot"></span>Q</a>
+      <div class="deco-nav-links">
+        <a href="index.html#dimensions">Framework</a>
+        <a href="index.html#types">Types</a>
+        <a href="sama-en.html">SAMA</a>
+        <a href="retenciones.html">Withholdings</a>
+        <a href="amortizaciones.html">Fixed Assets</a>
+        <a href="gimnasios-en.html">Gyms</a>
+        <a href="consultoria-en.html">Consulting</a>
+      </div>
+      <div class="credit">Created by <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function getNav(){return document.querySelector('.deco-nav-links');}
+  function getBtn(){return document.querySelector('.mobile-menu-toggle');}
+  function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+  window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
+  document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
+})();
+</script>
+</body>
+</html>
