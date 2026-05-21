@@ -3,249 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consultoría en Transformación con IA | AI-Q</title>
-<meta name="description" content="Dr. Federico Andino — Estratega en transformación con IA. Dos formas de trabajar juntos: AI Strategy Sprint (2 semanas) o AI Transformation Quarter (90 días).">
+<title>Consultoría · AI-Q</title>
+<meta name="description" content="Consultoría en transformación con IA. Dos formatos: AI Strategy Sprint (2 semanas) y AI Transformation Quarter (90 días). Dr. Federico Andino, Buenos Aires.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="deco.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
 <style>
-  main.container{ padding-top: 2rem; padding-bottom: 4rem; max-width:1100px; margin:0 auto; position:relative; z-index:1; }
-  section{ margin-bottom: 4.5rem; position:relative; }
-  .hero{ text-align:center; padding: 5rem 0 2rem; }
-  .hero-badge{ display:inline-block; font-family:var(--f-mono); font-size:0.78rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold-2); border:1px solid var(--gold-line); padding:8px 18px; border-radius:50px; background:rgba(26,20,10,0.7); margin-bottom:1.5rem; }
-  h1{ font-family:var(--f-display); font-size:clamp(2.4rem,6vw,4rem); letter-spacing:6px; text-transform:uppercase; margin:0 0 1rem; line-height:1.1; }
-  h1 .accent{ background:var(--grad-gold); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 18px rgba(227,184,92,0.30)); }
-  .author-line{ font-size:1.05rem; color:var(--text-bright); margin-bottom:0.4rem; font-family:var(--f-display); letter-spacing:3px; text-transform:uppercase; }
-  .author-meta{ font-family:var(--f-mono); font-size:0.78rem; color:var(--text-mute); letter-spacing:2px; }
-
-  /* Two offers */
-  .offers{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:1rem; }
-  .offer-card{ background:var(--grad-card); border:1px solid var(--gold-line); border-radius:var(--r-xl); padding:2.4rem 2rem; position:relative; transition:all 0.3s var(--ease); display:flex; flex-direction:column; }
-  .offer-card:hover{ border-color:var(--gold-2); transform:translateY(-3px); box-shadow:var(--shadow-card-hover); }
-  .offer-card.featured{ border-color:var(--gold-2); background:linear-gradient(180deg, rgba(26,20,10,0.95), rgba(10,9,6,0.95)); box-shadow: var(--shadow-card-hover); }
-  .offer-card.featured::before{ content:''; position:absolute; top:-1px; left:18%; right:18%; height:1px; background:linear-gradient(90deg, transparent, var(--gold-sheen), transparent); }
-  .offer-tag{ position:absolute; top:-0.7rem; right:1.5rem; background:var(--grad-gold-button); color:var(--bg-deep); font-family:var(--f-mono); font-size:0.66rem; letter-spacing:2px; padding:0.35rem 0.75rem; border:1px solid var(--gold-3); text-transform:uppercase; font-weight:700; box-shadow:var(--shadow-gold); }
-  .offer-eyebrow{ font-family:var(--f-mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-mute); margin-bottom:0.5rem; }
-  .offer-name{ font-family:var(--f-display); font-size:1.6rem; letter-spacing:5px; text-transform:uppercase; color:var(--text-bright); margin-bottom:0.6rem; line-height:1.1; }
-  .offer-card.featured .offer-name{ background:var(--grad-gold); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-  .offer-meta{ display:flex; align-items:baseline; gap:0.8rem; padding-bottom:1.25rem; border-bottom:1px solid var(--gold-line-soft); margin-bottom:1.25rem; flex-wrap:wrap; }
-  .offer-duration{ font-family:var(--f-mono); font-size:0.85rem; color:var(--text-dim); letter-spacing:1.5px; }
-  .offer-price{ font-family:var(--f-display); font-size:1.5rem; color:var(--gold-1); letter-spacing:2px; }
-  .offer-tagline{ font-style:italic; color:var(--text); font-size:1rem; margin-bottom:1.5rem; font-family:var(--f-display); letter-spacing:1px; }
-  .offer-list{ list-style:none; padding:0; margin:0 0 1.5rem; flex:1; }
-  .offer-list li{ padding:0.5rem 0 0.5rem 1.6rem; position:relative; color:var(--text-dim); font-size:0.93rem; line-height:1.55; }
-  .offer-list li::before{ content:'◆'; position:absolute; left:0; top:0.55rem; color:var(--gold-2); font-size:0.7rem; }
-  .offer-list li strong{ color:var(--text-bright); font-weight:600; }
-  .offer-fit{ background:var(--bg-deep); border:1px solid var(--gold-line-soft); border-radius:var(--r-md); padding:1rem 1.1rem; font-size:0.88rem; line-height:1.55; }
-  .offer-fit-label{ font-family:var(--f-mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:2px; color:var(--gold-3); margin-bottom:0.35rem; }
-  .offer-fit-text{ color:var(--text-dim); }
-
-  /* ICP */
-  .icp-wrapper{ background:var(--grad-card); border:1px solid var(--gold-line); border-radius:var(--r-xl); padding:2.4rem; margin-top:1rem; }
-  .icp-lead{ color:var(--text-bright); font-size:1.05rem; margin-bottom:1.2rem; font-family:var(--f-display); letter-spacing:2px; }
-  .icp-list{ list-style:none; padding:0; margin:0; }
-  .icp-list li{ padding:0.85rem 0 0.85rem 2rem; position:relative; color:var(--text-dim); font-size:0.98rem; line-height:1.65; border-bottom:1px solid var(--gold-line-soft); }
-  .icp-list li:last-child{ border-bottom:none; }
-  .icp-list li::before{ content:'→'; position:absolute; left:0.5rem; top:0.85rem; color:var(--gold-2); font-weight:700; }
-  .icp-list li strong{ color:var(--text-bright); font-weight:600; }
-
-  /* Creds */
-  .creds-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1rem; }
-  .cred-card{ background:var(--grad-card); border:1px solid var(--gold-line); border-radius:var(--r-lg); padding:1.7rem 1.2rem; text-align:center; transition:all 0.3s var(--ease); }
-  .cred-card:hover{ border-color:var(--gold-2); transform:translateY(-2px); }
-  .cred-value{ font-family:var(--f-display); font-size:2.3rem; background:var(--grad-gold); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px; line-height:1.1; margin-bottom:0.5rem; }
-  .cred-label{ font-size:0.85rem; color:var(--text-dim); line-height:1.45; font-family:var(--f-mono); letter-spacing:0.5px; }
-  .cred-clients{ margin-top:1.5rem; padding:1.6rem; background:var(--grad-card); border:1px solid var(--gold-line); border-radius:var(--r-lg); text-align:center; position:relative; }
-  .cred-clients::before{ content:''; position:absolute; top:-1px; left:25%; right:25%; height:1px; background:linear-gradient(90deg,transparent,var(--gold-sheen),transparent); }
-  .cred-clients-label{ font-family:var(--f-mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:2.5px; color:var(--text-mute); margin-bottom:0.85rem; }
-  .cred-clients-list{ font-family:var(--f-display); font-size:1.1rem; color:var(--gold-1); letter-spacing:2px; text-transform:uppercase; }
-  .cred-clients-list span{ color:var(--gold-3); margin:0 0.6rem; }
-
-  @media(max-width:900px){
-    .creds-grid{ grid-template-columns:repeat(2,1fr); }
-    .offers{ grid-template-columns:1fr; }
-  }
+.offer-card { border: var(--aq-border); display: flex; flex-direction: column; }
+.offer-card.featured { border-color: var(--aq-accent); border-width: 3px; }
+.offer-head { display: flex; justify-content: space-between; align-items: center; border-bottom: var(--aq-border); padding: 10px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); }
+.offer-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+.offer-name { font-family: var(--aq-font-display); font-size: 32px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 12px; }
+.offer-meta { display: flex; gap: 16px; align-items: baseline; font-family: var(--aq-font-mono); border-top: var(--aq-border-thin); border-bottom: var(--aq-border-thin); padding: 12px 0; margin-bottom: 16px; }
+.offer-duration { color: var(--aq-ink2); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); }
+.offer-price { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; color: var(--aq-ink); }
+.offer-tagline { font-family: var(--aq-font-mono); font-style: italic; color: var(--aq-accent); margin-bottom: 18px; }
+.offer-list { list-style: none; padding: 0; margin: 0 0 18px; }
+.offer-list li { padding: 8px 0 8px 22px; position: relative; border-top: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.offer-list li:first-child { border-top: 0; }
+.offer-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); font-weight: 500; }
+.offer-fit { background: var(--aq-paper2); padding: 14px; border-top: var(--aq-border-thin); margin-top: auto; }
+.offer-fit-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 4px; }
+.offer-fit-text { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: 1.5; }
+.quote-block-c { border: var(--aq-border); padding: 28px; text-align: center; max-width: 760px; margin: 0 auto; }
+.cred-value { font-family: var(--aq-font-display); font-size: 40px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.cred-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-meta); color: var(--aq-ink2); }
 </style>
 </head>
 <body>
-<div class="bg-vapor"></div>
 
-<nav class="deco-nav">
-  <a href="index.html" class="aiq-mark">AI<span class="dot"></span>Q</a>
-  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
-    <span class="icon-open">☰</span><span class="icon-close">✕</span>
-  </button>
-  <div class="deco-nav-links">
-    <a href="index.html#dimensions">El Framework</a>
-    <a href="index.html#types">16 Tipos</a>
-    <a href="sama.html">SAMA</a>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-toggle" aria-haspopup="true">Soluciones</button>
-      <ul class="nav-dropdown-menu">
-        <li><a href="bancos.html"><strong>Resúmenes Bancarios</strong><small>Del PDF a la planilla, sin tipear</small></a></li>
-        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Procesador de constancias</small></a></li>
-        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Reporte de activos fijos</small></a></li>
-        <li><a href="gimnasios.html"><strong>Gimnasios y Academias</strong><small>Reportes, cobros y reactivación</small></a></li>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="index.html#types">16 Tipos</a>
+      <a class="nav-link" href="sama.html">SAMA</a>
+      <a class="nav-link" href="consultoria.html" style="color:var(--aq-accent);">Consultoría</a>
+      <a class="nav-link" href="consultoria-en.html">EN</a>
+      <a class="btn primary" href="quiz.html">Hacer el test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-CONS-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SERVICIOS</span><span>HOJA 05 / CONSULTORÍA</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Consultoría · Transformación con IA</div>
+      <h1 class="display-xl">Estrategia que <span class="accent">conecta IA</span> con resultados<span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:760px;">Dr. Federico Andino · Estratega en transformación con IA · Buenos Aires · LATAM &amp; USA</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · El problema</div><h2 class="display-lg mt-4">Herramientas no son estrategia</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="quote-block-c">
+      <p class="body-lg mb-4">La mayoría de las empresas <strong>compraron herramientas de IA</strong>. Pocas tienen una <strong>estrategia de IA</strong>.</p>
+      <p class="accent" style="font-family:var(--aq-font-mono);font-style:italic;font-size:16px;">"El resultado: software caro que nadie usa, equipos frustrados y ejecutivos preguntando: ¿dónde está el ROI?"</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Cómo trabajar juntos</div><h2 class="display-lg mt-4">Dos formas, dos niveles de involucramiento</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="grid grid-2">
+
+      <div class="offer-card">
+        <div class="offer-head"><span>FORMATO 01</span><span>SPRINT</span></div>
+        <div class="offer-body">
+          <div class="offer-name">AI Strategy Sprint</div>
+          <div class="offer-meta">
+            <span class="offer-duration">2 semanas</span>
+            <span class="offer-price">US$ 7.500</span>
+          </div>
+          <p class="offer-tagline">"Claridad y hoja de ruta. Vos ejecutás."</p>
+          <ul class="offer-list">
+            <li>Entrevistas con stakeholders</li>
+            <li>Auditoría y análisis de herramientas de IA</li>
+            <li>Diagnóstico del estado actual</li>
+            <li>Hoja de ruta de estrategia de IA</li>
+            <li>Plan de implementación a 90 días</li>
+            <li>Resumen ejecutivo</li>
+            <li>Checklist de Quick Wins</li>
+          </ul>
+          <div class="offer-fit">
+            <div class="offer-fit-label">Ideal para</div>
+            <div class="offer-fit-text">Empresas con equipos internos que pueden ejecutar una vez que tienen un plan claro.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-card featured">
+        <div class="offer-head"><span>FORMATO 02 · MÁS COMPLETO</span><span class="accent">● TARGET</span></div>
+        <div class="offer-body">
+          <div class="offer-name">AI Transformation Quarter</div>
+          <div class="offer-meta">
+            <span class="offer-duration">90 días</span>
+            <span class="offer-price">US$ 30.000</span>
+          </div>
+          <p class="offer-tagline">"Lidero la transformación con vos."</p>
+          <ul class="offer-list">
+            <li><strong>Todo lo del Sprint</strong> incluido sin costo adicional</li>
+            <li>Metodología Enterprise Agile</li>
+            <li>Llamadas de estrategia semanales</li>
+            <li>Soporte hands-on en implementación</li>
+            <li>Coaching y capacitación del equipo</li>
+            <li>Revisión de resultados del trimestre</li>
+            <li>Planificación del próximo trimestre</li>
+          </ul>
+          <div class="offer-fit">
+            <div class="offer-fit-label">Ideal para</div>
+            <div class="offer-fit-text">Empresas que necesitan liderazgo y soporte hands-on para hacer que la transformación suceda.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Cliente ideal</div><h2 class="display-lg mt-4">Para quién es esta consultoría</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">Empresas medianas (50–500 empleados) en LATAM y Estados Unidos que:</p>
+      <ul style="list-style:none;padding:0;margin-top:18px;">
+        <li style="padding:12px 0 12px 24px;position:relative;border-top:var(--aq-border-thin);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Invirtieron en herramientas de IA pero <strong>no ven ROI claro</strong>.</li>
+        <li style="padding:12px 0 12px 24px;position:relative;border-top:var(--aq-border-thin);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Necesitan una estrategia que <strong>conecte IA con resultados de negocio</strong>.</li>
+        <li style="padding:12px 0 12px 24px;position:relative;border-top:var(--aq-border-thin);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Quieren moverse rápido <strong>sin el overhead de las grandes consultoras</strong>.</li>
       </ul>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Por qué Dr. Andino</div><h2 class="display-lg mt-4">Trayectoria y resultados</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-bordered grid-4">
+      <div><div class="kicker-tiny">01</div><div class="cred-value">+25</div><div class="cred-label">Años en transformación empresarial</div></div>
+      <div><div class="kicker-tiny">02</div><div class="cred-value">IBM</div><div class="cred-label">Partner &amp; Agile Champion LATAM</div></div>
+      <div><div class="kicker-tiny">03</div><div class="cred-value">87%</div><div class="cred-label">Tasas de adopción logradas</div></div>
+      <div><div class="kicker-tiny">04</div><div class="cred-value">Ed.D.</div><div class="cred-label">Educación &amp; Mindfulness</div></div>
     </div>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-toggle" aria-haspopup="true">Consultoría</button>
-      <ul class="nav-dropdown-menu">
-        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
-        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
-      </ul>
-    </div>
-    <a href="consultoria-en.html" class="lang-link" style="font-family:var(--f-mono);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;padding:0.35rem 0.6rem;border:1px solid var(--gold-line);color:var(--text-dim);background:var(--bg-deep);">EN</a>
-    <a href="quiz.html" class="btn btn-primary">Hacer el Test →</a>
-  </div>
-</nav>
-<div class="nav-spacer"></div>
 
-<main class="container">
+    <div class="panel mt-5"><div class="panel-body">
+      <div class="kicker mb-2">Clientes anteriores</div>
+      <p class="body-lg" style="margin:0;">Banco Supervielle · Itaú Chile · IBM Global Services</p>
+    </div></div>
+  </section>
 
-<section class="hero">
-  <div class="hero-badge">CONSULTORÍA · TRANSFORMACIÓN CON IA</div>
-  <h1>Estrategia que <span class="accent">conecta IA</span> con resultados</h1>
-  <p class="author-line">Dr. Federico Andino · Estratega en Transformación con IA</p>
-  <p class="author-meta">BUENOS AIRES · LATAM &amp; USA</p>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">El problema</div>
-    <h2 class="section-title">Herramientas no son estrategia</h2>
-  </div>
-  <div class="quote-block" style="text-align:center; max-width:760px;">
-    <p style="margin:0 0 0.8rem; font-style:normal; color:var(--text)">La mayoría de las empresas <strong style="color:var(--text-bright)">compraron herramientas de IA</strong>. Pocas tienen una <strong style="color:var(--text-bright)">estrategia de IA</strong>.</p>
-    <p style="margin:0; font-style:italic; color:var(--gold-1); font-family:var(--f-display); letter-spacing:1px; font-size:1.05rem">"El resultado: software caro que nadie usa, equipos frustrados y ejecutivos preguntando: ¿dónde está el ROI?"</p>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">Cómo trabajar juntos</div>
-    <h2 class="section-title">Dos formas, dos niveles de involucramiento</h2>
-  </div>
-  <div class="offers">
-    <div class="offer-card">
-      <div class="offer-eyebrow">Formato 01</div>
-      <h3 class="offer-name">AI Strategy Sprint</h3>
-      <div class="offer-meta">
-        <span class="offer-duration">2 semanas</span>
-        <span style="color:var(--gold-3)">·</span>
-        <span class="offer-price">US$ 7.500</span>
-      </div>
-      <p class="offer-tagline">"Claridad y hoja de ruta. Vos ejecutás."</p>
-      <ul class="offer-list">
-        <li>Entrevistas con stakeholders</li>
-        <li>Auditoría y análisis de herramientas de IA</li>
-        <li>Diagnóstico del Estado Actual</li>
-        <li>Hoja de Ruta de Estrategia de IA</li>
-        <li>Plan de Implementación a 90 Días</li>
-        <li>Resumen Ejecutivo</li>
-        <li>Checklist de Quick Wins</li>
-      </ul>
-      <div class="offer-fit">
-        <div class="offer-fit-label">Ideal para</div>
-        <div class="offer-fit-text">Empresas con equipos internos que pueden ejecutar una vez que tienen un plan claro.</div>
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§05 · Próximo paso</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">¿Listo para empezar?</h2>
+        <p class="body-lg muted mb-5" style="max-width:580px;margin-left:auto;margin-right:auto;">Una llamada de 30 minutos para entender tu contexto y ver si tiene sentido avanzar. Sin slides genéricas, sin compromiso.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agendá 30 minutos →</a>
+          <a class="btn btn-lg" href="https://www.fedeandino.com" target="_blank">Ver fedeandino.com</a>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="offer-card featured">
-      <div class="offer-tag">Más completo</div>
-      <div class="offer-eyebrow">Formato 02</div>
-      <h3 class="offer-name">AI Transformation Quarter</h3>
-      <div class="offer-meta">
-        <span class="offer-duration">90 días</span>
-        <span style="color:var(--gold-3)">·</span>
-        <span class="offer-price">US$ 30.000</span>
-      </div>
-      <p class="offer-tagline">"Lidero la transformación con vos."</p>
-      <ul class="offer-list">
-        <li><strong>Todo lo del Sprint</strong> incluido sin costo adicional</li>
-        <li>Metodología Enterprise Agile</li>
-        <li>Llamadas de estrategia semanales</li>
-        <li>Soporte hands-on en implementación</li>
-        <li>Coaching y capacitación del equipo</li>
-        <li>Revisión de resultados del trimestre</li>
-        <li>Planificación del próximo trimestre</li>
-      </ul>
-      <div class="offer-fit">
-        <div class="offer-fit-label">Ideal para</div>
-        <div class="offer-fit-text">Empresas que necesitan liderazgo y soporte hands-on para hacer que la transformación suceda.</div>
-      </div>
-    </div>
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIN DE HOJA 05</span>
+    <span class="accent">ai-q.fit · consultoría</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
   </div>
-</section>
 
-<section>
-  <div class="section-header">
-    <div class="section-label">Cliente ideal</div>
-    <h2 class="section-title">Para quién es esta consultoría</h2>
-  </div>
-  <div class="icp-wrapper">
-    <p class="icp-lead">Empresas medianas (50–500 empleados) en LATAM y Estados Unidos que:</p>
-    <ul class="icp-list">
-      <li>Invirtieron en herramientas de IA pero <strong>no ven ROI claro</strong>.</li>
-      <li>Necesitan una estrategia que <strong>conecte IA con resultados de negocio</strong>.</li>
-      <li>Quieren moverse rápido <strong>sin el overhead de las grandes consultoras</strong>.</li>
-    </ul>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">Por qué Dr. Andino</div>
-    <h2 class="section-title">Trayectoria y resultados</h2>
-  </div>
-  <div class="creds-grid">
-    <div class="cred-card"><div class="cred-value">+25</div><div class="cred-label">Años en transformación empresarial</div></div>
-    <div class="cred-card"><div class="cred-value">IBM</div><div class="cred-label">Partner &amp; Agile Champion LATAM</div></div>
-    <div class="cred-card"><div class="cred-value">87%</div><div class="cred-label">Tasas de adopción logradas</div></div>
-    <div class="cred-card"><div class="cred-value">Ed.D.</div><div class="cred-label">Educación &amp; Mindfulness</div></div>
-  </div>
-  <div class="cred-clients">
-    <div class="cred-clients-label">Clientes anteriores</div>
-    <div class="cred-clients-list">Banco Supervielle <span>·</span> Itaú Chile <span>·</span> IBM Global Services</div>
-  </div>
-</section>
-
-<section class="cta-section">
-  <div class="cta-box">
-    <h2 class="cta-title">¿Listo para empezar?</h2>
-    <p class="cta-description">Una llamada de 30 minutos para entender tu contexto y ver si tiene sentido avanzar. Sin slides genéricas, sin compromiso.</p>
-    <div class="cta-buttons">
-      <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn btn-primary">Agendar 30 minutos →</a>
-      <a href="https://www.fedeandino.com" target="_blank" class="btn btn-ghost">◆ Ver fedeandino.com</a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="deco-footer">
-  <div class="container">
-    <div class="deco-footer-content">
-      <a href="index.html" class="aiq-mark" style="font-size:1.2rem;">AI<span class="dot"></span>Q</a>
-      <div class="deco-nav-links">
-        <a href="index.html#dimensions">Framework</a>
-        <a href="index.html#types">Tipos</a>
-        <a href="sama.html">SAMA</a>
-        <a href="retenciones.html">Soluciones</a>
-        <a href="https://www.fedeandino.com" target="_blank">Sobre el Autor</a>
-      </div>
-      <div class="credit">Creado por <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></div>
-    </div>
-  </div>
-</footer>
-
-<script>
-(function(){
-  function getNav(){return document.querySelector('.deco-nav-links');}
-  function getBtn(){return document.querySelector('.mobile-menu-toggle');}
-  function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
-  window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
-  document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
-})();
-</script>
+</div>
 </body>
 </html>

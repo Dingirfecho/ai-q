@@ -3,521 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bank Statement Automation | AI-Q</title>
-<meta name="description" content="From PDF to spreadsheet, with zero typing. We process bank statements from Galicia, BBVA, ICBC, Comafi, BICA, Banco Chaco and more, turning them into spreadsheets ready to reconcile or import to your ERP.">
+<title>Bank Statements · Automation · AI-Q</title>
+<meta name="description" content="Bank statement automation: PDF → spreadsheet ready to reconcile. Make + PDF.co + Gemini. >99% accuracy. 8–15 hrs/month saved. 6+ Argentine banks covered.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="deco.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
 <style>
-  main.container{ padding-top: 2rem; padding-bottom: 4rem; max-width:1100px; margin:0 auto; position:relative; z-index:1; }
-  section{ margin-bottom: 4.5rem; position:relative; }
+.flow-pipeline { display: grid; gap: var(--aq-space-3); }
+.flow-node { display: grid; grid-template-columns: 80px 1fr; border: var(--aq-border); }
+.flow-icon { background: var(--aq-ink); color: var(--aq-paper); display: flex; align-items: center; justify-content: center; font-family: var(--aq-font-mono); font-weight: 600; font-size: 18px; letter-spacing: 0.05em; padding: 20px 8px; }
+.flow-content { padding: 16px 20px; }
+.flow-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.flow-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.flow-arrow { text-align: center; color: var(--aq-accent); font-family: var(--aq-font-mono); }
 
-  .hero{ text-align:center; padding: 5rem 0 2rem; }
-  .hero-badge{
-    display:inline-block; font-family: var(--f-mono); font-size:0.78rem;
-    letter-spacing:3px; text-transform:uppercase; color:var(--gold-2);
-    border:1px solid var(--gold-line); padding:8px 18px; border-radius:50px;
-    background:rgba(26,20,10,0.7); margin-bottom:1.5rem;
-  }
-  h1{ font-family:var(--f-display); font-size:clamp(2.4rem, 6vw, 4rem);
-      letter-spacing:6px; text-transform:uppercase; margin:0 0 1rem; line-height:1.1; }
-  h1 .accent{
-    background:var(--grad-gold); -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 0 18px rgba(227,184,92,0.30));
-  }
-  .tagline{ font-family:var(--f-display); font-size:1.2rem; letter-spacing:2px;
-      color:var(--gold-2); margin:0.5rem 0 1.5rem; font-style:italic; }
-  .hero-description{ color:var(--text); font-size:1.05rem; line-height:1.8;
-      max-width:720px; margin:0 auto 2.5rem; }
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
 
-  .hero-marquee{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem;
-    max-width:920px; margin:0 auto; padding-top:0.5rem;
-  }
-  .marquee-cell{
-    background: var(--grad-card); border:1px solid var(--gold-line);
-    border-radius: var(--r-xl); padding:1.6rem 1.2rem; text-align:center;
-    transition: all 0.3s var(--ease);
-  }
-  .marquee-cell:hover{ border-color: var(--gold-2); box-shadow: var(--shadow-card-hover); }
-  .marquee-cell.lead{
-    background: linear-gradient(180deg, rgba(244,211,122,0.10), rgba(26,20,10,0.95));
-    border-color: var(--gold-2);
-  }
-  .marquee-number{
-    font-family: var(--f-display);
-    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
-    letter-spacing: 3px; line-height:1;
-    background: var(--grad-gold); -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent;
-    filter: drop-shadow(0 0 14px rgba(227,184,92,0.25));
-    margin-bottom: 0.4rem;
-  }
-  .marquee-label{
-    font-family: var(--f-mono); font-size:0.72rem; letter-spacing:2px;
-    text-transform:uppercase; color: var(--gold-3); margin-bottom:0.3rem;
-  }
-  .marquee-desc{ color: var(--text-dim); font-size:0.85rem; line-height:1.5; }
+.bank-chip { border: var(--aq-border); padding: 16px; }
+.bank-name { font-family: var(--aq-font-display); font-size: 22px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 4px; }
+.bank-note { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 8px; }
+.bank-quirk { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: 1.55; }
+.bank-quirk code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
 
-  .flow-pipeline{
-    display:grid; grid-template-columns:1fr; gap:0.9rem; margin-top:2rem;
-    max-width:680px; margin-left:auto; margin-right:auto;
-  }
-  .flow-node{
-    background: var(--grad-card); border:1px solid var(--gold-line);
-    border-radius: var(--r-lg); padding: 1.2rem 1.6rem;
-    display:grid; grid-template-columns:auto 1fr; gap:1.1rem; align-items:center;
-    transition: all 0.3s var(--ease);
-  }
-  .flow-node:hover{ border-color: var(--gold-2); transform: translateX(4px); }
-  .flow-icon{
-    width:2.6rem; height:2.6rem; border-radius:var(--r-md);
-    background: rgba(184,135,58,0.12); border:1px solid var(--gold-line-soft);
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--f-display); font-size:0.95rem; color: var(--gold-1);
-    letter-spacing:1px;
-  }
-  .flow-content .flow-title{
-    font-family:var(--f-display); font-size:0.95rem; letter-spacing:2.5px;
-    text-transform:uppercase; color: var(--gold-1); margin-bottom:0.25rem;
-  }
-  .flow-content .flow-desc{ color:var(--text-dim); font-size:0.92rem; line-height:1.55; }
-  .flow-content .flow-desc code{
-    font-family:var(--f-mono); font-size:0.82em; background: var(--bg-deep);
-    padding:0.1em 0.4em; border-radius: var(--r-sm); color: var(--gold-1);
-    border:1px solid var(--gold-line-soft);
-  }
-  .flow-arrow{
-    text-align:center; color: var(--gold-3); font-size:1.1rem;
-    line-height:1; margin: -0.2rem 0;
-  }
+.limit-row { display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 14px 0; border-top: var(--aq-border-thin); }
+.limit-row:first-child { border-top: 0; }
+.limit-mark { font-family: var(--aq-font-display); font-size: 32px; font-weight: 500; line-height: 1; color: var(--aq-accent); }
 
-  .features-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1.4rem; margin-top:1rem; }
-  .feature-card{ background: var(--grad-card); border: 1px solid var(--gold-line); border-radius: var(--r-xl); padding:1.8rem; transition: all 0.3s var(--ease); }
-  .feature-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  .feature-icon{ width:2.6rem; height:2.6rem; border-radius:var(--r-md); background: rgba(184,135,58,0.12); border:1px solid var(--gold-line-soft); display:flex; align-items:center; justify-content:center; font-size:1.15rem; margin-bottom:1rem; color: var(--gold-1); }
-  .feature-title{ font-family:var(--f-display); font-size:1.05rem; letter-spacing:3px; text-transform:uppercase; color: var(--gold-1); margin-bottom:0.6rem; }
-  .feature-desc{ color: var(--text-dim); font-size:0.93rem; line-height:1.65; }
-  .feature-desc code{ font-family:var(--f-mono); font-size:0.82em; background: var(--bg-deep); padding:0.1em 0.4em; border-radius: var(--r-sm); color: var(--gold-1); border:1px solid var(--gold-line-soft); }
-  .feature-desc strong{ color: var(--text-bright); font-weight:600; }
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
 
-  .banks-roster{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-top:1rem;
-  }
-  .bank-chip{
-    background: var(--grad-card); border:1px solid var(--gold-line);
-    border-radius: var(--r-lg); padding: 1.1rem 1.3rem;
-    transition: all 0.3s var(--ease);
-  }
-  .bank-chip:hover{ border-color: var(--gold-2); transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  .bank-name{
-    font-family:var(--f-display); font-size:1rem; letter-spacing:2.5px;
-    text-transform:uppercase; color: var(--gold-1); margin-bottom:0.35rem;
-  }
-  .bank-note{ font-family:var(--f-mono); font-size:0.7rem; letter-spacing:1.5px;
-    text-transform:uppercase; color: var(--gold-3); margin-bottom:0.5rem; }
-  .bank-quirk{ color: var(--text-dim); font-size:0.85rem; line-height:1.5; }
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
 
-  .why-block{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-xl); padding: 2.4rem; margin-top: 1rem; }
-  .why-block p{ color:var(--text); font-size:1rem; line-height:1.8; margin-bottom:1.2rem; }
-  .why-block p:last-child{ margin-bottom:0; }
-  .why-block strong{ color:var(--text-bright); font-weight:600; }
-  .tech-pills{ display:flex; flex-wrap:wrap; gap:0.55rem; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--gold-line-soft); }
-  .tech-pill{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; padding:0.42rem 0.85rem; background: var(--bg-deep); border:1px solid var(--gold-line-soft); border-radius: var(--r-pill); color:var(--text-dim); }
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; list-style: none; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
 
-  .usecases-list{ display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem; margin-top:1rem; }
-  .usecase-card{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-md); padding:1.4rem 1.5rem; display:flex; gap:1rem; align-items:flex-start; transition: all 0.3s var(--ease); }
-  .usecase-card:hover{ border-color: var(--gold-2); }
-  .usecase-mark{ flex-shrink:0; width:2rem; height:2rem; border-radius:50%; background:rgba(184,135,58,0.12); border:1px solid var(--gold-line); color:var(--gold-1); display:flex; align-items:center; justify-content:center; font-family:var(--f-mono); font-size:0.75rem; font-weight:700; }
-  .usecase-text{ color:var(--text-dim); font-size:0.94rem; line-height:1.6; }
-  .usecase-text strong{ color:var(--text-bright); font-weight:600; }
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
 
-  .signals-block{ background: var(--grad-card-soft); border:1px solid var(--gold-line-soft); border-radius: var(--r-xl); padding: 2rem 2.4rem; margin-top:1.4rem; }
-  .signals-block h4{ font-family:var(--f-display); font-size:1rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold-1); margin:0 0 1rem; }
-  .signals-list{ list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:0.7rem 1.5rem; }
-  .signals-list li{ color:var(--text-dim); font-size:0.93rem; line-height:1.55; padding-left:1.4rem; position:relative; }
-  .signals-list li::before{ content:'◆'; position:absolute; left:0; top:0.05rem; color:var(--gold-2); font-size:0.7rem; }
-
-  .limits-block{
-    background: var(--grad-card-soft); border:1px solid var(--gold-line-soft);
-    border-radius: var(--r-xl); padding: 2rem 2.4rem; margin-top:1rem;
-  }
-  .limit-row{
-    display:grid; grid-template-columns:auto 1fr; gap:1.2rem;
-    padding: 1rem 0; border-bottom:1px solid var(--gold-line-soft);
-  }
-  .limit-row:last-child{ border-bottom:none; padding-bottom:0; }
-  .limit-row:first-child{ padding-top:0; }
-  .limit-mark{
-    flex-shrink:0; width:2.2rem; height:2.2rem; border-radius:50%;
-    background:rgba(184,135,58,0.10); border:1px solid var(--gold-line);
-    color:var(--gold-2); display:flex; align-items:center; justify-content:center;
-    font-family:var(--f-mono); font-size:0.9rem;
-  }
-  .limit-text{ color:var(--text-dim); font-size:0.94rem; line-height:1.65; }
-  .limit-text strong{ color:var(--text-bright); font-weight:600; }
-
-  .steps-next{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem; margin-top:1rem; }
-  .next-card{ background: var(--grad-card); border:1px solid var(--gold-line); border-radius: var(--r-xl); padding:1.8rem; position:relative; overflow:hidden; transition: all 0.3s var(--ease); }
-  .next-card:hover{ border-color: var(--gold-2); transform: translateY(-2px); }
-  .next-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, var(--gold-2), transparent); }
-  .next-eyebrow{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color: var(--gold-3); margin-bottom:0.7rem; }
-  .next-title{ font-family:var(--f-display); font-size:1.2rem; letter-spacing:3px; text-transform:uppercase; color: var(--gold-1); margin-bottom:0.7rem; }
-  .next-desc{ color:var(--text-dim); font-size:0.92rem; line-height:1.65; }
-  .next-desc strong{ color:var(--text-bright); font-weight:600; }
-
-  .lang-link{
-    font-family:var(--f-mono);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;
-    padding:0.35rem 0.6rem;border:1px solid var(--gold-line);color:var(--text-dim);
-    background:var(--bg-deep);
-  }
-  .lang-link:hover{ color: var(--gold-1); border-color: var(--gold-2); }
-
-  @media(max-width:900px){
-    .hero-marquee{ grid-template-columns: 1fr; gap:1rem; }
-    .features-grid, .usecases-list, .steps-next, .banks-roster{ grid-template-columns: 1fr; }
-    .signals-list{ grid-template-columns: 1fr; }
-  }
-  @media(max-width:600px){
-    .why-block, .signals-block, .limits-block{ padding: 1.5rem; }
-    .flow-node{ grid-template-columns: auto 1fr; padding: 1rem 1.1rem; }
-  }
+@media (max-width: 768px) {
+  .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); }
+  .marquee-cell:last-child { border-bottom: 0; }
+}
 </style>
 </head>
 <body>
-<div class="bg-vapor"></div>
 
-<nav class="deco-nav">
-  <a href="index.html" class="aiq-mark">AI<span class="dot"></span>Q</a>
-  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
-    <span class="icon-open">☰</span><span class="icon-close">✕</span>
-  </button>
-  <div class="deco-nav-links">
-    <a href="index.html#dimensions">The Framework</a>
-    <a href="index.html#types">16 Types</a>
-    <a href="sama-en.html">SAMA</a>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-toggle" aria-haspopup="true">Solutions</button>
-      <ul class="nav-dropdown-menu">
-        <li><a href="bancos-en.html"><strong>Bank Statements</strong><small>From PDF to spreadsheet, zero typing</small></a></li>
-        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Withholding processor</small></a></li>
-        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Fixed-asset reporting</small></a></li>
-        <li><a href="gimnasios-en.html"><strong>Gyms &amp; Academies</strong><small>Reporting, billing &amp; reactivation</small></a></li>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama.html">SAMA</a>
+      <a class="nav-link" href="consultoria-en.html">Consulting</a>
+      <a class="nav-link" href="bancos.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-BANCOS-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 06 / BANK STATEMENTS</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Bank statements</div>
+      <h1 class="display-xl">From PDF to spreadsheet, <span class="accent">no typing</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"The statement comes in as a PDF. It leaves as a spreadsheet ready to reconcile."</p>
+      <p class="body-lg mt-4" style="max-width:760px;">A solution that takes your banks' PDF statements and automatically converts them into spreadsheets ready to reconcile, post, or load into your ERP. No manual copying, no row-by-row tweaking, no transcription errors.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">&gt;99%</div>
+        <div class="marquee-label">Accuracy in testing</div>
+        <div class="marquee-desc">On native PDFs from the Argentine banks covered, with prompts tuned per bank.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">8–15 hrs</div>
+        <div class="marquee-label">Monthly hours saved</div>
+        <div class="marquee-desc">Typical case: 5 accounts, ~200 transactions/month per account. Becomes under 1 hour of review.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">6+</div>
+        <div class="marquee-label">Banks covered</div>
+        <div class="marquee-desc">BBVA, Galicia, ICBC, Comafi, BICA, Banco Chaco. Adding a new one takes 2–4 hours.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Every bank, its own format</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">If your accounting firm, SME, or admin team spends its time <strong>opening PDFs and copying transactions by hand</strong> — or typing them into the accounting system — you already know the cost. It's not just time: it's exhausted attention, transcription errors, and the inability to close the month on time.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">"PDFs aren't tables: they're text extracted from a visual layout."</p>
+      <p class="muted">Pasting the content into Excel gives a mess. "Convert PDF to Excel" works 60% of the time. The other 40% gets tweaked row by row.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Who it's for</div><h2 class="display-lg mt-4">Who this solution is for</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">CASE 01</div><div class="next-desc"><strong>Accounting firms</strong> that receive statements from multiple clients and banks each month and load them into Tango, Bejerman, Holistor, Xubio, or any ERP.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 02</div><div class="next-desc"><strong>SMEs with more than one bank account</strong> — common in Argentina, where companies operate with several banks for fees, credit lines, or vendors.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 03</div><div class="next-desc"><strong>Admins and CFOs</strong> who build weekly or monthly cash-flow reports from real bank transactions.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 04</div><div class="next-desc"><strong>Treasury teams</strong> that reconcile statements against the ledger and need data in tabular form for formulas, pivot tables, or Power Query.</div></div>
+    </div>
+
+    <div class="signals-block">
+      <h4>◆ When automation is justified</h4>
+      <ul class="signals-list">
+        <li>You process <strong>5 or more statements per month</strong> across banks.</li>
+        <li>Your team spends 2–8 hours per month just transcribing transactions.</li>
+        <li>You handle accounts in banks with different formats (Galicia, BBVA, ICBC, etc.).</li>
+        <li>You've seen transcription errors that cost reconciliation time.</li>
+        <li>You want to close the month in days, not weeks.</li>
+        <li>You need the data in a spreadsheet to load into the ERP or cross-reference with the ledger.</li>
       </ul>
     </div>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-toggle" aria-haspopup="true">Consulting</button>
-      <ul class="nav-dropdown-menu">
-        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
-        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
-      </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · How it works</div><h2 class="display-lg mt-4">The flow, step by step</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">A workflow built in <strong>Make.com</strong> that combines three tools: <code style="background:var(--aq-paper2);padding:2px 6px;border:1px solid var(--aq-mute1);">PDF.co</code> extracts the text, <strong>Gemini</strong> interprets it with a per-bank prompt, and <strong>Google Sheets</strong> receives the structured data. PDF goes in one end, spreadsheet comes out the other.</p>
+
+    <div class="flow-pipeline">
+      <div class="flow-node"><div class="flow-icon">PDF</div><div class="flow-content"><div class="flow-title">Statement in Drive</div><div class="flow-desc">Upload the PDF to a Google Drive folder. Make auto-detects the new file.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">TXT</div><div class="flow-content"><div class="flow-title">PDF.co extracts the text</div><div class="flow-desc">Text is extracted preserving the PDF reading order, ready to process.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">AI</div><div class="flow-content"><div class="flow-title">Gemini interprets with per-bank prompt</div><div class="flow-desc"><code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">gemini-2.5-pro</code> receives the text and, guided by a prompt tuned for that bank, returns a <strong>structured JSON</strong> with each transaction as an object.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">SHT</div><div class="flow-content"><div class="flow-title">Google Sheets fills itself</div><div class="flow-desc">Make iterates over each transaction and writes it as a row in your spreadsheet. Ready to reconcile, export to CSV, or import to the ERP.</div></div></div>
     </div>
-    <a href="bancos.html" class="lang-link">ES</a>
-    <a href="quiz.html" class="btn btn-primary">Take the Test →</a>
-  </div>
-</nav>
-<div class="nav-spacer"></div>
+  </section>
 
-<main class="container">
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · What matters</div><h2 class="display-lg mt-4">Details that make the difference</h2></div></div>
+    <hr class="sep mb-5">
 
-<section class="hero">
-  <div class="hero-badge">SOLUTION · BANK STATEMENTS</div>
-  <h1>From PDF to spreadsheet, <span class="accent">zero typing</span></h1>
-  <p class="tagline">"The statement comes in as a PDF. It comes out as a spreadsheet ready to reconcile."</p>
-  <p class="hero-description">
-    A pipeline that picks up your bank statement PDFs and turns them into spreadsheets ready to reconcile, post or import to your ERP. No manual copy-paste, no row-by-row fixing, no transcription errors.
-  </p>
-  <div class="hero-marquee">
-    <div class="marquee-cell lead">
-      <div class="marquee-number">&gt;99%</div>
-      <div class="marquee-label">Accuracy in testing</div>
-      <div class="marquee-desc">On native PDFs from supported Argentine banks, with prompts tuned per bank.</div>
+    <div class="grid grid-3">
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">One prompt per bank</div><div class="feature-desc">No generic prompt. Each bank has its own with explicit rules: <strong>how to clean amounts</strong> (<code>1.250,50</code> → <code>1250.50</code>), date format, mandatory JSON columns, what parts of the PDF to ignore. This separates a solution that works sometimes from one that works every month.</div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Long PDFs get split</div><div class="feature-desc">Statements of 30 or 50+ pages exceed Gemini's token limit and accuracy drops. For those, a "splitter" scenario <strong>cuts the PDF into 5-page blocks</strong>, processes each separately, and consolidates everything into the same sheet.</div></div>
+      <div class="feature-card"><div class="feature-icon">$</div><div class="feature-title">Argentine-format amounts</div><div class="feature-desc">Dot as thousands separator and comma as decimal (<code>1.250,50</code>) breaks any naive import. The prompt resolves it before returning JSON: <strong>clean numbers, correct sign</strong>, ready for formulas.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚙</div><div class="feature-title">Parallel processing</div><div class="feature-desc">Upload 10 statements to Drive and all 10 process simultaneously, in minutes. <strong>Zero human bottleneck</strong>. Make handles the queue.</div></div>
+      <div class="feature-card"><div class="feature-icon">★</div><div class="feature-title">Full traceability</div><div class="feature-desc">Every run is logged in Make: which file came in, what was extracted, when. If something doesn't add up, <strong>there's a log to audit</strong>. No black boxes.</div></div>
+      <div class="feature-card"><div class="feature-icon">▼</div><div class="feature-title">Importable to any ERP</div><div class="feature-desc">Since the output is a spreadsheet, you can export it to CSV and feed it into <strong>Tango, Bejerman, Holistor, Xubio</strong>, or whatever system you use. The import itself can be automated if the ERP supports it.</div></div>
     </div>
-    <div class="marquee-cell">
-      <div class="marquee-number">8–15 hr</div>
-      <div class="marquee-label">Monthly hours saved</div>
-      <div class="marquee-desc">Typical case: 5 accounts, ~200 transactions/month each. Drops to under 1 hour of review.</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Banks covered</div><h2 class="display-lg mt-4">Scenarios in production today</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Adding a new bank doesn't mean rebuilding: it's <strong>writing the specific prompt</strong> and cloning the base scenario. Takes 2–4 hours depending on statement format.</p>
+
+    <div class="grid grid-3">
+      <div class="bank-chip"><div class="bank-name">BBVA</div><div class="bank-note">Multi-section</div><div class="bank-quirk">Split into tabs: transactions, transfers, auto-debits, investments.</div></div>
+      <div class="bank-chip"><div class="bank-name">Galicia</div><div class="bank-note">Short-year dates</div><div class="bank-quirk">Formato <code>01/10/25</code>. The prompt expands to full year.</div></div>
+      <div class="bank-chip"><div class="bank-name">ICBC</div><div class="bank-note">With splitter</div><div class="bank-quirk">Dates without year (<code>02-02</code>), inferred from the header. Handles long statements.</div></div>
+      <div class="bank-chip"><div class="bank-name">Comafi</div><div class="bank-note">In production</div><div class="bank-quirk">Custom header format and debit/credit columns resolved in the prompt.</div></div>
+      <div class="bank-chip"><div class="bank-name">BICA</div><div class="bank-note">With splitter</div><div class="bank-quirk">Handles long statements split into 5-page blocks.</div></div>
+      <div class="bank-chip"><div class="bank-name">Banco Chaco</div><div class="bank-note">With splitter</div><div class="bank-quirk">Particular column structure, resolved with a specific prompt.</div></div>
     </div>
-    <div class="marquee-cell">
-      <div class="marquee-number">6+</div>
-      <div class="marquee-label">Banks covered</div>
-      <div class="marquee-desc">BBVA, Galicia, ICBC, Comafi, BICA, Banco Chaco. Adding a new one takes 2–4 hours.</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · The architecture</div><h2 class="display-lg mt-4">Why this stack</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">Not a new system your team has to learn. It's <strong>a layer on top of what you already use</strong>: your PDFs keep arriving as they do today, your spreadsheet is still Google Sheets, your ERP is none the wiser. The only change is that the middle step — currently done by a person — is now done by an automatic flow.</p>
+      <p class="body-lg">Make.com orchestrates the scenarios without you having to maintain code or servers. PDF.co handles text extraction with usage-based pricing. Gemini does the cognitive work of interpreting variable layouts. If tomorrow you want to modify a prompt or add a bank, <strong>everything is visible and editable</strong>.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">PDF.co</span>
+        <span class="tech-pill">Google Gemini</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">No servers</span>
+        <span class="tech-pill">No lock-in</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · To be honest</div><h2 class="display-lg mt-4">Limitations worth knowing</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <div class="limit-row"><div class="limit-mark">!</div><div><strong>PDFs must be native, not scanned.</strong> If your bank sends you a photo of paper, an OCR step is needed — more expensive and less accurate. Most Argentine banks already produce native PDFs.</div></div>
+      <div class="limit-row"><div class="limit-mark">!</div><div><strong>If the bank changes the format, the prompt needs adjustment.</strong> Not frequent — banks change layouts every few years — but when it happens, an update is needed. It's part of maintenance.</div></div>
+      <div class="limit-row"><div class="limit-mark">!</div><div><strong>It doesn't replace human review.</strong> The system is very accurate (&gt;99% in testing), but you should glance at the spreadsheet before loading it to production. That's its purpose: <strong>to review at a glance, not to rebuild.</strong></div></div>
+      <div class="limit-row"><div class="limit-mark">$</div><div><strong>It has operating cost.</strong> Make, PDF.co, and Gemini charge per use. For a typical SME volume, that's <strong>USD 20–50/month</strong> in subscriptions, against several person-hours saved.</div></div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§08 · Next steps</div><h2 class="display-lg mt-4">How we implement it</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="next-card"><div class="next-eyebrow">STEP 01 · 30 minutes</div><div class="next-title">Diagnostic</div><div class="next-desc">We talk through <strong>your volume, which banks you handle, and where the data needs to go</strong>. With that I send you a concrete implementation and cost proposal.</div></div>
+      <div class="next-card"><div class="next-eyebrow">STEP 02 · 1 to 2 weeks</div><div class="next-title">Implementation</div><div class="next-desc">We build the per-bank scenarios and <strong>test with your actual statements</strong> until they hit 99%+. You don't write code; we connect the pieces.</div></div>
+      <div class="next-card"><div class="next-eyebrow">STEP 03 · 1 day</div><div class="next-title">Handoff &amp; maintenance</div><div class="next-desc">We leave the system documented and running. <strong>Minimal monthly maintenance</strong>: only if a bank changes the statement format.</div></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="section-header">
-    <div class="section-label">The problem</div>
-    <h2 class="section-title">Every bank, its own format</h2>
-  </div>
-  <p class="section-intro">
-    If your accounting firm, your SMB or your admin team spends hours <strong>opening PDFs and copying transactions by hand</strong> — or typing them straight into the accounting system — you already know the real cost. It's not just the time: it's the worn-out attention, the transcription errors, and the inability to close the month on time.
-  </p>
-  <div class="quote-block" style="text-align:center; font-style:normal; max-width:680px;">
-    <span style="font-family:var(--f-display); font-size:1.35rem; letter-spacing:2px; color:var(--gold-1)">"PDFs aren't tables: they're text pulled from a visual layout."</span>
-    <span style="display:block; margin-top:0.6rem; font-size:0.95rem; color:var(--text-dim);">Pasting into Excel gives you a mess. The "Convert PDF to Excel" option works 60% of the time. The other 40% has to be cleaned up row by row.</span>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">Who it's for</div>
-    <h2 class="section-title">Built for these teams</h2>
-  </div>
-  <div class="usecases-list">
-    <div class="usecase-card"><div class="usecase-mark">01</div><div class="usecase-text"><strong>Accounting firms</strong> handling statements from multiple clients and banks each month, posting them into Tango, Bejerman, Holistor, Xubio or any ERP.</div></div>
-    <div class="usecase-card"><div class="usecase-mark">02</div><div class="usecase-text"><strong>SMBs with more than one bank account</strong> — common in Argentina, where companies juggle several banks for fees, credit lines or supplier operations.</div></div>
-    <div class="usecase-card"><div class="usecase-mark">03</div><div class="usecase-text"><strong>Controllers and CFOs</strong> who build weekly or monthly cash-flow reports out of real bank movements.</div></div>
-    <div class="usecase-card"><div class="usecase-mark">04</div><div class="usecase-text"><strong>Treasury teams</strong> reconciling bank extracts against the GL, who need tabular data for formulas, pivot tables or Power Query.</div></div>
-  </div>
-
-  <div class="signals-block">
-    <h4>◆ When automating it pays off</h4>
-    <ul class="signals-list">
-      <li>You process <strong>5 or more statements per month</strong> across banks.</li>
-      <li>Your operations team spends 2 to 8 hours a month just transcribing transactions.</li>
-      <li>You handle accounts across banks with different formats (Galicia, BBVA, ICBC, etc.).</li>
-      <li>You've caught transcription errors that cost reconciliation time.</li>
-      <li>You want to close the month in days, not weeks.</li>
-      <li>You need the data in a spreadsheet to import into the ERP or cross with the GL.</li>
-    </ul>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">How it works</div>
-    <h2 class="section-title">The flow, step by step</h2>
-  </div>
-  <p class="section-intro">
-    A workflow built on <strong>Make.com</strong> orchestrating three tools: <code>PDF.co</code> extracts the text, <strong>Gemini</strong> interprets it with a bank-specific prompt, and <strong>Google Sheets</strong> receives the structured data. The PDF goes in one end and the spreadsheet comes out the other.
-  </p>
-  <div class="flow-pipeline">
-    <div class="flow-node">
-      <div class="flow-icon">PDF</div>
-      <div class="flow-content">
-        <div class="flow-title">Statement lands in Drive</div>
-        <div class="flow-desc">You drop the PDF in a Google Drive folder. Make detects the new file automatically.</div>
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§09 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Interested? Let's talk</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">If you have multiple bank accounts, manual transaction loading, and monthly headaches, book a call. The first conversation is to understand your volume and send you a concrete quote.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Bank%20Statement%20Automation%20Inquiry">Request a quote</a>
+        </div>
       </div>
     </div>
-    <div class="flow-arrow">▼</div>
-    <div class="flow-node">
-      <div class="flow-icon">TXT</div>
-      <div class="flow-content">
-        <div class="flow-title">PDF.co extracts the text</div>
-        <div class="flow-desc">Text is extracted preserving the reading order of the PDF, ready for processing.</div>
-      </div>
-    </div>
-    <div class="flow-arrow">▼</div>
-    <div class="flow-node">
-      <div class="flow-icon">AI</div>
-      <div class="flow-content">
-        <div class="flow-title">Gemini interprets with a per-bank prompt</div>
-        <div class="flow-desc"><code>gemini-2.5-pro</code> reads the text and — guided by a prompt tuned for that bank — returns a <strong>structured JSON</strong> with each transaction as an object.</div>
-      </div>
-    </div>
-    <div class="flow-arrow">▼</div>
-    <div class="flow-node">
-      <div class="flow-icon">◆</div>
-      <div class="flow-content">
-        <div class="flow-title">Google Sheets fills itself</div>
-        <div class="flow-desc">Make iterates over each transaction and writes it as a row in your sheet. Ready to reconcile, export to CSV or import to the ERP.</div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="section-header">
-    <div class="section-label">What matters</div>
-    <h2 class="section-title">Two details that make the difference</h2>
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 06</span>
+    <span class="accent">ai-q.fit · bank statements</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
   </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">◆</div>
-      <div class="feature-title">One prompt per bank</div>
-      <div class="feature-desc">We don't use a generic prompt. Each bank has its own with explicit rules: <strong>how to clean amounts</strong> (<code>1.250,50</code> → <code>1250.50</code>), date formatting, required JSON columns, what parts of the PDF to ignore. This is what separates a solution that works sometimes from one that works every month.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">▲</div>
-      <div class="feature-title">Long PDFs get split</div>
-      <div class="feature-desc">Statements of 30, 50+ pages exceed Gemini's token limit and accuracy drops. For those cases there's a "splitter" scenario that <strong>cuts the PDF into 5-page chunks</strong>, processes each separately, and consolidates everything into the same sheet.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">◇</div>
-      <div class="feature-title">Argentine number formats</div>
-      <div class="feature-desc">Period as thousand separator and comma as decimal (<code>1.250,50</code>) breaks any naive import. The prompt resolves this before returning the JSON: <strong>clean numbers, correct sign</strong>, ready for formulas.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚙</div>
-      <div class="feature-title">Parallel processing</div>
-      <div class="feature-desc">Drop 10 statements into Drive and all 10 get processed at the same time, in minutes. <strong>No human bottleneck</strong>. The queue is Make's problem.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">★</div>
-      <div class="feature-title">Full traceability</div>
-      <div class="feature-desc">Every execution is logged in Make: which file came in, what was extracted, when. If something doesn't add up, <strong>there's a log to audit</strong>. No black boxes.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">▼</div>
-      <div class="feature-title">Importable to any ERP</div>
-      <div class="feature-desc">Since the output is a spreadsheet, you can export it to CSV and feed it into <strong>Tango, Bejerman, Holistor, Xubio</strong> or whichever system you use. The import itself can also be automated if your ERP supports it.</div>
-    </div>
-  </div>
-</section>
 
-<section>
-  <div class="section-header">
-    <div class="section-label">Banks covered</div>
-    <h2 class="section-title">Production scenarios today</h2>
-  </div>
-  <p class="section-intro">
-    Adding a new bank is not a rebuild: it's <strong>writing the bank-specific prompt</strong> and cloning the base scenario. Takes 2 to 4 hours depending on how unusual the statement layout is.
-  </p>
-  <div class="banks-roster">
-    <div class="bank-chip">
-      <div class="bank-name">BBVA</div>
-      <div class="bank-note">Multi-section</div>
-      <div class="bank-quirk">Split into tabs: transactions, transfers, direct debits, investments.</div>
-    </div>
-    <div class="bank-chip">
-      <div class="bank-name">Galicia</div>
-      <div class="bank-note">Short-year dates</div>
-      <div class="bank-quirk">Format <code>01/10/25</code>. The prompt handles expansion to full year.</div>
-    </div>
-    <div class="bank-chip">
-      <div class="bank-name">ICBC</div>
-      <div class="bank-note">With splitter</div>
-      <div class="bank-quirk">Dates without year (<code>02-02</code>), inferred from the header. Supports long statements.</div>
-    </div>
-    <div class="bank-chip">
-      <div class="bank-name">Comafi</div>
-      <div class="bank-note">In production</div>
-      <div class="bank-quirk">Custom header and debit/credit column formats handled in the prompt.</div>
-    </div>
-    <div class="bank-chip">
-      <div class="bank-name">BICA</div>
-      <div class="bank-note">With splitter</div>
-      <div class="bank-quirk">Supports long statements broken into 5-page blocks.</div>
-    </div>
-    <div class="bank-chip">
-      <div class="bank-name">Banco Chaco</div>
-      <div class="bank-note">With splitter</div>
-      <div class="bank-quirk">Distinct column structure solved with a bank-specific prompt.</div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">The architecture</div>
-    <h2 class="section-title">Why this stack</h2>
-  </div>
-  <div class="why-block">
-    <p>It's not a new system your team has to learn. It's <strong>a layer that sits on top of what you already use</strong>: your PDFs still arrive the same way, your spreadsheet is still Google Sheets, your ERP doesn't notice a thing. The only thing that changes is the middle step — the one a person does today — now runs as an automated flow.</p>
-    <p>Make.com orchestrates the scenarios without you having to maintain code or servers. PDF.co handles text extraction with usage-based pricing. Gemini does the cognitive work of interpreting varied layouts. If tomorrow you want to tweak a prompt or add a new bank, <strong>everything is visible and editable</strong>.</p>
-    <div class="tech-pills">
-      <span class="tech-pill">Make.com</span>
-      <span class="tech-pill">PDF.co</span>
-      <span class="tech-pill">Google Gemini</span>
-      <span class="tech-pill">Google Sheets</span>
-      <span class="tech-pill">Google Drive</span>
-      <span class="tech-pill">No servers</span>
-      <span class="tech-pill">No lock-in</span>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">Honest caveats</div>
-    <h2 class="section-title">Limitations worth knowing</h2>
-  </div>
-  <div class="limits-block">
-    <div class="limit-row">
-      <div class="limit-mark">!</div>
-      <div class="limit-text"><strong>PDFs must be native, not scanned.</strong> If your bank sends a photo of a printout, you'll need to add an OCR step — more expensive and less precise. Most Argentine banks already issue native PDFs.</div>
-    </div>
-    <div class="limit-row">
-      <div class="limit-mark">!</div>
-      <div class="limit-text"><strong>If the bank changes the layout, the prompt needs adjustment.</strong> Not frequent — banks change layouts every few years — but when it happens, an update is needed. This is part of ongoing maintenance.</div>
-    </div>
-    <div class="limit-row">
-      <div class="limit-mark">!</div>
-      <div class="limit-text"><strong>It doesn't replace human review.</strong> The system is highly accurate (&gt;99% in testing), but it's worth eyeballing the sheet before pushing it to production. That's the whole point: <strong>review at a glance, not rebuild from scratch.</strong></div>
-    </div>
-    <div class="limit-row">
-      <div class="limit-mark">$</div>
-      <div class="limit-text"><strong>It has running costs.</strong> Make, PDF.co and Gemini charge per use. For a typical SMB volume, that's <strong>USD 20–50/month</strong> in subscriptions, against several person-hours saved.</div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="section-header">
-    <div class="section-label">Next steps</div>
-    <h2 class="section-title">How we implement it</h2>
-  </div>
-  <div class="steps-next">
-    <div class="next-card">
-      <div class="next-eyebrow">STEP 01 · 30 minutes</div>
-      <div class="next-title">Discovery</div>
-      <div class="next-desc">We talk through <strong>your volume, which banks you work with, and where the data needs to land</strong>. From there I send you a concrete implementation and cost proposal.</div>
-    </div>
-    <div class="next-card">
-      <div class="next-eyebrow">STEP 02 · 1 to 2 weeks</div>
-      <div class="next-title">Implementation</div>
-      <div class="next-desc">We build the scenarios per bank and <strong>test them against your own statements</strong> until accuracy clears 99%+. You don't write code; we wire the pieces together.</div>
-    </div>
-    <div class="next-card">
-      <div class="next-eyebrow">STEP 03 · 1 day</div>
-      <div class="next-title">Handoff &amp; maintenance</div>
-      <div class="next-desc">We hand over the system documented and running. <strong>Monthly maintenance is minimal</strong>: only if a bank changes its statement layout.</div>
-    </div>
-  </div>
-</section>
-
-<section class="cta-section">
-  <div class="cta-box">
-    <h2 class="cta-title">Interested? Let's talk</h2>
-    <p class="cta-description">If you have multiple bank accounts, manual transaction loading, and the monthly headache that comes with it, book a call. The first conversation is to understand your volume and put a concrete quote in front of you.</p>
-    <div class="cta-buttons">
-      <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn btn-primary">Book a call →</a>
-      <a href="mailto:fede@fedeandino.com?subject=Bank%20Statement%20Automation%20Inquiry" class="btn btn-ghost">◆ Request a quote</a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="deco-footer">
-  <div class="container">
-    <div class="deco-footer-content">
-      <a href="index.html" class="aiq-mark" style="font-size: 1.2rem;">AI<span class="dot"></span>Q</a>
-      <div class="deco-nav-links">
-        <a href="index.html#dimensions">Framework</a>
-        <a href="index.html#types">Types</a>
-        <a href="sama-en.html">SAMA</a>
-        <a href="bancos-en.html">Banks</a>
-        <a href="retenciones.html">Retenciones</a>
-        <a href="amortizaciones.html">Amortizaciones</a>
-        <a href="gimnasios-en.html">Gyms</a>
-        <a href="consultoria-en.html">Consulting</a>
-      </div>
-      <div class="credit">Created by <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></div>
-    </div>
-  </div>
-</footer>
-
-<script>
-(function(){
-  function getNav(){return document.querySelector('.deco-nav-links');}
-  function getBtn(){return document.querySelector('.mobile-menu-toggle');}
-  function closeMenu(){var nav=getNav(),btn=getBtn();if(!nav||!btn)return;nav.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');}
-  window.aiqToggleMenu=function(btn){var nav=getNav();if(!nav)return;var open=nav.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open?'true':'false');};
-  document.addEventListener('click',function(e){var nav=getNav(),btn=getBtn();if(!nav||!btn||!nav.classList.contains('open'))return;if(btn.contains(e.target))return;if(!nav.contains(e.target)){closeMenu();return;}var link=e.target.closest('a');if(link)closeMenu();});
-})();
-</script>
+</div>
 </body>
 </html>

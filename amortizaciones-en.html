@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fixed Assets · AxI · Automation · AI-Q</title>
+<meta name="description" content="Automated depreciation calculation for fixed assets in Google Sheets, with Argentine formatting. 4 outputs per asset. Automatic processing in seconds.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama-en.html">SAMA</a>
+      <a class="nav-link" href="consultoria-en.html">Consulting</a>
+      <a class="nav-link" href="amortizaciones.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-AMORT-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 09 / AXI</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Fixed assets &amp; accounting</div>
+      <h1 class="display-xl">Automation for <span class="accent">fixed assets · AxI</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"From inventory sheet to monthly report, no manual intervention."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">A Make.com scenario that takes your fixed-asset inventory in Google Sheets, calculates depreciation with AI, and generates the complete report — with Argentine number and date formatting, ready to post.</p>
+    </div>
+  </section>
+
+  
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Monthly hours on a repetitive task</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Companies that manage fixed assets in Google Sheets face a tedious and error-prone process: <strong>calculating depreciations month by month</strong>, correctly formatting values for the local context, and consolidating everything into an ordered report.</p>
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg" style="margin-bottom:14px;">With dozens or hundreds of assets, doing it by hand <strong style="color:var(--aq-accent);">consumes hours every close</strong>.</p>
+      <p class="muted">Typical errors are avoidable but costly: the classic <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">20.000,00</code> that a system interprets as <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">20</code>, dates in mixed formats, decimals that round wrong and carry over to close.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · How it works</div><h2 class="display-lg mt-4">The flow, in 4 steps</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">The scenario runs unsupervised or on demand. Reads the sheet, processes each asset, calculates, and returns a new report in Sheets — all in seconds.</p>
+
+    <div class="grid grid-4">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Automatic trigger</div><div class="step-desc">Activates on detecting a new file in Drive, or on demand. Reads the sheet row by row.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Normalization</div><div class="step-desc">Each row is processed individually. Argentine-format values are converted before any calculation.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">AI calculation</div><div class="step-desc">Google Gemini analyzes each record and calculates depreciation, residual value, and audit alerts.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Final report</div><div class="step-desc">Make creates a new sheet with number format <code>#.##0,00</code> y fechas <code>DD/MM/YYYY</code>.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · What it calculates</div><h2 class="display-lg mt-4">Four outputs per asset</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">For each inventory row, the scenario produces the values your accountant needs to post — plus a control layer flagging inconsistent records.</p>
+
+    <div class="grid grid-bordered grid-2">
+      <div><div class="kicker-tiny">01</div><div class="display-md mt-2">Monthly depreciation</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md mt-2">Historical accumulated depreciation</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md mt-2">Residual value at period start</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md mt-2">Audit alerts on inconsistent assets</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Argentine formatting</div><h2 class="display-lg mt-4">The detail that breaks generic reports</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">The difference between a report that <strong>can be posted directly</strong> and one that needs cleanup later is in the formatting details. The scenario applies Argentine rules to every cell.</p>
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">#</div><div class="feature-title">Numbers</div><div class="feature-desc" style="font-family:var(--aq-font-mono);font-size:28px;color:var(--aq-ink);font-weight:500;letter-spacing:-0.02em;margin:8px 0;">#.##0,00</div><div class="feature-desc">Dot as thousands separator, comma as decimal. Rounded to 2 decimals.</div></div>
+      <div class="feature-card"><div class="feature-icon">▤</div><div class="feature-title">Dates</div><div class="feature-desc" style="font-family:var(--aq-font-mono);font-size:28px;color:var(--aq-ink);font-weight:500;letter-spacing:-0.02em;margin:8px 0;">DD/MM/YYYY</div><div class="feature-desc">Dates de baja y cierre uniformes en todo el reporte. Sin formatos mezclados.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Before and after</div><h2 class="display-lg mt-4">What changes at close</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div style="border:var(--aq-border);">
+      <div class="compare-row">
+        <div class="compare-cell header-cell">Before</div>
+        <div class="compare-cell header-cell">After</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Manual calculation in Excel or Sheets</div>
+        <div class="compare-cell after">Automatic processing of 50+ assets in seconds</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Number-format errors</div>
+        <div class="compare-cell after">Values correctly parsed and rounded to 2 decimals</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Dates inconsistentes</div>
+        <div class="compare-cell after">Uniform DD/MM/YYYY format across the report</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Repetitive process every month</div>
+        <div class="compare-cell after">One click, or fully unsupervised</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Tech stack</div><h2 class="display-lg mt-4">Built on standard pieces</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">No servers to administer, no custom development. The whole flow is visible and editable: if your accounting policy changes tomorrow, the scenario adjusts without rewriting anything.</p>
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">⚙</div><div class="feature-title">Make.com</div><div class="feature-desc">End-to-end flow orchestration, step by step, with full visibility into each execution.</div></div>
+      <div class="feature-card"><div class="feature-icon">✦</div><div class="feature-title">Google Gemini</div><div class="feature-desc">Intelligent depreciation calculation and inconsistency detection.</div></div>
+      <div class="feature-card"><div class="feature-icon">▦</div><div class="feature-title">Google Sheets API</div><div class="feature-desc">Writing the output report with number and date formats applied per column.</div></div>
+      <div class="feature-card"><div class="feature-icon">▣</div><div class="feature-title">Google Drive</div><div class="feature-desc">Input and output repository. Automatic trigger when a new sheet is uploaded.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§07 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Have a process like this to automate?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">If you manage fixed assets, withholdings, reconciliations, or any other repetitive spreadsheet process, book 30 minutes to see if it makes sense to automate it.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Fixed%20Assets%20AxI%20Inquiry">Send an email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 09</span>
+    <span class="accent">ai-q.fit · axi</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

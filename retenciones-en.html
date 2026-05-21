@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Withholding Tax · Processor · AI-Q</title>
+<meta name="description" content="Automated processor for Argentine withholding tax certificates. PDF/scan/photo → SAP-ready spreadsheet. OCR + AI + mapping. ~45 seconds per document.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama-en.html">SAMA</a>
+      <a class="nav-link" href="consultoria-en.html">Consulting</a>
+      <a class="nav-link" href="retenciones.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-RET-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 08 / WITHHOLDING TAX</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Accounting &amp; treasury</div>
+      <h1 class="display-xl">Automated processor for <span class="accent">withholding tax certificates</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"No typing, no delays, with built-in audit."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Turn every withholding certificate you receive — PDF, scan, or photo — into a SAP-ready row in your spreadsheet. An end-to-end solution designed specifically for Argentine accounting teams.</p>
+    </div>
+  </section>
+
+  
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Days lost each month</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">If your team opens each certificate, identifies the agent, separates taxes line by line, looks up the SAP code, and loads it manually, you're losing <strong>3 to 8 minutes per document</strong>. Multiplied by typical monthly volume, that's days of administrative work that can be recovered.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">+ 3 to 8 min <span class="accent">per document</span></p>
+      <p class="muted">And that's not counting typing errors, mis-assigned SAP codes, and time spent on accounting corrections.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · The solution</div><h2 class="display-lg mt-4">How it works, in 5 steps</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">An end-to-end automation that receives certificates as they arrive — in any format — and delivers them processed, classified, and ready to post.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Drop in Drive</div><div class="step-desc">The certificate is dropped into a Google Drive folder, or arrives by email if you prefer that flow.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">OCR reading</div><div class="step-desc">The document is digitized, even if it's a low-quality scan or a phone photo.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">AI extraction</div><div class="step-desc">Identifies the withholding agent and splits each tax into independent lines.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">SAP mapping</div><div class="step-desc">Each withholding is mapped to its exact ledger account — income tax, gross-receipts, or reclassification.</div></div>
+      <div class="step-card"><div class="step-num">05</div><div class="step-title">Sheet ready</div><div class="step-desc">One row per tax line in Sheets, with Argentine formatting and reconciliation fields.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Service metrics</div><h2 class="display-lg mt-4">What to expect</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-bordered grid-4">
+      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">~45 s</div><div class="kicker">Tiempo per document</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">Cientos</div><div class="kicker">Documents per day</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">5–15%</div><div class="kicker">Exception only</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">24/7</div><div class="kicker">Unsupervised</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · What's included</div><h2 class="display-lg mt-4">A complete solution</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Per-row traceability</div><div class="feature-desc">Every record loads with a confidence score (0–100), link to the original file, name, and timestamp. <strong>Auditing a record takes seconds, not minutes.</strong></div></div>
+      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Safeguards</div><div class="feature-desc">When the tool isn't sure, it says so — flags the record as "Review" or assigns it to a reclassification account, instead of guessing.</div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Argentine rules embedded</div><div class="feature-desc">Normalization to format <code>NNNN-NNNNNNNN</code>, rate corrections, and identification of the <strong>24 IIBB jurisdictions</strong> with their aliases.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Custom chart of accounts</div><div class="feature-desc">The SAP dictionary is tailored to your internal nomenclature. Your <strong>tax ID and company name</strong> are protected by explicit rules — a common error in generic solutions.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Why it works</div><h2 class="display-lg mt-4">It's not a ChatGPT wrapper</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">This isn't a generic OCR tool or a ChatGPT wrapper. It's a <strong>solution designed specifically for Argentine withholding certificates</strong>, with the accounting and fiscal knowledge built into every step.</p>
+      <p class="body-lg">Built on enterprise-grade infrastructure and configured with the particularities of your operation. No servers to administer, no custom development, no lock-in: if tomorrow you want to modify the flow, everything is visible and editable.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Cloud</span>
+        <span class="tech-pill">Gemini 2.5</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">SAP-ready</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Who it's for</div><h2 class="display-lg mt-4">Who this solution is for</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">CASE 01</div><div class="next-desc">Mid-sized and large companies that receive <strong>+50 withholding certificates per month</strong>.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 02</div><div class="next-desc"><strong>Accounting or treasury teams</strong> that currently process certificates manually.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 03</div><div class="next-desc">Operations with high volume of <strong>multi-jurisdiction IIBB</strong>, where SAP classification is the main source of errors.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 04</div><div class="next-desc">Organizations already using <strong>Google Workspace + SAP</strong> looking to integrate without replacing.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Next steps</div><h2 class="display-lg mt-4">How we move forward</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">STEP 01 · 30 minutes</div><div class="next-title">Live demo</div><div class="next-desc">We show you the tool processing <strong>your own documents</strong>, with your chart of accounts. If after the demo you don't see the value, there's no next step.</div></div>
+      <div class="next-card"><div class="next-eyebrow">STEP 02 · 2 weeks</div><div class="next-title">Pilot implementation</div><div class="next-desc">Full setup, test plan with a month of your actual withholdings, SAP dictionary fine-tuning, and training. At pilot close, it's running in production.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Ready to recover those days?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book 30 minutes to see the tool processing your own certificates. No commitment, no generic slides.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Request a demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Withholding%20Tax%20Processor%20Inquiry">Talk to a consultant</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 08</span>
+    <span class="accent">ai-q.fit · withholding tax</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

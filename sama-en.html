@@ -3,436 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAMA Framework | Change Management for AI-Q</title>
+<title>SAMA Framework · AI-Q</title>
+<meta name="description" content="SAMA: a change-management framework combining Storytelling + AI-Q + Mindfulness + Agile. A six-week Sense · Align · Move · Anchor cycle.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="deco.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
 <style>
-.bg-gradient{ display:none; }
-main.container{ padding-top: 2rem; padding-bottom: 4rem; max-width:1200px; margin:0 auto; position:relative; z-index:1; }
-section{ margin-bottom: 4rem; position:relative; }
-.hero{ text-align:center; padding: 3rem 0 2rem; }
-.hero-badge{
-  display:inline-block; font-family: var(--f-mono); font-size:0.78rem;
-  letter-spacing:3px; text-transform:uppercase; color:var(--gold-2);
-  border:1px solid var(--gold-line); padding:8px 18px; border-radius:50px;
-  background:rgba(26,20,10,0.7); margin-bottom:1.5rem;
+.pillar-card { border: var(--aq-border); display: flex; flex-direction: column; }
+.pillar-header-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: var(--aq-border); padding: 10px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); }
+.pillar-body { padding: 24px; }
+.pillar-name { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 4px; }
+.pillar-tagline { font-family: var(--aq-font-mono); color: var(--aq-accent); font-size: var(--aq-fs-body); margin-bottom: 16px; }
+.pillar-lead { font-size: var(--aq-fs-body-lg); line-height: var(--aq-lh-prose); color: var(--aq-ink2); margin-bottom: 20px; }
+.pillar-component { border-top: var(--aq-border-thin); padding: 14px 0; }
+.pillar-component-title { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.pillar-component-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.cycle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: var(--aq-border); }
+.cycle-phase { padding: 20px 18px; border-right: var(--aq-border-thin); }
+.cycle-phase:last-child { border-right: 0; }
+.cycle-week { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-ink2); margin-bottom: 12px; }
+.cycle-name { font-family: var(--aq-font-display); font-size: 32px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 10px; }
+.cycle-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+@media (max-width: 1024px) {
+  .cycle-grid { grid-template-columns: repeat(2, 1fr); }
+  .cycle-phase:nth-child(2n) { border-right: 0; }
+  .cycle-phase:nth-child(-n+2) { border-bottom: var(--aq-border-thin); }
 }
-h1{ font-family:var(--f-display); font-size:clamp(2.5rem,6vw,4rem); letter-spacing:8px;
-    text-transform:uppercase; margin:0 0 1rem; }
-h1 .type-code{ background:var(--grad-gold); -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 18px rgba(227,184,92,0.30)); }
-h2{ font-family:var(--f-display); font-size:clamp(1.6rem,3.5vw,2.4rem); letter-spacing:6px;
-    text-transform:uppercase; color:var(--text-bright); text-align:center; margin:0 0 2rem; }
-h3{ font-family:var(--f-display); font-size:1.2rem; letter-spacing:3px;
-    text-transform:uppercase; color:var(--gold-1); margin: 0 0 0.75rem; }
-h4{ font-family:var(--f-mono); font-size:0.85rem; letter-spacing:2px; text-transform:uppercase;
-    color:var(--gold-3); margin:1.5rem 0 0.5rem; }
-.tagline{ font-family:var(--f-display); font-size:1.4rem; letter-spacing:2px;
-    color:var(--gold-2); margin:0.5rem 0 1.5rem; font-style:italic; }
-.hero-description, .lead, p{ color:var(--text); font-size:1.05rem; line-height:1.75;
-    max-width:780px; margin:0 auto; }
-.quick-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:1rem; max-width:880px; margin:2.5rem auto; }
-.stat-card{ background:var(--grad-card); border:1px solid var(--gold-line);
-    border-radius:var(--r-md); padding:1.4rem 1rem; text-align:center;
-    box-shadow: var(--shadow-card); }
-.stat-value{ font-family:var(--f-display); font-size:2.4rem; letter-spacing:2px;
-    background:var(--grad-gold); -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent; }
-.stat-label{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:2px;
-    text-transform:uppercase; color:var(--text-mute); margin-top:0.25rem; }
-.dimensions, .components-grid, .pillars, .resources{
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem;
+@media (max-width: 768px) {
+  .cycle-grid { grid-template-columns: 1fr; }
+  .cycle-phase { border-right: 0; border-bottom: var(--aq-border-thin); }
+  .cycle-phase:last-child { border-bottom: 0; }
 }
-.dimension, .component, .pillar, .resource, .quadrant{
-  background:var(--grad-card); border:1px solid var(--gold-line); border-radius:var(--r-lg);
-  padding:1.6rem 1.4rem; box-shadow:var(--shadow-card);
-  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  position:relative;
+
+.metrics-table { width: 100%; border-collapse: collapse; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.metrics-table th, .metrics-table td { padding: 14px 18px; border: var(--aq-border-thin); text-align: left; vertical-align: top; }
+.metrics-table th { background: var(--aq-ink); color: var(--aq-paper); font-weight: 500; text-transform: uppercase; letter-spacing: var(--aq-track-kicker); font-size: var(--aq-fs-meta); }
+.metrics-table td:first-child { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; }
+@media (max-width: 768px) {
+  .metrics-table thead { display: none; }
+  .metrics-table tr { display: block; margin-bottom: 12px; border: var(--aq-border-thin); }
+  .metrics-table td { display: block; border: 0; border-bottom: var(--aq-border-thin); padding: 10px 14px; }
+  .metrics-table td:last-child { border-bottom: 0; }
 }
-.dimension:hover, .component:hover, .pillar:hover, .resource:hover, .quadrant:hover{
-  transform: translateY(-4px); border-color: var(--gold-2); box-shadow: var(--shadow-card-hover);
-}
-.dimension::before, .component::before, .pillar::before, .quadrant::before{
-  content:''; position:absolute; top:0; left:18%; right:18%; height:1px;
-  background: linear-gradient(90deg, transparent, var(--gold-sheen), transparent);
-}
-ul, ol{ color:var(--text); padding-left:1.25rem; }
-ul li, ol li{ margin-bottom: 0.4rem; }
-.cta{ text-align:center; padding: 3rem 0; }
-.btn-primary, .btn-nav, .nav-cta, .cta-btn, button.primary{
-  display:inline-flex; align-items:center; gap:10px;
-  font-family:var(--f-display); font-size:0.85rem; letter-spacing:3px;
-  text-transform:uppercase; padding:14px 28px; border-radius:6px; border:0;
-  cursor:pointer; text-decoration:none;
-  color:#1A140A; background:var(--grad-gold-button);
-  box-shadow:var(--shadow-gold); transition:transform 0.2s var(--ease);
-}
-.btn-primary:hover, .btn-nav:hover, .nav-cta:hover, .cta-btn:hover{ transform:translateY(-2px); }
-.lang-switch{ font-family:var(--f-mono); font-size:0.7rem!important; letter-spacing:1.5px;
-  background:rgba(10,9,6,0.6)!important; border:1px solid var(--gold-line)!important;
-  color:var(--text-dim)!important; padding:6px 12px!important; border-radius:6px!important; }
-.lang-switch:hover{ color:var(--gold-1)!important; border-color:var(--gold-2)!important; }
-.quadrant-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; }
-.section-intro{ text-align:center; max-width:780px; margin:0 auto 2rem; color:var(--text); }
-.dimension-icon, .component-icon{ font-size:2rem; margin-bottom:0.5rem; }
-.label{ font-family:var(--f-mono); font-size:0.72rem; letter-spacing:2.5px;
-    text-transform:uppercase; color:var(--gold-3); }
-strong, b{ color:var(--text-bright); font-weight:600; }
-em, i{ color:var(--gold-2); font-style:italic; }
-a{ color:var(--gold-2); }
-a:hover{ color:var(--gold-1); }
+
+.quote-block { border-left: 4px solid var(--aq-accent); padding: 20px 24px; background: var(--aq-paper2); font-size: var(--aq-fs-body-lg); line-height: var(--aq-lh-prose); margin-top: 24px; }
 </style>
 </head>
 <body>
-<div class="bg-vapor"></div>
-<nav class="deco-nav">
-  <a class="aiq-mark" href="index.html"><span>AI</span><span class="dot"></span><span>Q</span></a>
-  <button class="mobile-menu-toggle" onclick="aiqToggleMenu(this)" aria-label="Menu" aria-expanded="false">
-    <span class="icon-open">☰</span><span class="icon-close">✕</span>
-  </button>
-  <div class="deco-nav-links">
-    <a href="index.html#framework">The Framework</a>
-    <a href="index.html#types">The 16 Types</a>
-    <a href="sama-en.html">SAMA</a>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-toggle" aria-haspopup="true">Solutions</button>
-      <ul class="nav-dropdown-menu">
-        <li><a href="bancos-en.html"><strong>Bank Statements</strong><small>From PDF to spreadsheet, zero typing</small></a></li>
-        <li><a href="retenciones.html"><strong>Retenciones Impositivas</strong><small>Withholding processor</small></a></li>
-        <li><a href="amortizaciones.html"><strong>Activos Fijos · AxI</strong><small>Fixed-asset reporting</small></a></li>
-        <li><a href="gimnasios-en.html"><strong>Gyms &amp; Academies</strong><small>Reporting, billing &amp; reactivation</small></a></li>
-      </ul>
-    </div>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-toggle" aria-haspopup="true">Consulting</button>
-      <ul class="nav-dropdown-menu">
-        <li><a href="consultoria-en.html"><strong>Services (EN)</strong><small>Sprint &amp; Quarter</small></a></li>
-        <li><a href="consultoria.html"><strong>Servicios (ES)</strong><small>Sprint &amp; Quarter</small></a></li>
-      </ul>
-    </div>
-    <div class="lang-toggle">
-      <a href="sama.html">ES</a>
-      <a class="on" href="sama-en.html">EN</a>
-    </div>
-    <a class="btn btn-primary" href="quiz.html">Take the Test</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#framework">Framework</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama.html" style="color:var(--aq-accent);">SAMA</a>
+      <a class="nav-link" href="sama.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
   </div>
-</nav>
-<div class="nav-spacer"></div>
-<main class="container">
+</header>
 
-<section class="hero">
-<div class="hero-badge">SAMA • Storytelling / AI-Q / Mindfulness / Agile</div>
-<h1>The <span class="type-code">SAMA</span> Framework</h1>
-<p class="tagline">"A method for the change AI demands."</p>
-<p class="hero-description">
-95% of organizations investing in AI fail to capture the expected value. The obstacle is not technological: it is organizational. SAMA is a Change Management framework that integrates three disciplines typically treated separately —narrative, presence and cadence— on top of the AI-Q diagnostic.
-</p>
-</section>
+<div class="page">
 
-<section class="quick-stats">
-<div class="stat-card"><div class="stat-value">4</div><div class="stat-label">Components</div></div>
-<div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Active Pillars</div></div>
-<div class="stat-card"><div class="stat-value">4</div><div class="stat-label">Cycle Phases</div></div>
-<div class="stat-card"><div class="stat-value">6</div><div class="stat-label">Weeks per Sprint</div></div>
-</section>
-
-<section class="section">
-<div class="section-header">
-<div class="section-label">The Context</div>
-<h2 class="section-title">Why a new framework</h2>
-</div>
-<p class="section-intro">
-Traditional change management frameworks were designed for a different era. They assumed long cycles, discrete changes and a clear separation between technology and human behavior. AI breaks all three assumptions: the cycle is continuous, the change is systemic, and the technology embeds directly into everyone's daily work.
-</p>
-<p class="section-intro">
-AI transformation demands action on three simultaneous fronts: the <strong style="color:var(--story-color)">narrative front</strong>, the <strong style="color:var(--mind-color)">emotional front</strong>, and the <strong style="color:var(--agile-color)">operational front</strong>. Ignoring any of the three produces cosmetic transformations.
-</p>
-<div class="quote-block">
-SAMA integrates these three fronts on top of the AI-Q diagnostic. It does not replace established methodologies: it updates them for an era where transformation is simultaneously technical, narrative, and emotional.
-</div>
-</section>
-
-<section class="section">
-<div class="section-header">
-<div class="section-label">Layer 0 — Foundation</div>
-<h2 class="section-title">The AI-Q diagnostic</h2>
-</div>
-<p class="section-intro">
-Before activating any change lever, the organization must know where it stands. The AI-Q provides that diagnostic across four dimensions that combine into 16 organizational types.
-</p>
-
-<div class="dimension-grid">
-<div class="dimension-card">
-<div class="dim-icon">🗂️</div>
-<div class="dim-name">Structure</div>
-<div class="dim-spectrum">
-<span class="dim-spectrum-left">Scattered</span>
-<div class="dim-spectrum-bar"></div>
-<span class="dim-spectrum-right">Consolidated</span>
-</div>
-<div class="dim-desc">Is your AI landscape scattered or consolidated? Measures whether unified platforms with consistent governance exist.</div>
-</div>
-<div class="dimension-card">
-<div class="dim-icon">🎯</div>
-<div class="dim-name">Orientation</div>
-<div class="dim-spectrum">
-<span class="dim-spectrum-left">Reactive</span>
-<div class="dim-spectrum-bar"></div>
-<span class="dim-spectrum-right">Proactive</span>
-</div>
-<div class="dim-desc">Is your strategy reactive or proactive? Evaluates whether a roadmap anticipates future needs and opportunities.</div>
-</div>
-<div class="dimension-card">
-<div class="dim-icon">👥</div>
-<div class="dim-name">Leadership</div>
-<div class="dim-spectrum">
-<span class="dim-spectrum-left">Tech-driven</span>
-<div class="dim-spectrum-bar"></div>
-<span class="dim-spectrum-right">Business-driven</span>
-</div>
-<div class="dim-desc">Who leads AI decisions, the business or technology? Determines who owns outcomes and who is accountable.</div>
-</div>
-<div class="dimension-card">
-<div class="dim-icon">🔗</div>
-<div class="dim-name">Integration</div>
-<div class="dim-spectrum">
-<span class="dim-spectrum-left">Experimental</span>
-<div class="dim-spectrum-bar"></div>
-<span class="dim-spectrum-right">Integrated</span>
-</div>
-<div class="dim-desc">Is AI in production or still experimental? Distinguishes between pilots and systems affecting real operations.</div>
-</div>
-</div>
-
-<p class="section-intro">
-The diagnostic produces two essential outputs: identification of the <strong style="color:var(--accent-teal)">current type</strong> and selection of the <strong style="color:var(--accent-teal)">target type</strong>. The gap between them defines what each sprint must work on.
-</p>
-</section>
-
-<section class="section pillars-section">
-<div class="section-header">
-<div class="section-label">Layer 1 — The three activators</div>
-<h2 class="section-title">The pillars of change</h2>
-</div>
-<p class="section-intro">
-Each pillar addresses a distinct failure mode in AI transformations. The three operate simultaneously and none works in isolation.
-</p>
-
-<div class="pillar-card storytelling">
-<div class="pillar-header">
-<div>
-<div class="pillar-label">Pillar 1</div>
-<div class="pillar-name">Storytelling</div>
-</div>
-<div class="pillar-tagline">Defeats fear</div>
-</div>
-<p class="pillar-lead">
-People are not mobilized by dashboards; they are mobilized by stories. Storytelling in SAMA is a strategic discipline that builds three articulated narratives.
-</p>
-<div class="pillar-components">
-<div class="component">
-<div class="component-title">Executive Narrative</div>
-<div class="component-desc">A three-act story senior leadership must be able to tell in five minutes: where we come from, the inflection point, and where we are going.</div>
-</div>
-<div class="component">
-<div class="component-title">Internal Hero Arc</div>
-<div class="component-desc">Every employee must answer yes to one question: what can I do with AI that I couldn't before? If unclear, that person will not join the change.</div>
-</div>
-<div class="component">
-<div class="component-title">Library of Living Cases</div>
-<div class="component-desc">Short testimonials from colleagues down the hall, not foreign case studies. One new story every two weeks across all internal channels.</div>
-</div>
-</div>
-</div>
-
-<div class="pillar-card mindfulness">
-<div class="pillar-header">
-<div>
-<div class="pillar-label">Pillar 2</div>
-<div class="pillar-name">Mindfulness</div>
-</div>
-<div class="pillar-tagline">Sustains the journey</div>
-</div>
-<p class="pillar-lead">
-Every transformation crosses a valley where the old no longer works and the new does not yet perform. Mindfulness is the organizational capacity to sustain attention, energy, and listening through that valley.
-</p>
-<div class="pillar-components">
-<div class="component">
-<div class="component-title">Full Attention in Decisions</div>
-<div class="component-desc">Committee meetings that open with two minutes of centering and close with one minute of reflection. It changes decision quality.</div>
-</div>
-<div class="component">
-<div class="component-title">Energy Management</div>
-<div class="component-desc">Sprint and recovery cycles. After every change sprint, one week of consolidation without new initiatives.</div>
-</div>
-<div class="component">
-<div class="component-title">Listening to Resistance</div>
-<div class="component-desc">Resistance is not an obstacle: it is information. Formal spaces where skeptics can voice concerns without being labeled.</div>
-</div>
-</div>
-</div>
-
-<div class="pillar-card agile">
-<div class="pillar-header">
-<div>
-<div class="pillar-label">Pillar 3</div>
-<div class="pillar-name">Agile</div>
-</div>
-<div class="pillar-tagline">Accelerates progress</div>
-</div>
-<p class="pillar-lead">
-Not the software development methodology applied to organizational change: a cadence principle. Transformation is built through short cycles, visible wins, and continuous adjustments.
-</p>
-<div class="pillar-components">
-<div class="component">
-<div class="component-title">Six-Week Sprints</div>
-<div class="component-desc">Each sprint has specific focus: one AI-Q dimension, a bounded set of initiatives, clear metrics. Nothing moves all at once.</div>
-</div>
-<div class="component">
-<div class="component-title">Prioritized Backlog</div>
-<div class="component-desc">Every initiative has a business owner —not a tech owner—, a measurable success metric, and connection to an AI-Q dimension.</div>
-</div>
-<div class="component">
-<div class="component-title">Retros and Biweekly Demos</div>
-<div class="component-desc">What worked, what didn't, what we adjust. Demos produce social evidence that transformation is actually happening.</div>
-</div>
-</div>
-</div>
-</section>
-
-<section class="section">
-<div class="section-header">
-<div class="section-label">Layer 2 — Operating engine</div>
-<h2 class="section-title">The Sense · Align · Move · Anchor cycle</h2>
-</div>
-<p class="section-intro">
-The three pillars integrate into a six-week cycle that repeats until the AI-Q gap is closed. Each phase activates a dominant pillar.
-</p>
-
-<div class="cycle-grid">
-<div class="cycle-phase">
-<div class="cycle-week">Week 1</div>
-<div class="cycle-name">Sense</div>
-<div class="cycle-desc">Listen to the organization. Identify pain, traction, and resistance.</div>
-</div>
-<div class="cycle-phase">
-<div class="cycle-week">Week 2</div>
-<div class="cycle-name">Align</div>
-<div class="cycle-desc">Calibrate the narrative and sprint objectives with what was heard.</div>
-</div>
-<div class="cycle-phase">
-<div class="cycle-week">Weeks 3 to 5</div>
-<div class="cycle-name">Move</div>
-<div class="cycle-desc">Execute sprint initiatives with agile cadence.</div>
-</div>
-<div class="cycle-phase">
-<div class="cycle-week">Week 6</div>
-<div class="cycle-name">Anchor</div>
-<div class="cycle-desc">Consolidate advances in structure, process, and culture.</div>
-</div>
-</div>
-
-<div class="quote-block">
-The <strong style="color:var(--sama-color)">Anchor</strong> phase is critical. It is where advances become institutionalized: job descriptions get updated, operating processes get modified, measurement systems get adjusted. Without Anchor, every sprint demands the same heroic effort as the previous one.
-</div>
-</section>
-
-<section class="section">
-<div class="section-header">
-<div class="section-label">Measurement system</div>
-<h2 class="section-title">Metrics by pillar</h2>
-</div>
-<p class="section-intro">
-A framework without metrics is a statement of intent. SAMA measures progress and outcome in each component, through a single dashboard accessible across the organization.
-</p>
-
-<div class="metrics-wrapper">
-<table class="metrics-table">
-<thead>
-<tr>
-<th>Pillar</th>
-<th>Progress Indicator</th>
-<th>Outcome Indicator</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AI-Q</td>
-<td>Score by dimension in quarterly assessment</td>
-<td>Movement from current type toward target</td>
-</tr>
-<tr>
-<td>Storytelling</td>
-<td>Reach and frequency of narratives deployed</td>
-<td>Comprehension and adherence to the story</td>
-</tr>
-<tr>
-<td>Mindfulness</td>
-<td>Listening spaces held and participation rate</td>
-<td>Organizational energy index and turnover</td>
-</tr>
-<tr>
-<td>Agile</td>
-<td>Sprint velocity and completion rate</td>
-<td>Initiatives in production with measurable value</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<section class="section">
-<div class="section-header">
-<div class="section-label">Critical conditions</div>
-<h2 class="section-title">Without these, SAMA won't work</h2>
-</div>
-<p class="section-intro">
-Four conditions without which the framework cannot deliver results. These are not recommendations: they are requirements.
-</p>
-
-<div class="conditions-grid">
-<div class="condition-card">
-<div class="condition-number">01</div>
-<div class="condition-title">Active Executive Sponsorship</div>
-<div class="condition-desc">Board approval is not enough. The CEO and at least two members of the executive committee must personally engage in demos and retrospectives.</div>
-</div>
-<div class="condition-card">
-<div class="condition-number">02</div>
-<div class="condition-title">Real Resource Commitment</div>
-<div class="condition-desc">The transformation team cannot be an additional duty. It requires formally assigned dedication with its own performance metrics.</div>
-</div>
-<div class="condition-card">
-<div class="condition-number">03</div>
-<div class="condition-title">Tolerance for the Valley</div>
-<div class="condition-desc">The committee must commit in writing to not abandon the framework when indicators get worse before they get better.</div>
-</div>
-<div class="condition-card">
-<div class="condition-number">04</div>
-<div class="condition-title">Business Ownership</div>
-<div class="condition-desc">If the transformation is still seen as a technology matter, the Leadership dimension of AI-Q will never close.</div>
-</div>
-</div>
-</section>
-
-<section class="cta-section">
-<div class="cta-box">
-<h2 class="cta-title">Ready to transform with method?</h2>
-<p class="cta-description">SAMA is a disciplined framework, not a miraculous one. Its value lies in the articulated integration of its components and in its connection to the AI-Q diagnostic. Start by knowing your type.</p>
-<div class="cta-buttons">
-<a href="quiz.html" class="btn-primary">Take the AI-Q Test →</a>
-<a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" class="btn-secondary">Book a Call</a>
-</div>
-</div>
-</section>
-
-</main>
-<footer class="deco-footer">
-  <div class="container deco-footer-content">
-    <a class="aiq-mark" href="index.html" style="font-size:1.1rem;"><span>AI</span><span class="dot"></span><span>Q</span></a>
-    <div class="credit">© 2025 AI-Q · Dr. Federico Andino</div>
-    <div><a href="index.html#types">The 16 Types</a> · <a href="quiz.html">Take the Test</a></div>
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group">
+      <span>DOC // AIQ-SAMA-001</span>
+      <span class="mute2">REV / B</span>
+    </div>
+    <div class="spec-strip-group">
+      <span><span class="dot">●</span>FRAMEWORK</span>
+      <span>SHEET 03 / SAMA · EN</span>
+    </div>
   </div>
-</footer>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Change-management framework</div>
+      <h1 class="display-xl">SAMA<span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">An operating framework that combines <strong>S</strong>torytelling, <strong>A</strong>I-Q, <strong>M</strong>indfulness and <strong>A</strong>gile in a six-week Sense · Align · Move · Anchor cycle.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-bordered grid-4">
+      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">4</div><div class="kicker">Components</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">3</div><div class="kicker">Change pillars</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">4</div><div class="kicker">Cycle phases</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">6</div><div class="kicker">Weeks per sprint</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · Starting point</div><h2 class="display-lg mt-4">Why a new framework</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">AI transformation fails for the same three reasons it always has: the business doesn't take ownership, teams burn out in the valley of change, and pilots never reach production. Traditional change-management frameworks were designed for reorganizations, mergers, or cultural shifts — not for a transformation where technology moves faster than the organization.</p>
+      <p class="body-lg">SAMA articulates four components into one operating system. <strong>AI-Q</strong> diagnoses where you stand. <strong>Storytelling</strong> builds the narrative that mobilizes. <strong>Mindfulness</strong> sustains attention through the valley. <strong>Agile</strong> imposes a cadence that produces visible evidence.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Layer 0 — Diagnostic</div><h2 class="display-lg mt-4">The AI-Q diagnostic</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:760px;">SAMA operates on the AI-Q diagnostic. Without knowing your organization's type, any intervention is just a gesture. The diagnostic is built on four critical dimensions.</p>
+
+    <div class="grid grid-2">
+      <div class="dim-card"><div class="kicker">Dim. 01 · S</div><h3>Structure</h3><p class="muted">How orderly is your AI landscape? Measures the degree of coordination between tools, decisions, and governance.</p></div>
+      <div class="dim-card"><div class="kicker">Dim. 02 · O</div><h3>Orientation</h3><p class="muted">Does your strategy anticipate or react? Measures whether decisions follow a plan or respond to pressure.</p></div>
+      <div class="dim-card"><div class="kicker">Dim. 03 · L</div><h3>Leadership</h3><p class="muted">Who drives decisions? Measures the degree to which the business — not IT — defines what problems AI solves.</p></div>
+      <div class="dim-card"><div class="kicker">Dim. 04 · I</div><h3>Integration</h3><p class="muted">Is AI embedded in daily workflows? Measures how much of everyday work has actually changed.</p></div>
+    </div>
+
+    <div class="mt-5"><a class="btn primary" href="quiz.html">Take the AI-Q test →</a></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Layer 1 — Change pillars</div><h2 class="display-lg mt-4">The change pillars</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+
+      <div class="pillar-card">
+        <div class="pillar-header-bar"><span>PILAR 01</span><span class="accent">● S</span></div>
+        <div class="pillar-body">
+          <div class="pillar-name">Storytelling</div>
+          <div class="pillar-tagline">Defeats fear</div>
+          <p class="pillar-lead">People don't mobilize for dashboards: they mobilize for narratives. Storytelling in SAMA is a strategic discipline that builds three articulated narratives.</p>
+          <div class="pillar-component"><div class="pillar-component-title">Executive narrative</div><div class="pillar-component-desc">A three-act story that senior leadership must be able to tell in five minutes: where we come from, what the inflection point is, where we're heading.</div></div>
+          <div class="pillar-component"><div class="pillar-component-title">Internal hero's arc</div><div class="pillar-component-desc">Every team member must answer affirmatively: what can I do with AI that I couldn't before? If the answer is uncertain, that person won't join in.</div></div>
+          <div class="pillar-component"><div class="pillar-component-title">Living case library</div><div class="pillar-component-desc">Brief testimonials from colleagues down the hall. One new story every two weeks, distributed across every internal channel.</div></div>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-header-bar"><span>PILAR 02</span><span class="accent">● M</span></div>
+        <div class="pillar-body">
+          <div class="pillar-name">Mindfulness</div>
+          <div class="pillar-tagline">Sustains the journey</div>
+          <p class="pillar-lead">Every transformation crosses a valley where the old no longer works and the new isn't yet producing. Mindfulness is the organizational capacity to sustain attention, energy, and listening across that valley.</p>
+          <div class="pillar-component"><div class="pillar-component-title">Mindful decision-making</div><div class="pillar-component-desc">Committee meetings that open with two minutes of grounding and close with one minute of reflection. It changes the quality of decisions.</div></div>
+          <div class="pillar-component"><div class="pillar-component-title">Energy management</div><div class="pillar-component-desc">Sprint-and-recovery cycles. After every change sprint, one week of consolidation with no new initiatives.</div></div>
+          <div class="pillar-component"><div class="pillar-component-title">Listening to resistance</div><div class="pillar-component-desc">Resistance is not an obstacle: it is information. Spaces where skeptics can voice concerns without being labeled.</div></div>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-header-bar"><span>PILAR 03</span><span class="accent">● A</span></div>
+        <div class="pillar-body">
+          <div class="pillar-name">Agile</div>
+          <div class="pillar-tagline">Accelerates the work</div>
+          <p class="pillar-lead">Not software-development methodology applied to organizational change: it is a principle of cadence. Transformation is built through short cycles, visible progress, and continuous adjustment.</p>
+          <div class="pillar-component"><div class="pillar-component-title">Six-week sprints</div><div class="pillar-component-desc">Each sprint has a specific focus: one AI-Q dimension to work on, bounded initiatives, clear metrics. Everything doesn't move at once.</div></div>
+          <div class="pillar-component"><div class="pillar-component-title">Prioritized backlog</div><div class="pillar-component-desc">Each initiative has a business owner — not a technology owner —, a measurable success metric, and a clear connection to an AI-Q dimension.</div></div>
+          <div class="pillar-component"><div class="pillar-component-title">Bi-weekly retros and demos</div><div class="pillar-component-desc">What worked, what didn't, what we're adjusting. Demos produce social evidence that transformation is happening.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Layer 2 — Operating engine</div><h2 class="display-lg mt-4">The Sense · Align · Move · Anchor cycle</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:760px;">The three pillars integrate into a six-week cycle that repeats until the AI-Q gap closes. Each phase activates a dominant pillar.</p>
+
+    <div class="cycle-grid">
+      <div class="cycle-phase"><div class="cycle-week">Week 01</div><div class="cycle-name">Sense</div><div class="cycle-desc">Listen to the organization. Identify pain, traction, and resistance.</div></div>
+      <div class="cycle-phase"><div class="cycle-week">Week 02</div><div class="cycle-name">Align</div><div class="cycle-desc">Calibrate narrative and sprint objectives with what you heard.</div></div>
+      <div class="cycle-phase"><div class="cycle-week">Weeks 03–05</div><div class="cycle-name">Move</div><div class="cycle-desc">Execute the sprint initiatives with an agile cadence.</div></div>
+      <div class="cycle-phase"><div class="cycle-week">Week 06</div><div class="cycle-name">Anchor</div><div class="cycle-desc">Consolidate progress into structure, processes, and culture.</div></div>
+    </div>
+
+    <div class="quote-block">The <strong>Anchor</strong> phase is critical. It's where progress gets institutionalized: job descriptions are updated, operating processes are modified, measurement systems are adjusted. Without Anchor, every sprint requires the same heroic effort as the last.</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Measurement system</div><h2 class="display-lg mt-4">Metrics by pillar</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:760px;">A framework without metrics is a statement of intent. SAMA measures progress and outcomes for every component, with one dashboard accessible to the whole organization.</p>
+
+    <table class="metrics-table">
+      <thead><tr><th>Pillar</th><th>Progress indicator</th><th>Outcome indicator</th></tr></thead>
+      <tbody>
+        <tr><td>AI-Q</td><td>Per-dimension score in quarterly evaluation</td><td>Movement from current type toward target</td></tr>
+        <tr><td>Storytelling</td><td>Reach and frequency of narratives distributed</td><td>Comprehension and adherence to the story</td></tr>
+        <tr><td>Mindfulness</td><td>Listening sessions held and participation rate</td><td>Organizational energy and turnover index</td></tr>
+        <tr><td>Agile</td><td>Sprint velocity and completion rate</td><td>Initiatives in production with measurable value</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Critical conditions</div><h2 class="display-lg mt-4">Without these, SAMA doesn't work</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:760px;">Four conditions without which the framework cannot deliver. These are not recommendations: they are requirements.</p>
+
+    <div class="grid grid-2">
+      <div class="dim-card"><div class="kicker-tiny">CONDITION 01</div><h3 class="mt-2">Active executive sponsorship</h3><p class="muted">Board approval is not enough. The CEO and at least two members of the executive committee must personally participate in demos and retrospectives.</p></div>
+      <div class="dim-card"><div class="kicker-tiny">CONDITION 02</div><h3 class="mt-2">Real resource commitment</h3><p class="muted">The transformation team cannot be a side role. It requires formally assigned dedication, with its own performance metrics.</p></div>
+      <div class="dim-card"><div class="kicker-tiny">CONDITION 03</div><h3 class="mt-2">Tolerance for the valley</h3><p class="muted">The committee must commit in writing not to abandon the framework when indicators worsen before they improve.</p></div>
+      <div class="dim-card"><div class="kicker-tiny">CONDITION 04</div><h3 class="mt-2">Business ownership</h3><p class="muted">If transformation is still seen as a technology matter, the Leadership dimension of AI-Q never closes.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§07 · Next step</span><span class="accent">● READY</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Ready to transform with a method?</h2>
+        <p class="body-lg muted mb-5" style="max-width:580px;margin-left:auto;margin-right:auto;">SAMA is a disciplined framework, not a miracle. Its value lies in the articulated integration of its components and their connection to the AI-Q diagnostic. Start by knowing your type.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="quiz.html">Hacer el test AI-Q →</a>
+          <a class="btn btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a discovery call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 03</span>
+    <span class="accent">ai-q.fit · sama framework</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
 </body>
 </html>
