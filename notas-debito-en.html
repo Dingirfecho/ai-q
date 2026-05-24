@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Debit Notes · Automation · AI-Q</title>
+<meta name="description" content="Automated generation of bank debit notes for SAP. From CSV statement to load file in 30 seconds. Auditable accounting rules, 67/33 split, totalizer, complete audit trail.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.flow-pipeline { display: grid; gap: var(--aq-space-3); }
+.flow-node { display: grid; grid-template-columns: 80px 1fr; border: var(--aq-border); }
+.flow-icon { background: var(--aq-ink); color: var(--aq-paper); display: flex; align-items: center; justify-content: center; font-family: var(--aq-font-mono); font-weight: 600; font-size: 18px; letter-spacing: 0.05em; padding: 20px 8px; }
+.flow-content { padding: 16px 20px; }
+.flow-step-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 4px; }
+.flow-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.flow-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.flow-arrow { text-align: center; color: var(--aq-accent); font-family: var(--aq-font-mono); }
+
+.rule-card { border: var(--aq-border); padding: 22px; }
+.rule-tag { display: inline-block; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); padding: 3px 9px; background: var(--aq-ink); color: var(--aq-paper); letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.rule-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
+.rule-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.rule-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.benefit-table { width: 100%; border-collapse: collapse; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.benefit-table th, .benefit-table td { padding: 12px 16px; border: var(--aq-border-thin); text-align: left; vertical-align: top; }
+.benefit-table th { background: var(--aq-ink); color: var(--aq-paper); font-weight: 500; text-transform: uppercase; letter-spacing: var(--aq-track-kicker); font-size: var(--aq-fs-meta); }
+.benefit-table td:first-child { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: var(--aq-ink); }
+.benefit-table td.before { color: var(--aq-ink2); background: var(--aq-paper2); }
+.benefit-table td.after { color: var(--aq-ink); font-weight: 500; }
+@media (max-width: 768px) {
+  .benefit-table thead { display: none; }
+  .benefit-table tr { display: block; margin-bottom: 12px; border: var(--aq-border-thin); }
+  .benefit-table td { display: block; border: 0; border-bottom: var(--aq-border-thin); padding: 10px 14px; }
+  .benefit-table td:last-child { border-bottom: 0; }
+}
+
+.file-block { border: var(--aq-border); padding: 22px; }
+.file-name { font-family: var(--aq-font-mono); font-size: 14px; font-weight: 500; color: var(--aq-accent); margin-bottom: 8px; word-break: break-all; }
+.file-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.file-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); margin-bottom: 12px; }
+.file-format { font-family: var(--aq-font-mono); font-size: 12px; background: var(--aq-paper2); border: 1px solid var(--aq-mute1); padding: 10px 12px; word-break: break-all; line-height: 1.4; color: var(--aq-ink); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama.html">SAMA</a>
+      <a class="nav-link" href="consultoria-en.html">Consulting</a>
+      <a class="nav-link" href="notas-debito.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-NDB-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 10 / BANK DEBIT NOTES</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Accounting &amp; treasury</div>
+      <h1 class="display-xl">From bank statement to SAP load file, <span class="accent">automated</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:820px;">"The statement comes in by email. Out comes the SAP load file and the audit report — classified, totalized, ready to post."</p>
+      <p class="body-lg mt-4" style="max-width:820px;">End-to-end automation of bank debit-note generation for SAP. The process receives statements by email, structures them with AI, cross-references them against accounting catalogs, and delivers two files to Google Drive: the SAP load file and a classified list for audit.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">~30 s</div>
+        <div class="marquee-label">Per statement</div>
+        <div class="marquee-desc">Before: 30 to 45 minutes of manual classification and file assembly. Now: from email to Drive, in seconds.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">8</div>
+        <div class="marquee-label">Auditable business rules</div>
+        <div class="marquee-desc">From bank identification to the 67/33 split and totalizer, every rule documented and traceable.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">100%</div>
+        <div class="marquee-label">Unattended</div>
+        <div class="marquee-desc">No human intervention between sending the email and the files landing in Drive. Auditable log per run.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §01 problem -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Manual classification, every month</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Companies migrating to SAP often inherit a recurring manual process: <strong>classify every bank transaction, identify items subject to accounting entry, and assemble the load file</strong>. A person opens the CSV, walks the rows, cross-references against an Excel of criteria, splits amounts by internal rules, assembles header and totalizer, and uploads the file to the system.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Dimension</th><th>Before (manual)</th><th>After (automated)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Time per statement</td><td class="before">30 to 45 minutes</td><td class="after">~30 seconds</td></tr>
+          <tr><td>Traceability</td><td class="before">Manual / Excel sheet</td><td class="after">Log + versioned files</td></tr>
+          <tr><td>Scalability</td><td class="before">1 bank per operator</td><td class="after">N banks in parallel</td></tr>
+          <tr><td>Error risk</td><td class="before">High — manual classification</td><td class="after">Low — auditable rules</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §02 flow -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · How it works</div><h2 class="display-lg mt-4">The flow, in 7 steps</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">The process runs whenever a statement arrives in a dedicated mailbox. No human intervention between sending the email and the final files in Drive.</p>
+
+    <div class="flow-pipeline">
+      <div class="flow-node"><div class="flow-icon">01</div><div class="flow-content"><div class="flow-step-num">INTAKE</div><div class="flow-title">Mailhook receives the statement</div><div class="flow-desc">A mailhook detects the inbound email with the bank statement attached as CSV. The trigger is immediate.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">02</div><div class="flow-content"><div class="flow-step-num">STRUCTURING</div><div class="flow-title">Gemini interprets the CSV</div><div class="flow-desc"><code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">gemini-2.5-pro</code> receives the CSV and returns a JSON object with the statement header and an array of transactions.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">03</div><div class="flow-content"><div class="flow-step-num">BANK</div><div class="flow-title">Identification against BCRA catalog</div><div class="flow-desc">The account number is matched against the BCRA Entities catalog. If matched, the BCRA code and official bank name are retrieved.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">04</div><div class="flow-content"><div class="flow-step-num">CRITERIA</div><div class="flow-title">Accounting classification</div><div class="flow-desc">For each transaction, its criterion is looked up in the Criteria catalog using the bank operation code as the key. Returns ledger account, tax indicator, cost center, sign, and category (GST− / GST+).</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">05</div><div class="flow-content"><div class="flow-step-num">RULES</div><div class="flow-title">Business-rule application</div><div class="flow-desc">GST− transactions are included in the SAP file. Special accounts get a 67% expense / 33% computable-asset split. Transactions with no criterion are flagged UNCLASSIFIED.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">06</div><div class="flow-content"><div class="flow-step-num">BUILD</div><div class="flow-title">Building the two files</div><div class="flow-desc">The ND_SAP (header + filtered detail + totalizer) and UMSATZ (all classified transactions, for audit) files are built.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">07</div><div class="flow-content"><div class="flow-step-num">DELIVERY</div><div class="flow-title">Upload to Google Drive</div><div class="flow-desc">Both files are automatically uploaded to the destination folder, timestamped. Ready for the accounting team to pick up.</div></div></div>
+    </div>
+  </section>
+
+  <!-- §03 Tech stack -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Tech stack</div><h2 class="display-lg mt-4">Components and architecture</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg mb-4">The automation is implemented on <strong>Make.com</strong>, which orchestrates the external services. No servers to administer, no code to maintain, no lock-in: if an accounting criterion or BCRA code changes tomorrow, everything is visible and editable.</p>
+
+      <table class="benefit-table">
+        <tbody>
+          <tr><td>Platform</td><td colspan="2">Make.com — orchestration and execution engine</td></tr>
+          <tr><td>AI</td><td colspan="2">Google Gemini 2.5 Pro — statement structuring</td></tr>
+          <tr><td>Reference data</td><td colspan="2">Google Sheets — BCRA Entities and Criteria catalogs</td></tr>
+          <tr><td>Trigger</td><td colspan="2">Email (custom mailhook) — statement attachment intake</td></tr>
+          <tr><td>Storage</td><td colspan="2">Google Drive — timestamped output repository</td></tr>
+          <tr><td>SAP output</td><td colspan="2">Plain text (.txt) delimited by pipe (│)</td></tr>
+          <tr><td>Audit output</td><td colspan="2">CSV — 17 columns</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Gemini 2.5 Pro</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">SAP-ready</span>
+        <span class="tech-pill">No servers</span>
+        <span class="tech-pill">No lock-in</span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- §04 Business rules -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Business rules</div><h2 class="display-lg mt-4">Eight rules, all auditable</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Every rule is unambiguously documented. Any functional change starts by updating this section — not by touching the code.</p>
+
+    <div class="grid grid-2">
+      <div class="rule-card">
+        <span class="rule-tag">RN-01</span>
+        <div class="rule-title">Issuer bank identification</div>
+        <div class="rule-desc">Each statement is identified by matching the <code>Cuenta_Banco</code> field in the header against the BCRA Entities catalog. Exact-match. If the bank isn't in the catalog, the run continues with an incomplete header — the catalog must be kept up to date.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-02</span>
+        <div class="rule-title">Derived-field computation</div>
+        <div class="rule-desc">From the BCRA code and statement date, the header fields are computed: <code>Codigo_Proveedor</code> (400000000 + BCRA padded), <code>N_Factura</code>, <code>Folio</code>, <code>Ejercicio</code>, <code>Periodo</code>, and the date in <code>DDMMYY</code> format.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-03</span>
+        <div class="rule-title">Accounting classification</div>
+        <div class="rule-desc">For each transaction, its criterion is looked up in the Criteria catalog, using <code>Cod_Op_Bco</code> as the key. Returns: category, key, ledger account, description, tax indicator, cost center, and sign.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-04</span>
+        <div class="rule-title">SAP inclusion filter</div>
+        <div class="rule-desc">Only transactions with category <strong>GST−</strong> are included in the SAP file. GST+ and unclassified are excluded from SAP but <strong>do appear</strong> in the UMSATZ audit file.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-05</span>
+        <div class="rule-title">67% / 33% split on special accounts</div>
+        <div class="rule-desc">If the ledger account is flagged "split" in the catalog, the transaction is divided in two lines: <strong>67% expense</strong> in the original account, <strong>33% computable asset</strong> in the asset account. Rounded to 2 decimals per line — ±0.01 difference accepted.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-06</span>
+        <div class="rule-title">Handling UNCLASSIFIED</div>
+        <div class="rule-desc">Transactions whose <code>Cod_Op_Bco</code> has no match in Criteria are flagged <strong>UNCLASSIFIED</strong> in the seven accounting columns of UMSATZ. They don't affect SAP (excluded by RN-04). An operational signal that the catalog should be extended.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-07</span>
+        <div class="rule-title">SAP file totalizer</div>
+        <div class="rule-desc">The SAP file ends with an F line containing the <strong>algebraic sum</strong> of the original amounts of every GST− transaction. Sign is preserved (debits are negative). The sum is computed on the original amount — not on the split's partial components.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-08</span>
+        <div class="rule-title">Operational constants</div>
+        <div class="rule-desc">Each client sets its own constants: receiver tax ID, currency, document code, computable-asset account for the split, and its own bank and criteria catalogs. All configurable from Google Sheets — changing them does not require touching the scenario.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §05 Output files -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Outputs</div><h2 class="display-lg mt-4">The two generated files</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Every run produces two timestamped, versioned files. The first feeds SAP; the second is for audit.</p>
+
+    <div class="grid grid-2">
+
+      <div class="file-block">
+        <div class="file-name">ND_SAP_&lt;banco&gt;_&lt;timestamp&gt;.txt</div>
+        <div class="file-title">SAP load file</div>
+        <div class="file-desc">Pipe-delimited plain text. Three blocks: an <strong>H</strong> header line, N detail lines (one per GST− transaction, or two on a split), and an <strong>F</strong> totalizer line. CRLF at the end of every line.</div>
+        <div class="file-format">H|&lt;Banco&gt;|&lt;Codigo_Proveedor&gt;|&lt;Moneda&gt;|&lt;N_Factura&gt;|&lt;Fecha_DDMMYY&gt;|&lt;Fecha_ISO&gt;|&lt;Ejercicio&gt;|&lt;Periodo&gt;|&lt;CUIT&gt;|&lt;Codigo_Doc&gt;|&lt;BCRA_4&gt;|&lt;Folio&gt;<br><br>&lt;Cuenta_Contable&gt;|&lt;Concepto&gt;|&lt;Indicador_Impuesto&gt;|&lt;CECO&gt;|&lt;Importe&gt;<br>...<br><br>F|&lt;Suma_GST−&gt;</div>
+      </div>
+
+      <div class="file-block">
+        <div class="file-name">UMSATZ_&lt;banco&gt;_&lt;timestamp&gt;.csv</div>
+        <div class="file-title">Audit file</div>
+        <div class="file-desc">CSV with every transaction from the statement, classified or UNCLASSIFIED. Header in the first row. <strong>17 columns</strong>: bank code, date, voucher, amount, description, operation code, download date, category, key, ledger account, concept, tax indicator, cost center, sign, and two reserved columns.</div>
+        <div class="file-format">Codigo_Banco, Fecha, Comprobante, Importe, Descripcion, Cod_Op_Bco, Fecha_Descarga, COD_2, Clave, COD_2, Cuenta_Contable, Concepto, Indicador_Impuesto, CECO, Sentido, Col16, Col17</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- §06 Operation -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Operation &amp; maintenance</div><h2 class="display-lg mt-4">How it runs day to day</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="next-card">
+        <div class="next-eyebrow">DAY TO DAY</div>
+        <div class="next-title">100% unattended</div>
+        <div class="next-desc">You send the CSV to the configured mailbox. You wait ~30 seconds. You pick up the two files from Drive. No human intervention in between.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">BCRA CATALOG</div>
+        <div class="next-title">Add a bank</div>
+        <div class="next-desc">Add one row per operating account: BCRA code, official name, and account number exactly as it appears in the statement. Test with a real statement before going to production.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">CRITERIA CATALOG</div>
+        <div class="next-title">Add a criterion</div>
+        <div class="next-desc">When UNCLASSIFIED appears in UMSATZ, you identify the operation code, define the category (GST−/GST+), account, indicator, and cost center with accounting, and add a row to the catalog.</div>
+      </div>
+    </div>
+
+    <div class="panel mt-5"><div class="panel-body">
+      <div class="kicker mb-2">Monitoring</div>
+      <p class="body-lg">Make.com keeps an auditable log for every run: email received and attachments, AI model response, bundles processed per module, files uploaded to Drive, errors and retries. Every run can be audited individually from the console.</p>
+    </div></div>
+  </section>
+
+  <!-- §07 Scope & roadmap -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Scope &amp; assumptions</div><h2 class="display-lg mt-4">What it covers and what it doesn't</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+
+      <div class="panel">
+        <div class="panel-header"><span>§ ASSUMPTIONS</span><span style="color:var(--aq-success);">● BASE</span></div>
+        <div class="panel-body">
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> Statements arrive in CSV format with a stable structure.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> Each email contains a single statement from a single bank.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> The account structure does not change between statements from the same bank.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> The BCRA and Criteria catalogs are kept up to date.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><span>§ OUT OF SCOPE (v1)</span><span class="accent">● ROADMAP</span></div>
+        <div class="panel-body">
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Automatic notification to the accounting team on completion.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Duplicate detection (re-sending generates two runs).</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Explicit abort if the bank isn't registered.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Batch processing (multiple statements in a single email).</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Tracking dashboard (Looker Studio).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Migrating to SAP or loading notes by hand?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">If your accounting team assembles load files manually every month, book a call. The first conversation is to understand your chart of accounts, your catalogs, and your criteria — and send you a concrete proposal.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Bank%20Debit%20Notes%20Automation%20Inquiry">Request a quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 10</span>
+    <span class="accent">ai-q.fit · debit notes</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>
