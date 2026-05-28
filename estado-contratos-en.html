@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contract Operations Control · Automation · AI-Q</title>
+<meta name="description" content="Actionable dashboard for consulting firms billing through SAP Fieldglass. Quarterly service-proof window, automatic instalment-plan generation, collections monitoring and claims. Zero forgotten contracts.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.flow-pipeline { display: grid; gap: var(--aq-space-3); }
+.flow-node { display: grid; grid-template-columns: 80px 1fr; border: var(--aq-border); }
+.flow-icon { background: var(--aq-ink); color: var(--aq-paper); display: flex; align-items: center; justify-content: center; font-family: var(--aq-font-mono); font-weight: 600; font-size: 18px; letter-spacing: 0.05em; padding: 20px 8px; }
+.flow-content { padding: 16px 20px; }
+.flow-step-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 4px; }
+.flow-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.flow-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.rule-card { border: var(--aq-border); padding: 22px; }
+.rule-tag { display: inline-block; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); padding: 3px 9px; background: var(--aq-ink); color: var(--aq-paper); letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.rule-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
+.rule-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.rule-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+.rule-benefit { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--aq-mute1); font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink); }
+.rule-benefit::before { content: "→ "; color: var(--aq-accent); font-weight: 600; }
+
+.audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--aq-space-3); }
+.audience-card { border: var(--aq-border); padding: 22px; }
+.audience-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.audience-title { font-family: var(--aq-font-display); font-size: 17px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.audience-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.benefit-table { width: 100%; border-collapse: collapse; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.benefit-table th, .benefit-table td { padding: 12px 16px; border: var(--aq-border-thin); text-align: left; vertical-align: top; }
+.benefit-table th { background: var(--aq-ink); color: var(--aq-paper); font-weight: 500; text-transform: uppercase; letter-spacing: var(--aq-track-kicker); font-size: var(--aq-fs-meta); }
+.benefit-table td:first-child { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: var(--aq-ink); }
+.benefit-table td.before { color: var(--aq-ink2); background: var(--aq-paper2); }
+.benefit-table td.after { color: var(--aq-ink); font-weight: 500; }
+@media (max-width: 768px) {
+  .benefit-table thead { display: none; }
+  .benefit-table tr { display: block; margin-bottom: 12px; border: var(--aq-border-thin); }
+  .benefit-table td { display: block; border: 0; border-bottom: var(--aq-border-thin); padding: 10px 14px; }
+  .benefit-table td:last-child { border-bottom: 0; }
+}
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.priority-tag { display: inline-block; padding: 2px 8px; font-family: var(--aq-font-mono); font-size: 10px; letter-spacing: var(--aq-track-meta); text-transform: uppercase; }
+.priority-alta { background: var(--aq-accent); color: var(--aq-paper); }
+.priority-media { background: var(--aq-ink); color: var(--aq-paper); }
+
+.step-card { border: var(--aq-border); padding: 22px; }
+.step-card-num { display: inline-block; font-family: var(--aq-font-display); font-size: 32px; font-weight: 500; letter-spacing: -0.04em; color: var(--aq-accent); line-height: 1; margin-bottom: 8px; }
+.step-card-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.step-card-time { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-mute); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.step-card-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama.html">SAMA</a>
+      <a class="nav-link" href="consultoria-en.html">Consulting</a>
+      <a class="nav-link" href="estado-contratos.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-EC-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 11 / CONTRACTS</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Operations &amp; collections</div>
+      <h1 class="display-xl">Your contract portfolio as an <span class="accent">actionable dashboard</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:820px;">"What to do today, when, and with whom — no parallel Excel, no manual reminders, no review meetings."</p>
+      <p class="body-lg mt-4" style="max-width:820px;">For consulting firms and staff-augmentation companies that bill quarterly through portals like SAP Fieldglass. Turn your active contract portfolio into a prioritised list of operational actions, each with a clear owner and next step.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">0</div>
+        <div class="marquee-label">Forgotten contracts</div>
+        <div class="marquee-desc">No contract misses the service-proof window due to human oversight. The alert appears when action is required, not after.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">4-8 hrs</div>
+        <div class="marquee-label">Weekly hours recovered</div>
+        <div class="marquee-desc">Reviewing sheets, calculating quarters and assembling pending lists drops to zero. The operational view assembles itself.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">20 → 500</div>
+        <div class="marquee-label">Contracts in parallel</div>
+        <div class="marquee-desc">The same scenario handles a small or a large portfolio. The structure scales without rewriting anything.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §01 Problem -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">It's not selling — it's keeping the chain intact</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">If you sell hours, days, or consultants and you bill quarterly through a portal, selling isn't the problem. The problem is keeping the chain intact between signing the contract and the money landing in your account.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Break point</th><th>Today (manual)</th><th>With automation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Service proofs</td><td class="before">Expire with nobody approving them</td><td class="after">HIGH alert in the ±15-day window</td></tr>
+          <tr><td>SAP invoicing</td><td class="before">SAP doesn't release, nobody escalates</td><td class="after">Formal claim triggered automatically</td></tr>
+          <tr><td>Client collections</td><td class="before">Delinquency detected late</td><td class="after">Account exec notified the same day</td></tr>
+          <tr><td>Instalment plan</td><td class="before">Instalments generated by hand, with errors</td><td class="after">Full plan in minutes per contract</td></tr>
+          <tr><td>Visibility</td><td class="before">Everyone has their own parallel Excel</td><td class="after">One shared prioritised list</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §02 Audience -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Who it applies to</div><h2 class="display-lg mt-4">Four types of team</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-num">01</div>
+        <div class="audience-title">Consulting &amp; professional services</div>
+        <div class="audience-desc">That bill quarterly or per project through portals like SAP Fieldglass, SAP Ariba, or other corporate procurement systems.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">02</div>
+        <div class="audience-title">Staff augmentation &amp; body shop</div>
+        <div class="audience-desc">With 10 to 200+ active contracts at once, each contract with its own cycle of instalments and validations.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">03</div>
+        <div class="audience-title">PMOs &amp; Operations teams</div>
+        <div class="audience-desc">That currently track everything in a master sheet and spend hours each week reviewing what's expiring, what's pending invoicing, what claim needs filing.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">04</div>
+        <div class="audience-title">Recurring-service sales teams</div>
+        <div class="audience-desc">Where the front-office (account execs) need to know what action to take without constantly requesting reports from finance.</div>
+      </div>
+    </div>
+
+    <p class="body-lg muted mt-5" style="max-width:880px;font-style:italic;">If your business depends on an external portal where you upload contracts and service proofs, and money only arrives when everything is approved and correctly invoiced — this is for you.</p>
+  </section>
+
+  <!-- §03 Three automations -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · What it automates</div><h2 class="display-lg mt-4">Three mechanisms, one operational view</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+
+      <div class="rule-card">
+        <span class="rule-tag">MECHANISM 01</span>
+        <div class="rule-title">Quarterly service-proof window</div>
+        <div class="rule-desc">Every active contract needs a service proof approved within a <strong>±15-day window</strong> around quarter-end. Miss it and invoicing freezes.<br><br>The scenario calculates how many days remain until close and, when a contract enters the critical window, generates a <span class="priority-tag priority-alta">HIGH</span> alert to the responsible executive.</div>
+        <div class="rule-benefit">You stop discovering the problem when it's already too late. The alert appears exactly when action is needed.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">MECHANISM 02</span>
+        <div class="rule-title">Automatic instalment-plan generation</div>
+        <div class="rule-desc">Every new contract needs a quarterly billing plan: how many instalments, on what dates, for what amount. The first instalment is prorated by days elapsed in the quarter; subsequent ones are full quarters on the net daily rate.<br><br>The scenario detects contracts without a plan, calculates the rate, generates one row per instalment, and marks the contract as processed.</div>
+        <div class="rule-benefit">A new contract gets its full plan loaded in minutes. No calculation errors, no forgotten instalments.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">MECHANISM 03</span>
+        <div class="rule-title">SAP-status monitoring and differentiated actions</div>
+        <div class="rule-desc">The scenario cross-references each contract with its current SAP status and applies rules to decide the right action. Four independent routes depending on where the collection got stuck, each with its own owner and priority.</div>
+        <div class="rule-benefit">No more chaotic inbox. Every collections issue has an owner and a clear next action.</div>
+      </div>
+
+    </div>
+
+    <div class="panel mt-5"><div class="panel-body">
+      <div class="kicker mb-3">Mechanism 03 · SAP monitoring routes</div>
+      <table class="benefit-table">
+        <thead>
+          <tr><th>State detected</th><th>Action generated</th><th>Owner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>SAP didn't invoice / didn't release commission</td><td class="after"><span class="priority-tag priority-alta">HIGH</span> &nbsp; Open formal claim in the portal</td><td>PMO / Operations</td></tr>
+          <tr><td>Client overdue or partial payment</td><td class="after"><span class="priority-tag priority-alta">HIGH</span> &nbsp; Direct contact from account exec</td><td>Sales</td></tr>
+          <tr><td>Pending docs (PO, credit note)</td><td class="after"><span class="priority-tag priority-media">MEDIUM</span> &nbsp; Validate internal document</td><td>Operations</td></tr>
+          <tr><td>Contract currency ≠ invoice currency</td><td class="after"><span class="priority-tag priority-media">MEDIUM</span> &nbsp; Escalate to internal team (BRL / AWP)</td><td>Internal team</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §04 Tech stack -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · How it works</div><h2 class="display-lg mt-4">The technical stack</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">The solution runs on your existing stack. No migration, no new software. All calculation logic lives inside the scenario — the spreadsheet stays clean, with no formulas to break.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <tbody>
+          <tr><td>Google Sheets</td><td colspan="2">Multi-sheet central database: <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_CONTRATOS_HEADER</code>, <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_PLAN_FACTURACION</code>, <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_FACTURAS_SAP</code>, <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">VISTA_OPERATIVA</code></td></tr>
+          <tr><td>Make.com</td><td colspan="2">Orchestrator. A single scenario with a multi-route router — one route per mechanism, sub-routes per issue type.</td></tr>
+          <tr><td>Calculation logic</td><td colspan="2">Variables computed dynamically: net daily rate, current quarter-end, days to close, days elapsed in the first quarter. No formulas in the sheet.</td></tr>
+          <tr><td>Instalment iterator</td><td colspan="2">Automatic generator that creates N plan rows per contract, prorating the first instalment and marking the contract as processed when done.</td></tr>
+          <tr><td>SAP Fieldglass</td><td colspan="2">The portal where invoice status is loaded. Sync with the <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_FACTURAS_SAP</code>  sheet can be manual, semi- or fully automated depending on the case.</td></tr>
+          <tr><td>Execution</td><td colspan="2">Manual (one click at quarter-close or when loading new contracts) or scheduled (daily at 8 am for a continuously updated view).</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">SAP Fieldglass</span>
+        <span class="tech-pill">Multi-route router</span>
+        <span class="tech-pill">Instalment iterator</span>
+        <span class="tech-pill">No migration</span>
+        <span class="tech-pill">No new software</span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- §05 Benefits -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Concrete benefits</div><h2 class="display-lg mt-4">What changes for your team</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card">
+        <div class="next-eyebrow">TIME</div>
+        <div class="next-title">4-8 weekly hours → 0</div>
+        <div class="next-desc">Reviewing sheets, calculating quarters and assembling pending lists ceases to exist as a task. The operational view updates itself.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">COLLECTIONS</div>
+        <div class="next-title">Claims at the exact moment</div>
+        <div class="next-desc">Claims to SAP and to clients are triggered when they should be, not days later. Every day of delay is money stuck.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">VISIBILITY</div>
+        <div class="next-title">One list, every level</div>
+        <div class="next-desc">Owners, managers and execs see the same prioritised list of what to do today. Zero ambiguity about who does what.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">CONTINUITY</div>
+        <div class="next-title">Zero stack change</div>
+        <div class="next-desc">You keep using Google Sheets and SAP Fieldglass as before. No migration, no training the team on new software.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">SCALE</div>
+        <div class="next-title">Works the same with 20 or 500</div>
+        <div class="next-desc">The same scenario handles a small or a large portfolio. The structure adapts without rewriting anything.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">TRACEABILITY</div>
+        <div class="next-title">Auditable history</div>
+        <div class="next-desc">Every alert is logged with date, contract, issue and action. Useful for audit and for analysing patterns (how many contracts get stuck in SAP per month?).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §06 Implementation -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Implementation</div><h2 class="display-lg mt-4">Three steps, two weeks</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-card-num">01</div>
+        <div class="step-card-title">Diagnostic</div>
+        <div class="step-card-time">~ 1 hour</div>
+        <div class="step-card-desc">We review your current portfolio, the invoicing states you handle, and define the rules for each alert. Output: a clear map of what to automate.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">02</div>
+        <div class="step-card-title">Configuration</div>
+        <div class="step-card-time">3 to 7 days</div>
+        <div class="step-card-desc">We adapt the sheets, calculation variables and routing criteria to your business model and billing portal.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">03</div>
+        <div class="step-card-title">Testing &amp; handoff</div>
+        <div class="step-card-time">~ 2 days</div>
+        <div class="step-card-desc">We run tests against real contracts, validate calculations against your numbers, and hand off the system running, documented, and ready for your team to operate.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §07 Requirements -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Requirements</div><h2 class="display-lg mt-4">What you need beforehand</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel">
+      <div class="panel-header"><span>§ BASELINE REQUIREMENTS</span><span style="color:var(--aq-success);">● MINIMUM</span></div>
+      <div class="panel-body">
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> A Google account with a structured contract sheet (or the appetite to build one with us during onboarding).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> A Make.com account (Core plan is enough to start, depending on contract volume).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Access to the portal where invoice status is loaded (SAP Fieldglass or other) — updating the <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_FACTURAS_SAP</code>  sheet can be manual, semi- or fully automated depending on the case.</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> A clear definition of the invoicing states you want to monitor and what action corresponds to each.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="body-lg muted mt-4" style="max-width:880px;font-style:italic;">If you don't yet have the master sheet structured, or you want to add automatic SAP sync, we build it as part of onboarding.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Tracking contracts by hand in a spreadsheet?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book a call and we'll show you the system running on a real contract-portfolio case. The first conversation is to understand your portal, your invoicing states, and your rules — and send you a concrete proposal.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Contract%20Operations%20Control%20Inquiry">Request a quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 11</span>
+    <span class="accent">ai-q.fit · contract control</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>
