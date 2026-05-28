@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posteo Diario Automático en Redes · Automatización · AI-Q</title>
+<meta name="description" content="Posteo diario en Instagram con IA generativa. Caption en tu tono de marca, imagen original generada por Gemini, hashtags optimizados. 365 posteos al año, sin community manager. Caso real: @dojo.lacueva.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.flow-pipeline { display: grid; gap: var(--aq-space-3); }
+.flow-node { display: grid; grid-template-columns: 80px 1fr; border: var(--aq-border); }
+.flow-icon { background: var(--aq-ink); color: var(--aq-paper); display: flex; align-items: center; justify-content: center; font-family: var(--aq-font-mono); font-weight: 600; font-size: 18px; letter-spacing: 0.05em; padding: 20px 8px; }
+.flow-content { padding: 16px 20px; }
+.flow-step-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 4px; }
+.flow-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.flow-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.flow-arrow { text-align: center; color: var(--aq-accent); font-family: var(--aq-font-mono); }
+
+.reason-card { border: var(--aq-border); padding: 22px; }
+.reason-tag { display: inline-block; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); padding: 3px 9px; background: var(--aq-ink); color: var(--aq-paper); letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.reason-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
+.reason-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--aq-space-3); }
+.audience-card { border: var(--aq-border); padding: 22px; }
+.audience-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.audience-title { font-family: var(--aq-font-display); font-size: 17px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.audience-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.benefit-table { width: 100%; border-collapse: collapse; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.benefit-table th, .benefit-table td { padding: 12px 16px; border: var(--aq-border-thin); text-align: left; vertical-align: top; }
+.benefit-table th { background: var(--aq-ink); color: var(--aq-paper); font-weight: 500; text-transform: uppercase; letter-spacing: var(--aq-track-kicker); font-size: var(--aq-fs-meta); }
+.benefit-table td:first-child { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: var(--aq-ink); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; }
+.step-card-num { display: inline-block; font-family: var(--aq-font-display); font-size: 32px; font-weight: 500; letter-spacing: -0.04em; color: var(--aq-accent); line-height: 1; margin-bottom: 8px; }
+.step-card-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 12px; }
+.step-card-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.case-panel { border: var(--aq-border-thick, 3px solid var(--aq-ink)); padding: 28px 32px; background: var(--aq-paper2); }
+.case-handle { font-family: var(--aq-font-mono); font-size: 13px; color: var(--aq-accent); letter-spacing: var(--aq-track-meta); margin-bottom: 8px; }
+.case-title { font-family: var(--aq-font-display); font-size: 22px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 12px; }
+.case-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.case-disciplines { margin-top: 16px; }
+.disc-pill { display: inline-block; padding: 4px 10px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: 11px; margin: 3px 4px 3px 0; color: var(--aq-ink); background: var(--aq-paper); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="index.html#types">16 Tipos</a>
+      <a class="nav-link" href="sama.html">SAMA</a>
+      <a class="nav-link" href="consultoria.html">Consultoría</a>
+      <a class="nav-link" href="posteo-redes-en.html">EN</a>
+      <a class="btn primary" href="quiz.html">Hacer el test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-PR-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUCIÓN</span><span>HOJA 12 / POSTEO IA</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solución · Marketing &amp; redes sociales</div>
+      <h1 class="display-xl">Tu marca, posteando todos los días <span class="accent">sin que toques una tecla</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:820px;">"Abrís Instagram a la tarde y ya hay un posteo nuevo. Caption en tu voz, imagen original generada con IA, hashtags optimizados. Sin community manager, sin reuniones de contenido, sin 'che, ¿qué subimos hoy?'."</p>
+      <p class="body-lg mt-4" style="max-width:820px;">Esta solución resuelve el problema más caro del marketing digital para PyMEs: <strong>la consistencia</strong>. Las marcas no crecen en redes por hacer un posteo genial cada tanto — crecen por aparecer todos los días. Y aparecer todos los días, manualmente, es agotador y termina cayéndose.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">365</div>
+        <div class="marquee-label">Posteos al año, garantizados</div>
+        <div class="marquee-desc">Uno por día, todos los días. No depende de tu memoria, de tus vacaciones, ni de que tengas inspiración esa tarde.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">~$0,05</div>
+        <div class="marquee-label">Costo por posteo</div>
+        <div class="marquee-desc">Centavos de dólar entre Gemini texto + Gemini Image. Uno o dos órdenes de magnitud por debajo de un community manager.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">17 – 22 hs</div>
+        <div class="marquee-label">Ventana horaria humana</div>
+        <div class="marquee-desc">Publica con offset aleatorio dentro de tu franja local. No parece un bot — no sale 11:07 puntual ni a las 4 AM.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real case panel -->
+  <section class="section">
+    <div class="case-panel">
+      <div class="case-handle">CASO REAL · EN PRODUCCIÓN</div>
+      <div class="case-title">@dojo.lacueva — dojo de artes marciales en Buenos Aires</div>
+      <div class="case-desc">Dojo con ocho disciplinas distintas. Cada día rota una disciplina y genera un posteo dedicado: caption en español rioplatense con voseo natural, gancho potente al inicio, mención cruzada a la cuenta hermana, 5-8 hashtags mezclando español e inglés, e imagen 1:1 original con la "huella visual" de esa disciplina.</div>
+      <div class="case-disciplines">
+        <span class="disc-pill">Jiu Jitsu</span>
+        <span class="disc-pill">Muay Thai</span>
+        <span class="disc-pill">Kick Boxing</span>
+        <span class="disc-pill">Boxeo</span>
+        <span class="disc-pill">MMA</span>
+        <span class="disc-pill">Taekwondo</span>
+        <span class="disc-pill">Shinkage Furo Ryu</span>
+        <span class="disc-pill">Funcional</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §01 The problem -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · El problema</div><h2 class="display-lg mt-4">Postear todos los días es agotador</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">El marketing en redes no premia el contenido brillante. Premia la presencia constante. Y la presencia constante es un trabajo de tiempo completo — pensar qué postear, escribirlo, producir la imagen, elegir hashtags, subirlo. Todos los días.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Realidad</th><th>Antes</th><th>Después</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Frecuencia</td><td>Posteás cuando te acordás (o cuando podés)</td><td>Un posteo por día, sin excepción</td></tr>
+          <tr><td>Ritmo</td><td>Semanas en silencio + cinco cosas el domingo</td><td>Cadencia uniforme, distribuida</td></tr>
+          <tr><td>Voz de marca</td><td>Varía según quién postee ese día</td><td>Consistente — el prompt es el ADN</td></tr>
+          <tr><td>Costo</td><td>Horas tuyas o $$ de community manager</td><td>~$0,05 por posteo + costo Make</td></tr>
+          <tr><td>Cobertura de líneas</td><td>Las disciplinas/productos que recordás</td><td>Rotación pareja entre todas</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §02 Audience -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · A quién aplica</div><h2 class="display-lg mt-4">Cinco situaciones donde esto rinde</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-num">01</div>
+        <div class="audience-title">Negocio con identidad temática clara</div>
+        <div class="audience-desc">Gimnasio, dojo, academia, restaurante, estudio, comercio. Necesitás presencia constante para captar clientes locales.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">02</div>
+        <div class="audience-title">Sin presupuesto para community manager</div>
+        <div class="audience-desc">No te cierra contratar full-time, o probaste y la relación costo/resultado no funcionó. Acá el costo marginal por posteo son centavos.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">03</div>
+        <div class="audience-title">Posteás cuando te acordás</div>
+        <div class="audience-desc">Pasan semanas sin actividad y después subís cinco cosas juntas el domingo. La audiencia siente el silencio y el spam.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">04</div>
+        <div class="audience-title">Múltiples líneas para rotar</div>
+        <div class="audience-desc">Varias disciplinas, productos o servicios. Querés cobertura pareja y que ninguno quede relegado por falta de tiempo.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">05</div>
+        <div class="audience-title">Querés probar IA generativa con un caso concreto</div>
+        <div class="audience-desc">No sabés por dónde arrancar y un asistente que postea solo es medible, acotado, y con ROI claro desde el día uno.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §03 How it works -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Qué hace exactamente</div><h2 class="display-lg mt-4">El flujo, en 6 pasos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Todos los días, a una hora aleatoria dentro de la franja que vos definís (por defecto entre 17 y 22 hs hora de Buenos Aires, para imitar el ritmo orgánico de un humano), el sistema corre este flujo. Sin intervención humana.</p>
+
+    <div class="flow-pipeline">
+      <div class="flow-node"><div class="flow-icon">01</div><div class="flow-content"><div class="flow-step-num">SELECCIÓN</div><div class="flow-title">Elige qué postear</div><div class="flow-desc">Rota entre las disciplinas, productos o categorías que definiste. Soporta <strong>rotación secuencial</strong> (día 1 disciplina A, día 2 disciplina B — pareja y predecible) o <strong>rotación aleatoria</strong> (más espontánea, menos previsible para la audiencia).</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">02</div><div class="flow-content"><div class="flow-step-num">CAPTION</div><div class="flow-title">Gemini 2.5 Pro escribe el texto</div><div class="flow-desc">La IA actúa como tu community manager. Recibe instrucciones específicas de tu marca (tono, vocabulario, hashtags base, CTA preferido, restricciones) y genera un caption original. En el dojo: español rioplatense con voseo, gancho potente al inicio, mención cruzada, 5-8 hashtags mezclando idiomas.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">03</div><div class="flow-content"><div class="flow-step-num">IMAGEN</div><div class="flow-title">Gemini Image genera la imagen</div><div class="flow-desc">A partir del caption, la IA escribe también el prompt visual y genera una imagen original 1:1 (formato cuadrado de Instagram). Estética cinematográfica, paleta de marca consistente, sin caras reconocibles ni textos en la imagen. Cada disciplina tiene su huella visual predefinida.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">04</div><div class="flow-content"><div class="flow-step-num">ALMACENAMIENTO</div><div class="flow-title">Sube a Google Drive</div><div class="flow-desc">La imagen se sube a una carpeta de Drive con nombre estructurado (<code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">lacueva_2026-05-28_muay_thai.jpg</code>), se hace pública con permiso de lectura, y queda lista para que Instagram la consuma vía URL.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">05</div><div class="flow-content"><div class="flow-step-num">PUBLICACIÓN</div><div class="flow-title">Publica en Instagram (o te avisa por mail)</div><div class="flow-desc"><strong>Modo automático:</strong> el posteo se publica directo vía API oficial de Instagram Business. Cero intervención humana. &nbsp;|&nbsp; <strong>Modo revisión:</strong> en vez de publicar, te llega un mail con el caption, la imagen y un link para que vos apruebes y publiques. Útil mientras le agarrás confianza al sistema.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">06</div><div class="flow-content"><div class="flow-step-num">REGISTRO</div><div class="flow-title">Loggea todo en Google Sheets</div><div class="flow-desc">Cada ejecución queda registrada: fecha, disciplina elegida, caption generado, link a la imagen, estado de publicación. Trazabilidad completa para auditar qué se publicó, repetir el contenido que mejor performó, o entrenar futuras versiones del prompt.</div></div></div>
+    </div>
+  </section>
+
+  <!-- §04 Why it works -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Por qué funciona</div><h2 class="display-lg mt-4">Cinco razones concretas</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+
+      <div class="reason-card">
+        <span class="reason-tag">RAZÓN 01</span>
+        <div class="reason-title">Consistencia sin esfuerzo</div>
+        <div class="reason-desc">Una vez configurada, corre sola. No depende de tu memoria, de que el community manager esté de vacaciones, ni de que tengas inspiración. <strong>365 posteos al año, garantizados.</strong></div>
+      </div>
+
+      <div class="reason-card">
+        <span class="reason-tag">RAZÓN 02</span>
+        <div class="reason-title">Identidad de marca preservada</div>
+        <div class="reason-desc">A diferencia de las herramientas genéricas de "AI posting" que sacan contenido plano y reciclado, acá el prompt del sistema lo escribimos a medida con tu voz, tus disciplinas, tus hashtags, tu CTA, tus emojis. La IA no inventa tu marca — la imita.</div>
+      </div>
+
+      <div class="reason-card">
+        <span class="reason-tag">RAZÓN 03</span>
+        <div class="reason-title">Tiempo de publicación humano</div>
+        <div class="reason-desc">El sistema postea entre las 17 y 22 hs en horario local con offset aleatorio. <strong>No parece un bot.</strong> No sale a las 4 de la mañana ni a las 11:07 puntuales todos los días.</div>
+      </div>
+
+      <div class="reason-card">
+        <span class="reason-tag">RAZÓN 04</span>
+        <div class="reason-title">Costo marginal cercano a cero</div>
+        <div class="reason-desc">Unos pocos centavos de dólar por posteo entre Gemini texto + Gemini Image. Comparado con un community manager o una agencia, la diferencia es de uno o dos órdenes de magnitud.</div>
+      </div>
+
+      <div class="reason-card">
+        <span class="reason-tag">RAZÓN 05</span>
+        <div class="reason-title">Escalable a múltiples marcas</div>
+        <div class="reason-desc">La misma arquitectura se replica para otros negocios cambiando el prompt del sistema, las disciplinas/productos y el destino. Si tenés varias cuentas o varias marcas, no hay que rehacer la solución para cada una.</div>
+      </div>
+
+      <div class="reason-card">
+        <span class="reason-tag">RAZÓN 06</span>
+        <div class="reason-title">Trazabilidad para mejorar</div>
+        <div class="reason-desc">Cada posteo queda loggeado con su contenido completo. Podés revisar qué publicó mejor, repetir patrones que funcionaron, o ajustar el prompt para evitar los que no.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- §05 Tech stack -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Stack técnico</div><h2 class="display-lg mt-4">Cómo está construido</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Make.com orquesta el flujo diario; Gemini hace todo el trabajo generativo (texto + imagen); Drive y Sheets son el almacenamiento y el log; Instagram Business API y Gmail son los canales de salida.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Componente</th><th>Tecnología</th><th>Función</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Orquestación</td><td>Make.com</td><td>Ejecuta el flujo diario, maneja errores y reintentos</td></tr>
+          <tr><td>Generación de texto</td><td>Google Gemini 2.5 Pro</td><td>Caption con identidad de marca + prompt de imagen</td></tr>
+          <tr><td>Generación de imagen</td><td>Gemini Image (<code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">gemini-2.5-flash-image</code>)</td><td>Imagen 1:1 original generada cada día</td></tr>
+          <tr><td>Almacenamiento</td><td>Google Drive</td><td>Repositorio de imágenes generadas</td></tr>
+          <tr><td>Publicación</td><td>Instagram Business API</td><td>Posteo automático en la cuenta de Instagram</td></tr>
+          <tr><td>Registro</td><td>Google Sheets</td><td>Log de cada ejecución para trazabilidad</td></tr>
+          <tr><td>Notificación (opcional)</td><td>Gmail</td><td>Modo revisión: te llega el contenido por mail antes de publicar</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Gemini 2.5 Pro</span>
+        <span class="tech-pill">Gemini Image</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">IG Business API</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Gmail</span>
+        <span class="tech-pill">No-code</span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- §06 Requirements -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Requisitos</div><h2 class="display-lg mt-4">Qué necesitás tener antes</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel">
+      <div class="panel-header"><span>§ REQUISITOS PARA IMPLEMENTAR</span><span style="color:var(--aq-success);">● BASE</span></div>
+      <div class="panel-body">
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Cuenta de <strong>Make.com</strong> (plan Core o superior — la solución consume ~30 operaciones por día).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Cuenta de <strong>Google Cloud Platform con billing activo</strong> y la API de Gemini habilitada. El billing activo es indispensable para Gemini Image — sin facturación habilitada la API rechaza las requests de generación de imágenes.</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Cuenta de <strong>Instagram Business o Creator</strong> conectada a una página de Facebook (requisito de Meta para usar la API de publicación).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Una <strong>cuenta de Google</strong> con acceso a Drive, Sheets y Gmail (puede ser la del negocio o una dedicada a automatizaciones).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> <strong>Lineamientos de marca por escrito:</strong> tono, vocabulario, hashtags base, qué evitar, ejemplos de posteos exitosos. Cuanto más material aportes, más afinado queda el prompt del sistema.</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> <strong>Listado de disciplinas, productos o categorías a rotar</strong>, con una descripción breve y, opcionalmente, una "estética visual" sugerida para cada una.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- §07 Implementation -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Cómo lo implementamos</div><h2 class="display-lg mt-4">Tres a cinco días hábiles, seis etapas</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-card-num">01</div>
+        <div class="step-card-title">Sesión de descubrimiento</div>
+        <div class="step-card-desc">~ 1 hora. Relevamos tu identidad de marca, tus disciplinas/productos, ejemplos de posteos pasados que te gustaron, modo de rotación y ventana horaria.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">02</div>
+        <div class="step-card-title">Construcción del prompt</div>
+        <div class="step-card-desc">Escribimos las instrucciones que va a recibir Gemini en cada ejecución. Este es el "ADN" de la solución y se ajusta hasta que los outputs te convenzan.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">03</div>
+        <div class="step-card-title">Setup técnico</div>
+        <div class="step-card-desc">Creamos las conexiones de Make a Gemini, Drive, Instagram, Sheets y Gmail. Configuramos GCP con billing y permisos.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">04</div>
+        <div class="step-card-title">Ronda de validación</div>
+        <div class="step-card-desc">Corremos la automatización en modo revisión (mail-only) durante 5 a 7 días. Vos validás cada output y nosotros ajustamos el prompt con tu feedback.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">05</div>
+        <div class="step-card-title">Pasaje a modo automático</div>
+        <div class="step-card-desc">Cuando los outputs te satisfacen consistentemente, activamos la publicación directa en Instagram. Sin intervención humana de ahí en adelante.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">06</div>
+        <div class="step-card-title">Documentación &amp; traspaso</div>
+        <div class="step-card-desc">Te dejamos un manual operativo para que puedas pausar, modificar disciplinas, ajustar el tono o ampliar a otras redes (Facebook, LinkedIn, X) sin depender de nosotros.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §08 Extensions -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§08 · Extensiones</div><h2 class="display-lg mt-4">Caminos naturales para crecer</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">La arquitectura está pensada para crecer. Una vez que la solución base está corriendo, sumar capacidades es cuestión de extender el escenario, no reescribirlo.</p>
+
+    <div class="grid grid-2">
+      <div class="reason-card">
+        <span class="reason-tag">EXT 01</span>
+        <div class="reason-title">Multi-red social</div>
+        <div class="reason-desc">Replicar el posteo en Facebook, LinkedIn o X con captions adaptados al estilo de cada plataforma. Mismo flujo, mismo día, formato ajustado.</div>
+      </div>
+      <div class="reason-card">
+        <span class="reason-tag">EXT 02</span>
+        <div class="reason-title">Múltiples posteos por día</div>
+        <div class="reason-desc">Stories matinales + feed vespertino + reel semanal. Cada uno con su propia lógica de selección, prompt y formato.</div>
+      </div>
+      <div class="reason-card">
+        <span class="reason-tag">EXT 03</span>
+        <div class="reason-title">Reactividad a eventos</div>
+        <div class="reason-desc">Posteos automáticos cuando hay un evento: cumpleaños del negocio, feriado, ganador de torneo, lanzamiento de producto.</div>
+      </div>
+      <div class="reason-card">
+        <span class="reason-tag">EXT 04</span>
+        <div class="reason-title">Análisis de performance</div>
+        <div class="reason-desc">Leer métricas de Instagram y ajustar el prompt según qué tipo de contenido funciona mejor. Cierra el loop entre generar y medir.</div>
+      </div>
+      <div class="reason-card">
+        <span class="reason-tag">EXT 05</span>
+        <div class="reason-title">Generación de carruseles</div>
+        <div class="reason-desc">En lugar de una sola imagen, varias en secuencia con un hilo narrativo. Útil para contenido más educativo o storytelling.</div>
+      </div>
+      <div class="reason-card">
+        <span class="reason-tag">EXT 06</span>
+        <div class="reason-title">Multi-marca centralizado</div>
+        <div class="reason-desc">Un solo escenario que maneja N marcas con prompts y catálogos distintos. Ideal para agencias o holdings con varias cuentas.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§09 · Próximo paso</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">¿Tu marca necesita estar todos los días en redes?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">En una llamada de 30 minutos definimos si esta solución encaja con tu negocio, qué disciplinas/productos rotaríamos, y te pasamos un presupuesto cerrado. Si querés ver el caso real corriendo, abrí Instagram y buscá <strong>@dojo.lacueva</strong>.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agendá una llamada →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Posteo%20Diario%20Autom%C3%A1tico">Pedí una cotización</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIN DE HOJA 12</span>
+    <span class="accent">ai-q.fit · posteo redes ia</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>
