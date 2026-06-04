@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automatización de RRHH · AI-Q</title>
+<meta name="description" content="Automatizá el ciclo de vida completo de tu equipo: altas, bajas, licencias, legajos, aprobaciones y comunicaciones — todo sobre Google Workspace y Make.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.proceso { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); font-weight: 500; }
+.compare-cell.manual { color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.auto { color: var(--aq-accent); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+@media (max-width: 768px) {
+  .compare-row { grid-template-columns: 1fr; }
+  .compare-cell.proceso, .compare-cell.manual { border-right: 0; border-bottom: var(--aq-border-thin); }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Inicio</a>
+      <a class="nav-link" href="index.html#types">16 Tipos</a>
+      <a class="nav-link" href="sama.html">SAMA</a>
+      <a class="nav-link" href="consultoria.html">Consultoría</a>
+      <a class="nav-link" href="rrhh-en.html">EN</a>
+      <a class="btn primary" href="quiz.html">Hacer el test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-RRHH-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUCIÓN</span><span>HOJA 09 / RRHH</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solución · Recursos Humanos</div>
+      <h1 class="display-xl">Automatización de <span class="accent">RRHH</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Sin papelería, sin hojas de cálculo perdidas, sin perseguir mails."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Tu área de RRHH gasta horas por semana en tareas que no agregan valor. Automatizamos el ciclo de vida completo de un empleado — desde el alta hasta la baja, con todos los procesos del medio — para que tu equipo se enfoque en las personas, no en la administración.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · El problema</div><h2 class="display-lg mt-4">Horas perdidas cada semana</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Armar carpetas de legajos, reenviar formularios, registrar licencias a mano, acordarse de saludar a los que cumplen años. Ninguna de estas tareas requiere el criterio de un profesional de RRHH — pero consumen su tiempo de todas formas.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">12 escenarios automatizados, <span class="accent">1 solo flujo.</span></p>
+      <p class="muted">Alta, licencias, aprobaciones, cierre mensual, comunicaciones — todo coordinado sin intervención manual.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · La solución</div><h2 class="display-lg mt-4">Qué hace el sistema</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Automatizamos el ciclo de vida completo de un empleado, con inteligencia incorporada en cada etapa.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Legajos en Drive</div>
+        <div class="step-desc">Al ingresar un empleado, el sistema crea automáticamente su carpeta con la estructura correcta: documentación personal, alta, novedades, legales y baja. Nombre según convención interna (legajo + apellido + CUIL).</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Altas automáticas</div>
+        <div class="step-desc">Cargás los datos en un Excel. El sistema genera los directorios, registra el alta en Novedades, actualiza la Nómina y le envía al empleado todos los formularios necesarios por mail.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Licencias no planificadas</div>
+        <div class="step-desc">El empleado avisa por Gmail o Telegram. Gemini lee el mensaje, identifica al empleado, extrae la información y registra la licencia, notificando a RRHH y al responsable del área. Sin intervención manual.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Licencias planificadas</div>
+        <div class="step-desc">El empleado envía el formulario por mail. La IA extrae los datos, valida la nómina y genera la solicitud. El responsable aprueba con un clic — el sistema registra, genera el documento oficial y lo envía.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Adelantos de sueldo</div>
+        <div class="step-desc">El mismo circuito de aprobación aplica para adelantos: solicitud por mail, validación de límites, elevación al responsable. Una vez aprobado, todo queda registrado y documentado automáticamente.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div class="step-title">Cierre mensual</div>
+        <div class="step-desc">A fin de mes, el sistema corre solo. Consolida altas, bajas, licencias, adelantos y novedades, guarda el archivo mensual en Drive y deja el sistema limpio para el mes siguiente.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Métricas</div><h2 class="display-lg mt-4">Lo que cambia en números</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">Proceso</div>
+        <div class="compare-cell header-cell manual">Tiempo manual</div>
+        <div class="compare-cell header-cell auto">Con automatización</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Alta de empleado</div>
+        <div class="compare-cell manual">45–90 min</div>
+        <div class="compare-cell auto">&lt; 2 min</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Licencia no planificada</div>
+        <div class="compare-cell manual">10–15 min</div>
+        <div class="compare-cell auto">Inmediato</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Circuito de aprobación</div>
+        <div class="compare-cell manual">1–2 días (mails de ida y vuelta)</div>
+        <div class="compare-cell auto">1 clic</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Cierre mensual</div>
+        <div class="compare-cell manual">2–4 horas</div>
+        <div class="compare-cell auto">Automático</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Guardado de documentos</div>
+        <div class="compare-cell manual">5–10 min por documento</div>
+        <div class="compare-cell auto">Inmediato</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Funcionalidades adicionales</div><h2 class="display-lg mt-4">El detalle que marca la diferencia</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Guardado automático de documentación</div>
+        <div class="feature-desc">Definís una casilla genérica (<code>rrhh_docs@tu-empresa.com</code>). Cualquier empleado envía documentos con asunto estructurado y el sistema los guarda en el legajo Drive correcto, con confirmación por mail.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Mail de bienvenida</div>
+        <div class="feature-desc">Cuando se registra una nueva alta, el empleado recibe automáticamente el mail de bienvenida con todos los formularios y archivos necesarios para comenzar.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Cumpleaños y recordatorios</div>
+        <div class="feature-desc">El sistema verifica diariamente quién cumple años y envía el saludo. También gestiona recordatorios de vencimiento de período de prueba, fin de licencias prolongadas y reincorporaciones.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠</div>
+        <div class="feature-title">Lectura inteligente de mails</div>
+        <div class="feature-desc">Google Gemini lee mensajes de texto libre y los interpreta correctamente — sin formularios rígidos. El empleado avisa como lo haría naturalmente; la IA extrae lo que necesita.</div>
+      </div>
+    </div>
+
+    <div class="signals-block mt-5">
+      <h4>¿Qué incluye la implementación?</h4>
+      <ul class="signals-list">
+        <li>Estructura de carpetas en Drive (directorios raíz y legajos individuales)</li>
+        <li>12 escenarios Make configurados y validados</li>
+        <li>Plantillas de formularios: condiciones de alta, datos personales, DDJJ domicilio, DDJJ confidencialidad, reglamento interno, vacaciones, adelantos y más</li>
+        <li>Archivos Excel de gestión preconfigurados: Nómina, Novedades, Altas de legajos</li>
+        <li>Guías de configuración paso a paso para cada escenario</li>
+        <li>Capacitación al equipo de RRHH para operar la solución</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Por qué funciona</div><h2 class="display-lg mt-4">La tecnología que ya tenés</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">La solución funciona sobre <strong>Google Workspace</strong> (Drive, Sheets, Docs, Gmail) que probablemente ya estás usando, más <strong>Make</strong> como orquestador y <strong>Google Gemini</strong> para la lectura inteligente de mails y formularios.</p>
+      <p class="body-lg">Sin licencias adicionales de software de RRHH. Sin servidores que administrar. Sin desarrollo a medida. Si mañana querés modificar el flujo, está todo a la vista y editable.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Google Docs</span>
+        <span class="tech-pill">Gmail</span>
+        <span class="tech-pill">Telegram</span>
+        <span class="tech-pill">Gemini</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · A quién aplica</div><h2 class="display-lg mt-4">Para qué tipo de empresas</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">PERFIL 01</div><div class="next-desc">Empresas de <strong>20 a 500 empleados</strong> que gestionan RRHH internamente con un equipo pequeño que destina demasiado tiempo a tareas administrativas.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PERFIL 02</div><div class="next-desc">Organizaciones que <strong>no tienen un sistema de RRHH previo</strong> y trabajan con Excel, carpetas en Drive y mails — y quieren ordenarse sin reemplazar lo que ya usan.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PERFIL 03</div><div class="next-desc">Empresas con <strong>convenios colectivos, rotación frecuente o recursos distribuidos</strong> en distintas locaciones donde el volumen de trámites es alto.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PERFIL 04</div><div class="next-desc">Equipos de RRHH que ya usan <strong>Google Workspace</strong> y quieren sacarle el máximo partido sin incorporar nuevas plataformas ni costos de licencia.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Próximos pasos</div><h2 class="display-lg mt-4">Cómo avanzamos</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card">
+        <div class="next-eyebrow">PASO 01 · 30 minutos</div>
+        <div class="next-title">Demo en vivo</div>
+        <div class="next-desc">Te mostramos el sistema procesando casos reales — alta de empleado, aprobación de licencia, cierre mensual — con datos de ejemplo. Si después de la demo no ves el valor, no hay siguiente paso.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">PASO 02 · 2 semanas</div>
+        <div class="next-title">Implementación</div>
+        <div class="next-desc">Setup completo en tu Google Workspace, configuración de los 12 escenarios Make, carga de plantillas y nómina inicial, y capacitación al equipo. Al cierre de las dos semanas, queda funcionando en producción.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Próximo paso</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">¿Listo para dejar de perseguir mails?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agendá 30 minutos para ver la demo en vivo con datos de ejemplo de tu industria. Sin compromiso, sin slides genéricas.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agendá tu demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Automatización%20RRHH">Hablar con un consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIN DE HOJA 09</span>
+    <span class="accent">ai-q.fit · rrhh</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

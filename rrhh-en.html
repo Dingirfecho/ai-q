@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Automation · AI-Q</title>
+<meta name="description" content="Automate your full employee lifecycle: onboarding, offboarding, leave requests, file management, approvals and communications — all on Google Workspace and Make.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.proceso { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); font-weight: 500; }
+.compare-cell.manual { color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.auto { color: var(--aq-accent); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+@media (max-width: 768px) {
+  .compare-row { grid-template-columns: 1fr; }
+  .compare-cell.proceso, .compare-cell.manual { border-right: 0; border-bottom: var(--aq-border-thin); }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#types">16 Types</a>
+      <a class="nav-link" href="sama-en.html">SAMA</a>
+      <a class="nav-link" href="consultoria-en.html">Consulting</a>
+      <a class="nav-link" href="rrhh.html">ES</a>
+      <a class="btn primary" href="quiz.html">Take the test →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-HR-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 09 / HR AUTOMATION</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Human Resources</div>
+      <h1 class="display-xl">HR <span class="accent">Automation</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"No paperwork. No lost spreadsheets. No chasing emails."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Your HR team spends hours every week on tasks that add no real value. We automate the full employee lifecycle — from onboarding to offboarding, with everything in between — so your team can focus on people, not administration.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Hours lost every week</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Building employee file folders, forwarding forms, manually logging leave requests, remembering to send birthday greetings. None of these tasks require HR expertise — yet they consume professional time every single day.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">12 automated scenarios, <span class="accent">1 unified flow.</span></p>
+      <p class="muted">Onboarding, leave, approvals, monthly close, communications — fully coordinated without manual intervention.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · The solution</div><h2 class="display-lg mt-4">What the system does</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">We automate the complete employee lifecycle, with intelligence built into every stage.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Employee files in Drive</div>
+        <div class="step-desc">When a new employee joins, the system automatically creates their folder in Google Drive with the correct structure: personal documents, onboarding, updates, legal, and offboarding. Named per your internal convention.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Automated onboarding</div>
+        <div class="step-desc">You enter new hire data in a spreadsheet. The system creates directories, logs the hire in your updates file, updates the roster, and emails the employee all required forms — automatically.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Unplanned leave</div>
+        <div class="step-desc">The employee notifies via Gmail or Telegram. Gemini reads the message, identifies the employee, extracts the relevant information, and logs the leave — notifying HR and the area manager. Zero manual handling.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Planned leave with approval</div>
+        <div class="step-desc">The employee submits a request by email. AI extracts the data, validates roster membership, and routes the request to the approver. One click to approve — the system logs the event, generates the official document, and sends it.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Salary advances</div>
+        <div class="step-desc">Same approval circuit for advance requests: email submission, limit validation, manager routing. Once approved, everything is recorded and documented automatically.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div class="step-title">Monthly close</div>
+        <div class="step-desc">At month end, the system runs itself. It consolidates all events — hires, terminations, leave, advances, salary changes — saves the monthly archive in Drive, and resets the updates file for the next period.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Metrics</div><h2 class="display-lg mt-4">What changes, in numbers</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">Process</div>
+        <div class="compare-cell header-cell manual">Manual time</div>
+        <div class="compare-cell header-cell auto">With automation</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Employee onboarding</div>
+        <div class="compare-cell manual">45–90 min</div>
+        <div class="compare-cell auto">&lt; 2 min</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Unplanned leave logging</div>
+        <div class="compare-cell manual">10–15 min</div>
+        <div class="compare-cell auto">Immediate</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Leave approval circuit</div>
+        <div class="compare-cell manual">1–2 days (back-and-forth emails)</div>
+        <div class="compare-cell auto">1 click</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Monthly close</div>
+        <div class="compare-cell manual">2–4 hours</div>
+        <div class="compare-cell auto">Automatic</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Document filing</div>
+        <div class="compare-cell manual">5–10 min per document</div>
+        <div class="compare-cell auto">Immediate</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Additional features</div><h2 class="display-lg mt-4">The details that matter</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Automatic document filing</div>
+        <div class="feature-desc">Define a shared inbox (<code>hr_docs@your-company.com</code>). Any employee sends documents with a structured subject and the system files them directly into the correct Drive folder — with email confirmation.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Welcome email</div>
+        <div class="feature-desc">When a new hire is logged, the employee automatically receives a welcome email with all the forms and files they need to get started — nothing to remember, nothing to send manually.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Birthdays and reminders</div>
+        <div class="feature-desc">The system checks daily who has a birthday and sends greetings automatically. It also handles reminders for probation period expiry, end of extended leave, and return-from-vacation dates.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠</div>
+        <div class="feature-title">Intelligent email reading</div>
+        <div class="feature-desc">Google Gemini reads free-form messages and correctly interprets them — no rigid forms required. Employees notify naturally; the AI extracts what it needs and acts on it.</div>
+      </div>
+    </div>
+
+    <div class="signals-block mt-5">
+      <h4>What's included in the implementation?</h4>
+      <ul class="signals-list">
+        <li>Drive folder structure (root directories and individual employee files)</li>
+        <li>12 Make scenarios — configured and validated</li>
+        <li>Form templates: employment conditions, personal data, address declaration, confidentiality agreement, internal regulations, vacation request, advance request, and more</li>
+        <li>Pre-configured management spreadsheets: Roster, Monthly Updates, Employee Onboarding Log</li>
+        <li>Step-by-step configuration guides for each scenario</li>
+        <li>HR team training to operate the solution independently</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Why it works</div><h2 class="display-lg mt-4">Technology you already have</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">The solution runs on <strong>Google Workspace</strong> (Drive, Sheets, Docs, Gmail) — which you're likely already using — plus <strong>Make</strong> as the orchestration layer and <strong>Google Gemini</strong> for intelligent email and form reading.</p>
+      <p class="body-lg">No additional HR software licenses. No servers to manage. No custom development. If you want to modify a flow tomorrow, everything is visible and editable.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Google Docs</span>
+        <span class="tech-pill">Gmail</span>
+        <span class="tech-pill">Telegram</span>
+        <span class="tech-pill">Gemini</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Who it's for</div><h2 class="display-lg mt-4">Right-fit organizations</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">PROFILE 01</div><div class="next-desc">Companies with <strong>20 to 500 employees</strong> managing HR internally with a small team spending too much time on repetitive administrative tasks.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PROFILE 02</div><div class="next-desc">Organizations with <strong>no existing HR system</strong> working today with Excel, Drive folders, and emails — who want to organize without replacing what they already use.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PROFILE 03</div><div class="next-desc">Companies with <strong>collective agreements, frequent turnover, or distributed teams</strong> across multiple locations where administrative volume is high.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PROFILE 04</div><div class="next-desc">HR teams already on <strong>Google Workspace</strong> who want to get more out of it without adding new platforms or licensing costs.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Next steps</div><h2 class="display-lg mt-4">How we move forward</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card">
+        <div class="next-eyebrow">STEP 01 · 30 minutes</div>
+        <div class="next-title">Live demo</div>
+        <div class="next-desc">We show you the system processing real cases — employee onboarding, leave approval, monthly close — with sample data from your industry. If you don't see the value after the demo, there's no next step.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">STEP 02 · 2 weeks</div>
+        <div class="next-title">Implementation</div>
+        <div class="next-desc">Full setup in your Google Workspace environment, configuration of all 12 Make scenarios, template loading, initial roster setup, and team training. At the end of two weeks, it's live in production.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Ready to stop chasing emails?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book 30 minutes for a live demo with sample data from your industry. No commitment, no generic slides.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book your demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=HR%20Automation%20Inquiry">Talk to a consultant</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 09</span>
+    <span class="accent">ai-q.fit · hr-automation</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>
