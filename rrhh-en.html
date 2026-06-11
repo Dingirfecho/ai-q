@@ -134,6 +134,11 @@
         <div class="step-title">Monthly close</div>
         <div class="step-desc">At month end, the system runs itself. It consolidates all events — hires, terminations, leave, advances, salary changes — saves the monthly archive in Drive, and resets the updates file for the next period.</div>
       </div>
+      <div class="step-card">
+        <div class="step-num">07</div>
+        <div class="step-title">Hours bank</div>
+        <div class="step-desc">Employees log overtime or time-off requests via Telegram with a free-form message. AI interprets, updates the balance, and enforces legal limits. Full compliance with Argentine Labour Modernisation Act (Law 27.802, Art. 197 bis).</div>
+      </div>
     </div>
   </section>
 
@@ -172,6 +177,16 @@
         <div class="compare-cell manual">5–10 min per document</div>
         <div class="compare-cell auto">Immediate</div>
       </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Hours bank registration</div>
+        <div class="compare-cell manual">Manual spreadsheet, error-prone</div>
+        <div class="compare-cell auto">Automatic via Telegram</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Art. 197 bis agreement</div>
+        <div class="compare-cell manual">Manual Word doc + paper signature</div>
+        <div class="compare-cell auto">Auto-generated ✓</div>
+      </div>
     </div>
   </section>
 
@@ -206,17 +221,152 @@
       <h4>What's included in the implementation?</h4>
       <ul class="signals-list">
         <li>Drive folder structure (root directories and individual employee files)</li>
-        <li>12 Make scenarios — configured and validated</li>
+        <li>16 Make scenarios — configured and validated (12 HR management + 4 hours bank)</li>
         <li>Form templates: employment conditions, personal data, address declaration, confidentiality agreement, internal regulations, vacation request, advance request, and more</li>
-        <li>Pre-configured management spreadsheets: Roster, Monthly Updates, Employee Onboarding Log</li>
+        <li>Pre-configured management spreadsheets: Roster, Monthly Updates, Employee Onboarding Log, Hours Bank</li>
+        <li>Art. 197 bis written agreement template, ready to use</li>
         <li>Step-by-step configuration guides for each scenario</li>
         <li>HR team training to operate the solution independently</li>
       </ul>
     </div>
   </section>
 
+
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§05 · Why it works</div><h2 class="display-lg mt-4">Technology you already have</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§05 · Law 27.802</div><h2 class="display-lg mt-4">Hours bank — compliant from day one</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Argentina's Labour Modernisation Act (enacted February 2026) formally introduces the hours bank as a legal instrument — and mandates a reliable control method. Our solution meets all three Art. 197 bis requirements out of the box.</p>
+
+    <div class="grid grid-3">
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Registration via Telegram</div>
+        <div class="feature-desc">The employee sends a free-form message: <em>"Left at 8pm today, that's 2 hours overtime."</em> AI interprets it, identifies the employee by their alias, classifies the movement, and updates the balance. No new app. No portal.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Auto-generated agreement</div>
+        <div class="feature-desc">When HR activates the hours bank for an employee, the system generates the written agreement from a Google Docs template, emails it, and logs acceptance. Legal documentation handled automatically.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Legal limit enforcement</div>
+        <div class="feature-desc">Every registration is checked against the legal weekly maximum and the agreed cap. If a limit is reached, HR receives an automatic alert before the transaction is processed.</div>
+      </div>
+    </div>
+
+    <div class="panel mt-5" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">Art. 197 bis requirement</div>
+        <div class="compare-cell header-cell manual">Without automation</div>
+        <div class="compare-cell header-cell auto">With our solution</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Written voluntary agreement</div>
+        <div class="compare-cell manual">Manual Word doc + paper signature</div>
+        <div class="compare-cell auto">Auto-generated ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Reliable control method</div>
+        <div class="compare-cell manual">Excel sheet, no audit trail</div>
+        <div class="compare-cell auto">Logged with date, time, employee ID ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Balance visible to employee</div>
+        <div class="compare-cell manual">Manual query to HR</div>
+        <div class="compare-cell auto">Instant reply via Telegram ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">10-year archive (Law 27.802)</div>
+        <div class="compare-cell manual">Depends on someone remembering</div>
+        <div class="compare-cell auto">Automatic in Drive ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Competitive context</div><h2 class="display-lg mt-4">What SAP HCM doesn't solve in Argentina</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">SAP HCM is the enterprise standard. It's also expensive, rigid, and slow to adapt to Argentine labour reality. This solution was built specifically for what SAP doesn't handle well.</p>
+
+    <div class="grid grid-2 mb-5">
+      <div class="feature-card">
+        <div class="feature-icon">⚠</div>
+        <div class="feature-title">Real communication channels</div>
+        <div class="feature-desc">SAP lives in self-service portals and corporate email. In Argentina, most leave notifications come through Telegram or WhatsApp. Our solution receives and processes those messages with AI — no portal for employees to learn.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Collective agreements (CCT)</div>
+        <div class="feature-desc">Argentina has over 1,500 active collective agreements, each with its own leave rules, overtime rates, and pay scales. Parametrising one in SAP requires certified consultants and weeks of work. Ours adapts in hours.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Hours bank — Law 27.802</div>
+        <div class="feature-desc">SAP can parametrise it — but only through the Time Management module, at a separate implementation cost, requiring integration with the payroll module. Our solution includes it from the start, already compliant.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">4th-category tax withholding (SIRADIG)</div>
+        <div class="feature-desc">After every AFIP table update, SAP re-parametrisation requires a consultant. Our solution uses editable Sheets tables — when AFIP publishes new brackets, it's updated in minutes.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Document expiry alerts</div>
+        <div class="feature-desc">Workers' comp insurance, health cards, driver's licences for logistics staff, union certifications. SAP can do it but requires costly configuration. With our solution it's one configurable scenario, ready in a day.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">AI-powered absenteeism analysis</div>
+        <div class="feature-desc">SAP reports. Our solution analyses. Gemini automatically detects patterns: recurring absences on specific days, area-level clustering, correlation between leave type and department. HR gets alerts before the problem escalates.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">&nbsp;</div>
+        <div class="compare-cell header-cell manual">SAP HCM</div>
+        <div class="compare-cell header-cell auto">This solution</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Implementation cost</div>
+        <div class="compare-cell manual">USD 50,000 – 300,000</div>
+        <div class="compare-cell auto">From USD 3,000</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Time to go live</div>
+        <div class="compare-cell manual">6 – 18 months</div>
+        <div class="compare-cell auto">2 – 6 weeks</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Regulatory changes</div>
+        <div class="compare-cell manual">Certified consultant + weeks</div>
+        <div class="compare-cell auto">Days</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Annual maintenance</div>
+        <div class="compare-cell manual">SAP licences + support</div>
+        <div class="compare-cell auto">Google Workspace you already pay for</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Learning curve</div>
+        <div class="compare-cell manual">High — extensive training required</div>
+        <div class="compare-cell auto">Low — Gmail and Telegram</div>
+      </div>
+    </div>
+
+    <div class="signals-block mt-5">
+      <h4>The sweet spot</h4>
+      <ul class="signals-list">
+        <li>50–500 employee companies that have outgrown Excel but can't justify SAP</li>
+        <li>HR teams already on Google Workspace who want to automate without replacing what they use</li>
+        <li>Organisations that need to adapt quickly to Law 27.802 without waiting months for consulting</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Why it works</div><h2 class="display-lg mt-4">Technology you already have</h2></div></div>
     <hr class="sep mb-5">
     <div class="panel"><div class="panel-body">
       <p class="body-lg">The solution runs on <strong>Google Workspace</strong> (Drive, Sheets, Docs, Gmail) — which you're likely already using — plus <strong>Make</strong> as the orchestration layer and <strong>Google Gemini</strong> for intelligent email and form reading.</p>
@@ -234,7 +384,7 @@
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§06 · Who it's for</div><h2 class="display-lg mt-4">Right-fit organizations</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§08 · Who it's for</div><h2 class="display-lg mt-4">Right-fit organizations</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
@@ -246,7 +396,7 @@
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§07 · Next steps</div><h2 class="display-lg mt-4">How we move forward</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§09 · Next steps</div><h2 class="display-lg mt-4">How we move forward</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
@@ -258,7 +408,7 @@
       <div class="next-card">
         <div class="next-eyebrow">STEP 02 · 2 weeks</div>
         <div class="next-title">Implementation</div>
-        <div class="next-desc">Full setup in your Google Workspace environment, configuration of all 12 Make scenarios, template loading, initial roster setup, and team training. At the end of two weeks, it's live in production.</div>
+        <div class="next-desc">Full setup in your Google Workspace environment, configuration of all 16 Make scenarios, template loading, initial roster setup, and team training. At the end of two weeks, it's live in production.</div>
       </div>
     </div>
   </section>
@@ -266,7 +416,7 @@
   <section class="section">
     <div class="panel">
       <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
-      <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-header"><span>§10 · Next step</span><span class="accent">● ACTION</span></div>
       <div class="panel-body" style="padding:48px 28px;text-align:center;">
         <h2 class="display-lg mb-4">Ready to stop chasing emails?</h2>
         <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book 30 minutes for a live demo with sample data from your industry. No commitment, no generic slides.</p>

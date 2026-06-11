@@ -134,6 +134,11 @@
         <div class="step-title">Cierre mensual</div>
         <div class="step-desc">A fin de mes, el sistema corre solo. Consolida altas, bajas, licencias, adelantos y novedades, guarda el archivo mensual en Drive y deja el sistema limpio para el mes siguiente.</div>
       </div>
+      <div class="step-card">
+        <div class="step-num">07</div>
+        <div class="step-title">Banco de horas</div>
+        <div class="step-desc">El empleado registra horas extra o compensaciones desde Telegram con un mensaje libre. La IA interpreta, actualiza el saldo y controla los límites legales. Cumplimiento del Art. 197 bis — Ley 27.802.</div>
+      </div>
     </div>
   </section>
 
@@ -172,6 +177,16 @@
         <div class="compare-cell manual">5–10 min por documento</div>
         <div class="compare-cell auto">Inmediato</div>
       </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Registro banco de horas</div>
+        <div class="compare-cell manual">Planilla manual, propensa a errores</div>
+        <div class="compare-cell auto">Automático desde Telegram</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Acuerdo Art. 197 bis</div>
+        <div class="compare-cell manual">Word manual + firma en papel</div>
+        <div class="compare-cell auto">Generado automáticamente</div>
+      </div>
     </div>
   </section>
 
@@ -206,17 +221,152 @@
       <h4>¿Qué incluye la implementación?</h4>
       <ul class="signals-list">
         <li>Estructura de carpetas en Drive (directorios raíz y legajos individuales)</li>
-        <li>12 escenarios Make configurados y validados</li>
+        <li>16 escenarios Make configurados y validados (12 de gestión + 4 de banco de horas)</li>
         <li>Plantillas de formularios: condiciones de alta, datos personales, DDJJ domicilio, DDJJ confidencialidad, reglamento interno, vacaciones, adelantos y más</li>
-        <li>Archivos Excel de gestión preconfigurados: Nómina, Novedades, Altas de legajos</li>
+        <li>Archivos Excel de gestión preconfigurados: Nómina, Novedades, Altas de legajos, Banco de Horas</li>
+        <li>Plantilla del acuerdo Art. 197 bis lista para usar</li>
         <li>Guías de configuración paso a paso para cada escenario</li>
         <li>Capacitación al equipo de RRHH para operar la solución</li>
       </ul>
     </div>
   </section>
 
+
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§05 · Por qué funciona</div><h2 class="display-lg mt-4">La tecnología que ya tenés</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§05 · Ley 27.802</div><h2 class="display-lg mt-4">Banco de horas — cumplimiento desde el día uno</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">La Ley de Modernización Laboral (sancionada en febrero de 2026) habilita formalmente el banco de horas y exige un método fehaciente de control. Nuestra solución cumple los tres requisitos del Art. 197 bis sin configuración adicional.</p>
+
+    <div class="grid grid-3">
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Registro desde Telegram</div>
+        <div class="feature-desc">El empleado manda un mensaje libre: <em>"Hoy salí a las 20hs, son 2 horas extra."</em> La IA interpreta, identifica al empleado por su alias, clasifica el movimiento y actualiza el saldo. Sin app nueva, sin portal.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Acuerdo automático</div>
+        <div class="feature-desc">Al habilitar banco de horas para un empleado, el sistema genera el acuerdo escrito desde plantilla de Google Docs, lo envía por mail y registra la aceptación. Cumplimiento documental automático.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Control de límites legales</div>
+        <div class="feature-desc">El sistema verifica en cada registro que no se supere el máximo semanal legal ni el saldo negativo permitido. RRHH recibe alerta automática antes de que se genere un problema.</div>
+      </div>
+    </div>
+
+    <div class="panel mt-5" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">Requisito Art. 197 bis</div>
+        <div class="compare-cell header-cell manual">Sin automatización</div>
+        <div class="compare-cell header-cell auto">Con nuestra solución</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Acuerdo escrito y voluntario</div>
+        <div class="compare-cell manual">Word manual + firma en papel</div>
+        <div class="compare-cell auto">Generado automáticamente ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Método fehaciente de control</div>
+        <div class="compare-cell manual">Planilla Excel, sin trazabilidad</div>
+        <div class="compare-cell auto">Registro con fecha, hora y legajo ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Saldo visible para el empleado</div>
+        <div class="compare-cell manual">Consulta manual a RRHH</div>
+        <div class="compare-cell auto">Respuesta inmediata por Telegram ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Historial archivado 10 años</div>
+        <div class="compare-cell manual">Dependiente de que alguien lo guarde</div>
+        <div class="compare-cell auto">Automático en Drive ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Contexto competitivo</div><h2 class="display-lg mt-4">Lo que SAP HCM no resuelve en Argentina</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">SAP HCM es el estándar enterprise. También es caro, rígido y lento para adaptarse a la realidad laboral argentina. Esta solución fue construida específicamente para lo que SAP no hace bien.</p>
+
+    <div class="grid grid-2 mb-5">
+      <div class="feature-card">
+        <div class="feature-icon">⚠</div>
+        <div class="feature-title">Canales reales de comunicación</div>
+        <div class="feature-desc">SAP vive en portales de autoservicio y mails corporativos. En Argentina, la mayoría de los avisos de licencia llegan por Telegram o WhatsApp. Nuestra solución recibe y procesa esos mensajes con IA — sin que el empleado aprenda ningún portal.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Convenios Colectivos (CCT)</div>
+        <div class="feature-desc">Argentina tiene más de 1.500 CCT activos. La parametrización de uno en SAP requiere consultoría certificada y semanas de trabajo. En nuestra solución, las reglas del CCT se modelan en la lógica de los escenarios, adaptables en horas.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Banco de horas — Ley 27.802</div>
+        <div class="feature-desc">SAP puede parametrizarlo, pero solo con el módulo de Time Management, con costo de implementación separado e integración con el módulo de nómina. Nuestra solución lo incluye de base, ya cumpliendo la nueva ley.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Retenciones 4ta categoría — SIRADIG</div>
+        <div class="feature-desc">La re-parametrización post-cambios de AFIP en SAP siempre requiere un consultor. Nuestra solución usa tablas actualizables en Sheets — cuando AFIP publica nuevas escalas, se actualiza en minutos.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Alertas de vencimiento documental</div>
+        <div class="feature-desc">Vencimiento de ART, libreta sanitaria, carnet de conducir para choferes, habilitaciones gremiales. En SAP requiere configuración costosa. Con nuestra solución es un escenario configurable en un día.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Análisis de ausentismo con IA</div>
+        <div class="feature-desc">SAP reporta. Nuestra solución analiza. Gemini detecta patrones automáticamente: ausentismo recurrente en días específicos, concentración por área, correlación con tipo de licencia. RRHH recibe alertas antes de que el problema escale.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">&nbsp;</div>
+        <div class="compare-cell header-cell manual">SAP HCM</div>
+        <div class="compare-cell header-cell auto">Esta solución</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Implementación</div>
+        <div class="compare-cell manual">USD 50.000 – 300.000</div>
+        <div class="compare-cell auto">Desde USD 3.000</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Puesta en marcha</div>
+        <div class="compare-cell manual">6 – 18 meses</div>
+        <div class="compare-cell auto">2 – 6 semanas</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Cambios normativos</div>
+        <div class="compare-cell manual">Consultor certificado + semanas</div>
+        <div class="compare-cell auto">Días</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Mantenimiento anual</div>
+        <div class="compare-cell manual">Licencias + soporte SAP</div>
+        <div class="compare-cell auto">Google Workspace que ya tenés</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Curva de aprendizaje</div>
+        <div class="compare-cell manual">Alta — capacitación extensa</div>
+        <div class="compare-cell auto">Baja — Gmail y Telegram</div>
+      </div>
+    </div>
+
+    <div class="signals-block mt-5">
+      <h4>El sweet spot</h4>
+      <ul class="signals-list">
+        <li>Empresas de 50 a 500 empleados que superaron la planilla de Excel pero no pueden justificar SAP</li>
+        <li>Equipos de RRHH que operan sobre Google Workspace y quieren automatizar sin reemplazar lo que ya usan</li>
+        <li>Organizaciones que necesitan adaptarse rápido a la Ley 27.802 sin esperar meses de consultoría</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Por qué funciona</div><h2 class="display-lg mt-4">La tecnología que ya tenés</h2></div></div>
     <hr class="sep mb-5">
     <div class="panel"><div class="panel-body">
       <p class="body-lg">La solución funciona sobre <strong>Google Workspace</strong> (Drive, Sheets, Docs, Gmail) que probablemente ya estás usando, más <strong>Make</strong> como orquestador y <strong>Google Gemini</strong> para la lectura inteligente de mails y formularios.</p>
@@ -234,7 +384,7 @@
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§06 · A quién aplica</div><h2 class="display-lg mt-4">Para qué tipo de empresas</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§08 · A quién aplica</div><h2 class="display-lg mt-4">Para qué tipo de empresas</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
@@ -246,7 +396,7 @@
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§07 · Próximos pasos</div><h2 class="display-lg mt-4">Cómo avanzamos</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§09 · Próximos pasos</div><h2 class="display-lg mt-4">Cómo avanzamos</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
@@ -266,7 +416,7 @@
   <section class="section">
     <div class="panel">
       <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
-      <div class="panel-header"><span>§08 · Próximo paso</span><span class="accent">● ACTION</span></div>
+      <div class="panel-header"><span>§10 · Próximo paso</span><span class="accent">● ACTION</span></div>
       <div class="panel-body" style="padding:48px 28px;text-align:center;">
         <h2 class="display-lg mb-4">¿Listo para dejar de perseguir mails?</h2>
         <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agendá 30 minutos para ver la demo en vivo con datos de ejemplo de tu industria. Sin compromiso, sin slides genéricas.</p>
