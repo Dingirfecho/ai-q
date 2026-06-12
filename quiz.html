@@ -555,21 +555,68 @@
       </div>
     </section>
 
-    <!-- Book promo -->
+    <!-- Books promo -->
     <section class="section">
-      <div class="panel">
-        <div class="panel-header">
-          <span>BOOK / AI-Q</span>
-          <span class="accent">KINDLE · $9.99</span>
+      <div class="section-head">
+        <div>
+          <div class="kicker" id="booksSectionKicker"></div>
+          <h2 class="display-md" style="margin-top:6px;" id="booksSectionTitle"></h2>
         </div>
-        <div class="panel-body" style="display:grid;grid-template-columns:auto 1fr;gap:var(--aq-space-5);align-items:center;">
-          <img src="https://m.media-amazon.com/images/I/71mF5MxVZIL._SY522_.jpg" alt="AI-Q Book" style="width:110px;border:var(--aq-border);">
-          <div>
-            <h3 class="display-md" id="bookTitle" style="margin-bottom:10px;"></h3>
-            <p class="muted mb-4" id="bookDesc"></p>
-            <a class="btn primary" href="https://www.amazon.com/dp/B0DP5DR919" target="_blank" id="bookBtn"></a>
+      </div>
+      <hr class="sep mb-5">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--aq-space-4);">
+
+        <!-- Book 1: AI-Q -->
+        <div class="panel" style="display:flex;flex-direction:column;">
+          <div class="panel-header">
+            <span>BOOK 01 / AI-Q</span>
+            <span class="accent">KINDLE · $9.99</span>
+          </div>
+          <div class="panel-body" style="flex:1;display:flex;flex-direction:column;gap:var(--aq-space-3);">
+            <img src="https://m.media-amazon.com/images/I/71mF5MxVZIL._SY522_.jpg" alt="AI-Q Book" style="width:80px;border:var(--aq-border);display:block;">
+            <div style="flex:1;">
+              <p class="kicker-tiny mb-2" id="book1Cat"></p>
+              <p class="body-md mb-2" id="book1Title"></p>
+              <p class="muted" style="font-size:var(--aq-text-sm);" id="book1Desc"></p>
+            </div>
+            <a class="btn primary" href="https://www.amazon.com/dp/B0DP5DR919" target="_blank" id="book1Btn"></a>
           </div>
         </div>
+
+        <!-- Book 2: SAMA -->
+        <div class="panel" style="display:flex;flex-direction:column;">
+          <div class="panel-header">
+            <span>BOOK 02 / SAMA</span>
+            <span class="accent">KINDLE</span>
+          </div>
+          <div class="panel-body" style="flex:1;display:flex;flex-direction:column;gap:var(--aq-space-3);">
+            <img src="https://m.media-amazon.com/images/I/71R2zQH6nEL._SY522_.jpg" alt="SAMA Book" style="width:80px;border:var(--aq-border);display:block;" onerror="this.style.display='none'">
+            <div style="flex:1;">
+              <p class="kicker-tiny mb-2" id="book2Cat"></p>
+              <p class="body-md mb-2" id="book2Title"></p>
+              <p class="muted" style="font-size:var(--aq-text-sm);" id="book2Desc"></p>
+            </div>
+            <a class="btn primary" href="https://www.amazon.com/dp/B0H4W8PG9Y" target="_blank" id="book2Btn"></a>
+          </div>
+        </div>
+
+        <!-- Book 3: Scientific Mindfulness -->
+        <div class="panel" style="display:flex;flex-direction:column;">
+          <div class="panel-header">
+            <span>BOOK 03 / MINDFULNESS</span>
+            <span class="accent">KINDLE</span>
+          </div>
+          <div class="panel-body" style="flex:1;display:flex;flex-direction:column;gap:var(--aq-space-3);">
+            <img src="https://m.media-amazon.com/images/I/71L7VEt3FaL._SY522_.jpg" alt="Scientific Mindfulness Book" style="width:80px;border:var(--aq-border);display:block;" onerror="this.style.display='none'">
+            <div style="flex:1;">
+              <p class="kicker-tiny mb-2" id="book3Cat"></p>
+              <p class="body-md mb-2" id="book3Title"></p>
+              <p class="muted" style="font-size:var(--aq-text-sm);" id="book3Desc"></p>
+            </div>
+            <a class="btn primary" href="https://www.amazon.com/dp/B0FQXXMVN5" target="_blank" id="book3Btn"></a>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -653,8 +700,8 @@ let lang='es',cur=0,ans=Array(20).fill(null),usr={};
 <!-- The TXT, Q and T data blocks (inlined from existing site) -->
 <script>
 const TXT={
-en:{title:'Discover Your<br><span class="accent">AI-Q Type/</span>',sub:'Like Myers-Briggs, but for your company\'s AI strategy.',questions:'Questions',minutes:'Minutes',types:'Types',wiifm:'What\'s in it for you',wiifm1t:'CLARITY ON WHERE YOU STAND',wiifm1d:'Stop guessing. Know exactly where your AI strategy is strong and where it\'s failing.',wiifm2t:'A CLEAR PATH FORWARD',wiifm2d:'Get specific, actionable recommendations based on your unique situation.',wiifm3t:'LANGUAGE TO EXPLAIN IT',wiifm3d:'Finally articulate what\'s wrong (or right) to your team and leadership.',wiifm4t:'BENCHMARK YOURSELF',wiifm4d:'See how your organization compares across 4 critical dimensions.',preview:'What you\'ll discover',sample:'Sample result',pn1:'Chaos Pilot',pd1:'Tools everywhere, strategy nowhere',pn2:'Strategic Leader',pd2:'AI is how you compete',pn3:'Wishful Thinker',pd3:'"Can\'t AI just do that?"',pn4:'Tech Utopia',pd4:'Built it, they didn\'t come',dim1:'Structure',dim2:'Orientation',dim3:'Leadership',dim4:'Integration',ins1:'Your type & what it means',ins2:'Strengths to leverage',ins3:'Blind spots to watch',ins4:'Clear path forward',name:'Your name',email:'Email',company:'Company',industry:'Industry',size:'Company size',note:'Only your name is required.',start:'Start assessment →',intro:'Answer based on how things actually are, not how you wish they were.',prev:'Previous',next:'Next',results:'See results',profile:'Your profile',str:'Strengths',bl:'Blind spots',path:'Path forward',report:'Send report',reportD:'Get a detailed report with your results and recommendations.',send:'Send',sent:'Report sent.',cta:'Want to become a Strategic Leader?',ctaD:'The AI Strategy Sprint gives you a complete roadmap in 2 weeks.',ctaB:'Book a discovery call →',copy:'Copy results',retake:'Retake quiz',qof:'Question # of 20',scat:'Scattered',cons:'Consolidated',react:'Reactive',proact:'Proactive',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrated',sd:'Strongly disagree',d:'Disagree',n:'Neutral',a:'Agree',sa:'Strongly agree',shareTitle:'Share your result',shareDesc:'Download your result card, then share it on LinkedIn with the caption below.',download:'Download image',postTitle:'Ready-to-post LinkedIn caption',postDesc:'Copy this caption, then paste it on LinkedIn with your downloaded image.',step1:'Download the image above',step2:'Copy the caption below',step3:'Go to LinkedIn, paste & upload',tabCasual:'Casual',tabPro:'Professional',tabChallenge:'Challenge',copyPost:'Copy caption',goLinkedIn:'Open LinkedIn',copied:'Copied.',bookTitle:'Go deeper: get the full AI-Q book',bookDesc:'Learn the complete framework, all 16 types in detail, transformation strategies, and case studies.',bookBtn:'Get the book on Amazon →'},
-es:{title:'Descubrí tu<br><span class="accent">tipo AI-Q/</span>',sub:'Como Myers-Briggs, pero para la estrategia de IA de tu empresa.',questions:'Preguntas',minutes:'Minutos',types:'Tipos',wiifm:'Qué te llevás',wiifm1t:'CLARIDAD SOBRE DÓNDE ESTÁS',wiifm1d:'Dejá de adivinar. Sabé exactamente dónde tu estrategia de IA es fuerte y dónde está fallando.',wiifm2t:'UN CAMINO CLARO HACIA ADELANTE',wiifm2d:'Obtené recomendaciones específicas y accionables basadas en tu situación única.',wiifm3t:'LENGUAJE PARA EXPLICARLO',wiifm3d:'Por fin articulá qué está mal (o bien) a tu equipo y liderazgo.',wiifm4t:'COMPARATE',wiifm4d:'Mirá cómo se compara tu organización en 4 dimensiones críticas.',preview:'Lo que vas a descubrir',sample:'Resultado de ejemplo',pn1:'Piloto del Caos',pd1:'Herramientas por todas partes, estrategia ninguna',pn2:'Líder Estratégico',pd2:'La IA es cómo competís',pn3:'Pensador Idealista',pd3:'"¿No puede la IA hacer eso?"',pn4:'Utopía Tech',pd4:'Lo construiste, no vinieron',dim1:'Estructura',dim2:'Orientación',dim3:'Liderazgo',dim4:'Integración',ins1:'Tu tipo y qué significa',ins2:'Fortalezas a aprovechar',ins3:'Puntos ciegos a vigilar',ins4:'Camino claro a seguir',name:'Tu nombre',email:'Email',company:'Empresa',industry:'Industria',size:'Tamaño',note:'Solo el nombre es requerido.',start:'Comenzar →',intro:'Respondé basándote en cómo son las cosas, no cómo desearías que fueran.',prev:'Anterior',next:'Siguiente',results:'Ver resultados',profile:'Tu perfil',str:'Fortalezas',bl:'Puntos ciegos',path:'Camino a seguir',report:'Enviar reporte',reportD:'Recibí un reporte detallado con tus resultados y recomendaciones.',send:'Enviar',sent:'Reporte enviado.',cta:'¿Querés ser un Líder Estratégico?',ctaD:'El AI Strategy Sprint te da un roadmap completo en 2 semanas.',ctaB:'Agendá una llamada →',copy:'Copiar resultados',retake:'Repetir test',qof:'Pregunta # de 20',scat:'Disperso',cons:'Consolidado',react:'Reactivo',proact:'Proactivo',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrado',sd:'Muy en desacuerdo',d:'En desacuerdo',n:'Neutral',a:'De acuerdo',sa:'Muy de acuerdo',shareTitle:'Compartí tu resultado',shareDesc:'Descargá tu tarjeta y compartila en LinkedIn con el texto de abajo.',download:'Descargar imagen',postTitle:'Caption lista para LinkedIn',postDesc:'Copiá este texto y pegalo en LinkedIn junto con tu imagen.',step1:'Descargá la imagen de arriba',step2:'Copiá el texto de abajo',step3:'Andá a LinkedIn, pegá y subí',tabCasual:'Casual',tabPro:'Profesional',tabChallenge:'Desafío',copyPost:'Copiar caption',goLinkedIn:'Abrir LinkedIn',copied:'Copiado.',bookTitle:'Profundizá: obtené el libro AI-Q',bookDesc:'Aprendé el framework completo, los 16 tipos en detalle, estrategias de transformación y casos reales.',bookBtn:'Obtener el libro en Amazon →'}
+en:{title:'Discover Your<br><span class="accent">AI-Q Type/</span>',sub:'Like Myers-Briggs, but for your company\'s AI strategy.',questions:'Questions',minutes:'Minutes',types:'Types',wiifm:'What\'s in it for you',wiifm1t:'CLARITY ON WHERE YOU STAND',wiifm1d:'Stop guessing. Know exactly where your AI strategy is strong and where it\'s failing.',wiifm2t:'A CLEAR PATH FORWARD',wiifm2d:'Get specific, actionable recommendations based on your unique situation.',wiifm3t:'LANGUAGE TO EXPLAIN IT',wiifm3d:'Finally articulate what\'s wrong (or right) to your team and leadership.',wiifm4t:'BENCHMARK YOURSELF',wiifm4d:'See how your organization compares across 4 critical dimensions.',preview:'What you\'ll discover',sample:'Sample result',pn1:'Chaos Pilot',pd1:'Tools everywhere, strategy nowhere',pn2:'Strategic Leader',pd2:'AI is how you compete',pn3:'Wishful Thinker',pd3:'"Can\'t AI just do that?"',pn4:'Tech Utopia',pd4:'Built it, they didn\'t come',dim1:'Structure',dim2:'Orientation',dim3:'Leadership',dim4:'Integration',ins1:'Your type & what it means',ins2:'Strengths to leverage',ins3:'Blind spots to watch',ins4:'Clear path forward',name:'Your name',email:'Email',company:'Company',industry:'Industry',size:'Company size',note:'Only your name is required.',start:'Start assessment →',intro:'Answer based on how things actually are, not how you wish they were.',prev:'Previous',next:'Next',results:'See results',profile:'Your profile',str:'Strengths',bl:'Blind spots',path:'Path forward',report:'Send report',reportD:'Get a detailed report with your results and recommendations.',send:'Send',sent:'Report sent.',cta:'Want to become a Strategic Leader?',ctaD:'The AI Strategy Sprint gives you a complete roadmap in 2 weeks.',ctaB:'Book a discovery call →',copy:'Copy results',retake:'Retake quiz',qof:'Question # of 20',scat:'Scattered',cons:'Consolidated',react:'Reactive',proact:'Proactive',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrated',sd:'Strongly disagree',d:'Disagree',n:'Neutral',a:'Agree',sa:'Strongly agree',shareTitle:'Share your result',shareDesc:'Download your result card, then share it on LinkedIn with the caption below.',download:'Download image',postTitle:'Ready-to-post LinkedIn caption',postDesc:'Copy this caption, then paste it on LinkedIn with your downloaded image.',step1:'Download the image above',step2:'Copy the caption below',step3:'Go to LinkedIn, paste & upload',tabCasual:'Casual',tabPro:'Professional',tabChallenge:'Challenge',copyPost:'Copy caption',goLinkedIn:'Open LinkedIn',copied:'Copied.',booksSectionKicker:'§ BOOKS',booksSectionTitle:'Go deeper: the books behind the framework',book1Cat:'AI Strategy',book1Title:'The Four Dimensions That Separate the 5% Who Succeed from the 95% Who Fail',book1Desc:'The complete AI-Q framework: all 16 types, transformation strategies, and real case studies.',book1Btn:'Get on Amazon →',book2Cat:'Change Management',book2Title:'SAMA: A Change Management Framework for AI Transformations',book2Desc:'Storytelling + AI-Q + Mindfulness + Agile. The 6-week execution playbook for real AI adoption.',book2Btn:'Get on Amazon →',book3Cat:'Mindfulness & Well-being',book3Title:'Scientific Mindfulness: A System of Meditation That\'s Evidence-Based',book3Desc:'20+ years of research and practice distilled into a rigorous, evidence-based meditation system.',book3Btn:'Get on Amazon →'},
+es:{title:'Descubrí tu<br><span class="accent">tipo AI-Q/</span>',sub:'Como Myers-Briggs, pero para la estrategia de IA de tu empresa.',questions:'Preguntas',minutes:'Minutos',types:'Tipos',wiifm:'Qué te llevás',wiifm1t:'CLARIDAD SOBRE DÓNDE ESTÁS',wiifm1d:'Dejá de adivinar. Sabé exactamente dónde tu estrategia de IA es fuerte y dónde está fallando.',wiifm2t:'UN CAMINO CLARO HACIA ADELANTE',wiifm2d:'Obtené recomendaciones específicas y accionables basadas en tu situación única.',wiifm3t:'LENGUAJE PARA EXPLICARLO',wiifm3d:'Por fin articulá qué está mal (o bien) a tu equipo y liderazgo.',wiifm4t:'COMPARATE',wiifm4d:'Mirá cómo se compara tu organización en 4 dimensiones críticas.',preview:'Lo que vas a descubrir',sample:'Resultado de ejemplo',pn1:'Piloto del Caos',pd1:'Herramientas por todas partes, estrategia ninguna',pn2:'Líder Estratégico',pd2:'La IA es cómo competís',pn3:'Pensador Idealista',pd3:'"¿No puede la IA hacer eso?"',pn4:'Utopía Tech',pd4:'Lo construiste, no vinieron',dim1:'Estructura',dim2:'Orientación',dim3:'Liderazgo',dim4:'Integración',ins1:'Tu tipo y qué significa',ins2:'Fortalezas a aprovechar',ins3:'Puntos ciegos a vigilar',ins4:'Camino claro a seguir',name:'Tu nombre',email:'Email',company:'Empresa',industry:'Industria',size:'Tamaño',note:'Solo el nombre es requerido.',start:'Comenzar →',intro:'Respondé basándote en cómo son las cosas, no cómo desearías que fueran.',prev:'Anterior',next:'Siguiente',results:'Ver resultados',profile:'Tu perfil',str:'Fortalezas',bl:'Puntos ciegos',path:'Camino a seguir',report:'Enviar reporte',reportD:'Recibí un reporte detallado con tus resultados y recomendaciones.',send:'Enviar',sent:'Reporte enviado.',cta:'¿Querés ser un Líder Estratégico?',ctaD:'El AI Strategy Sprint te da un roadmap completo en 2 semanas.',ctaB:'Agendá una llamada →',copy:'Copiar resultados',retake:'Repetir test',qof:'Pregunta # de 20',scat:'Disperso',cons:'Consolidado',react:'Reactivo',proact:'Proactivo',tech:'Tech-driven',biz:'Business-driven',exp:'Experimental',integ:'Integrado',sd:'Muy en desacuerdo',d:'En desacuerdo',n:'Neutral',a:'De acuerdo',sa:'Muy de acuerdo',shareTitle:'Compartí tu resultado',shareDesc:'Descargá tu tarjeta y compartila en LinkedIn con el texto de abajo.',download:'Descargar imagen',postTitle:'Caption lista para LinkedIn',postDesc:'Copiá este texto y pegalo en LinkedIn junto con tu imagen.',step1:'Descargá la imagen de arriba',step2:'Copiá el texto de abajo',step3:'Andá a LinkedIn, pegá y subí',tabCasual:'Casual',tabPro:'Profesional',tabChallenge:'Desafío',copyPost:'Copiar caption',goLinkedIn:'Abrir LinkedIn',copied:'Copiado.',booksSectionKicker:'§ LIBROS',booksSectionTitle:'Profundizá: los libros detrás del framework',book1Cat:'Estrategia de IA',book1Title:'Las Cuatro Dimensiones que Separan el 5% que Triunfa del 95% que Falla',book1Desc:'El framework AI-Q completo: los 16 tipos, estrategias de transformación y casos reales.',book1Btn:'Conseguir en Amazon →',book2Cat:'Gestión del Cambio',book2Title:'SAMA: Un Framework de Gestión del Cambio para Transformaciones de IA',book2Desc:'Storytelling + AI-Q + Mindfulness + Agile. El playbook de ejecución de 6 semanas para adopción real de IA.',book2Btn:'Conseguir en Amazon →',book3Cat:'Mindfulness y Bienestar',book3Title:'Mindfulness Científico: Un Sistema de Meditación Basado en Evidencia',book3Desc:'Más de 20 años de investigación y práctica destilados en un sistema de meditación riguroso y basado en evidencia.',book3Btn:'Conseguir en Amazon →'}
 };
 const Q={
 en:[{d:'Structure',t:'We have a complete inventory of all AI tools being used across the organization.',p:1},{d:'Structure',t:'Different departments have purchased their own AI tools without central coordination.',p:-1},{d:'Structure',t:'Our AI tools are governed under a unified policy and ownership structure.',p:1},{d:'Structure',t:'Teams often discover they are using duplicate AI tools for similar purposes.',p:-1},{d:'Structure',t:'We regularly audit and consolidate our AI tool portfolio.',p:1},{d:'Orientation',t:'We have a 12-month AI roadmap that anticipates future needs.',p:1},{d:'Orientation',t:'Most of our AI initiatives started because a competitor did something.',p:-1},{d:'Orientation',t:'We have a clear vision for how AI will transform our business in 3 years.',p:1},{d:'Orientation',t:'Our AI decisions are often driven by the latest article the CEO read.',p:-1},{d:'Orientation',t:'We have said no to AI opportunities that did not fit our strategic plan.',p:1},{d:'Leadership',t:'Business leaders define what problems AI should solve.',p:1},{d:'Leadership',t:'IT or the data team decides which AI projects to pursue.',p:-1},{d:'Leadership',t:'Business outcomes like revenue and efficiency drive AI prioritization.',p:1},{d:'Leadership',t:'Our AI team builds impressive things that few people actually use.',p:-1},{d:'Leadership',t:'Our CEO could explain our AI ROI to the board with confidence.',p:1},{d:'Integration',t:'AI tools are embedded in our daily workflows, not just special projects.',p:1},{d:'Integration',t:'Most of our AI initiatives are still in pilot or proof of concept phase.',p:-1},{d:'Integration',t:'Employees use AI tools as a natural part of their work.',p:1},{d:'Integration',t:'We have impressive AI demos that have not translated to real usage.',p:-1},{d:'Integration',t:'We have retired old processes because AI does them better.',p:1}],
@@ -731,9 +778,20 @@ function u(){
   setById('tabChallenge', t.tabChallenge);
   setById('btnCopyPost', t.copyPost);
   setById('btnGoLinkedIn', t.goLinkedIn);
-  setById('bookTitle', t.bookTitle);
-  setById('bookDesc', t.bookDesc);
-  setById('bookBtn', t.bookBtn);
+  setById('booksSectionKicker', t.booksSectionKicker);
+  setById('booksSectionTitle', t.booksSectionTitle);
+  setById('book1Cat', t.book1Cat);
+  setById('book1Title', t.book1Title);
+  setById('book1Desc', t.book1Desc);
+  setById('book1Btn', t.book1Btn);
+  setById('book2Cat', t.book2Cat);
+  setById('book2Title', t.book2Title);
+  setById('book2Desc', t.book2Desc);
+  setById('book2Btn', t.book2Btn);
+  setById('book3Cat', t.book3Cat);
+  setById('book3Title', t.book3Title);
+  setById('book3Desc', t.book3Desc);
+  setById('book3Btn', t.book3Btn);
   document.querySelector('.lang-switch').textContent = lang==='en' ? 'ES' : 'EN';
   document.querySelectorAll('[data-en]').forEach(el => {
     const txt = el.getAttribute('data-' + lang);
