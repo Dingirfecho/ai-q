@@ -250,6 +250,61 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
 }
 
 /* ============================================================
+   Top contact bar
+   ============================================================ */
+
+.top-contact-bar {
+  background: var(--aq-ink);
+  border-bottom: 1px solid var(--aq-ink);
+}
+
+.top-contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aq-space-2);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 9px var(--aq-pad-page-x);
+  font-family: var(--aq-font-mono);
+  font-size: var(--aq-fs-meta);
+  letter-spacing: var(--aq-track-meta);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--aq-paper);
+  transition: color var(--aq-t-fast);
+}
+
+.top-contact-link:hover {
+  color: var(--aq-accent);
+}
+
+.top-contact-link .top-contact-dot {
+  color: var(--aq-accent);
+}
+
+.top-contact-link .top-contact-email {
+  color: var(--aq-mute2);
+}
+
+.top-contact-link:hover .top-contact-email {
+  color: var(--aq-accent);
+}
+
+@media (max-width: 768px) {
+  .top-contact-link {
+    padding: 8px var(--aq-pad-page-x-sm);
+    font-size: 10px;
+    gap: 6px;
+  }
+  .top-contact-link .top-contact-email { display: none; }
+}
+
+@media print {
+  .top-contact-bar { display: none; }
+}
+
+/* ============================================================
    Header & nav
    ============================================================ */
 
