@@ -10,18 +10,18 @@
     <style>
         :root{--bg-dark:#07090E;--bg-card:#0D1117;--bg-card-hover:#161B22;--accent-teal:#14B8A6;--accent-teal-dim:rgba(20,184,166,0.15);--accent-blue:#3B82F6;--accent-purple:#8B5CF6;--accent-orange:#F97316;--accent-red:#EF4444;--accent-green:#22C55E;--text-primary:#F1F5F9;--text-secondary:#94A3B8;--text-muted:#64748B;--border:#1E293B;--type-color:#EF4444}
         *{margin:0;padding:0;box-sizing:border-box}
-.top-contact-bar{position:fixed;top:0;left:0;right:0;z-index:101;height:34px;display:flex;align-items:center;justify-content:center;background:#000;border-bottom:1px solid var(--border)}.top-contact-bar a{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--text-secondary);display:flex;align-items:center;gap:8px;text-decoration:none}.top-contact-bar a:hover{color:var(--accent-teal)}.top-contact-bar .dot{color:var(--type-color, var(--accent-teal))}
+.top-contact-bar{position:fixed;top:0;left:0;right:0;z-index:101;min-height:52px;display:flex;align-items:center;justify-content:center;gap:12px;background:var(--bg-card);border-bottom:1px solid var(--border);padding:8px 16px}.top-contact-bar span{font-family:'Space Grotesk',sans-serif;font-size:0.85rem;color:var(--text-secondary)}.top-contact-bar a{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.85rem;color:white;background:var(--accent-teal);padding:8px 18px;border-radius:6px;text-decoration:none;transition:background 0.2s}.top-contact-bar a:hover{background:#0D9488}
         body{font-family:'Space Grotesk',sans-serif;background:var(--bg-dark);color:var(--text-primary);line-height:1.6}
         .bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 50% at 20% -20%,rgba(239,68,68,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(59,130,246,0.08),transparent);pointer-events:none;z-index:0}
         .container{max-width:1000px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
-        nav{position:fixed;top:34px;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+        nav{position:fixed;top:52px;left:0;right:0;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(7,9,14,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
         .logo{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent-teal),var(--accent-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
         .nav-links{display:flex;gap:1.5rem;align-items:center}
         .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
         .nav-links a:hover{color:var(--accent-teal)}
         .btn-nav{background:var(--accent-teal);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:0.9rem}
         .btn-nav:hover{background:#0D9488}
-        .hero{padding:calc(8rem + 34px) 0 4rem;text-align:center}
+        .hero{padding:calc(8rem + 52px) 0 4rem;text-align:center}
         .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);padding:0.4rem 1rem;border-radius:50px;font-size:0.85rem;color:var(--type-color);margin-bottom:1.5rem;font-family:'JetBrains Mono',monospace}
         .hero-illustration{width:180px;height:180px;margin:0 auto 2rem;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(239,68,68,0.2)}
         .hero-illustration img{width:100%;height:100%}
@@ -108,7 +108,7 @@
     </style>
 </head>
 <body>
-<div class="top-contact-bar"><a href="mailto:fedeandino@ai-q.fit"><span class="dot">●</span>Contactanos &rarr; fedeandino@ai-q.fit</a></div>
+<div class="top-contact-bar"><span>&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?</span><a href="mailto:fedeandino@ai-q.fit">Contactanos &rarr;</a></div>
 
     <div class="bg-gradient"></div>
     <nav>

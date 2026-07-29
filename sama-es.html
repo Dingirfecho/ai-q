@@ -15,7 +15,7 @@
   --aiq-cream:#F5EAD2; --aiq-parch:#D9C9A3; --aiq-mute:#94886A;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-.top-contact-bar{position:fixed;top:0;left:0;right:0;z-index:101;height:34px;display:flex;align-items:center;justify-content:center;background:#000;border-bottom:1px solid rgba(184,135,58,0.4)}.top-contact-bar a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--aiq-parch);display:flex;align-items:center;gap:8px;text-decoration:none}.top-contact-bar a:hover{color:var(--aiq-gold-hi)}.top-contact-bar .dot{color:var(--aiq-gold)}
+.top-contact-bar{position:fixed;top:0;left:0;right:0;z-index:101;min-height:52px;display:flex;align-items:center;justify-content:center;gap:14px;background:#0A0906;border-bottom:1px solid rgba(184,135,58,0.4);padding:8px 16px}.top-contact-bar span{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--aiq-mute)}.top-contact-bar a{font-family:'Limelight',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--aiq-ink);background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 50%,var(--aiq-gold-deep));padding:9px 16px;border:1px solid var(--aiq-gold-deep);text-decoration:none}.top-contact-bar a:hover{filter:brightness(1.08)}
 html{scroll-behavior:smooth}
 body{
   background:radial-gradient(ellipse 90% 60% at 50% -10%, rgba(227,184,92,0.14), transparent 70%),
@@ -32,7 +32,7 @@ body::after{
 a{color:inherit;text-decoration:none}
 .page{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 32px}
 
-nav.deco-nav{position:fixed;top:34px;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:rgba(10,9,6,0.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(184,135,58,0.4)}
+nav.deco-nav{position:fixed;top:52px;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:rgba(10,9,6,0.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(184,135,58,0.4)}
 nav.deco-nav .logo{font-family:'Limelight',serif;font-size:22px;letter-spacing:5px;background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 50%,var(--aiq-gold-shadow));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 1px 0 rgba(0,0,0,0.6)}
 nav.deco-nav .nav-links{display:flex;gap:24px;align-items:center}
 nav.deco-nav .nav-links a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--aiq-parch)}
@@ -43,7 +43,7 @@ nav.deco-nav .nav-links a:hover{color:var(--aiq-gold-hi)}
 .btn-cta{font-family:'Limelight',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--aiq-ink);background:linear-gradient(180deg,var(--aiq-gold-hi),var(--aiq-gold) 50%,var(--aiq-gold-deep));padding:10px 18px;border:1px solid var(--aiq-gold-deep);box-shadow:inset 0 1px 0 rgba(255,242,194,0.5),0 4px 12px rgba(184,135,58,0.3)}
 .btn-cta:hover{filter:brightness(1.08)}
 
-.hero{padding:calc(140px + 34px) 0 40px;text-align:center}
+.hero{padding:calc(140px + 52px) 0 40px;text-align:center}
 .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--aiq-gold-deep);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
 .sama-mark{margin:0 auto 24px;width:340px;height:120px;position:relative}
 .sama-mark .ring{position:absolute;inset:0;border:1px solid rgba(184,135,58,0.5);border-radius:60px}
@@ -109,12 +109,12 @@ footer p{color:var(--aiq-mute);font-size:13px}
   .pillars{grid-template-columns:1fr}
   .flow{grid-template-columns:repeat(2,1fr)}
   nav.deco-nav .nav-links a:not(.btn-cta):not(.lang-toggle a){display:none}
-  .hero{padding-top:calc(120px + 34px)}
+  .hero{padding-top:calc(120px + 52px)}
 }
 </style>
 </head>
 <body>
-<div class="top-contact-bar"><a href="mailto:fedeandino@ai-q.fit"><span class="dot">●</span>Contactanos &rarr; fedeandino@ai-q.fit</a></div>
+<div class="top-contact-bar"><span>&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?</span><a href="mailto:fedeandino@ai-q.fit">Contactanos &rarr;</a></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
