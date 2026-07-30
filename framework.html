@@ -483,7 +483,16 @@
 </script>
 
 <script>
-let lang = 'es';
+let lang = (function () {
+  try {
+    var saved = localStorage.getItem('aiq_lang_pref');
+    if (saved) return saved;
+    var browserLang = (navigator.language || 'es').toLowerCase();
+    var detected = browserLang.indexOf('es') === 0 ? 'es' : 'en';
+    localStorage.setItem('aiq_lang_pref', detected);
+    return detected;
+  } catch (e) { return 'es'; }
+})();
 const types = JSON.parse(document.getElementById('types-data').textContent);
 let currentFilter = 'all';
 
@@ -500,6 +509,7 @@ function setLang(l) {
     }
   });
   document.getElementById('langSwitch').textContent = lang === 'es' ? 'EN' : 'ES';
+  try { localStorage.setItem('aiq_lang_pref', lang); } catch (e) {}
   renderTypes();
 }
 function toggleLang(){ setLang(lang === 'es' ? 'en' : 'es'); }
@@ -551,7 +561,7 @@ document.getElementById('hamburger').addEventListener('click', () => {
 });
 
 // ───── Init ─────
-renderTypes();
+if (lang !== 'es') { setLang(lang); } else { renderTypes(); }
 // Set "Todos" filter as active by default
 document.querySelector('.filter-btn[data-filter="all"]').style.background = 'var(--aq-ink)';
 document.querySelector('.filter-btn[data-filter="all"]').style.color = 'var(--aq-paper)';

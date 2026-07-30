@@ -700,7 +700,7 @@ if (!CanvasRenderingContext2D.prototype.roundRect) {
 <!-- ────── Quiz data ────── -->
 <script>
 const WEBHOOK='https://script.google.com/macros/s/AKfycbzl0mvlsVQU79or7pxl8KUUaWYdwiWRhUFA2uaqbwRs8JKjYu6YvqjertvLMrOazx7u/exec';
-let lang='es',cur=0,ans=Array(20).fill(null),usr={};
+let lang=(function(){try{var s=localStorage.getItem('aiq_lang_pref');if(s)return s;var b=(navigator.language||'es').toLowerCase();var d=b.indexOf('es')===0?'es':'en';localStorage.setItem('aiq_lang_pref',d);return d;}catch(e){return 'es';}})(),cur=0,ans=Array(20).fill(null),usr={};
 </script>
 
 <!-- The TXT, Q and T data blocks (inlined from existing site) -->
@@ -805,7 +805,7 @@ function u(){
   });
 }
 
-function toggleLang(){ lang = lang==='en' ? 'es' : 'en'; u(); }
+function toggleLang(){ lang = lang==='en' ? 'es' : 'en'; try{localStorage.setItem('aiq_lang_pref',lang);}catch(e){} u(); }
 
 function startQuiz(){
   const name = document.getElementById('userName').value.trim();

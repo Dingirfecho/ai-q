@@ -297,7 +297,16 @@
 </div><!-- /.page -->
 
 <script>
-let lang = 'es';
+let lang = (function () {
+  try {
+    var saved = localStorage.getItem('aiq_lang_pref');
+    if (saved) return saved;
+    var browserLang = (navigator.language || 'es').toLowerCase();
+    var detected = browserLang.indexOf('es') === 0 ? 'es' : 'en';
+    localStorage.setItem('aiq_lang_pref', detected);
+    return detected;
+  } catch (e) { return 'es'; }
+})();
 function setLang(l) {
   lang = l;
   document.documentElement.lang = lang;
@@ -313,6 +322,7 @@ function setLang(l) {
     if (href) el.setAttribute('href', href);
   });
   document.getElementById('langSwitch').textContent = lang === 'es' ? 'EN' : 'ES';
+  try { localStorage.setItem('aiq_lang_pref', lang); } catch (e) {}
 }
 function toggleLang(){ setLang(lang === 'es' ? 'en' : 'es'); }
 
@@ -321,6 +331,7 @@ document.getElementById('hamburger').addEventListener('click', () => {
 });
 const today = new Date();
 document.getElementById('specDate').textContent = today.toISOString().split('T')[0];
+if (lang !== 'es') { setLang(lang); }
 </script>
 
 </body>
