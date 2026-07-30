@@ -43,10 +43,32 @@
     <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
     <nav class="site-nav" id="siteNav">
       <a class="nav-link" href="index.html">Inicio</a>
-      <a class="nav-link" href="index.html#types">16 Tipos</a>
-      <a class="nav-link" href="sama.html">SAMA</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluciones ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos.html">Resúmenes Bancarios</a>
+          <a href="notas-debito.html">Notas de Débito Bancarias</a>
+          <a href="retenciones.html">Retenciones Impositivas</a>
+          <a href="amortizaciones.html">Activos Fijos · AxI</a>
+          <a href="estado-contratos.html">Control de Contratos</a>
+          <a href="gimnasios.html">Gimnasios y Academias</a>
+          <a href="posteo-redes.html">Posteo Diario en Redes</a>
+          <a href="rrhh.html">Automatización de RRHH</a>
+          <a href="inmobiliaria.html">Inmobiliarias · Asistente IA</a>
+        </div>
+      </div>
       <a class="nav-link" href="consultoria.html">Consultoría</a>
-      <a class="btn primary" href="quiz.html">Hacer el test →</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama.html">SAMA</a>
+          <a href="quiz.html">Hacer el Test →</a>
+        </div>
+      </div>
+      <a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agendá una llamada →</a>
     </nav>
   </div>
 </header>
@@ -112,7 +134,7 @@
     <hr class="sep mb-5">
     <p class="body-lg muted mb-5" style="max-width:880px;">La guía es la referencia. El test es el diagnóstico. SAMA es el sistema operativo. La consultoría es cuando querés ayuda para hacerlo realidad.</p>
     <div class="flex gap-3 items-center" style="flex-wrap:wrap;">
-      <a class="btn primary" href="index.html#types">Ver los 16 tipos</a>
+      <a class="btn primary" href="framework.html#types">Ver los 16 tipos</a>
       <a class="btn" href="sama.html">Ver framework SAMA</a>
       <a class="btn" href="consultoria.html">Ver consultoría</a>
     </div>
