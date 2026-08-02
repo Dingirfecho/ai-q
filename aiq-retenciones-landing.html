@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Q · Retenciones Impositivas — Automatizadas</title>
+<style>
+  :root{
+    --paper: #f1ede2;
+    --paper-line: #d8d2c0;
+    --ink: #1c1a15;
+    --ink-soft: #5c5748;
+    --accent: #e2531f;
+    --accent-soft: #f3d8c9;
+    --panel: #e8e2d1;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0 / 100% 32px,
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---- top strip ---- */
+  .topstrip{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    padding:14px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+
+  header.nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .logo{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:600;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo .mark{
+    width:22px;height:22px;
+    border:1.5px solid var(--ink);
+    border-radius:50%;
+    position:relative;
+    flex-shrink:0;
+  }
+  .logo .mark::before, .logo .mark::after{
+    content:"";
+    position:absolute;
+    background:var(--ink);
+  }
+  .logo .mark::before{ width:10px; height:1.5px; top:50%; left:50%; transform:translate(-50%,-50%);}
+  .logo .mark::after{ height:10px; width:1.5px; top:50%; left:50%; transform:translate(-50%,-50%);}
+  .back{
+    font-family:var(--mono);
+    font-size:12px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border:1px solid var(--paper-line);
+    padding:7px 12px;
+    border-radius:3px;
+  }
+  .back:hover{border-color:var(--ink-soft);}
+
+  /* ---- hero ---- */
+  .hero{ padding:56px 0 40px; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+  h1{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:clamp(36px, 5.6vw, 60px);
+    line-height:1.04;
+    letter-spacing:-0.02em;
+    margin:0 0 22px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .sub{
+    font-size:18px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    max-width:560px;
+    margin:0 0 34px;
+  }
+
+  .cta-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .btn{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:15px;
+    padding:14px 22px;
+    border-radius:4px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1.5px solid transparent;
+    transition:transform .12s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+  }
+  .btn-secondary{
+    background:transparent;
+    border-color:var(--ink);
+    color:var(--ink);
+  }
+  .cta-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  /* ---- calculator (signature element) ---- */
+  .calc{
+    margin-top:44px;
+    border:1px solid var(--ink);
+    background:var(--panel);
+    position:relative;
+  }
+  .calc::before, .calc::after,
+  .calc .corner-br, .calc .corner-bl{
+    content:"";
+    position:absolute;
+    width:14px; height:14px;
+    border:1.5px solid var(--ink);
+  }
+  .calc::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .calc::after{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .calc .corner-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .calc .corner-br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+  .calc-head{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    padding:14px 22px;
+    border-bottom:1px solid var(--ink);
+    display:flex;
+    justify-content:space-between;
+    color:var(--ink-soft);
+  }
+  .calc-body{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+  }
+  @media (max-width:680px){ .calc-body{grid-template-columns:1fr;} }
+
+  .calc-inputs{
+    padding:26px;
+    border-right:1px solid var(--ink);
+  }
+  @media (max-width:680px){ .calc-inputs{border-right:none; border-bottom:1px solid var(--ink);} }
+
+  .field{ margin-bottom:20px; }
+  .field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .field .row{ display:flex; align-items:center; gap:12px; }
+  input[type=range]{
+    flex:1;
+    accent-color:var(--accent);
+  }
+  .field .val{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:15px;
+    min-width:56px;
+    text-align:right;
+  }
+
+  .calc-output{
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+  }
+  .output-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .output-number{
+    font-size:52px;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    color:var(--accent);
+    line-height:1;
+  }
+  .output-number span{
+    font-size:20px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .output-sub{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  /* ---- sections ---- */
+  section{ padding:64px 0; border-bottom:1px solid var(--paper-line); }
+  .sec-label{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+  h2{
+    font-size:clamp(26px,3.4vw,34px);
+    font-weight:800;
+    letter-spacing:-0.01em;
+    margin:0 0 36px;
+    max-width:640px;
+  }
+
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid var(--ink);
+  }
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{
+    padding:26px 24px;
+    border-right:1px solid var(--ink);
+  }
+  .step:last-child{ border-right:none; }
+  @media (max-width:760px){
+    .step{ border-right:none; border-bottom:1px solid var(--ink); }
+    .step:last-child{border-bottom:none;}
+  }
+  .step-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .step h3{ font-size:18px; margin:0 0 8px; }
+  .step p{ font-size:14.5px; color:var(--ink-soft); line-height:1.5; margin:0; }
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:36px;
+  }
+  @media (max-width:680px){ .stat-row{grid-template-columns:1fr;} }
+  .stat{ border-top:2px solid var(--ink); padding-top:14px; }
+  .stat .num{ font-size:32px; font-weight:800; color:var(--accent); }
+  .stat .lbl{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+
+  .faq{ max-width:720px; }
+  .qa{ padding:20px 0; border-bottom:1px solid var(--paper-line); }
+  .qa:first-child{ padding-top:0; }
+  .qa .q{ font-weight:700; font-size:16px; margin-bottom:8px; }
+  .qa .aa{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
+
+  .final{
+    background:var(--ink);
+    color:var(--paper);
+    padding:56px 0;
+    border-bottom:none;
+  }
+  .final .sec-label{ color:#8b8574; }
+  .final h2{ color:var(--paper); }
+  .final .sub{ color:#c9c3b3; }
+  .final .btn-secondary{ border-color:var(--paper); color:var(--paper); }
+
+  footer{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    padding:24px 0 40px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topstrip">
+    <span>DOC // AIQ-RET-002 · REV / A</span>
+    <span>HOJA 01 / 01 · SCALE 1:1</span>
+  </div>
+
+  <header class="nav">
+    <a class="logo" href="https://ai-q.fit/">
+      <span class="mark"></span>
+      ai—q.fit/
+    </a>
+    <a class="back" href="https://ai-q.fit/">← Ver las 9 soluciones</a>
+  </header>
+
+  <section class="hero" style="border-bottom:none; padding-bottom:0;">
+    <div class="eyebrow"><span class="dot"></span> §01 · RETENCIONES IMPOSITIVAS</div>
+    <h1>Las retenciones ya no se<br>cargan <em>a mano.</em></h1>
+    <p class="sub">PDF, escaneo o foto de la retención se convierten en planilla lista para tu sistema contable. Sin plantilla paralela, sin carga manual, sin errores de tipeo.</p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20retenciones" target="_blank" rel="noopener">
+        Contame tu caso por WhatsApp →
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">
+        Agendá una llamada
+      </a>
+    </div>
+    <div class="cta-note">Respuesta en el día · sin costo · sin compromiso</div>
+
+    <div class="calc">
+      <div class="corner-bl"></div><div class="corner-br"></div>
+      <div class="calc-head">
+        <span>§ CALCULADORA · HORAS RECUPERADAS</span>
+        <span>EN VIVO</span>
+      </div>
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="field">
+            <label>Retenciones que procesás por mes</label>
+            <div class="row">
+              <input type="range" id="docs" min="10" max="500" value="120" step="5">
+              <span class="val" id="docsVal">120</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Minutos que te lleva cargar cada una hoy</label>
+            <div class="row">
+              <input type="range" id="mins" min="2" max="20" value="8" step="1">
+              <span class="val" id="minsVal">8 min</span>
+            </div>
+          </div>
+        </div>
+        <div class="calc-output">
+          <div class="output-label">HORAS QUE RECUPERÁS POR MES</div>
+          <div class="output-number"><span id="hoursOut">14,5</span> <span>hs</span></div>
+          <div class="output-sub" id="hoursSub">Hoy: 16,0 hs manuales → Automatizado: ~1,5 hs de revisión de excepciones</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="sec-label">§02 · CÓMO FUNCIONA</div>
+    <h2>Tres pasos, sin tocar tu sistema actual.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Llega el comprobante</h3>
+        <p>PDF, escaneo o foto — como te llegue hoy, por mail o WhatsApp.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Se lee y se valida</h3>
+        <p>Un orquestador conectado a un LLM extrae los campos y los mapea a tu formato, en ~45 segundos por documento.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Vos solo revisás excepciones</h3>
+        <p>Lo que no valida con certeza se marca y se deriva a tu equipo. Nada se carga sin control.</p>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">+99%</div>
+        <div class="lbl">PRECISIÓN EN 6+ BANCOS ARGENTINOS</div>
+      </div>
+      <div class="stat">
+        <div class="num">2–15</div>
+        <div class="lbl">DÍAS TÍPICOS DE IMPLEMENTACIÓN</div>
+      </div>
+      <div class="stat">
+        <div class="num">0</div>
+        <div class="lbl">SERVIDORES O CAMBIOS EN TU SISTEMA ACTUAL</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§03 · PREGUNTAS FRECUENTES</div>
+    <h2>Antes de escribirnos.</h2>
+    <div class="faq">
+      <div class="qa">
+        <div class="q">¿Reemplaza a mi contador o mi sistema contable?</div>
+        <div class="aa">No. El sistema carga los datos por vos; tu contador y tu sistema siguen siendo los mismos. Solo se elimina la carga manual del comprobante.</div>
+      </div>
+      <div class="qa">
+        <div class="q">¿Y si el sistema se equivoca?</div>
+        <div class="aa">Todo lo que no valida con certeza se marca y se deriva a una persona de tu equipo para revisión. Nada se procesa sin control.</div>
+      </div>
+      <div class="qa">
+        <div class="q">¿Cuánto sale?</div>
+        <div class="aa">Precio cerrado según tu volumen mensual — te lo armamos con tus datos reales en la primera conversación, sin proyecto eterno.</div>
+      </div>
+      <div class="qa">
+        <div class="q">¿Cuánto tarda en implementarse?</div>
+        <div class="aa">Entre 2 y 15 días según el volumen y la integración con tu sistema actual.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="final">
+  <div class="wrap">
+    <div class="sec-label">§04 · HABLEMOS</div>
+    <h2>Contanos cuántas retenciones procesás hoy.</h2>
+    <p class="sub">Con eso solo, ya te podemos decir cuántas horas recuperás por mes.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20retenciones" target="_blank" rel="noopener">
+        Contame tu caso por WhatsApp →
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">
+        Agendá una llamada
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>ai-q.fit · Retenciones Impositivas</span>
+    <span>Federico Andino · Buenos Aires</span>
+  </footer>
+</div>
+
+<script>
+  const docsEl = document.getElementById('docs');
+  const minsEl = document.getElementById('mins');
+  const docsVal = document.getElementById('docsVal');
+  const minsVal = document.getElementById('minsVal');
+  const hoursOut = document.getElementById('hoursOut');
+  const hoursSub = document.getElementById('hoursSub');
+
+  function fmt(n){
+    return n.toLocaleString('es-AR', {minimumFractionDigits:1, maximumFractionDigits:1});
+  }
+
+  function update(){
+    const docs = parseInt(docsEl.value, 10);
+    const mins = parseInt(minsEl.value, 10);
+    docsVal.textContent = docs;
+    minsVal.textContent = mins + ' min';
+
+    const manualHours = (docs * mins) / 60;
+    const autoHours = (docs * 45) / 3600; // 45 seg por doc, tiempo de revisión de excepciones
+    const recovered = Math.max(manualHours - autoHours, 0);
+
+    hoursOut.textContent = fmt(recovered);
+    hoursSub.textContent = `Hoy: ${fmt(manualHours)} hs manuales → Automatizado: ~${fmt(autoHours)} hs de revisión de excepciones`;
+  }
+
+  docsEl.addEventListener('input', update);
+  minsEl.addEventListener('input', update);
+  update();
+</script>
+
+</body>
+</html>
