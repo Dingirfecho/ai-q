@@ -310,6 +310,16 @@
   .qa .q{ font-weight:700; font-size:16px; margin-bottom:8px; }
   .qa .aa{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
 
+  .compare table{ width:100%; border-collapse:collapse; border:1px solid var(--ink); font-size:14.5px; }
+  .compare th, .compare td{ padding:14px 18px; text-align:left; }
+  .compare thead tr{ border-bottom:1px solid var(--ink); }
+  .compare thead th{ font-family:var(--mono); font-size:12px; font-weight:600; color:var(--ink-soft); }
+  .compare thead th.col-aiq{ color:var(--accent); font-weight:700; }
+  .compare tbody tr{ border-bottom:1px solid var(--paper-line); }
+  .compare tbody tr:last-child{ border-bottom:none; }
+  .compare tbody td.label{ color:var(--ink-soft); }
+  .compare tbody td.other{ color:var(--ink-soft); }
+
   .final{
     background:var(--ink);
     color:var(--paper);
@@ -337,7 +347,7 @@
 
 <div class="wrap">
   <div class="topstrip">
-    <span>DOC // AIQ-RET-002 · REV / A</span>
+    <span>DOC // AIQ-RET-002 · REV / B</span>
     <span>HOJA 01 / 01 · SCALE 1:1</span>
   </div>
 
@@ -436,7 +446,54 @@
   </section>
 
   <section>
-    <div class="sec-label">§03 · PREGUNTAS FRECUENTES</div>
+    <div class="sec-label">§03 · VS. OTRAS HERRAMIENTAS DEL MERCADO</div>
+    <h2>Cómo se compara con lo que ya existe.</h2>
+    <div class="compare">
+      <div class="calc-head" style="border:1px solid var(--ink); border-bottom:none;">
+        <span>§ VS. OTRAS HERRAMIENTAS DEL MERCADO</span>
+        <span>AMVITIUM · PCTAX · CONTABILIUM · EGAFUTURA</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th class="col-aiq">AI-Q</th>
+            <th>OTRAS HERRAMIENTAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">Cuándo se procesa</td>
+            <td>Automático, a medida que llega cada retención</td>
+            <td class="other">Por lote: vos descargás el archivo de AFIP/AGIP y lo importás</td>
+          </tr>
+          <tr>
+            <td class="label">Cobertura geográfica</td>
+            <td>Todo el país</td>
+            <td class="other">Por jurisdicción o sistema puntual (AFIP, AGIP, ARBA, etc.)</td>
+          </tr>
+          <tr>
+            <td class="label">Control de calidad</td>
+            <td>Audita cada certificado antes de cargarlo</td>
+            <td class="other">Importa lo que declaraste; la validación queda en vos</td>
+          </tr>
+          <tr>
+            <td class="label">Qué necesitás tener</td>
+            <td>Un Excel y un mail para hacer seguimiento</td>
+            <td class="other">Un programa instalado, o migrar tu gestión a un ERP completo</td>
+          </tr>
+          <tr>
+            <td class="label">Mantenimiento</td>
+            <td>Ninguno de tu lado</td>
+            <td class="other">Actualizaciones y soporte del software instalado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§04 · PREGUNTAS FRECUENTES</div>
     <h2>Antes de escribirnos.</h2>
     <div class="faq">
       <div class="qa">
@@ -461,7 +518,7 @@
 
 <section class="final">
   <div class="wrap">
-    <div class="sec-label">§04 · HABLEMOS</div>
+    <div class="sec-label">§05 · HABLEMOS</div>
     <h2>Contanos cuántas retenciones procesás hoy.</h2>
     <p class="sub">Con eso solo, ya te podemos decir cuántas horas recuperás por mes.</p>
     <div class="cta-row">
