@@ -361,15 +361,18 @@
 
   <section class="hero" style="border-bottom:none; padding-bottom:0;">
     <div class="eyebrow"><span class="dot"></span> §01 · RETENCIONES IMPOSITIVAS · PARA ESTUDIOS CONTABLES</div>
-    <h1>Las retenciones, le llegue<br>o no el <em>certificado.</em></h1>
-    <p class="sub">El sistema toma el certificado si llega por mail, y el archivo que baja cada organismo (AFIP, ARBA, AGIP, etc.) si lo dejás en una carpeta. Lo que falte por un lado, lo cubre el otro.</p>
+    <h1>Las retenciones, las reciba<br>o las tenga que <em>generar.</em></h1>
+    <p class="sub">El sistema procesa el certificado o el archivo del organismo cuando la retención le llega, y calcula el monto con la alícuota correspondiente cuando es usted quien tiene que generarla antes de pagarle a un proveedor.</p>
 
     <div class="cta-row">
       <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20retenciones" target="_blank" rel="noopener">
         Contame tu caso por WhatsApp →
       </a>
-      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">
-        Agendá una llamada
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-q-automatizacion-con-ia" target="_blank" rel="noopener">
+        Agendá una llamada de estrategia
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/demo-semanal-retenciones" target="_blank" rel="noopener">
+        Sumate a la demo grupal (martes 12 hs)
       </a>
     </div>
     <div class="cta-note">Respuesta en el día · sin costo · sin compromiso</div>
@@ -383,7 +386,7 @@
       <div class="calc-body">
         <div class="calc-inputs">
           <div class="field">
-            <label>Retenciones que procesás por mes</label>
+            <label>Retenciones que recibe o genera por mes</label>
             <div class="row">
               <input type="range" id="docs" min="10" max="500" value="120" step="5">
               <span class="val" id="docsVal">120</span>
@@ -409,7 +412,24 @@
 
 <div class="wrap">
   <section>
-    <div class="sec-label">§02 · CÓMO FUNCIONA</div>
+    <div class="sec-label">§02 · DOS FLUJOS, UN MISMO SISTEMA</div>
+    <h2>Sirve para las retenciones que recibe y las que tiene que generar.</h2>
+    <div class="steps" style="grid-template-columns:repeat(2,1fr);">
+      <div class="step">
+        <div class="step-num">RECIBIDAS</div>
+        <h3>Cuando la retención le llega</h3>
+        <p>El certificado que manda el cliente por mail, o el archivo que baja del organismo por carpeta. El sistema lo lee, calcula el monto si no viene calculado, lo audita y arma la planilla.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">A GENERAR</div>
+        <h3>Cuando usted es agente de retención</h3>
+        <p>Calcula el monto aplicando la alícuota que corresponde al tipo de operación y a la condición del proveedor, y arma el certificado listo para emitir antes de pagarle.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§03 · CÓMO FUNCIONA</div>
     <h2>Tres pasos, sin tocar tu sistema actual.</h2>
     <div class="steps">
       <div class="step">
@@ -419,8 +439,8 @@
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <h3>Se lee y se valida</h3>
-        <p>Un orquestador conectado a un LLM extrae cada retención del archivo y la audita antes de armar la salida.</p>
+        <h3>Se lee, se calcula si hace falta, y se valida</h3>
+        <p>Un orquestador conectado a un LLM extrae cada retención. Si ya viene calculada, la toma tal cual; si no, la calcula aplicando la alícuota informada según las tablas de referencia vigentes.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
@@ -446,7 +466,7 @@
   </section>
 
   <section>
-    <div class="sec-label">§03 · VS. OTRAS HERRAMIENTAS DEL MERCADO</div>
+    <div class="sec-label">§04 · VS. OTRAS HERRAMIENTAS DEL MERCADO</div>
     <h2>Cómo se compara con lo que ya existe.</h2>
     <div class="compare">
       <div class="calc-head" style="border:1px solid var(--ink); border-bottom:none;">
@@ -478,6 +498,16 @@
             <td class="other">Importa lo que declaraste; la validación queda en vos</td>
           </tr>
           <tr>
+            <td class="label">Si la retención no viene calculada</td>
+            <td>La calcula con la alícuota informada según las tablas de referencia</td>
+            <td class="other">Solo procesa lo que ya viene calculado</td>
+          </tr>
+          <tr>
+            <td class="label">Si usted es agente de retención</td>
+            <td>Calcula el monto y arma el certificado listo para emitir</td>
+            <td class="other">No genera retenciones, solo procesa las que recibe</td>
+          </tr>
+          <tr>
             <td class="label">Qué necesitás tener</td>
             <td>Un Excel y un mail para hacer seguimiento</td>
             <td class="other">Un programa instalado, o migrar tu gestión a un ERP completo</td>
@@ -493,12 +523,20 @@
   </section>
 
   <section>
-    <div class="sec-label">§04 · PREGUNTAS FRECUENTES</div>
+    <div class="sec-label">§05 · PREGUNTAS FRECUENTES</div>
     <h2>Antes de escribirnos.</h2>
     <div class="faq">
       <div class="qa">
         <div class="q">¿Necesito que el cliente me mande el certificado de retención?</div>
         <div class="aa">No necesariamente. Si el certificado llega por mail, lo tomamos de ahí. Si no llega, tomamos igual el archivo que baja del organismo (AFIP, ARBA, AGIP, etc.) desde una carpeta. No dependen de una sola fuente.</div>
+      </div>
+      <div class="qa">
+        <div class="q">¿Y si la retención no viene calculada?</div>
+        <div class="aa">El sistema la calcula aplicando la alícuota informada según las tablas de referencia vigentes. Sirve tanto si la retención ya viene con el monto calculado como si hay que calcularla desde cero.</div>
+      </div>
+      <div class="qa">
+        <div class="q">¿Sirve también si yo (o mi cliente) soy agente de retención?</div>
+        <div class="aa">Sí. Además de procesar las retenciones que recibe, el sistema calcula el monto que corresponde retener según el tipo de operación y la condición del proveedor, y arma el certificado listo para emitir antes de pagarle.</div>
       </div>
       <div class="qa">
         <div class="q">¿Reemplaza mi sistema de gestión o de liquidación?</div>
@@ -522,15 +560,18 @@
 
 <section class="final">
   <div class="wrap">
-    <div class="sec-label">§05 · HABLEMOS</div>
-    <h2>Contanos cuántas retenciones procesás hoy por mes.</h2>
-    <p class="sub">Con eso solo, ya te podemos decir cuántas horas recuperás dejando de perseguir certificados.</p>
+    <div class="sec-label">§06 · HABLEMOS</div>
+    <h2>Contanos cuántas retenciones recibe o genera hoy por mes.</h2>
+    <p class="sub">Con eso solo, ya te podemos decir cuántas horas recuperás.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20retenciones" target="_blank" rel="noopener">
         Contame tu caso por WhatsApp →
       </a>
-      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">
-        Agendá una llamada
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-q-automatizacion-con-ia" target="_blank" rel="noopener">
+        Agendá una llamada de estrategia
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/demo-semanal-retenciones" target="_blank" rel="noopener">
+        Sumate a la demo grupal (martes 12 hs)
       </a>
     </div>
   </div>
