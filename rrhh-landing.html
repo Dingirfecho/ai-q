@@ -614,7 +614,8 @@
 
 <script>
   // Contador de visitas oculto — solo visible con ?panel=fede en la URL.
-  // Servicio: countapi.xyz (gratis, sin login). No cuenta la visita cuando
+  // Servicio: abacus.jasoncameron.dev (gratis, sin login — reemplazo activo
+  // de countapi.xyz, que dejó de funcionar). No cuenta la visita cuando
   // se entra en modo panel, para no inflar el número al revisarlo vos mismo.
   (function(){
     var params = new URLSearchParams(window.location.search);
@@ -622,8 +623,8 @@
     var namespace = 'aiq-fit-2026';
     var key = 'rrhh-landing';
     var endpoint = isAdmin
-      ? 'https://api.countapi.xyz/get/' + namespace + '/' + key
-      : 'https://api.countapi.xyz/hit/' + namespace + '/' + key;
+      ? 'https://abacus.jasoncameron.dev/get/' + namespace + '/' + key
+      : 'https://abacus.jasoncameron.dev/hit/' + namespace + '/' + key;
 
     fetch(endpoint)
       .then(function(r){ return r.json(); })
