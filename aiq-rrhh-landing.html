@@ -392,7 +392,7 @@
   <section class="hero" style="border-bottom:none; padding-bottom:0;">
     <div class="eyebrow"><span class="dot"></span> §01 · LICENCIAS NO PLANIFICADAS</div>
     <h1>Avisó que falta.<br>El reemplazo <em>ya está en marcha.</em></h1>
-    <p class="sub">Tu equipo avisa por Gmail, WhatsApp o Telegram, como ya lo hace hoy. El sistema lee el mensaje, identifica al empleado, registra la licencia y notifica a RRHH y al responsable del área — al instante, para que la cobertura se coordine sin perseguir mails.</p>
+    <p class="sub">Tu equipo avisa por Correo, WhatsApp o Telegram, como ya lo hace hoy. El sistema lee el mensaje, identifica al empleado, registra la licencia y notifica a RRHH y al responsable del área — al instante, para que la cobertura se coordine sin perseguir mails.</p>
 
     <div class="cta-row">
       <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20RRHH" target="_blank" rel="noopener">
@@ -474,7 +474,7 @@
       <div class="step">
         <div class="step-num">01</div>
         <h3>Avisa como ya lo hace</h3>
-        <p>Gmail, WhatsApp o Telegram — el canal que el empleado ya usa naturalmente. Sin portales nuevos, sin apps para instalar.</p>
+        <p>Correo, WhatsApp o Telegram — el canal que el empleado ya usa naturalmente. Sin portales nuevos, sin apps para instalar.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
@@ -510,7 +510,7 @@
     <div class="faq">
       <div class="qa">
         <div class="q">¿Reemplaza a mi sistema de RRHH actual?</div>
-        <div class="aa">No. Funciona sobre las herramientas que ya usás para correo, planillas y archivos, más los canales que tu equipo ya tiene instalados (Gmail, WhatsApp, Telegram) — sin licencias nuevas de software ni servidores que administrar.</div>
+        <div class="aa">No. Funciona sobre las herramientas que ya usás para correo, planillas y archivos, más los canales que tu equipo ya tiene instalados (Correo, WhatsApp, Telegram) — sin licencias nuevas de software ni servidores que administrar.</div>
       </div>
       <div class="qa">
         <div class="q">¿Qué pasa si el aviso no es claro o falta un dato?</div>
@@ -610,6 +610,43 @@
 
   [licenciasEl, minLicEl, altasEl, minAltasEl, cierreEl].forEach(el => el.addEventListener('input', update));
   update();
+</script>
+
+<script>
+  // Contador de visitas oculto — solo visible con ?panel=fede en la URL.
+  // Servicio: countapi.xyz (gratis, sin login). No cuenta la visita cuando
+  // se entra en modo panel, para no inflar el número al revisarlo vos mismo.
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var isAdmin = params.get('panel') === 'fede';
+    var namespace = 'aiq-fit-2026';
+    var key = 'rrhh-landing';
+    var endpoint = isAdmin
+      ? 'https://api.countapi.xyz/get/' + namespace + '/' + key
+      : 'https://api.countapi.xyz/hit/' + namespace + '/' + key;
+
+    fetch(endpoint)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(!isAdmin) return;
+        var badge = document.createElement('div');
+        badge.textContent = 'VISITAS: ' + (data.value != null ? data.value : '—');
+        badge.style.position = 'fixed';
+        badge.style.bottom = '18px';
+        badge.style.right = '18px';
+        badge.style.background = 'var(--ink)';
+        badge.style.color = 'var(--paper)';
+        badge.style.fontFamily = 'var(--mono)';
+        badge.style.fontSize = '12px';
+        badge.style.letterSpacing = '0.05em';
+        badge.style.padding = '9px 14px';
+        badge.style.borderRadius = '3px';
+        badge.style.zIndex = '9999';
+        badge.style.boxShadow = '0 4px 14px rgba(0,0,0,0.25)';
+        document.body.appendChild(badge);
+      })
+      .catch(function(){ /* servicio no disponible, no rompe la página */ });
+  })();
 </script>
 
 </body>
