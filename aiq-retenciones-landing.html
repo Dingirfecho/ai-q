@@ -615,5 +615,43 @@
   update();
 </script>
 
+<script>
+  // Contador de visitas oculto — solo visible con ?panel=fede en la URL.
+  // Servicio: abacus.jasoncameron.dev (gratis, sin login — reemplazo activo
+  // de countapi.xyz, que dejó de funcionar). No cuenta la visita cuando
+  // se entra en modo panel, para no inflar el número al revisarlo vos mismo.
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var isAdmin = params.get('panel') === 'fede';
+    var namespace = 'aiq-fit-2026';
+    var key = 'retenciones-landing';
+    var endpoint = isAdmin
+      ? 'https://abacus.jasoncameron.dev/get/' + namespace + '/' + key
+      : 'https://abacus.jasoncameron.dev/hit/' + namespace + '/' + key;
+
+    fetch(endpoint)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(!isAdmin) return;
+        var badge = document.createElement('div');
+        badge.textContent = 'VISITAS: ' + (data.value != null ? data.value : '—');
+        badge.style.position = 'fixed';
+        badge.style.bottom = '18px';
+        badge.style.right = '18px';
+        badge.style.background = 'var(--ink)';
+        badge.style.color = 'var(--paper)';
+        badge.style.fontFamily = 'var(--mono)';
+        badge.style.fontSize = '12px';
+        badge.style.letterSpacing = '0.05em';
+        badge.style.padding = '9px 14px';
+        badge.style.borderRadius = '3px';
+        badge.style.zIndex = '9999';
+        badge.style.boxShadow = '0 4px 14px rgba(0,0,0,0.25)';
+        document.body.appendChild(badge);
+      })
+      .catch(function(){ /* servicio no disponible, no rompe la página */ });
+  })();
+</script>
+
 </body>
 </html>
