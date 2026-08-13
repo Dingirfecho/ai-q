@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;amortizaciones.html&quot;,&quot;en&quot;:&quot;amortizaciones-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ativos Fixos · AxI · Automação · AI-Q</title>
+<meta name="description" content="Automação de cálculo de depreciação de ativos fixos no Google Sheets, com formato numérico e de datas argentino. 4 outputs por ativo. Processamento automático em segundos.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções Tributárias</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Studios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente de IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="amortizaciones.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="amortizaciones-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-AMORT-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 09 / AXI</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Ativos fixos &amp; contabilidade</div>
+      <h1 class="display-xl">Automação de <span class="accent">ativos fixos · AxI</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Da planilha de inventário ao relatório mensal, sem intervenção manual."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Um cenário no Make.com que lê seu inventário de ativos fixos no Google Sheets, calcula depreciações com IA e gera o relatório completo — com formato numérico e de datas no padrão argentino, pronto para lançamento contábil.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Horas mensais em uma tarefa repetitiva</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">As empresas que gerenciam ativos fixos no Google Sheets enfrentam um processo tedioso e sujeito a erros: <strong>calcular depreciações mês a mês</strong>, formatar os valores corretamente para o contexto local e consolidar tudo em um relatório organizado.</p>
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg" style="margin-bottom:14px;">Com dezenas ou centenas de ativos, fazer isso manualmente <strong style="color:var(--aq-accent);">consome horas a cada fechamento</strong>.</p>
+      <p class="muted">Os erros típicos são evitáveis, mas custosos: o clássico <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">20.000,00</code> que um sistema interpreta como <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">20</code>, datas em formatos misturados, decimais que arredondam errado e se arrastam até o fechamento.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Como funciona</div><h2 class="display-lg mt-4">O fluxo, em 4 passos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">O cenário roda de forma autônoma ou sob demanda. Lê a planilha, processa cada ativo, calcula e devolve um relatório novo no Sheets — tudo em segundos.</p>
+
+    <div class="grid grid-4">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Disparo automático</div><div class="step-desc">É ativado ao detectar um arquivo novo no Drive, ou sob demanda. Lê a planilha linha por linha.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Normalização</div><div class="step-desc">Cada linha é processada individualmente. Os valores em formato argentino são convertidos antes de qualquer cálculo.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Cálculo com IA</div><div class="step-desc">O Google Gemini analisa cada registro e calcula depreciações, valor residual e alertas de auditoria.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Relatório final</div><div class="step-desc">O Make cria uma planilha nova com formato numérico <code>#.##0,00</code> e datas <code>DD/MM/YYYY</code>.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · O que calcula</div><h2 class="display-lg mt-4">Quatro outputs por ativo</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Para cada linha do inventário, o cenário produz os valores que seu contador precisa lançar — além de uma camada de controle que sinaliza registros com inconsistências.</p>
+
+    <div class="grid grid-bordered grid-2">
+      <div><div class="kicker-tiny">01</div><div class="display-md mt-2">Depreciação mensal</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md mt-2">Depreciação acumulada histórica</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md mt-2">Valor residual no início do período</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md mt-2">Alertas de auditoria sobre ativos inconsistentes</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Formato argentino</div><h2 class="display-lg mt-4">O detalhe que quebra os relatórios genéricos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">A diferença entre um relatório que <strong>pode ser lançado direto</strong> e um que exige limpeza posterior está nos detalhes do formato. O cenário aplica as regras argentinas em cada célula.</p>
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">#</div><div class="feature-title">Números</div><div class="feature-desc" style="font-family:var(--aq-font-mono);font-size:28px;color:var(--aq-ink);font-weight:500;letter-spacing:-0.02em;margin:8px 0;">#.##0,00</div><div class="feature-desc">Ponto como separador de milhar, vírgula como decimal. Arredondamento para 2 casas decimais.</div></div>
+      <div class="feature-card"><div class="feature-icon">▤</div><div class="feature-title">Datas</div><div class="feature-desc" style="font-family:var(--aq-font-mono);font-size:28px;color:var(--aq-ink);font-weight:500;letter-spacing:-0.02em;margin:8px 0;">DD/MM/YYYY</div><div class="feature-desc">Datas de baixa e de fechamento uniformes em todo o relatório. Sem formatos misturados.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · O antes e o depois</div><h2 class="display-lg mt-4">O que muda no fechamento</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div style="border:var(--aq-border);">
+      <div class="compare-row">
+        <div class="compare-cell header-cell">Antes</div>
+        <div class="compare-cell header-cell">Depois</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Cálculo manual em Excel ou Sheets</div>
+        <div class="compare-cell after">Processamento automático de 50+ ativos em segundos</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Erros de formato numérico</div>
+        <div class="compare-cell after">Valores corretamente interpretados e arredondados para 2 casas decimais</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Datas inconsistentes</div>
+        <div class="compare-cell after">Formato DD/MM/YYYY uniforme em todo o relatório</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Processo repetitivo todos os meses</div>
+        <div class="compare-cell after">Um clique, ou totalmente autônomo</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Stack tecnológico</div><h2 class="display-lg mt-4">Construído sobre peças padrão</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Sem servidores para administrar, sem desenvolvimento sob medida. Todo o fluxo fica visível e é editável: se amanhã sua política contábil mudar, o cenário se ajusta sem reescrever nada.</p>
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">⚙</div><div class="feature-title">Make.com</div><div class="feature-desc">Orquestração do fluxo completo, passo a passo, com visibilidade total de cada execução.</div></div>
+      <div class="feature-card"><div class="feature-icon">✦</div><div class="feature-title">Google Gemini</div><div class="feature-desc">Cálculo inteligente de depreciações e detecção de inconsistências.</div></div>
+      <div class="feature-card"><div class="feature-icon">▦</div><div class="feature-title">Google Sheets API</div><div class="feature-desc">Escrita do relatório de saída com formato numérico e de datas aplicado por coluna.</div></div>
+      <div class="feature-card"><div class="feature-icon">▣</div><div class="feature-title">Google Drive</div><div class="feature-desc">Repositório de entrada e saída. Gatilho automático quando uma planilha nova é enviada.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§07 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Você tem um processo assim para automatizar?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Se você gerencia ativos fixos, retenções, conciliações ou outro processo repetitivo em planilha, agende 30 minutos para ver se faz sentido automatizá-lo.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Activos%20Fijos%20AxI">Escrever um e-mail</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 09</span>
+    <span class="accent">ai-q.fit · axi</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;en&quot;:&quot;AI-Q-Types-Guide.html&quot;,&quot;es&quot;:&quot;AI-Q-Guia-de-Tipos-ES.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia dos Tipos AI-Q · AI-Q</title>
+<meta name="description" content="O Guia dos Tipos AI-Q — uma referência definitiva aos 16 tipos, aos 4 eixos e a como usá-los para o diagnóstico organizacional.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.toc-list { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+.toc-list li { counter-increment: toc; padding: 14px 18px; border-bottom: var(--aq-border-thin); display: grid; grid-template-columns: 60px 1fr; align-items: baseline; gap: 14px; }
+.toc-list li:last-child { border-bottom: 0; }
+.toc-list li::before { content: counter(toc, decimal-leading-zero); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); letter-spacing: var(--aq-track-kicker); }
+.toc-list .toc-code { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; }
+.toc-list .toc-name { font-family: var(--aq-font-mono); color: var(--aq-ink2); font-size: var(--aq-fs-body); }
+.preview-card { border: var(--aq-border); padding: 20px; }
+.preview-meta { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-ink2); margin-bottom: 8px; }
+.preview-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.preview-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-en.html">Extratos Bancários</a>
+          <a href="notas-debito-en.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-en.html">Retenção de Impostos</a>
+          <a href="amortizaciones-en.html">Ativos Fixos</a>
+          <a href="estado-contratos-en.html">Gestão de Contratos</a>
+          <a href="gimnasios-en.html">Academias e Estúdios</a>
+          <a href="posteo-redes-en.html">Postagem de IA em Redes</a>
+          <a href="rrhh-en.html">Automação de RH</a>
+          <a href="inmobiliaria-en.html">Assistente de IA Imobiliário</a>
+          <a href="consorcios-en.html">Notas Fiscais a Retenção · Condomínios</a>
+        </div>
+      </div>
+      <a class="nav-link" href="consultoria-en.html">Consultoria</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-en.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="AI-Q-Guia-de-Tipos-ES.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="AI-Q-Types-Guide.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-GUIA-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>DOCUMENTO</span><span>FOLHA 10 / GUIA DE TIPOS</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Documento de referência</div>
+      <h1 class="display-xl">Guia dos Tipos <span class="accent">AI-Q</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">Uma referência definitiva aos 16 tipos organizacionais, aos 4 eixos e a como usar este framework para localizar onde você está e para onde está indo.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§01 · Documento principal</span><span class="accent">● PDF</span></div>
+      <div class="panel-body" style="padding:40px 28px;text-align:center;">
+        <div class="kicker mb-2">PDF · 1.2 MB</div>
+        <h2 class="display-lg mb-4">Baixe o guia completo</h2>
+        <p class="body-lg muted mb-5" style="max-width:580px;margin-left:auto;margin-right:auto;">O documento completo — prefácio, os 4 eixos, os 16 tipos em detalhe e notas de campo sobre como usar o framework para diagnóstico, planejamento e intervenção.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="AI-Q-Types-Guide.pdf" target="_blank">Baixar PDF →</a>
+          <a class="btn btn-lg" href="quiz.html">Fazer o teste em vez disso</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Os quatro eixos</div><h2 class="display-lg mt-4">O que o framework mede</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="dim-card"><div class="kicker">Eixo 01 · S/C</div><h3>Estrutura ⇌ Estratégia</h3><p class="muted">Se suas iniciativas de IA são apostas táticas dispersas ou estão alinhadas a uma tese estratégica clara.</p></div>
+      <div class="dim-card"><div class="kicker">Eixo 02 · R/P</div><h3>Pioneiro ⇌ Reativo</h3><p class="muted">Se você adota a IA de forma proativa para ganhar vantagem ou defensivamente para não ficar para trás.</p></div>
+      <div class="dim-card"><div class="kicker">Eixo 03 · T/B</div><h3>Construtor ⇌ Treinador</h3><p class="muted">Se sua vantagem está em tecnologia e ferramentas ou em pessoas e capacidade.</p></div>
+      <div class="dim-card"><div class="kicker">Eixo 04 · E/I</div><h3>Integrado ⇌ Experimental</h3><p class="muted">Se a IA vive em fluxos de produção ou fica presa em pilotos.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Como usar este guia</div><h2 class="display-lg mt-4">Três caminhos de leitura</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="preview-card"><div class="preview-meta">CAMINHO 01 · O mais rápido</div><div class="preview-title">Faça o teste</div><div class="preview-desc">15 perguntas, ~5 minutos. Você recebe seu tipo e um próximo passo imediato. Gratuito, sem necessidade de e-mail.</div></div>
+      <div class="preview-card"><div class="preview-meta">CAMINHO 02 · Explorar</div><div class="preview-title">Leia os 16 tipos</div><div class="preview-desc">Percorra o catálogo e se identifique por analogia. Cada tipo tem sua própria página com pontos fortes, pontos cegos e um caminho a seguir.</div></div>
+      <div class="preview-card"><div class="preview-meta">CAMINHO 03 · A fundo</div><div class="preview-title">Leia o PDF completo</div><div class="preview-desc">A referência definitiva — prefácio, eixos, os 16 tipos em detalhe e notas de campo sobre diagnóstico e intervenção.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Continue</div><h2 class="display-lg mt-4">Próximos passos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:880px;">O guia é a referência. O teste é o diagnóstico. O SAMA é o sistema operacional. A consultoria é para quando você quer ajuda para torná-lo realidade.</p>
+    <div class="flex gap-3 items-center" style="flex-wrap:wrap;">
+      <a class="btn primary" href="framework.html#types">Ver os 16 tipos</a>
+      <a class="btn" href="sama-en.html">Ver framework SAMA</a>
+      <a class="btn" href="consultoria-en.html">Ver consultoria</a>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 10</span>
+    <span class="accent">ai-q.fit · guia de tipos</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

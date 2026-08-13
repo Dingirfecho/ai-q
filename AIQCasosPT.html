@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;en&quot;:&quot;AIQCasesEng.html&quot;,&quot;es&quot;:&quot;AIQCasosESP.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casos AI-Q · Notas de Campo · AI-Q</title>
+<meta name="description" content="Casos AI-Q: notas de campo de dezesseis engajamentos estratégicos. Compostos anonimizados de 2022–2024, cada um mapeado a um dos tipos AI-Q.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.toc-list { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+.toc-list li { counter-increment: toc; padding: 14px 18px; border-bottom: var(--aq-border-thin); display: grid; grid-template-columns: 60px 1fr; align-items: baseline; gap: 14px; }
+.toc-list li:last-child { border-bottom: 0; }
+.toc-list li::before { content: counter(toc, decimal-leading-zero); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); letter-spacing: var(--aq-track-kicker); }
+.toc-list .toc-code { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; }
+.toc-list .toc-name { font-family: var(--aq-font-mono); color: var(--aq-ink2); font-size: var(--aq-fs-body); }
+.preview-card { border: var(--aq-border); padding: 20px; }
+.preview-meta { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-ink2); margin-bottom: 8px; }
+.preview-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.preview-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-en.html">Extratos Bancários</a>
+          <a href="notas-debito-en.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-en.html">Retenção de Impostos</a>
+          <a href="amortizaciones-en.html">Ativos Fixos</a>
+          <a href="estado-contratos-en.html">Gestão de Contratos</a>
+          <a href="gimnasios-en.html">Academias e Estúdios</a>
+          <a href="posteo-redes-en.html">Postagem de IA em Redes</a>
+          <a href="rrhh-en.html">Automação de RH</a>
+          <a href="inmobiliaria-en.html">Assistente de IA Imobiliário</a>
+          <a href="consorcios-en.html">Notas Fiscais a Retenção · Condomínios</a>
+        </div>
+      </div>
+      <a class="nav-link" href="consultoria-en.html">Consultoria</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-en.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="AIQCasosESP.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="AIQCasesEng.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-CASOS-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>DOCUMENTO</span><span>FOLHA 11 / NOTAS DE CAMPO</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Notas de campo</div>
+      <h1 class="display-xl">Casos <span class="accent">AI-Q</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">Notas de campo de dezesseis engajamentos estratégicos. Compostos anonimizados de engajamentos entre 2022 e 2024 — nomes, setores e números foram alterados; os padrões são reais.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§01 · Documento principal</span><span class="accent">● PDF</span></div>
+      <div class="panel-body" style="padding:40px 28px;text-align:center;">
+        <div class="kicker mb-2">PDF · 0.9 MB</div>
+        <h2 class="display-lg mb-4">Baixe os estudos de caso</h2>
+        <p class="body-lg muted mb-5" style="max-width:580px;margin-left:auto;margin-right:auto;">Dezesseis organizações. Dezesseis tipos. Dezesseis pontos de virada. Cada um mapeado a um tipo AI-Q para que você se localize por analogia.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="AIQCasesEng.pdf" target="_blank">Baixar PDF →</a>
+          <a class="btn btn-lg" href="quiz.html">Encontre seu tipo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Casos de amostra</div><h2 class="display-lg mt-4">Três dos dezesseis</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:880px;">Três trechos. A coleção completa de dezesseis estudos de caso — um por tipo AI-Q — está no PDF.</p>
+
+    <div class="grid grid-1">
+      <div class="panel"><div class="panel-header"><span>CASO 01 · CPBI</span><span class="accent">● Serviços Financeiros</span></div><div class="panel-body">
+        <div class="kicker mb-2">Líder Estratégico · Bancário · 12.000 funcionários</div>
+        <h3 class="display-md mb-3">A vantagem que quase se corroeu</h3>
+        <p class="body-lg mb-3">Um banco regional acumulava três anos de vantagem com IA na detecção de fraudes. No mês trinta e seis, o modelo estava uma geração atrás dos novos entrantes e a equipe havia se acomodado.</p>
+        <p class="body-lg"><strong>Intervenção:</strong> Conselho trimestral de varredura de disrupções, orçamento dedicado à retenção de modeladores sênior e uma política de rodízio forçado que manteve a equipe intelectualmente ativa.</p>
+      </div></div>
+
+      <div class="panel"><div class="panel-header"><span>CASO 02 · SRTE</span><span class="accent">● Manufatura</span></div><div class="panel-body">
+        <div class="kicker mb-2">Piloto do Caos · Industrial · 4.200 funcionários</div>
+        <h3 class="display-md mb-3">Quarenta e uma ferramentas, uma estratégia</h3>
+        <p class="body-lg mb-3">A auditoria revelou quarenta e uma ferramentas distintas de IA/ML espalhadas pelas unidades de negócio, sem inventário compartilhado e com contratos de fornecedores sobrepostos.</p>
+        <p class="body-lg"><strong>Intervenção:</strong> Moratória de noventa dias em novas aquisições, inventário centralizado, critérios de descontinuação e uma única linha de responsabilidade de VP de IA.</p>
+      </div></div>
+
+      <div class="panel"><div class="panel-header"><span>CASO 03 · SPTE</span><span class="accent">● Varejo</span></div><div class="panel-body">
+        <div class="kicker mb-2">Superengenheiro · Moda DTC · 800 funcionários</div>
+        <h3 class="display-md mb-3">O motor de recomendações que ninguém pediu</h3>
+        <p class="body-lg mb-3">Uma equipe de ML de oito pessoas lançou um sofisticado sistema de recomendações em seis meses. Adoção: 3%. A equipe de merchandising tinha um modelo mental diferente de "similar".</p>
+        <p class="body-lg"><strong>Intervenção:</strong> Reformular o mandato da equipe de <em>construir</em> para <em>diagnosticar</em>. Inserir um engenheiro de ML junto ao merchandising por um trimestre antes de aprovar qualquer novo modelo.</p>
+      </div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Continue</div><h2 class="display-lg mt-4">Próximos passos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg muted mb-5" style="max-width:880px;">Os casos ilustram os tipos. A página de tipos permite que você percorra os 16. O teste diz qual é o seu.</p>
+    <div class="flex gap-3 items-center" style="flex-wrap:wrap;">
+      <a class="btn primary" href="framework.html#types">Ver os 16 tipos</a>
+      <a class="btn" href="sama-en.html">Ver framework SAMA</a>
+      <a class="btn" href="consultoria-en.html">Ver consultoria</a>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 11</span>
+    <span class="accent">ai-q.fit · casos</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>
