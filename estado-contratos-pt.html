@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;estado-contratos.html&quot;,&quot;en&quot;:&quot;estado-contratos-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle Operacional de Contratos · Automação · AI-Q</title>
+<meta name="description" content="Painel acionável para empresas de consultoria que faturam via SAP Fieldglass. Janela de teste trimestral, geração automática de planos de parcelas, monitoramento de cobranças e reclamações. Zero contratos esquecidos.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.flow-pipeline { display: grid; gap: var(--aq-space-3); }
+.flow-node { display: grid; grid-template-columns: 80px 1fr; border: var(--aq-border); }
+.flow-icon { background: var(--aq-ink); color: var(--aq-paper); display: flex; align-items: center; justify-content: center; font-family: var(--aq-font-mono); font-weight: 600; font-size: 18px; letter-spacing: 0.05em; padding: 20px 8px; }
+.flow-content { padding: 16px 20px; }
+.flow-step-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 4px; }
+.flow-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.flow-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.rule-card { border: var(--aq-border); padding: 22px; }
+.rule-tag { display: inline-block; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); padding: 3px 9px; background: var(--aq-ink); color: var(--aq-paper); letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.rule-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
+.rule-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.rule-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+.rule-benefit { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--aq-mute1); font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink); }
+.rule-benefit::before { content: "→ "; color: var(--aq-accent); font-weight: 600; }
+
+.audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--aq-space-3); }
+.audience-card { border: var(--aq-border); padding: 22px; }
+.audience-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.audience-title { font-family: var(--aq-font-display); font-size: 17px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.audience-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.benefit-table { width: 100%; border-collapse: collapse; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.benefit-table th, .benefit-table td { padding: 12px 16px; border: var(--aq-border-thin); text-align: left; vertical-align: top; }
+.benefit-table th { background: var(--aq-ink); color: var(--aq-paper); font-weight: 500; text-transform: uppercase; letter-spacing: var(--aq-track-kicker); font-size: var(--aq-fs-meta); }
+.benefit-table td:first-child { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: var(--aq-ink); }
+.benefit-table td.before { color: var(--aq-ink2); background: var(--aq-paper2); }
+.benefit-table td.after { color: var(--aq-ink); font-weight: 500; }
+@media (max-width: 768px) {
+  .benefit-table thead { display: none; }
+  .benefit-table tr { display: block; margin-bottom: 12px; border: var(--aq-border-thin); }
+  .benefit-table td { display: block; border: 0; border-bottom: var(--aq-border-thin); padding: 10px 14px; }
+  .benefit-table td:last-child { border-bottom: 0; }
+}
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.priority-tag { display: inline-block; padding: 2px 8px; font-family: var(--aq-font-mono); font-size: 10px; letter-spacing: var(--aq-track-meta); text-transform: uppercase; }
+.priority-alta { background: var(--aq-accent); color: var(--aq-paper); }
+.priority-media { background: var(--aq-ink); color: var(--aq-paper); }
+
+.step-card { border: var(--aq-border); padding: 22px; }
+.step-card-num { display: inline-block; font-family: var(--aq-font-display); font-size: 32px; font-weight: 500; letter-spacing: -0.04em; color: var(--aq-accent); line-height: 1; margin-bottom: 8px; }
+.step-card-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.step-card-time { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-mute); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.step-card-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções Tributárias</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente de IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="estado-contratos.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="estado-contratos-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-EC-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 11 / CONTRATOS</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Operações &amp; cobrança</div>
+      <h1 class="display-xl">Sua carteira de contratos como um <span class="accent">painel acionável</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:820px;">"O que fazer hoje, quando e com quem — sem planilha paralela, sem lembretes manuais, sem reuniões de revisão."</p>
+      <p class="body-lg mt-4" style="max-width:820px;">Para consultorias e empresas de staff augmentation que faturam por trimestre através de portais como o SAP Fieldglass. Transforme sua carteira de contratos ativos em uma lista priorizada de ações operacionais, com responsável e próximo passo bem definidos.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">0</div>
+        <div class="marquee-label">Contratos esquecidos</div>
+        <div class="marquee-desc">Nenhum contrato perde a janela de teste de serviço por descuido humano. O alerta aparece quando é preciso agir, não depois.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">4-8 h</div>
+        <div class="marquee-label">Semanais recuperadas</div>
+        <div class="marquee-desc">O que hoje leva revisar planilhas, calcular trimestres e montar listas de pendências cai a zero. A visão operacional se monta sozinha.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">20 → 500</div>
+        <div class="marquee-label">Contratos em paralelo</div>
+        <div class="marquee-desc">O mesmo cenário atende uma carteira pequena ou grande. A estrutura escala sem reescrever nada.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §01 Problem -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Não é vender — é fazer com que nada quebre</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Se você vende horas, dias ou consultores e cobra por projeto trimestral através de um portal, o problema não é vender. É fazer com que nada quebre entre a assinatura do contrato e o dinheiro cair na conta.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Ponto de ruptura</th><th>Hoje (manual)</th><th>Com automação</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Testes de serviço</td><td class="before">Vencem sem que ninguém os aprove</td><td class="after">Alerta ALTA na janela de ±15 dias</td></tr>
+          <tr><td>Faturamento SAP</td><td class="before">SAP não libera e ninguém reclama</td><td class="after">Reclamação formal disparada automaticamente</td></tr>
+          <tr><td>Cobrança do cliente</td><td class="before">Inadimplência detectada tarde</td><td class="after">Executivo de conta avisado no mesmo dia</td></tr>
+          <tr><td>Plano de parcelas</td><td class="before">Parcelas geradas manualmente, com erros</td><td class="after">Plano completo em minutos por contrato</td></tr>
+          <tr><td>Visibilidade</td><td class="before">Cada um tem sua própria planilha paralela</td><td class="after">Uma lista priorizada compartilhada</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §02 Audience -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Para quem se aplica</div><h2 class="display-lg mt-4">Quatro tipos de equipe</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-num">01</div>
+        <div class="audience-title">Consultorias e serviços profissionais</div>
+        <div class="audience-desc">Que faturam por trimestre ou projeto através de portais como SAP Fieldglass, SAP Ariba ou outros sistemas de procurement corporativo.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">02</div>
+        <div class="audience-title">Staff augmentation &amp; body shop</div>
+        <div class="audience-desc">Com 10 a 200+ contratos ativos simultaneamente, onde cada contrato tem seu próprio ciclo de parcelas e validações.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">03</div>
+        <div class="audience-title">PMOs e áreas de Operações</div>
+        <div class="audience-desc">Que hoje mantêm o controle em uma planilha mestre e dedicam horas semanais a revisar o que vence, o que falta faturar, que reclamação é preciso fazer.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-num">04</div>
+        <div class="audience-title">Equipes comerciais recorrentes</div>
+        <div class="audience-desc">Onde o front-office (executivos de conta) precisa saber qual ação tomar sem pedir relatórios constantes ao financeiro.</div>
+      </div>
+    </div>
+
+    <p class="body-lg muted mt-5" style="max-width:880px;font-style:italic;">Se o seu negócio depende de um portal externo onde você carrega contratos e testes de serviço, e o dinheiro chega quando tudo está aprovado e faturado corretamente — isso é para você.</p>
+  </section>
+
+  <!-- §03 Three automations -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · O que automatiza</div><h2 class="display-lg mt-4">Três mecanismos, uma visão operacional</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+
+      <div class="rule-card">
+        <span class="rule-tag">MECANISMO 01</span>
+        <div class="rule-title">Janela de teste de serviço trimestral</div>
+        <div class="rule-desc">Todo contrato ativo precisa que um teste de serviço seja aprovado dentro de uma janela de <strong>±15 dias</strong> ao redor do fechamento do trimestre. Se isso é perdido, o faturamento trava.<br><br>O cenário calcula quantos dias faltam para o fechamento e, quando um contrato entra na janela crítica, gera um alerta <span class="priority-tag priority-alta">ALTA</span> para o executivo responsável.</div>
+        <div class="rule-benefit">Você deixa de descobrir o problema quando já é tarde. O alerta aparece exatamente quando é preciso agir.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">MECANISMO 02</span>
+        <div class="rule-title">Geração automática do plano de parcelas</div>
+        <div class="rule-desc">Cada contrato novo precisa de um plano de faturamento trimestral: quantas parcelas, em que datas, por qual valor. A primeira parcela é rateada de acordo com os dias transcorridos do trimestre, as seguintes são trimestres completos sobre a tarifa diária líquida.<br><br>O cenário detecta os contratos sem plano, calcula a tarifa, gera uma linha por parcela e marca o contrato como processado.</div>
+        <div class="rule-benefit">Um contrato novo fica com todo o seu plano carregado em minutos. Sem erros de cálculo, sem parcelas esquecidas.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">MECANISMO 03</span>
+        <div class="rule-title">Monitoramento do status no SAP e ações diferenciadas</div>
+        <div class="rule-desc">O cenário cruza cada contrato com seu status atual no SAP e aplica regras para decidir qual ação corresponde. Quatro rotas independentes de acordo com onde a cobrança ficou travada, cada uma com seu próprio responsável e prioridade.</div>
+        <div class="rule-benefit">Você deixa de ter uma caixa de entrada caótica. Cada problema de cobrança tem um responsável e uma próxima ação clara.</div>
+      </div>
+
+    </div>
+
+    <div class="panel mt-5"><div class="panel-body">
+      <div class="kicker mb-3">Mecanismo 03 · Rotas de monitoramento SAP</div>
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Status detectado</th><th>Ação gerada</th><th>Responsável</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>SAP não faturou / não liberou comissão</td><td class="after"><span class="priority-tag priority-alta">ALTA</span> &nbsp; Abrir reclamação formal no portal</td><td>PMO / Operações</td></tr>
+          <tr><td>Cliente com inadimplência ou pagamento incompleto</td><td class="after"><span class="priority-tag priority-alta">ALTA</span> &nbsp; Contato direto do executivo de conta</td><td>Comercial</td></tr>
+          <tr><td>Documentação pendente (PO, NC)</td><td class="after"><span class="priority-tag priority-media">MÉDIA</span> &nbsp; Validar documento interno</td><td>Operações</td></tr>
+          <tr><td>Moeda contratual ≠ moeda da nota fiscal</td><td class="after"><span class="priority-tag priority-media">MÉDIA</span> &nbsp; Encaminhar para a equipe interna (BRL / AWP)</td><td>Equipe interna</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §04 Tech stack -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Como funciona</div><h2 class="display-lg mt-4">O stack técnico</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">A solução é implementada sobre o seu stack atual. Sem migração, sem software novo. Toda a lógica de cálculo vive no cenário — a planilha fica limpa, sem fórmulas que quebrem.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <tbody>
+          <tr><td>Google Sheets</td><td colspan="2">Banco de dados central multi-planilha: <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_CONTRATOS_HEADER</code>, <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_PLAN_FACTURACION</code>, <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_FACTURAS_SAP</code>, <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">VISTA_OPERATIVA</code></td></tr>
+          <tr><td>Make.com</td><td colspan="2">Orquestrador. Um cenário único com roteador de múltiplas rotas independentes — uma por mecanismo, sub-rotas por tipo de problema.</td></tr>
+          <tr><td>Lógica de cálculo</td><td colspan="2">Variáveis calculadas dinamicamente: tarifa diária líquida, fim do trimestre vigente, dias até o fechamento, dias transcorridos do primeiro trimestre. Sem fórmulas na planilha.</td></tr>
+          <tr><td>Iterador de parcelas</td><td colspan="2">Gerador automático que cria N linhas de plano por contrato, rateando a primeira parcela e marcando-o como processado ao finalizar.</td></tr>
+          <tr><td>SAP Fieldglass</td><td colspan="2">O portal onde é carregado o status das notas fiscais. A sincronização com a planilha <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_FACTURAS_SAP</code> pode ser manual, semi ou totalmente automatizada, conforme o caso.</td></tr>
+          <tr><td>Execução</td><td colspan="2">Manual (um clique ao fechar o trimestre ou carregar contratos novos) ou programada (todos os dias às 8h para manter a visão atualizada de forma contínua).</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">SAP Fieldglass</span>
+        <span class="tech-pill">Roteador multi-rota</span>
+        <span class="tech-pill">Iterador de parcelas</span>
+        <span class="tech-pill">Sem migração</span>
+        <span class="tech-pill">Sem software novo</span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- §05 Benefits -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Benefícios concretos</div><h2 class="display-lg mt-4">O que muda para a sua equipe</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card">
+        <div class="next-eyebrow">TEMPO</div>
+        <div class="next-title">4-8 horas semanais → 0</div>
+        <div class="next-desc">Revisar planilhas, calcular trimestres e montar listas de pendências deixa de existir como tarefa. A visão operacional se atualiza sozinha.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">COBRANÇA</div>
+        <div class="next-title">Reclamações no momento exato</div>
+        <div class="next-desc">As reclamações ao SAP e aos clientes são disparadas quando corresponde, não vários dias depois. Cada dia de atraso é dinheiro travado.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">VISIBILIDADE</div>
+        <div class="next-title">Uma lista, todos os níveis</div>
+        <div class="next-desc">Sócios, gerentes e executivos veem a mesma lista priorizada com o que precisa ser feito hoje. Zero ambiguidade sobre quem faz o quê.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">CONTINUIDADE</div>
+        <div class="next-title">Zero mudança de stack</div>
+        <div class="next-desc">Você continua usando Google Sheets e SAP Fieldglass como até agora. Não é preciso migrar nada nem treinar a equipe em software novo.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">ESCALA</div>
+        <div class="next-title">Funciona igual com 20 ou 500</div>
+        <div class="next-desc">O mesmo cenário atende uma carteira pequena ou grande. A estrutura se adapta sem reescrever nada.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">RASTREABILIDADE</div>
+        <div class="next-title">Histórico auditável</div>
+        <div class="next-desc">Cada alerta fica registrado com data, contrato, problema e ação. Útil para auditoria e para analisar padrões (quantos contratos travam no SAP por mês?).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §06 Implementation -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Implementação</div><h2 class="display-lg mt-4">Três passos, duas semanas</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-card-num">01</div>
+        <div class="step-card-title">Diagnóstico</div>
+        <div class="step-card-time">~ 1 hora</div>
+        <div class="step-card-desc">Revisamos a sua carteira atual, os status de faturamento que você utiliza e definimos as regras de cada alerta. Resultado: um mapa claro do que automatizar.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">02</div>
+        <div class="step-card-title">Configuração</div>
+        <div class="step-card-time">3 a 7 dias</div>
+        <div class="step-card-desc">Adaptamos as planilhas, as variáveis de cálculo e os critérios de roteamento ao seu modelo de negócio e ao seu portal de faturamento.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-card-num">03</div>
+        <div class="step-card-title">Testes &amp; handoff</div>
+        <div class="step-card-time">~ 2 dias</div>
+        <div class="step-card-desc">Rodamos testes com contratos reais, validamos os cálculos contra os seus números e deixamos o sistema funcionando, documentado e pronto para a sua equipe operar.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §07 Requirements -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Requisitos</div><h2 class="display-lg mt-4">O que você precisa ter antes</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel">
+      <div class="panel-header"><span>§ REQUISITOS BASE</span><span style="color:var(--aq-success);">● MÍNIMOS</span></div>
+      <div class="panel-body">
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Conta do Google com a planilha de contratos estruturada (ou disposição para montá-la conosco no onboarding).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Uma conta do Make.com (o Plano Core é suficiente para começar, dependendo do volume de contratos).</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Acesso ao portal onde é carregado o status das notas fiscais (SAP Fieldglass ou outro) — a atualização da planilha <code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">DB_FACTURAS_SAP</code> pode ser manual, semi ou totalmente automatizada, conforme o caso.</li>
+          <li style="padding:12px 0 12px 26px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);line-height:var(--aq-lh-prose);"><span style="position:absolute;left:0;color:var(--aq-success);font-weight:600;">→</span> Definição clara dos status de faturamento que você quer monitorar e qual ação corresponde a cada um.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="body-lg muted mt-4" style="max-width:880px;font-style:italic;">Se você ainda não tem a planilha mestre estruturada ou quer incluir a sincronização automática com o SAP, montamos isso como parte do onboarding.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Você controla os contratos manualmente em uma planilha?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende uma chamada e mostramos o sistema rodando com um caso real de carteira de contratos. A primeira conversa é para entender o seu portal, os seus status de faturamento e as suas regras — e enviar uma proposta concreta.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Control%20Operativo%20de%20Contratos">Peça um orçamento</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 11</span>
+    <span class="accent">ai-q.fit · controle de contratos</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

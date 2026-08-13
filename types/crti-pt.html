@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;en&quot;:&quot;crti.html&quot;,&quot;es&quot;:&quot;crti-es.html&quot;}">
+<head>
+<script src="../lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRTI · A Máquina Eficiente | AI-Q</title>
+<meta name="description" content="CRTI — A Máquina Eficiente: Responsivo mas não inovador.. O TI mantém um navio ajustado respondendo a solicitações. Mas otimizando as operações de ontem.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blueprint.css">
+<style>
+.type-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--aq-space-6);
+  align-items: center;
+  padding: 36px 28px;
+}
+.type-illustration {
+  width: 200px;
+  height: 200px;
+  border: var(--aq-border);
+  background: var(--aq-paper2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.type-illustration img { max-width: 100%; max-height: 100%; }
+.type-display-code {
+  font-family: var(--aq-font-display);
+  font-size: 96px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 4px;
+}
+.type-display-name {
+  font-family: var(--aq-font-display);
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.type-display-tagline {
+  font-family: var(--aq-font-mono);
+  font-size: var(--aq-fs-body-lg);
+  color: var(--aq-ink2);
+}
+.code-breakdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: var(--aq-border);
+}
+.code-breakdown-cell {
+  padding: 16px 18px;
+  border-right: var(--aq-border-thin);
+}
+.code-breakdown-cell:last-child { border-right: 0; }
+.code-breakdown-letter {
+  font-family: var(--aq-font-display);
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.code-breakdown-axis {
+  font-family: var(--aq-font-mono);
+  font-size: var(--aq-fs-tiny);
+  text-transform: uppercase;
+  letter-spacing: var(--aq-track-kicker);
+  color: var(--aq-ink2);
+  margin-bottom: 2px;
+}
+.code-breakdown-pole {
+  font-family: var(--aq-font-mono);
+  font-size: var(--aq-fs-body);
+  font-weight: 500;
+}
+@media (max-width: 1024px) {
+  .code-breakdown { grid-template-columns: repeat(2, 1fr); }
+  .code-breakdown-cell:nth-child(2n) { border-right: 0; }
+  .code-breakdown-cell:nth-child(-n+2) { border-bottom: var(--aq-border-thin); }
+}
+@media (max-width: 768px) {
+  .type-hero { grid-template-columns: 1fr; text-align: center; }
+  .type-illustration { margin: 0 auto; width: 140px; height: 140px; }
+  .type-display-code { font-size: 72px; }
+  .type-display-name { font-size: 28px; }
+  .code-breakdown { grid-template-columns: 1fr; }
+  .code-breakdown-cell { border-right: 0; border-bottom: var(--aq-border-thin); }
+  .code-breakdown-cell:last-child { border-bottom: 0; }
+}
+
+/* Symptoms styled as quotes */
+.symptom-quote {
+  border-left: 3px solid var(--aq-ink);
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  font-family: var(--aq-font-mono);
+  font-style: italic;
+  color: var(--aq-ink2);
+  font-size: var(--aq-fs-body-lg);
+  line-height: var(--aq-lh-prose);
+}
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="../index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="../index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="../bancos.html">Resúmenes Bancarios</a>
+          <a href="../notas-debito.html">Notas de Débito Bancarias</a>
+          <a href="../retenciones.html">Retenciones Impositivas</a>
+          <a href="../amortizaciones.html">Activos Fijos · AxI</a>
+          <a href="../estado-contratos.html">Control de Contratos</a>
+          <a href="../gimnasios.html">Gimnasios y Academias</a>
+          <a href="../posteo-redes.html">Posteo Diario en Redes</a>
+          <a href="../rrhh.html">Automatización de RRHH</a>
+          <a href="../inmobiliaria.html">Inmobiliarias · Asistente IA</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="../consultoria.html">Servicios (ES)</a>
+          <a href="../consultoria-en.html">Services (EN)</a>
+          <a href="../consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="../framework.html#framework">Framework</a>
+          <a href="../framework.html#types">16 Tipos</a>
+          <a href="../framework.html#cases">Casos</a>
+          <a href="../sama.html">SAMA</a>
+          <a href="../quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="crti-es.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="crti.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group">
+      <span>DOC // AIQ-CRTI-001</span>
+      <span class="mute2">REV / B</span>
+    </div>
+    <div class="spec-strip-group">
+      <span><span class="dot">●</span>CONSOLIDADO</span>
+      <span>FOLHA 04 / TIPO / CRTI</span>
+    </div>
+  </div>
+
+  <a href="../framework.html#types" style="display:inline-block;margin:18px 0;font-family:var(--aq-font-mono);font-size:var(--aq-fs-meta);text-transform:uppercase;letter-spacing:var(--aq-track-kicker);">← Voltar para todos os tipos</a>
+
+  <!-- Hero -->
+  <section class="section">
+    <div class="panel ">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div>
+      <div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header">
+        <span>§ TIPO AI-Q · CRTI</span>
+        <span class="accent">CONSOLIDADO</span>
+      </div>
+      <div class="type-hero">
+        <div class="type-illustration"><img src="../types/CRTI.svg" alt="A Máquina Eficiente"></div>
+        <div>
+          <div class="kicker">Seu tipo</div>
+          <div class="type-display-code">CRTI<span class="accent">/</span></div>
+          <div class="type-display-name">A Máquina Eficiente</div>
+          <div class="type-display-tagline">"Responsivo mas não inovador."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code breakdown -->
+  <section class="section">
+    <div class="code-breakdown">
+      <div class="code-breakdown-cell"><div class="code-breakdown-letter">C</div><div class="code-breakdown-axis">Estrutura</div><div class="code-breakdown-pole">Consolidado</div></div>
+      <div class="code-breakdown-cell"><div class="code-breakdown-letter">R</div><div class="code-breakdown-axis">Orientação</div><div class="code-breakdown-pole">Reativo</div></div>
+      <div class="code-breakdown-cell"><div class="code-breakdown-letter">T</div><div class="code-breakdown-axis">Liderança</div><div class="code-breakdown-pole">Tech-driven</div></div>
+      <div class="code-breakdown-cell"><div class="code-breakdown-letter">I</div><div class="code-breakdown-axis">Integração</div><div class="code-breakdown-pole">Integrado</div></div>
+    </div>
+  </section>
+
+  <!-- Profile -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="kicker">§01 · Perfil</div>
+        <h2 class="display-lg mt-4">Como é esse tipo</h2>
+      </div>
+    </div>
+    <hr class="sep mb-5">
+    <div class="panel">
+      <div class="panel-body">
+        <p class="body-lg" style="font-size:16px;">O TI mantém um navio ajustado respondendo a solicitações. Mas otimizando as operações de ontem.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strengths & blind spots -->
+  <section class="section">
+    <div class="grid grid-2">
+      <div class="panel">
+        <div class="panel-header"><span>§02 · Forças</span><span style="color:var(--aq-success);">● 03</span></div>
+        <div class="panel-body">
+          <h3 class="mb-4">Forças a aproveitar</h3>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="padding-left:22px;position:relative;margin-bottom:10px;line-height:1.55;"><span style="position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--aq-success);"></span>Execução confiável</li>
+<li style="padding-left:22px;position:relative;margin-bottom:10px;line-height:1.55;"><span style="position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--aq-success);"></span>Governança forte</li>
+<li style="padding-left:22px;position:relative;margin-bottom:10px;line-height:1.55;"><span style="position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--aq-success);"></span>Operações eficientes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><span>§03 · Pontos cegos</span><span class="accent">● 03</span></div>
+        <div class="panel-body">
+          <h3 class="mb-4">Pontos cegos para vigiar</h3>
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="padding-left:22px;position:relative;margin-bottom:10px;line-height:1.55;"><span style="position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--aq-accent);"></span>Sem pipeline de inovação</li>
+<li style="padding-left:22px;position:relative;margin-bottom:10px;line-height:1.55;"><span style="position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--aq-accent);"></span>Reativo significa atrasado</li>
+<li style="padding-left:22px;position:relative;margin-bottom:10px;line-height:1.55;"><span style="position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--aq-accent);"></span>TI visto como utilidade</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Symptoms -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="kicker">§04 · Sintomas</div>
+        <h2 class="display-lg mt-4">O que você ouve normalmente</h2>
+      </div>
+    </div>
+    <hr class="sep mb-5">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="symptom-quote">"Entregamos o que o negócio pede"</div>
+        <div class="symptom-quote">"Nossos SLAs são excelentes"</div>
+        <div class="symptom-quote">"Inovação realmente não é o nosso mandato"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Path forward -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="kicker">§05 · Caminho a seguir</div>
+        <h2 class="display-lg mt-4">Seu caminho a seguir</h2>
+      </div>
+    </div>
+    <hr class="sep mb-5">
+    <div class="panel">
+      <div class="panel-header"><span>→ NEXT MOVE</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body">
+        <p class="body-lg" style="font-size:18px;font-weight:500;line-height:1.5;">Reserve 20% para exploração proativa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div>
+      <div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§06 · Próximo passo</span><span class="accent">● READY</span></div>
+      <div class="panel-body" style="padding:40px 28px;text-align:center;">
+        <h2 class="display-md mb-4">Vá de onde você está para onde quer estar</h2>
+        <p class="body-lg muted mb-5" style="max-width:580px;margin-left:auto;margin-right:auto;">O teste AI-Q te dá o diagnóstico. O guia em PDF aprofunda em cada tipo. Uma chamada transforma isso em ação.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="../quiz.html">Fazer o teste AI-Q →</a>
+          <a class="btn btn-lg" href="../AI-Q-Guia-de-Tipos-ES.pdf" target="_blank">Baixe o guia completo</a>
+          <a class="btn btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other 15 types -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="kicker">§07 · Outros tipos</div>
+        <h2 class="display-lg mt-4">Explore os outros 15 tipos</h2>
+      </div>
+    </div>
+    <hr class="sep mb-5">
+    <div class="grid grid-4">
+      <a class="type-card" href="srte-pt.html">
+  <div class="type-card-header"><span>SRTE</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Piloto do Caos</div>
+    <div class="type-card-desc" style="font-size:12px;">"Temos IA... em algum lugar."</div>
+  </div>
+</a>
+<a class="type-card" href="srtb-pt.html">
+  <div class="type-card-header"><span>SRTB</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Pensador Idealista</div>
+    <div class="type-card-desc" style="font-size:12px;">"A IA não pode simplesmente fazer isso?"</div>
+  </div>
+</a>
+<a class="type-card" href="spte-pt.html">
+  <div class="type-card-header"><span>SPTE</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Superengenheiro</div>
+    <div class="type-card-desc" style="font-size:12px;">"A arquitetura é linda. Ninguém a usa."</div>
+  </div>
+</a>
+<a class="type-card" href="sptb-pt.html">
+  <div class="type-card-header"><span>SPTB</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Iniciador Ambicioso</div>
+    <div class="type-card-desc" style="font-size:12px;">"Grande estratégia, execução dispersa."</div>
+  </div>
+</a>
+<a class="type-card" href="srti-pt.html">
+  <div class="type-card-header"><span>SRTI</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Sucesso Acidental</div>
+    <div class="type-card-desc" style="font-size:12px;">"Funciona, mas não me pergunte como."</div>
+  </div>
+</a>
+<a class="type-card" href="srbi-pt.html">
+  <div class="type-card-header"><span>SRBI</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Herói do Shadow IT</div>
+    <div class="type-card-desc" style="font-size:12px;">"Não conte para o TI, mas isso está funcionando."</div>
+  </div>
+</a>
+<a class="type-card" href="spti-pt.html">
+  <div class="type-card-header"><span>SPTI</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Laboratório Rebelde</div>
+    <div class="type-card-desc" style="font-size:12px;">"Nossa tecnologia é incrível. O negócio não se importa."</div>
+  </div>
+</a>
+<a class="type-card" href="spbi-pt.html">
+  <div class="type-card-header"><span>SPBI</span><span>DISPERSO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Movimento de Base</div>
+    <div class="type-card-desc" style="font-size:12px;">"Bolsões de excelência, esperando se conectar."</div>
+  </div>
+</a>
+<a class="type-card" href="crte-pt.html">
+  <div class="type-card-header"><span>CRTE</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Experimento Controlado</div>
+    <div class="type-card-desc" style="font-size:12px;">"Estamos pilotando... ainda."</div>
+  </div>
+</a>
+<a class="type-card" href="crtb-pt.html">
+  <div class="type-card-header"><span>CRTB</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Jogo de Espera</div>
+    <div class="type-card-desc" style="font-size:12px;">"Estamos prontos para estar prontos."</div>
+  </div>
+</a>
+<a class="type-card" href="cpte-pt.html">
+  <div class="type-card-header"><span>CPTE</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">A Utopia Tecnológica</div>
+    <div class="type-card-desc" style="font-size:12px;">"Se ao menos as pessoas usassem o que construímos."</div>
+  </div>
+</a>
+<a class="type-card" href="cptb-pt.html">
+  <div class="type-card-header"><span>CPTB</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Documento de Estratégia</div>
+    <div class="type-card-desc" style="font-size:12px;">"O deck está pronto. A execução não."</div>
+  </div>
+</a>
+<a class="type-card" href="crbi-pt.html">
+  <div class="type-card-header"><span>CRBI</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Service Desk</div>
+    <div class="type-card-desc" style="font-size:12px;">"Entregamos o que você pede — nada mais."</div>
+  </div>
+</a>
+<a class="type-card" href="cpti-pt.html">
+  <div class="type-card-header"><span>CPTI</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Quase Lá</div>
+    <div class="type-card-desc" style="font-size:12px;">"A uma conversa da excelência."</div>
+  </div>
+</a>
+<a class="type-card is-target" href="cpbi-pt.html">
+  <div class="type-card-header"><span>CPBI</span><span>CONSOLIDADO</span></div>
+  <div class="type-card-body" style="padding:16px;">
+    <div class="type-card-name" style="font-size:15px;margin-bottom:6px;">O Líder Estratégico</div>
+    <div class="type-card-desc" style="font-size:12px;">"A IA é como competimos."</div>
+  </div>
+</a>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 04</span>
+    <span class="accent">ai-q.fit · CRTI</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+
+</body>
+</html>

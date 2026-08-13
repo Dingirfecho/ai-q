@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;rrhh.html&quot;,&quot;en&quot;:&quot;rrhh-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automação de RH · AI-Q</title>
+<meta name="description" content="Automatize o ciclo de vida completo da sua equipe: admissões, desligamentos, licenças, prontuários, aprovações e comunicações — tudo sobre Google Workspace e Make.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.proceso { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); font-weight: 500; }
+.compare-cell.manual { color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.auto { color: var(--aq-accent); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+@media (max-width: 768px) {
+  .compare-row { grid-template-columns: 1fr; }
+  .compare-cell.proceso, .compare-cell.manual { border-right: 0; border-bottom: var(--aq-border-thin); }
+}
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções Fiscais</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Estúdios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="rrhh.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="rrhh-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-RRHH-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 09 / RH</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Recursos Humanos</div>
+      <h1 class="display-xl">Automação de <span class="accent">RH</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Sem papelada, sem planilhas perdidas, sem correr atrás de e-mail."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Sua área de RH gasta horas por semana em tarefas que não agregam valor. Automatizamos o ciclo de vida completo de um colaborador — da admissão ao desligamento, com todos os processos do meio — para que sua equipe foque nas pessoas, não na administração.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Horas perdidas toda semana</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Montar pastas de prontuários, reenviar formulários, registrar licenças na mão, lembrar de parabenizar quem faz aniversário. Nenhuma dessas tarefas exige o critério de um profissional de RH — mas consomem o tempo dele do mesmo jeito.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">Um sistema integrado, <span class="accent">1 único fluxo.</span></p>
+      <p class="muted">Admissão, licenças, aprovações, fechamento mensal, comunicações — tudo coordenado sem intervenção manual.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · A solução</div><h2 class="display-lg mt-4">O que o sistema faz</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Automatizamos o ciclo de vida completo de um colaborador, com inteligência incorporada em cada etapa.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Prontuários no Drive</div>
+        <div class="step-desc">Ao admitir um colaborador, o sistema cria automaticamente sua pasta com a estrutura correta: documentação pessoal, admissão, ocorrências, questões legais e desligamento. Nome conforme a convenção interna (matrícula + sobrenome + CPF).</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Admissões automáticas</div>
+        <div class="step-desc">Você carrega os dados em uma planilha Excel. O sistema gera os diretórios, registra a admissão nas Ocorrências, atualiza a Folha e envia ao colaborador todos os formulários necessários por e-mail.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Licenças não planejadas</div>
+        <div class="step-desc">O colaborador avisa por Gmail ou Telegram. O Gemini lê a mensagem, identifica o colaborador, extrai a informação e registra a licença, notificando o RH e o responsável pela área. Sem intervenção manual.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Licenças planejadas</div>
+        <div class="step-desc">O colaborador envia o formulário por e-mail. A IA extrai os dados, valida a folha e gera a solicitação. O responsável aprova com um clique — o sistema registra, gera o documento oficial e o envia.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Adiantamentos salariais</div>
+        <div class="step-desc">O mesmo circuito de aprovação vale para adiantamentos: solicitação por e-mail, validação de limites, escalonamento ao responsável. Uma vez aprovado, tudo fica registrado e documentado automaticamente.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">06</div>
+        <div class="step-title">Fechamento mensal</div>
+        <div class="step-desc">No fim do mês, o sistema roda sozinho. Consolida admissões, desligamentos, licenças, adiantamentos e ocorrências, salva o arquivo mensal no Drive e deixa o sistema limpo para o mês seguinte.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">07</div>
+        <div class="step-title">Banco de horas</div>
+        <div class="step-desc">O sistema calcula automaticamente as horas extras a partir do registro de ponto. O gestor recebe uma notificação e aprova com um clique. O saldo se atualiza sozinho, com controle de limites legais e conformidade com o Art. 197 bis — Lei 27.802.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">08</div>
+        <div class="step-title">Salário-família</div>
+        <div class="step-desc">O colaborador envia a documentação por e-mail. O sistema valida os dados, gera os formulários exigidos pelo órgão previdenciário e os arquiva no prontuário digital. Sem lançamento manual pelo RH.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">09</div>
+        <div class="step-title">Alertas de vencimento</div>
+        <div class="step-desc">Seguro de acidentes, seguro de vida, atestado de saúde ocupacional, carteira de habilitação, certificações sindicais. O sistema alerta automaticamente o RH e o responsável pela área com a antecedência configurada — sem que ninguém precise se lembrar.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">10</div>
+        <div class="step-title">Retenções na fonte</div>
+        <div class="step-desc">Cálculo mensal do imposto de renda com todas as deduções: dependentes, aluguel, juros de financiamento imobiliário, plano de saúde. Tabelas atualizáveis em Sheets quando o órgão fiscal publica novas escalas.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">11</div>
+        <div class="step-title">Análise de absenteísmo</div>
+        <div class="step-desc">O Gemini detecta padrões automaticamente: absenteísmo recorrente em dias específicos, concentração de licenças por área, correlação entre tipo de ausência e setor. O RH recebe alertas antes que o padrão vire um problema.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Métricas</div><h2 class="display-lg mt-4">O que muda em números</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">Processo</div>
+        <div class="compare-cell header-cell manual">Tempo manual</div>
+        <div class="compare-cell header-cell auto">Com automação</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Admissão de colaborador</div>
+        <div class="compare-cell manual">45–90 min</div>
+        <div class="compare-cell auto">&lt; 2 min</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Licença não planejada</div>
+        <div class="compare-cell manual">10–15 min</div>
+        <div class="compare-cell auto">Imediato</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Circuito de aprovação</div>
+        <div class="compare-cell manual">1–2 dias (e-mails de ida e volta)</div>
+        <div class="compare-cell auto">1 clique</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Fechamento mensal</div>
+        <div class="compare-cell manual">2–4 horas</div>
+        <div class="compare-cell auto">Automático</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Arquivamento de documentos</div>
+        <div class="compare-cell manual">5–10 min por documento</div>
+        <div class="compare-cell auto">Imediato</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Registro de banco de horas</div>
+        <div class="compare-cell manual">Planilha manual, sujeita a erros</div>
+        <div class="compare-cell auto">Automático via Telegram</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Acordo Art. 197 bis</div>
+        <div class="compare-cell manual">Word manual + assinatura em papel</div>
+        <div class="compare-cell auto">Gerado automaticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Funcionalidades adicionais</div><h2 class="display-lg mt-4">O detalhe que faz a diferença</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Arquivamento automático de documentação</div>
+        <div class="feature-desc">Você define uma caixa genérica (<code>rrhh_docs@sua-empresa.com</code>). Qualquer colaborador envia documentos com assunto estruturado e o sistema os salva no prontuário Drive correto, com confirmação por e-mail.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">E-mail de boas-vindas</div>
+        <div class="feature-desc">Quando uma nova admissão é registrada, o colaborador recebe automaticamente o e-mail de boas-vindas com todos os formulários e arquivos necessários para começar.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Aniversários e lembretes</div>
+        <div class="feature-desc">O sistema verifica diariamente quem faz aniversário e envia a mensagem. Também gerencia lembretes de vencimento do período de experiência, fim de licenças prolongadas e retornos.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠</div>
+        <div class="feature-title">Leitura inteligente de e-mails</div>
+        <div class="feature-desc">O Google Gemini lê mensagens em texto livre e as interpreta corretamente — sem formulários rígidos. O colaborador avisa como faria naturalmente; a IA extrai o que precisa.</div>
+      </div>
+    </div>
+
+    <div class="signals-block mt-5">
+      <h4>O que a implementação inclui?</h4>
+      <ul class="signals-list">
+        <li>Estrutura de pastas no Drive (diretórios raiz e prontuários individuais)</li>
+        <li>Cenários Make configurados e validados (gestão de RH + banco de horas)</li>
+        <li>Modelos de formulários: condições de admissão, dados pessoais, declaração de residência, declaração de confidencialidade, regulamento interno, férias, adiantamentos e mais</li>
+        <li>Arquivos Excel de gestão pré-configurados: Folha, Ocorrências, Admissões de prontuários, Banco de Horas</li>
+        <li>Modelo do acordo Art. 197 bis pronto para usar</li>
+        <li>Guias de configuração passo a passo para cada cenário</li>
+        <li>Capacitação da equipe de RH para operar a solução</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Lei 27.802</div><h2 class="display-lg mt-4">Banco de horas — conformidade desde o primeiro dia</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">A Lei de Modernização Trabalhista (sancionada em fevereiro de 2026) habilita formalmente o banco de horas e exige um método fidedigno de controle. Nossa solução cumpre os três requisitos do Art. 197 bis de forma automática — sem configuração adicional e sem lançamento manual pelo RH.</p>
+
+    <div class="grid grid-3">
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Cálculo e aprovação automática</div>
+        <div class="feature-desc">O sistema calcula as horas extras a partir do registro de ponto. O gestor recebe uma notificação com o detalhamento e aprova com um clique. O saldo se atualiza automaticamente — sem lançamento manual, sem erros.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Acordo automático</div>
+        <div class="feature-desc">Ao habilitar o banco de horas para um colaborador, o sistema gera o acordo escrito a partir de um modelo do Google Docs, envia por e-mail e registra a aceitação. Conformidade documental automática.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Controle de limites legais</div>
+        <div class="feature-desc">O sistema verifica a cada registro que não se ultrapasse o máximo semanal legal nem o saldo negativo permitido. O RH recebe alerta automático antes que um problema se configure.</div>
+      </div>
+    </div>
+
+    <div class="panel mt-5" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">Requisito Art. 197 bis</div>
+        <div class="compare-cell header-cell manual">Sem automação</div>
+        <div class="compare-cell header-cell auto">Com nossa solução</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Acordo escrito e voluntário</div>
+        <div class="compare-cell manual">Word manual + assinatura em papel</div>
+        <div class="compare-cell auto">Gerado automaticamente ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Método fidedigno de controle</div>
+        <div class="compare-cell manual">Planilha Excel, sem rastreabilidade</div>
+        <div class="compare-cell auto">Registro com data, hora e matrícula ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Saldo visível para o colaborador</div>
+        <div class="compare-cell manual">Consulta manual ao RH</div>
+        <div class="compare-cell auto">Resposta imediata via Telegram ✓</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Histórico arquivado por 10 anos</div>
+        <div class="compare-cell manual">Depende de alguém salvar</div>
+        <div class="compare-cell auto">Automático no Drive ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Contexto competitivo</div><h2 class="display-lg mt-4">O que o SAP HCM não resolve na Argentina</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">O SAP HCM é o padrão enterprise. Também é caro, rígido e lento para se adaptar à realidade trabalhista argentina. Esta solução foi construída especificamente para o que o SAP não faz bem.</p>
+
+    <div class="grid grid-2 mb-5">
+      <div class="feature-card">
+        <div class="feature-icon">⚠</div>
+        <div class="feature-title">Canais reais de comunicação</div>
+        <div class="feature-desc">O SAP vive em portais de autoatendimento e e-mails corporativos. Na Argentina, a maioria dos avisos de ausência chega por Telegram ou WhatsApp. Nossa solução recebe e processa essas mensagens com IA — o colaborador avisa como faria naturalmente, sem aprender nenhum portal nem instalar nenhum app.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Convenções Coletivas de Trabalho (CCT)</div>
+        <div class="feature-desc">A Argentina tem mais de 1.500 CCTs ativas, cada uma com suas próprias regras de licenças especiais, horas extras, adicionais e tabelas salariais. Parametrizar uma CCT no SAP exige consultoria certificada e semanas de trabalho. Em nossa solução, as regras de cada CCT são modeladas na lógica dos cenários e nos prompts de IA — adaptáveis em horas quando a convenção muda.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Banco de horas — Lei 27.802</div>
+        <div class="feature-desc">O SAP pode parametrizá-lo, mas só através do módulo de Time Management, com custo de implementação separado e integração complexa com o módulo de folha de pagamento. Nossa solução já inclui isso de base, com circuito completo: registro via Telegram, cálculo de saldo, controle de limites e geração automática do acordo do Art. 197 bis.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Retenções na fonte — SIRADIG</div>
+        <div class="feature-desc">O cálculo mensal do imposto de renda para colaboradores CLT inclui deduções por dependentes, aluguel, juros de financiamento imobiliário e plano de saúde. No SAP, cada atualização do órgão fiscal exige um consultor para reparametrizar. Nossa solução usa tabelas no Google Sheets que a própria equipe de RH pode atualizar em minutos, sem dependência externa.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Salário-família — SUAF</div>
+        <div class="feature-desc">O circuito de declaração de filhos, mudanças de estado civil e ocorrências de gravidez junto ao órgão previdenciário no SAP é manual ou exige módulos adicionais caros. Nossa solução automatiza o recebimento de documentação, a validação de dados e a geração dos formulários exigidos pelo órgão, com tudo arquivado no prontuário digital do colaborador.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◇</div>
+        <div class="feature-title">Alertas de vencimento documental</div>
+        <div class="feature-desc">Vencimento de seguro de acidentes, seguro de vida obrigatório, atestado de saúde ocupacional, carteira de habilitação para motoristas, certificações sindicais. No SAP exige configuração cara e manutenção constante. Com nossa solução é um cenário Make configurável em um dia: alerta automático ao RH e ao responsável pela área com a antecedência adequada.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">▲</div>
+        <div class="feature-title">Controle de acesso cruzado com a folha</div>
+        <div class="feature-desc">Os sistemas de controle de acesso argentinos (ZKTeco, Anviz, Hikvision) exportam CSV ou têm APIs. Nossa solução cruza automaticamente os dados de presença real com a folha e as licenças declaradas — detectando inconsistências que o SAP não vê sem middleware especializado e caro.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <div class="feature-title">Análise de padrões de absenteísmo com IA</div>
+        <div class="feature-desc">O SAP reporta o que aconteceu. Nossa solução antecipa o que vai acontecer. O Gemini detecta automaticamente: colaboradores com absenteísmo recorrente em dias específicos, concentração de licenças por área, correlação entre tipo de ausência e setor. O RH recebe alertas antes que o padrão vire um problema.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="padding: 0; overflow: hidden;">
+      <div class="compare-row">
+        <div class="compare-cell header-cell proceso">&nbsp;</div>
+        <div class="compare-cell header-cell manual">SAP HCM</div>
+        <div class="compare-cell header-cell auto">Esta solução</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Implementação</div>
+        <div class="compare-cell manual">USD 50.000 – 300.000</div>
+        <div class="compare-cell auto">A partir de USD 3.000</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Entrada em operação</div>
+        <div class="compare-cell manual">6 – 18 meses</div>
+        <div class="compare-cell auto">2 – 6 semanas</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Mudanças normativas</div>
+        <div class="compare-cell manual">Consultor certificado + semanas</div>
+        <div class="compare-cell auto">Dias</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Manutenção anual</div>
+        <div class="compare-cell manual">Licenças + suporte SAP</div>
+        <div class="compare-cell auto">Google Workspace que você já tem</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell proceso">Curva de aprendizado</div>
+        <div class="compare-cell manual">Alta — capacitação extensa</div>
+        <div class="compare-cell auto">Baixa — Gmail e Telegram</div>
+      </div>
+    </div>
+
+    <div class="signals-block mt-5">
+      <h4>O sweet spot</h4>
+      <ul class="signals-list">
+        <li>Empresas de 50 a 500 colaboradores que superaram a planilha de Excel mas não conseguem justificar o SAP</li>
+        <li>Equipes de RH que operam sobre Google Workspace e querem automatizar sem substituir o que já usam</li>
+        <li>Organizações que precisam se adaptar rápido à Lei 27.802 sem esperar meses de consultoria</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Por que funciona</div><h2 class="display-lg mt-4">A tecnologia que você já tem</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">A solução funciona sobre o <strong>Google Workspace</strong> (Drive, Sheets, Docs, Gmail) que você provavelmente já usa, mais o <strong>Make</strong> como orquestrador e o <strong>Google Gemini</strong> para a leitura inteligente de e-mails e formulários.</p>
+      <p class="body-lg">Sem licenças adicionais de software de RH. Sem servidores para administrar. Sem desenvolvimento sob medida. Se amanhã você quiser modificar o fluxo, está tudo visível e editável.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Google Docs</span>
+        <span class="tech-pill">Gmail</span>
+        <span class="tech-pill">Telegram</span>
+        <span class="tech-pill">Gemini</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§08 · Para quem se aplica</div><h2 class="display-lg mt-4">Para que tipo de empresas</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">PERFIL 01</div><div class="next-desc">Empresas de <strong>20 a 500 colaboradores</strong> que gerenciam RH internamente com uma equipe pequena que dedica tempo demais a tarefas administrativas.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PERFIL 02</div><div class="next-desc">Organizações que <strong>não têm um sistema de RH prévio</strong> e trabalham com Excel, pastas no Drive e e-mails — e querem se organizar sem substituir o que já usam.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PERFIL 03</div><div class="next-desc">Empresas com <strong>convenções coletivas, alta rotatividade ou equipes distribuídas</strong> em locais diferentes, onde o volume de trâmites é alto.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PERFIL 04</div><div class="next-desc">Equipes de RH que já usam <strong>Google Workspace</strong> e querem extrair o máximo dele sem incorporar novas plataformas nem custos de licença.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§09 · Próximos passos</div><h2 class="display-lg mt-4">Como avançamos</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card">
+        <div class="next-eyebrow">PASSO 01 · 30 minutos</div>
+        <div class="next-title">Demo ao vivo</div>
+        <div class="next-desc">Mostramos o sistema processando casos reais — admissão de colaborador, aprovação de licença, fechamento mensal — com dados de exemplo. Se depois da demo você não enxergar o valor, não há próximo passo.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">PASSO 02 · 2 semanas</div>
+        <div class="next-title">Implementação</div>
+        <div class="next-desc">Setup completo no seu Google Workspace, configuração de todos os cenários Make, carregamento de modelos e folha inicial, e capacitação da equipe. Ao final das duas semanas, fica funcionando em produção.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§10 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Pronto para parar de correr atrás de e-mail?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende 30 minutos para ver a demo ao vivo com dados de exemplo do seu setor. Sem compromisso, sem slides genéricos.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende sua demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Automatização%20RH">Falar com um consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 09</span>
+    <span class="accent">ai-q.fit · rrhh</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

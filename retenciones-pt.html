@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;retenciones.html&quot;,&quot;en&quot;:&quot;retenciones-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retenções de Impostos · Processador · AI-Q</title>
+<meta name="description" content="Processador automático de retenções de impostos argentinas. PDF/digitalização/foto → planilha pronta para SAP. OCR + IA + mapeamento. ~45 segundos por documento.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções de Impostos</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Estúdios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente de IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="retenciones.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="retenciones-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-RET-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 08 / RETENÇÕES</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Contabilidade &amp; tesouraria</div>
+      <h1 class="display-xl">Processador automático de <span class="accent">retenções de impostos</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Sem digitação, sem atrasos, com auditoria embutida."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Transforme cada comprovante de retenção que você recebe — PDF, digitalização ou foto — em uma linha pronta para o SAP na sua planilha. Uma solução ponta a ponta desenhada especificamente para equipes contábeis.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Dias perdidos todo mês</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Se a sua equipe abre cada comprovante, identifica o agente retentor, separa os impostos linha por linha, procura o código do SAP e faz o lançamento manualmente, ela está perdendo entre <strong>3 e 8 minutos por documento</strong>. Multiplicado pelo volume mensal habitual, são dias de trabalho administrativo que podem ser recuperados.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">+ 3 a 8 min <span class="accent">por documento</span></p>
+      <p class="muted">E isso sem contar erros de digitação, códigos SAP mal atribuídos e o tempo em correções contábeis.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · A solução</div><h2 class="display-lg mt-4">Como funciona, em 5 passos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Uma automação ponta a ponta que recebe os certificados como chegam — em qualquer formato — e os entrega processados, classificados e prontos para lançamento.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Envio para o Drive</div><div class="step-desc">O certificado é deixado em uma pasta do Google Drive, ou chega por e-mail, se preferir esse fluxo.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Leitura por OCR</div><div class="step-desc">O documento é digitalizado, mesmo que seja uma digitalização de baixa qualidade ou uma foto do celular.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Extração por IA</div><div class="step-desc">Identifica o agente retentor e separa cada imposto em linhas independentes.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Mapeamento para o SAP</div><div class="step-desc">Cada retenção é atribuída à sua conta contábil exata — imposto de renda, impostos indiretos ou reclassificação.</div></div>
+      <div class="step-card"><div class="step-num">05</div><div class="step-title">Planilha pronta</div><div class="step-desc">Uma linha por lançamento de imposto no Sheets, com formatação local e campos para conciliação.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Métricas de serviço</div><h2 class="display-lg mt-4">O que você pode esperar</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-bordered grid-4">
+      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">~45 s</div><div class="kicker">Tempo por documento</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">Centenas</div><div class="kicker">Documentos por dia</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">5–15%</div><div class="kicker">Só por exceção</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">24/7</div><div class="kicker">Sem supervisão</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · O que inclui</div><h2 class="display-lg mt-4">Uma solução completa</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Rastreabilidade por linha</div><div class="feature-desc">Cada registro carrega um score de confiança (0–100), link para o arquivo original, nome e timestamp. <strong>Auditar um dado leva segundos, não minutos.</strong></div></div>
+      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Salvaguardas</div><div class="feature-desc">Quando a ferramenta não tem certeza, ela avisa — marca o registro como "Revisar" ou o atribui a uma conta de reclassificação, em vez de adivinhar.</div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Regras locais embutidas</div><div class="feature-desc">Normalização para o formato <code>NNNN-NNNNNNNN</code>, correção de alíquotas e identificação das <strong>diferentes jurisdições fiscais</strong> com seus apelidos.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Plano de contas sob medida</div><div class="feature-desc">O dicionário do SAP se ajusta à sua nomenclatura interna. Seu <strong>CNPJ e razão social</strong> ficam protegidos por regras explícitas — um erro comum em soluções genéricas.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Por que funciona</div><h2 class="display-lg mt-4">Não é um wrapper do ChatGPT</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">Esta não é uma ferramenta genérica de OCR nem um wrapper do ChatGPT. É uma <strong>solução desenhada especificamente para comprovantes de retenção</strong>, com o conhecimento contábil e fiscal incorporado em cada etapa do processo.</p>
+      <p class="body-lg">Construída sobre infraestrutura de nível empresarial e configurada de acordo com as particularidades da sua operação. Sem servidores para administrar, sem desenvolvimento sob medida, sem lock-in: se amanhã você quiser modificar o fluxo, está tudo à vista e editável.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Cloud</span>
+        <span class="tech-pill">Gemini 2.5</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Pronto para SAP</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Para quem se aplica</div><h2 class="display-lg mt-4">Para quem é esta solução</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">CASO 01</div><div class="next-desc">Empresas médias e grandes que recebem <strong>+50 comprovantes de retenção por mês</strong>.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 02</div><div class="next-desc">Equipes <strong>contábeis ou de tesouraria</strong> que hoje processam certificados manualmente.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 03</div><div class="next-desc">Operações com alto volume de <strong>retenções multi-jurisdição</strong>, onde a classificação no SAP é a maior fonte de erros.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 04</div><div class="next-desc">Organizações que já usam <strong>Google Workspace + SAP</strong> e buscam integrar sem substituir.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Próximos passos</div><h2 class="display-lg mt-4">Como avançamos</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">PASSO 01 · 30 minutos</div><div class="next-title">Demo ao vivo</div><div class="next-desc">Mostramos a ferramenta processando <strong>seus próprios documentos</strong>, com o seu plano de contas. Se depois da demo você não enxergar valor, não há próximo passo.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PASSO 02 · 2 semanas</div><div class="next-title">Implementação piloto</div><div class="next-desc">Configuração completa, plano de testes com um mês das suas retenções reais, ajuste fino do dicionário SAP e treinamento. Ao final do piloto, a solução fica funcionando em produção.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Pronto para recuperar esses dias?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende 30 minutos para ver a ferramenta processando seus próprios certificados. Sem compromisso, sem slides genéricos.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Solicitar uma demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Retenciones%20Impositivas">Falar com um consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 08</span>
+    <span class="accent">ai-q.fit · retenções</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

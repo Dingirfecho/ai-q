@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;inmobiliarias_landing.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Q · Automação para Imobiliárias — Consultas respondidas na hora</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{
+    --paper: #f1ede2;
+    --paper-line: #d8d2c0;
+    --ink: #1c1a15;
+    --ink-soft: #5c5748;
+    --accent: #e2531f;
+    --accent-soft: #f3d8c9;
+    --panel: #e8e2d1;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  /* ---- top strip ---- */
+  .topstrip{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    padding:14px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  header.nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .logo{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:600;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo .mark{
+    width:22px;height:22px;
+    border:1.5px solid var(--ink);
+    border-radius:50%;
+    position:relative;
+    flex-shrink:0;
+  }
+  .logo .mark::before, .logo .mark::after{
+    content:"";
+    position:absolute;
+    background:var(--ink);
+  }
+  .logo .mark::before{ width:10px; height:1.5px; top:50%; left:50%; transform:translate(-50%,-50%);}
+  .logo .mark::after{ height:10px; width:1.5px; top:50%; left:50%; transform:translate(-50%,-50%);}
+  .back{
+    font-family:var(--mono);
+    font-size:12px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border:1px solid var(--paper-line);
+    padding:7px 12px;
+    border-radius:3px;
+  }
+  .back:hover{border-color:var(--ink-soft);}
+  /* ---- hero ---- */
+  .hero{ padding:56px 0 40px; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  h1{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:clamp(36px, 5.6vw, 60px);
+    line-height:1.04;
+    letter-spacing:-0.02em;
+    margin:0 0 22px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .sub{
+    font-size:18px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    max-width:580px;
+    margin:0 0 34px;
+  }
+  .cta-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .btn{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:15px;
+    padding:14px 22px;
+    border-radius:4px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1.5px solid transparent;
+    transition:transform .12s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+  }
+  .btn-secondary{
+    background:transparent;
+    border-color:var(--ink);
+    color:var(--ink);
+  }
+  .cta-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .cta-tertiary{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+  .cta-tertiary a{
+    color:var(--accent);
+    text-decoration:underline;
+  }
+  /* ---- calculator (signature element) ---- */
+  .calc{
+    margin-top:44px;
+    border:1px solid var(--ink);
+    background:var(--panel);
+    position:relative;
+  }
+  .calc::before, .calc::after,
+  .calc .corner-br, .calc .corner-bl{
+    content:"";
+    position:absolute;
+    width:14px; height:14px;
+    border:1.5px solid var(--ink);
+  }
+  .calc::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .calc::after{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .calc .corner-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .calc .corner-br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .calc-head{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    padding:14px 22px;
+    border-bottom:1px solid var(--ink);
+    display:flex;
+    justify-content:space-between;
+    color:var(--ink-soft);
+  }
+  .calc-body{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:0;
+  }
+  @media (max-width:760px){ .calc-body{grid-template-columns:1fr;} }
+  .calc-inputs{
+    padding:26px;
+    border-right:1px solid var(--ink);
+  }
+  @media (max-width:760px){ .calc-inputs{border-right:none; border-bottom:1px solid var(--ink);} }
+  .calc-fields{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:28px;
+  }
+  @media (max-width:520px){ .calc-fields{grid-template-columns:1fr;} }
+  .field{ margin-bottom:20px; }
+  .field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+    line-height:1.4;
+  }
+  .field .row{ display:flex; align-items:center; gap:12px; }
+  input[type=range]{
+    flex:1;
+    accent-color:var(--accent);
+  }
+  .field .val{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:14px;
+    min-width:52px;
+    text-align:right;
+  }
+  .calc-output{
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+  }
+  .output-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .output-number{
+    font-size:52px;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    color:var(--accent);
+    line-height:1;
+  }
+  .output-number span{
+    font-size:20px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .output-sub{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-top:6px;
+    line-height:1.5;
+  }
+  .output-breakdown{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid var(--paper-line);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .output-breakdown .line{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+  .output-breakdown .line b{
+    color:var(--ink);
+    font-weight:700;
+  }
+  /* ---- sections ---- */
+  section{ padding:64px 0; border-bottom:1px solid var(--paper-line); }
+  .sec-label{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+  h2{
+    font-size:clamp(26px,3.4vw,34px);
+    font-weight:800;
+    letter-spacing:-0.01em;
+    margin:0 0 36px;
+    max-width:640px;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid var(--ink);
+  }
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{
+    padding:26px 24px;
+    border-right:1px solid var(--ink);
+  }
+  .step:last-child{ border-right:none; }
+  @media (max-width:760px){
+    .step{ border-right:none; border-bottom:1px solid var(--ink); }
+    .step:last-child{border-bottom:none;}
+  }
+  .step-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .step h3{ font-size:18px; margin:0 0 8px; }
+  .step p{ font-size:14.5px; color:var(--ink-soft); line-height:1.5; margin:0; }
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:36px;
+  }
+  @media (max-width:680px){ .stat-row{grid-template-columns:1fr;} }
+  .stat{ border-top:2px solid var(--ink); padding-top:14px; }
+  .stat .num{ font-size:30px; font-weight:800; color:var(--accent); }
+  .stat .lbl{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+  .faq{ max-width:720px; }
+  .qa{ padding:20px 0; border-bottom:1px solid var(--paper-line); }
+  .qa:first-child{ padding-top:0; }
+  .qa .q{ font-weight:700; font-size:16px; margin-bottom:8px; }
+  .qa .aa{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
+  .final{
+    background:var(--ink);
+    color:var(--paper);
+    padding:56px 0;
+    border-bottom:none;
+  }
+  .final .sec-label{ color:#8b8574; }
+  .final h2{ color:var(--paper); }
+  .final .sub{ color:#c9c3b3; }
+  .final .btn-secondary{ border-color:var(--paper); color:var(--paper); }
+  .final .cta-tertiary{ color:#8b8574; }
+  .final .cta-tertiary a{ color:var(--accent); }
+  footer{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    padding:24px 0 40px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topstrip">
+    <span>DOC // AIQ-INM-002 · REV / A</span>
+    <span>FOLHA 01 / 01 · SCALE 1:1</span>
+  </div>
+  <header class="nav">
+    <a class="logo" href="https://ai-q.fit/">
+      <span class="mark"></span>
+      ai—q.fit/
+    </a>
+    <a class="back" href="https://ai-q.fit/inmobiliarias.html">← Ver a solução completa para Imobiliárias</a>
+  </header>
+  <section class="hero" style="border-bottom:none; padding-bottom:0;">
+    <div class="eyebrow"><span class="dot"></span> §01 · CONSULTAS DE IMÓVEIS SEM RESPOSTA</div>
+    <h1>Perguntou sobre o imóvel.<br>Já tem a resposta <em>na hora.</em></h1>
+    <p class="sub">As consultas por WhatsApp ou e-mail chegam fora do horário, várias ao mesmo tempo, ou justo quando o corretor está numa visita. O sistema responde na hora com os dados reais do imóvel e agenda a visita — o corretor entra só quando é hora de fechar.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20consultas%20inmobiliarias" target="_blank" rel="noopener">
+        Conte seu caso pelo WhatsApp →
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-q-demo-de-inmobiliarias" target="_blank" rel="noopener">
+        Participe da Demo Semanal →
+      </a>
+    </div>
+    <div class="cta-note">Demo ao vivo de 30 min com imóveis reais da sua carteira · sem compromisso</div>
+    <div class="cta-tertiary">Prefere falar primeiro sobre estratégia de IA? <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Agende essa chamada aqui →</a></div>
+    <div class="calc">
+      <div class="corner-bl"></div><div class="corner-br"></div>
+      <div class="calc-head">
+        <span>§ CALCULADORA · HORAS RECUPERADAS EM CONSULTAS</span>
+        <span>AO VIVO</span>
+      </div>
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="calc-fields">
+            <div class="field">
+              <label>Consultas de imóveis por mês</label>
+              <div class="row">
+                <input type="range" id="consultas" min="20" max="400" value="120" step="10">
+                <span class="val" id="consultasVal">120</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Min. hoje para responder cada consulta</label>
+              <div class="row">
+                <input type="range" id="minConsulta" min="2" max="20" value="7" step="1">
+                <span class="val" id="minConsultaVal">7 min</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Visitas agendadas por mês</label>
+              <div class="row">
+                <input type="range" id="visitas" min="5" max="150" value="35" step="5">
+                <span class="val" id="visitasVal">35</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Min. hoje para agendar cada visita (ida e volta de horários)</label>
+              <div class="row">
+                <input type="range" id="minVisita" min="5" max="30" value="12" step="1">
+                <span class="val" id="minVisitaVal">12 min</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Hs. por semana em publicar/atualizar imóveis nos portais</label>
+              <div class="row">
+                <input type="range" id="publicacion" min="0.5" max="10" value="3" step="0.5">
+                <span class="val" id="publicacionVal">3 hs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="calc-output">
+          <div class="output-label">HORAS QUE VOCÊ RECUPERA POR MÊS</div>
+          <div class="output-number"><span id="hoursOut">18,3</span> <span>hs</span></div>
+          <div class="output-sub">Somando consultas respondidas, visitas agendadas e publicação nos portais.</div>
+          <div class="output-breakdown">
+            <div class="line"><span>Consultas de imóveis</span><b id="bConsultas">—</b></div>
+            <div class="line"><span>Agendamento de visitas</span><b id="bVisitas">—</b></div>
+            <div class="line"><span>Publicação nos portais</span><b id="bPublicacion">—</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="wrap">
+  <section>
+    <div class="sec-label">§02 · COMO FUNCIONA</div>
+    <h2>Três passos, sem mexer no seu CRM imobiliário atual.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>A consulta chega como já chega hoje</h3>
+        <p>WhatsApp, e-mail ou portal — o canal que o interessado já usa naturalmente. Sem formulários novos nem apps para instalar.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>A IA responde na hora</h3>
+        <p>Identifica o imóvel consultado e responde com os dados reais — preço, metragem, fotos, disponibilidade — sem esperar que alguém esteja livre.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Agenda a visita e avisa o corretor</h3>
+        <p>Propõe horários, confirma com o interessado e avisa o corretor quando é hora de fechar — a visita já está agendada quando o corretor fica sabendo.</p>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">7 min → instantâneo</div>
+        <div class="lbl">TEMPO DE RESPOSTA POR CONSULTA DE IMÓVEL</div>
+      </div>
+      <div class="stat">
+        <div class="num">2–6</div>
+        <div class="lbl">SEMANAS DE IMPLANTAÇÃO</div>
+      </div>
+      <div class="stat">
+        <div class="num">50–500</div>
+        <div class="lbl">CONSULTAS MENSAIS · A FAIXA IDEAL PARA ESTA SOLUÇÃO</div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="sec-label">§03 · PERGUNTAS FREQUENTES</div>
+    <h2>Antes de nos escrever.</h2>
+    <div class="faq">
+      <div class="qa">
+        <div class="q">Substitui o meu CRM imobiliário atual?</div>
+        <div class="aa">Não. Funciona sobre as ferramentas que você já usa — WhatsApp, e-mail e sua planilha ou CRM de imóveis — sem licenças novas de software nem sistemas extras para administrar.</div>
+      </div>
+      <div class="qa">
+        <div class="q">O que acontece se a consulta não for clara ou pedir algo que o sistema não tem?</div>
+        <div class="aa">O que não pode ser respondido com certeza é encaminhado direto ao corretor. Nada é respondido sem os dados corretos do imóvel.</div>
+      </div>
+      <div class="qa">
+        <div class="q">Quanto custa?</div>
+        <div class="aa">Preço fechado, calculado de acordo com o volume de consultas e a quantidade de imóveis ativos. Montamos o número exato na demo, com os seus dados reais.</div>
+      </div>
+      <div class="qa">
+        <div class="q">Quanto tempo leva para implementar?</div>
+        <div class="aa">Entre 2 e 6 semanas, incluindo o carregamento da sua carteira de imóveis e o treinamento da equipe.</div>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="final">
+  <div class="wrap">
+    <div class="sec-label">§04 · VAMOS CONVERSAR</div>
+    <h2>Conte quantas consultas de imóveis você lida por mês.</h2>
+    <p class="sub">Só com isso, já conseguimos dizer quantas horas sua equipe recupera.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20consultas%20inmobiliarias" target="_blank" rel="noopener">
+        Conte seu caso pelo WhatsApp →
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-q-demo-de-inmobiliarias" target="_blank" rel="noopener">
+        Participe da Demo Semanal →
+      </a>
+    </div>
+    <div class="cta-tertiary">Prefere falar primeiro sobre estratégia de IA? <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Agende essa chamada aqui →</a></div>
+  </div>
+</section>
+<div class="wrap">
+  <footer>
+    <span>ai-q.fit · Automação para Imobiliárias</span>
+    <span>Federico Andino · Buenos Aires</span>
+  </footer>
+</div>
+<script>
+  const consultasEl = document.getElementById('consultas');
+  const minConsultaEl = document.getElementById('minConsulta');
+  const visitasEl = document.getElementById('visitas');
+  const minVisitaEl = document.getElementById('minVisita');
+  const publicacionEl = document.getElementById('publicacion');
+  const consultasVal = document.getElementById('consultasVal');
+  const minConsultaVal = document.getElementById('minConsultaVal');
+  const visitasVal = document.getElementById('visitasVal');
+  const minVisitaVal = document.getElementById('minVisitaVal');
+  const publicacionVal = document.getElementById('publicacionVal');
+  const hoursOut = document.getElementById('hoursOut');
+  const bConsultas = document.getElementById('bConsultas');
+  const bVisitas = document.getElementById('bVisitas');
+  const bPublicacion = document.getElementById('bPublicacion');
+  function fmt(n){
+    return n.toLocaleString('es-AR', {minimumFractionDigits:1, maximumFractionDigits:1});
+  }
+  function update(){
+    const consultas = parseInt(consultasEl.value, 10);
+    const minConsulta = parseInt(minConsultaEl.value, 10);
+    const visitas = parseInt(visitasEl.value, 10);
+    const minVisita = parseInt(minVisitaEl.value, 10);
+    const publicacionSemanal = parseFloat(publicacionEl.value);
+    consultasVal.textContent = consultas;
+    minConsultaVal.textContent = minConsulta + ' min';
+    visitasVal.textContent = visitas;
+    minVisitaVal.textContent = minVisita + ' min';
+    publicacionVal.textContent = fmt(publicacionSemanal) + ' hs';
+    // Consultas: hoy vs. respuesta instantánea (con ~1 min de revisión de excepciones)
+    const consultasManual = (consultas * minConsulta) / 60;
+    const consultasAuto = (consultas * 1) / 60;
+    const consultasRecovered = Math.max(consultasManual - consultasAuto, 0);
+    // Visitas: hoy vs. ~2 min de coordinación automática
+    const visitasManual = (visitas * minVisita) / 60;
+    const visitasAuto = (visitas * 2) / 60;
+    const visitasRecovered = Math.max(visitasManual - visitasAuto, 0);
+    // Publicación en portales: hoy (mensualizado) vs. ~20% del tiempo, el resto se sincroniza solo
+    const publicacionMensual = publicacionSemanal * 4.33;
+    const publicacionRecovered = Math.max(publicacionMensual * 0.8, 0);
+    const total = consultasRecovered + visitasRecovered + publicacionRecovered;
+    hoursOut.textContent = fmt(total);
+    bConsultas.textContent = fmt(consultasRecovered) + ' hs';
+    bVisitas.textContent = fmt(visitasRecovered) + ' hs';
+    bPublicacion.textContent = fmt(publicacionRecovered) + ' hs';
+  }
+  [consultasEl, minConsultaEl, visitasEl, minVisitaEl, publicacionEl].forEach(el => el.addEventListener('input', update));
+  update();
+</script>
+<script>
+  // Contador de visitas oculto — solo visible con ?panel=fede en la URL.
+  // Mismo servicio que las otras landings: abacus.jasoncameron.dev (gratis,
+  // sin login). No cuenta la visita cuando se entra en modo panel, para no
+  // inflar el número al revisarlo vos mismo.
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var isAdmin = params.get('panel') === 'fede';
+    var namespace = 'aiq-fit-2026';
+    var key = 'inmobiliarias-landing';
+    var endpoint = isAdmin
+      ? 'https://abacus.jasoncameron.dev/get/' + namespace + '/' + key
+      : 'https://abacus.jasoncameron.dev/hit/' + namespace + '/' + key;
+    fetch(endpoint)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(!isAdmin) return;
+        var badge = document.createElement('div');
+        badge.textContent = 'VISITAS: ' + (data.value != null ? data.value : '—');
+        badge.style.position = 'fixed';
+        badge.style.bottom = '18px';
+        badge.style.right = '18px';
+        badge.style.background = 'var(--ink)';
+        badge.style.color = 'var(--paper)';
+        badge.style.fontFamily = 'var(--mono)';
+        badge.style.fontSize = '12px';
+        badge.style.letterSpacing = '0.05em';
+        badge.style.padding = '9px 14px';
+        badge.style.borderRadius = '3px';
+        badge.style.zIndex = '9999';
+        badge.style.boxShadow = '0 4px 14px rgba(0,0,0,0.25)';
+        document.body.appendChild(badge);
+      })
+      .catch(function(){ /* servicio no disponible, no rompe la página */ });
+  })();
+</script>
+</body>
+</html>

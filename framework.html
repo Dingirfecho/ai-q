@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-lang-hrefs="{}">
 <head>
+<script src="lang-detect.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Q · Blueprint para tu estrategia de IA</title>
@@ -10,11 +11,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blueprint.css">
+<style>
+.lang-switch-group { display: flex; border: var(--aq-border-thin); }
+.lang-switch-btn {
+  font-family: var(--aq-font-mono);
+  font-size: var(--aq-fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--aq-track-kicker);
+  padding: 6px 10px;
+  border: 0;
+  border-right: var(--aq-border-thin);
+  background: var(--aq-paper);
+  color: var(--aq-ink);
+  cursor: pointer;
+  transition: all var(--aq-t-fast);
+}
+.lang-switch-btn:last-child { border-right: 0; }
+.lang-switch-btn:hover { background: var(--aq-ink); color: var(--aq-paper); }
+.lang-switch-btn.active { background: var(--aq-ink); color: var(--aq-paper); }
+</style>
 </head>
 <body>
 <div class="top-contact-bar">
-  <span class="top-contact-label" data-en="Have questions or want a demo?" data-es="&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?">&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?</span>
-  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit"><span data-en="Contact us" data-es="Contactanos">Contactanos</span> &rarr;</a>
+  <span class="top-contact-label" data-en="Have questions or want a demo?" data-es="&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?" data-pt="Tem dúvidas ou quer uma demo?">&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit"><span data-en="Contact us" data-es="Contactanos" data-pt="Fale conosco">Contactanos</span> &rarr;</a>
 </div>
 
 
@@ -36,36 +56,41 @@
     <button class="hamburger" id="hamburger" aria-label="Menu">≡</button>
 
     <nav class="site-nav" id="siteNav">
-      <a class="nav-link" href="index.html" data-en="Home" data-es="Inicio">Inicio</a>
-      <a class="nav-link" href="#framework" data-en="Framework" data-es="Framework">Framework</a>
-      <a class="nav-link" href="#types" data-en="16 Types" data-es="16 Tipos">16 Tipos</a>
-      <a class="nav-link" href="#cases" data-en="Cases" data-es="Casos">Casos</a>
-      <a class="nav-link" href="sama.html" data-en="SAMA" data-es="SAMA">SAMA</a>
+      <a class="nav-link" href="index.html" data-en="Home" data-es="Inicio" data-pt="Início">Inicio</a>
+      <a class="nav-link" href="#framework" data-en="Framework" data-es="Framework" data-pt="Framework">Framework</a>
+      <a class="nav-link" href="#types" data-en="16 Types" data-es="16 Tipos" data-pt="16 Tipos">16 Tipos</a>
+      <a class="nav-link" href="#cases" data-en="Cases" data-es="Casos" data-pt="Casos">Casos</a>
+      <a class="nav-link" href="sama.html" data-en="SAMA" data-es="SAMA" data-pt="SAMA">SAMA</a>
       <div class="nav-dropdown">
-        <button class="nav-link" data-en="Solutions ◆" data-es="Soluciones ◆">Soluciones ◆</button>
+        <button class="nav-link" data-en="Solutions ◆" data-es="Soluciones ◆" data-pt="Soluções ◆">Soluciones ◆</button>
         <div class="nav-dropdown-menu">
-          <a href="bancos.html" data-en="Bank Statements" data-es="Resúmenes Bancarios">Resúmenes Bancarios</a>
-          <a href="notas-debito.html" data-en="Bank Debit Notes" data-es="Notas de Débito Bancarias">Notas de Débito Bancarias</a>
-          <a href="retenciones.html" data-en="Withholding Tax" data-es="Retenciones Impositivas">Retenciones Impositivas</a>
-          <a href="amortizaciones.html" data-en="Fixed Assets" data-es="Activos Fijos · AxI">Activos Fijos · AxI</a>
-          <a href="estado-contratos.html" data-en="Contract Operations" data-es="Control de Contratos">Control de Contratos</a>
-          <a href="gimnasios.html" data-en="Gyms &amp; Academies" data-es="Gimnasios y Academias">Gimnasios y Academias</a>
-          <a href="posteo-redes.html" data-en="AI Social Posting" data-es="Posteo Diario en Redes">Posteo Diario en Redes</a>
-          <a href="rrhh.html" data-en="HR Automation" data-es="Automatización de RRHH">Automatización de RRHH</a>
-          <a href="inmobiliaria.html" data-en="Real Estate AI" data-es="Inmobiliarias · Asistente IA">Inmobiliarias · Asistente IA</a>
-          <a href="consorcios.html" data-en="Invoices to Withholding · Condo Admins" data-es="Facturas a Retención · Consorcios">Facturas a Retención · Consorcios</a>
+          <a href="bancos.html" data-en="Bank Statements" data-es="Resúmenes Bancarios" data-pt="Extratos Bancários">Resúmenes Bancarios</a>
+          <a href="notas-debito.html" data-en="Bank Debit Notes" data-es="Notas de Débito Bancarias" data-pt="Notas de Débito Bancárias">Notas de Débito Bancarias</a>
+          <a href="retenciones.html" data-en="Withholding Tax" data-es="Retenciones Impositivas" data-pt="Retenções de Impostos">Retenciones Impositivas</a>
+          <a href="amortizaciones.html" data-en="Fixed Assets" data-es="Activos Fijos · AxI" data-pt="Ativos Fixos · AxI">Activos Fijos · AxI</a>
+          <a href="estado-contratos.html" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Control de Contratos</a>
+          <a href="gimnasios.html" data-en="Gyms &amp; Academies" data-es="Gimnasios y Academias" data-pt="Academias e Escolas">Gimnasios y Academias</a>
+          <a href="posteo-redes.html" data-en="AI Social Posting" data-es="Posteo Diario en Redes" data-pt="Postagem Diária em Redes">Posteo Diario en Redes</a>
+          <a href="rrhh.html" data-en="HR Automation" data-es="Automatización de RRHH" data-pt="Automação de RH">Automatización de RRHH</a>
+          <a href="inmobiliaria.html" data-en="Real Estate AI" data-es="Inmobiliarias · Asistente IA" data-pt="Imobiliárias · Assistente de IA">Inmobiliarias · Asistente IA</a>
+          <a href="consorcios.html" data-en="Invoices to Withholding · Condo Admins" data-es="Facturas a Retención · Consorcios" data-pt="Notas Fiscais a Retenção · Condomínios">Facturas a Retención · Consorcios</a>
         </div>
       </div>
       <div class="nav-dropdown">
-        <button class="nav-link" data-en="Consulting ◆" data-es="Consultoría ◆">Consultoría ◆</button>
+        <button class="nav-link" data-en="Consulting ◆" data-es="Consultoría ◆" data-pt="Consultoria ◆">Consultoría ◆</button>
         <div class="nav-dropdown-menu">
-          <a href="consultoria.html" data-en="Services (ES)" data-es="Servicios (ES)">Servicios (ES)</a>
-          <a href="consultoria-en.html" data-en="Services (EN)" data-es="Servicios (EN)">Services (EN)</a>
+          <a href="consultoria.html" data-en="Services (ES)" data-es="Servicios (ES)" data-pt="Serviços (ES)">Servicios (ES)</a>
+          <a href="consultoria-en.html" data-en="Services (EN)" data-es="Servicios (EN)" data-pt="Serviços (EN)">Services (EN)</a>
+          <a href="consultoria-pt.html" data-en="Services (PT)" data-es="Servicios (PT)" data-pt="Serviços (PT)">Servicios (PT)</a>
         </div>
       </div>
-      <button class="lang-switch" id="langSwitch" onclick="toggleLang()">EN</button>
-      <a class="nav-link" href="quiz.html" data-en="Take the test" data-es="Hacer el test">Hacer el test</a>
-      <a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →">Agendá una llamada →</a>
+      <div class="lang-switch-group" id="langSwitchGroup">
+        <button class="lang-switch-btn" data-lang="es" onclick="setLang('es')">ES</button>
+        <button class="lang-switch-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-switch-btn" data-lang="pt" onclick="setLang('pt')">PT</button>
+      </div>
+      <a class="nav-link" href="quiz.html" data-en="Take the test" data-es="Hacer el test" data-pt="Fazer o teste">Hacer el test</a>
+      <a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma chamada →">Agendá una llamada →</a>
     </nav>
   </div>
 </header>
@@ -81,20 +106,20 @@
     </div>
     <div class="spec-strip-group">
       <span><span class="dot">●</span>ACTIVE</span>
-      <span data-en="SHEET 02 / FRAMEWORK" data-es="HOJA 02 / FRAMEWORK">HOJA 02 / FRAMEWORK</span>
+      <span data-en="SHEET 02 / FRAMEWORK" data-es="HOJA 02 / FRAMEWORK" data-pt="FOLHA 02 / FRAMEWORK">HOJA 02 / FRAMEWORK</span>
     </div>
   </div>
 
   <!-- ───────── Title block / hero ───────── -->
   <section class="title-block">
     <div>
-      <div class="kicker" data-en="§ The AI-Q Assessment" data-es="§ La Evaluación AI-Q">§ La Evaluación AI-Q</div>
+      <div class="kicker" data-en="§ The AI-Q Assessment" data-es="§ La Evaluación AI-Q" data-pt="§ A Avaliação AI-Q">§ La Evaluación AI-Q</div>
       <h1 class="display-xl">
-        <span data-en="What's your" data-es="¿Cuál es tu">¿Cuál es tu</span><br>
+        <span data-en="What's your" data-es="¿Cuál es tu" data-pt="Qual é o seu">¿Cuál es tu</span><br>
         AI · Q · <span class="accent">type</span><span class="accent">/</span>
       </h1>
       <div class="display-md muted" style="max-width:720px;margin-top:24px;">
-        <span data-en="20 questions. 5 minutes. 16 possible types. A blueprint of your AI strategy — what works, what doesn't, what to do next." data-es="20 preguntas. 5 minutos. 16 tipos posibles. Un blueprint de tu estrategia de IA — qué funciona, qué no, qué hacer después.">20 preguntas. 5 minutos. 16 tipos posibles. Un blueprint de tu estrategia de IA — qué funciona, qué no, qué hacer después.</span>
+        <span data-en="20 questions. 5 minutes. 16 possible types. A blueprint of your AI strategy — what works, what doesn't, what to do next." data-es="20 preguntas. 5 minutos. 16 tipos posibles. Un blueprint de tu estrategia de IA — qué funciona, qué no, qué hacer después." data-pt="20 perguntas. 5 minutos. 16 tipos possíveis. Um blueprint da sua estratégia de IA — o que funciona, o que não funciona, o que fazer a seguir.">20 preguntas. 5 minutos. 16 tipos posibles. Un blueprint de tu estrategia de IA — qué funciona, qué no, qué hacer después.</span>
       </div>
     </div>
   </section>
@@ -105,7 +130,7 @@
       <div class="crosshair tl"></div><div class="crosshair tr"></div>
       <div class="crosshair bl"></div><div class="crosshair br"></div>
       <div class="panel-header">
-        <span>Fig. 01 · <span data-en="AI-Q diagnostic blueprint" data-es="Blueprint diagnóstico AI-Q">Blueprint diagnóstico AI-Q</span></span>
+        <span>Fig. 01 · <span data-en="AI-Q diagnostic blueprint" data-es="Blueprint diagnóstico AI-Q" data-pt="Blueprint diagnóstico AI-Q">Blueprint diagnóstico AI-Q</span></span>
         <span class="accent">SCALE 1:1</span>
       </div>
       <div style="display:grid;grid-template-columns:1.4fr 1fr;">
@@ -160,15 +185,15 @@
           </svg>
         </div>
         <div style="padding:28px;">
-          <div class="kicker" data-en="Object · AI Strategy Mapping" data-es="Object · Mapeo de Estrategia IA">Object · Mapeo de Estrategia IA</div>
+          <div class="kicker" data-en="Object · AI Strategy Mapping" data-es="Object · Mapeo de Estrategia IA" data-pt="Object · Mapeamento de Estratégia de IA">Object · Mapeo de Estrategia IA</div>
           <h3 class="display-md" style="margin:12px 0 18px;">
-            <span data-en="Most companies don't have an AI strategy." data-es="La mayoría no tiene estrategia de IA.">La mayoría no tiene estrategia de IA.</span><br>
-            <span class="accent" data-en="They have a collection of tools." data-es="Tienen una colección de herramientas.">Tienen una colección de herramientas.</span>
+            <span data-en="Most companies don't have an AI strategy." data-es="La mayoría no tiene estrategia de IA." data-pt="A maioria não tem estratégia de IA.">La mayoría no tiene estrategia de IA.</span><br>
+            <span class="accent" data-en="They have a collection of tools." data-es="Tienen una colección de herramientas." data-pt="Tem uma coleção de ferramentas.">Tienen una colección de herramientas.</span>
           </h3>
-          <p class="muted" data-en="AI-Q maps four dimensions — structure, orientation, leadership, integration — and locates your org in one of 16 archetypes. Each archetype has its strengths, blind spots, and a path forward." data-es="AI-Q mapea cuatro dimensiones — estructura, orientación, liderazgo, integración — y ubica a tu organización en uno de 16 arquetipos. Cada arquetipo tiene sus fortalezas, sus puntos ciegos y un camino a seguir.">AI-Q mapea cuatro dimensiones — estructura, orientación, liderazgo, integración — y ubica a tu organización en uno de 16 arquetipos. Cada arquetipo tiene sus fortalezas, sus puntos ciegos y un camino a seguir.</p>
+          <p class="muted" data-en="AI-Q maps four dimensions — structure, orientation, leadership, integration — and locates your org in one of 16 archetypes. Each archetype has its strengths, blind spots, and a path forward." data-es="AI-Q mapea cuatro dimensiones — estructura, orientación, liderazgo, integración — y ubica a tu organización en uno de 16 arquetipos. Cada arquetipo tiene sus fortalezas, sus puntos ciegos y un camino a seguir." data-pt="O AI-Q mapeia quatro dimensões — estrutura, orientação, liderança, integração — e posiciona sua organização em um dos 16 arquétipos. Cada arquétipo tem seus pontos fortes, seus pontos cegos e um caminho a seguir.">AI-Q mapea cuatro dimensiones — estructura, orientación, liderazgo, integración — y ubica a tu organización en uno de 16 arquetipos. Cada arquetipo tiene sus fortalezas, sus puntos ciegos y un camino a seguir.</p>
           <div class="flex gap-3 mt-5" style="flex-wrap:wrap;">
-            <a class="btn primary" href="quiz.html" data-en="Start the test →" data-es="Hacer el test →">Hacer el test →</a>
-            <a class="btn" href="#framework" data-en="See the framework" data-es="Ver el framework">Ver el framework</a>
+            <a class="btn primary" href="quiz.html" data-en="Start the test →" data-es="Hacer el test →" data-pt="Fazer o teste →">Hacer el test →</a>
+            <a class="btn" href="#framework" data-en="See the framework" data-es="Ver el framework" data-pt="Ver o framework">Ver el framework</a>
           </div>
         </div>
       </div>
@@ -181,22 +206,22 @@
       <div>
         <div class="kicker-tiny">01</div>
         <div class="display-md" style="margin:8px 0 4px;">16</div>
-        <div class="kicker" data-en="Distinct types" data-es="Tipos distintos">Tipos distintos</div>
+        <div class="kicker" data-en="Distinct types" data-es="Tipos distintos" data-pt="Tipos distintos">Tipos distintos</div>
       </div>
       <div>
         <div class="kicker-tiny">02</div>
         <div class="display-md" style="margin:8px 0 4px;">20</div>
-        <div class="kicker" data-en="Questions" data-es="Preguntas">Preguntas</div>
+        <div class="kicker" data-en="Questions" data-es="Preguntas" data-pt="Perguntas">Preguntas</div>
       </div>
       <div>
         <div class="kicker-tiny">03</div>
         <div class="display-md" style="margin:8px 0 4px;">4</div>
-        <div class="kicker" data-en="Dimensions" data-es="Dimensiones">Dimensiones</div>
+        <div class="kicker" data-en="Dimensions" data-es="Dimensiones" data-pt="Dimensões">Dimensiones</div>
       </div>
       <div>
         <div class="kicker-tiny">04</div>
         <div class="display-md" style="margin:8px 0 4px;">~5'</div>
-        <div class="kicker" data-en="Minutes" data-es="Minutos">Minutos</div>
+        <div class="kicker" data-en="Minutes" data-es="Minutos" data-pt="Minutos">Minutos</div>
       </div>
     </div>
   </section>
@@ -206,55 +231,55 @@
     <div class="section-head">
       <div>
         <div class="kicker">§02</div>
-        <h2 class="display-lg" style="margin-top:8px;" data-en="Four dimensions of AI maturity" data-es="Cuatro dimensiones de madurez en IA">Cuatro dimensiones de madurez en IA</h2>
+        <h2 class="display-lg" style="margin-top:8px;" data-en="Four dimensions of AI maturity" data-es="Cuatro dimensiones de madurez en IA" data-pt="Quatro dimensões da maturidade em IA">Cuatro dimensiones de madurez en IA</h2>
       </div>
-      <span class="kicker" data-en="Structure · Orientation · Leadership · Integration" data-es="Estructura · Orientación · Liderazgo · Integración">Estructura · Orientación · Liderazgo · Integración</span>
+      <span class="kicker" data-en="Structure · Orientation · Leadership · Integration" data-es="Estructura · Orientación · Liderazgo · Integración" data-pt="Estrutura · Orientação · Liderança · Integração">Estructura · Orientación · Liderazgo · Integración</span>
     </div>
     <hr class="sep mb-6">
 
     <div class="grid grid-2">
 
       <div class="dim-card">
-        <div class="kicker" data-en="Dim. 01 · S" data-es="Dim. 01 · S">Dim. 01 · S</div>
-        <h3 data-en="Structure" data-es="Estructura">Estructura</h3>
-        <p class="muted" data-en="How organized is your AI landscape? Random tools bought by different teams, or a unified, governed ecosystem?" data-es="¿Qué tan organizado está tu panorama de IA? ¿Herramientas aleatorias compradas por distintos equipos, o un ecosistema unificado y gobernado?">¿Qué tan organizado está tu panorama de IA? ¿Herramientas aleatorias compradas por distintos equipos, o un ecosistema unificado y gobernado?</p>
+        <div class="kicker" data-en="Dim. 01 · S" data-es="Dim. 01 · S" data-pt="Dim. 01 · S">Dim. 01 · S</div>
+        <h3 data-en="Structure" data-es="Estructura" data-pt="Estrutura">Estructura</h3>
+        <p class="muted" data-en="How organized is your AI landscape? Random tools bought by different teams, or a unified, governed ecosystem?" data-es="¿Qué tan organizado está tu panorama de IA? ¿Herramientas aleatorias compradas por distintos equipos, o un ecosistema unificado y gobernado?" data-pt="Quão organizado está o seu panorama de IA? Ferramentas aleatórias compradas por equipes diferentes, ou um ecossistema unificado e governado?">¿Qué tan organizado está tu panorama de IA? ¿Herramientas aleatorias compradas por distintos equipos, o un ecosistema unificado y gobernado?</p>
         <div class="dim-poles">
-          <span data-en="Scattered" data-es="Disperso">Disperso</span>
+          <span data-en="Scattered" data-es="Disperso" data-pt="Disperso">Disperso</span>
           <span class="pole-divider">———</span>
-          <span data-en="Consolidated" data-es="Consolidado">Consolidado</span>
+          <span data-en="Consolidated" data-es="Consolidado" data-pt="Consolidado">Consolidado</span>
         </div>
       </div>
 
       <div class="dim-card">
-        <div class="kicker" data-en="Dim. 02 · O" data-es="Dim. 02 · O">Dim. 02 · O</div>
-        <h3 data-en="Orientation" data-es="Orientación">Orientación</h3>
-        <p class="muted" data-en="Do you chase AI trends and respond to pressure, or anticipate needs and plan strategically ahead?" data-es="¿Persiguen tendencias de IA y responden a la presión, o anticipan necesidades y planifican estratégicamente?">¿Persiguen tendencias de IA y responden a la presión, o anticipan necesidades y planifican estratégicamente?</p>
+        <div class="kicker" data-en="Dim. 02 · O" data-es="Dim. 02 · O" data-pt="Dim. 02 · O">Dim. 02 · O</div>
+        <h3 data-en="Orientation" data-es="Orientación" data-pt="Orientação">Orientación</h3>
+        <p class="muted" data-en="Do you chase AI trends and respond to pressure, or anticipate needs and plan strategically ahead?" data-es="¿Persiguen tendencias de IA y responden a la presión, o anticipan necesidades y planifican estratégicamente?" data-pt="Vocês perseguem tendências de IA e reagem à pressão, ou antecipam necessidades e planejam estrategicamente?">¿Persiguen tendencias de IA y responden a la presión, o anticipan necesidades y planifican estratégicamente?</p>
         <div class="dim-poles">
-          <span data-en="Reactive" data-es="Reactivo">Reactivo</span>
+          <span data-en="Reactive" data-es="Reactivo" data-pt="Reativo">Reactivo</span>
           <span class="pole-divider">———</span>
-          <span data-en="Proactive" data-es="Proactivo">Proactivo</span>
+          <span data-en="Proactive" data-es="Proactivo" data-pt="Proativo">Proactivo</span>
         </div>
       </div>
 
       <div class="dim-card">
-        <div class="kicker" data-en="Dim. 03 · L" data-es="Dim. 03 · L">Dim. 03 · L</div>
-        <h3 data-en="Leadership" data-es="Liderazgo">Liderazgo</h3>
-        <p class="muted" data-en="Who owns AI decisions? IT building capabilities, or business leaders driving outcomes?" data-es="¿Quién toma las decisiones de IA? ¿IT construyendo capacidades, o líderes de negocio impulsando resultados?">¿Quién toma las decisiones de IA? ¿IT construyendo capacidades, o líderes de negocio impulsando resultados?</p>
+        <div class="kicker" data-en="Dim. 03 · L" data-es="Dim. 03 · L" data-pt="Dim. 03 · L">Dim. 03 · L</div>
+        <h3 data-en="Leadership" data-es="Liderazgo" data-pt="Liderança">Liderazgo</h3>
+        <p class="muted" data-en="Who owns AI decisions? IT building capabilities, or business leaders driving outcomes?" data-es="¿Quién toma las decisiones de IA? ¿IT construyendo capacidades, o líderes de negocio impulsando resultados?" data-pt="Quem toma as decisões de IA? TI construindo capacidades, ou líderes de negócio conduzindo resultados?">¿Quién toma las decisiones de IA? ¿IT construyendo capacidades, o líderes de negocio impulsando resultados?</p>
         <div class="dim-poles">
-          <span data-en="Tech-driven" data-es="Tech-driven">Tech-driven</span>
+          <span data-en="Tech-driven" data-es="Tech-driven" data-pt="Tech-driven">Tech-driven</span>
           <span class="pole-divider">———</span>
-          <span data-en="Business-driven" data-es="Business-driven">Business-driven</span>
+          <span data-en="Business-driven" data-es="Business-driven" data-pt="Business-driven">Business-driven</span>
         </div>
       </div>
 
       <div class="dim-card">
-        <div class="kicker" data-en="Dim. 04 · I" data-es="Dim. 04 · I">Dim. 04 · I</div>
-        <h3 data-en="Integration" data-es="Integración">Integración</h3>
-        <p class="muted" data-en="Are AI tools siloed experiments and pilots, or deeply embedded in daily workflows?" data-es="¿Las herramientas de IA son experimentos aislados y pilotos, o están profundamente integradas en los flujos diarios?">¿Las herramientas de IA son experimentos aislados y pilotos, o están profundamente integradas en los flujos diarios?</p>
+        <div class="kicker" data-en="Dim. 04 · I" data-es="Dim. 04 · I" data-pt="Dim. 04 · I">Dim. 04 · I</div>
+        <h3 data-en="Integration" data-es="Integración" data-pt="Integração">Integración</h3>
+        <p class="muted" data-en="Are AI tools siloed experiments and pilots, or deeply embedded in daily workflows?" data-es="¿Las herramientas de IA son experimentos aislados y pilotos, o están profundamente integradas en los flujos diarios?" data-pt="As ferramentas de IA são experimentos isolados e pilotos, ou estão profundamente integradas nos fluxos diários?">¿Las herramientas de IA son experimentos aislados y pilotos, o están profundamente integradas en los flujos diarios?</p>
         <div class="dim-poles">
-          <span data-en="Experimental" data-es="Experimental">Experimental</span>
+          <span data-en="Experimental" data-es="Experimental" data-pt="Experimental">Experimental</span>
           <span class="pole-divider">———</span>
-          <span data-en="Integrated" data-es="Integrado">Integrado</span>
+          <span data-en="Integrated" data-es="Integrado" data-pt="Integrado">Integrado</span>
         </div>
       </div>
 
@@ -266,16 +291,16 @@
     <div class="section-head">
       <div>
         <div class="kicker">§03</div>
-        <h2 class="display-lg" style="margin-top:8px;" data-en="The 16 AI-Q types" data-es="Los 16 tipos AI-Q">Los 16 tipos AI-Q</h2>
+        <h2 class="display-lg" style="margin-top:8px;" data-en="The 16 AI-Q types" data-es="Los 16 tipos AI-Q" data-pt="Os 16 tipos AI-Q">Los 16 tipos AI-Q</h2>
       </div>
-      <span class="kicker" data-en="2⁴ combinations · 1 target state (CPBI)" data-es="2⁴ combinaciones · 1 estado objetivo (CPBI)">2⁴ combinaciones · 1 estado objetivo (CPBI)</span>
+      <span class="kicker" data-en="2⁴ combinations · 1 target state (CPBI)" data-es="2⁴ combinaciones · 1 estado objetivo (CPBI)" data-pt="2⁴ combinações · 1 estado-alvo (CPBI)">2⁴ combinaciones · 1 estado objetivo (CPBI)</span>
     </div>
     <hr class="sep mb-5">
 
     <div class="flex gap-2 mb-5" style="flex-wrap:wrap;">
-      <button class="chip filter-btn" data-filter="all" style="cursor:pointer;border:var(--aq-border);" data-en="All 16" data-es="Los 16">Los 16</button>
-      <button class="chip filter-btn" data-filter="Scattered" style="cursor:pointer;" data-en="Scattered (S)" data-es="Disperso (S)">Disperso (S)</button>
-      <button class="chip filter-btn" data-filter="Consolidated" style="cursor:pointer;" data-en="Consolidated (C)" data-es="Consolidado (C)">Consolidado (C)</button>
+      <button class="chip filter-btn" data-filter="all" style="cursor:pointer;border:var(--aq-border);" data-en="All 16" data-es="Los 16" data-pt="Os 16">Los 16</button>
+      <button class="chip filter-btn" data-filter="Scattered" style="cursor:pointer;" data-en="Scattered (S)" data-es="Disperso (S)" data-pt="Disperso (S)">Disperso (S)</button>
+      <button class="chip filter-btn" data-filter="Consolidated" style="cursor:pointer;" data-en="Consolidated (C)" data-es="Consolidado (C)" data-pt="Consolidado (C)">Consolidado (C)</button>
     </div>
 
     <div class="grid grid-4" id="typesGrid"></div>
@@ -286,9 +311,9 @@
     <div class="section-head">
       <div>
         <div class="kicker">§04</div>
-        <h2 class="display-lg" style="margin-top:8px;" data-en="Real-world cases" data-es="Casos del mundo real">Casos del mundo real</h2>
+        <h2 class="display-lg" style="margin-top:8px;" data-en="Real-world cases" data-es="Casos del mundo real" data-pt="Casos do mundo real">Casos del mundo real</h2>
       </div>
-      <span class="kicker" data-en="McKinsey · MIT · Deloitte" data-es="McKinsey · MIT · Deloitte">McKinsey · MIT · Deloitte</span>
+      <span class="kicker" data-en="McKinsey · MIT · Deloitte" data-es="McKinsey · MIT · Deloitte" data-pt="McKinsey · MIT · Deloitte">McKinsey · MIT · Deloitte</span>
     </div>
     <hr class="sep mb-5">
 
@@ -301,9 +326,9 @@
         </div>
         <div class="panel-body">
           <h3 class="display-md" style="margin-bottom:12px;">Enterprise AI Case Studies</h3>
-          <p class="muted" data-en="How global enterprises map to AI-Q types — what separates the 5% who succeed from the 95% who don't." data-es="How global enterprises map to AI-Q types — what separates the 5% who succeed from the 95% who don't.">How global enterprises map to AI-Q types — what separates the 5% who succeed from the 95% who don't.</p>
+          <p class="muted" data-en="How global enterprises map to AI-Q types — what separates the 5% who succeed from the 95% who don't." data-es="How global enterprises map to AI-Q types — what separates the 5% who succeed from the 95% who don't." data-pt="Como as grandes empresas se enquadram nos tipos AI-Q — o que separa os 5% que têm sucesso dos 95% que não têm.">How global enterprises map to AI-Q types — what separates the 5% who succeed from the 95% who don't.</p>
           <a href="AIQCasesEng.pdf" target="_blank" class="mod-card-footer" style="text-decoration:none;color:var(--aq-ink);">
-            <span data-en="Open report" data-es="Abrir reporte">Open report</span>
+            <span data-en="Open report" data-es="Abrir reporte" data-pt="Abrir relatório">Open report</span>
             <span class="mod-card-arrow">→</span>
           </a>
         </div>
@@ -316,9 +341,9 @@
         </div>
         <div class="panel-body">
           <h3 class="display-md" style="margin-bottom:12px;">Casos de IA Empresarial</h3>
-          <p class="muted" data-en="Cómo las grandes empresas se mapean a los tipos AI-Q — qué separa al 5% que tiene éxito del 95% que no." data-es="Cómo las grandes empresas se mapean a los tipos AI-Q — qué separa al 5% que tiene éxito del 95% que no.">Cómo las grandes empresas se mapean a los tipos AI-Q — qué separa al 5% que tiene éxito del 95% que no.</p>
+          <p class="muted" data-en="Cómo las grandes empresas se mapean a los tipos AI-Q — qué separa al 5% que tiene éxito del 95% que no." data-es="Cómo las grandes empresas se mapean a los tipos AI-Q — qué separa al 5% que tiene éxito del 95% que no." data-pt="Como as grandes empresas se enquadram nos tipos AI-Q — o que separa os 5% que têm sucesso dos 95% que não têm.">Cómo las grandes empresas se mapean a los tipos AI-Q — qué separa al 5% que tiene éxito del 95% que no.</p>
           <a href="AIQCasosESP.pdf" target="_blank" class="mod-card-footer" style="text-decoration:none;color:var(--aq-ink);">
-            <span data-en="Abrir reporte" data-es="Abrir reporte">Abrir reporte</span>
+            <span data-en="Abrir reporte" data-es="Abrir reporte" data-pt="Abrir relatório">Abrir reporte</span>
             <span class="mod-card-arrow">→</span>
           </a>
         </div>
@@ -326,7 +351,7 @@
 
     </div>
 
-    <p class="kicker-tiny mt-5" data-en="Based on McKinsey, MIT Project NANDA, Deloitte &amp; company reports (2024–2025)" data-es="Basado en McKinsey, MIT Project NANDA, Deloitte e informes de empresas (2024–2025)">Basado en McKinsey, MIT Project NANDA, Deloitte e informes de empresas (2024–2025)</p>
+    <p class="kicker-tiny mt-5" data-en="Based on McKinsey, MIT Project NANDA, Deloitte &amp; company reports (2024–2025)" data-es="Basado en McKinsey, MIT Project NANDA, Deloitte e informes de empresas (2024–2025)" data-pt="Baseado em McKinsey, MIT Project NANDA, Deloitte e relatórios de empresas (2024–2025)">Basado en McKinsey, MIT Project NANDA, Deloitte e informes de empresas (2024–2025)</p>
   </section>
 
   <!-- ───────── §05 SAMA framework promo ───────── -->
@@ -334,9 +359,9 @@
     <div class="section-head">
       <div>
         <div class="kicker">§05</div>
-        <h2 class="display-lg" style="margin-top:8px;" data-en="After the diagnostic: SAMA" data-es="Después del diagnóstico: SAMA">Después del diagnóstico: SAMA</h2>
+        <h2 class="display-lg" style="margin-top:8px;" data-en="After the diagnostic: SAMA" data-es="Después del diagnóstico: SAMA" data-pt="Depois do diagnóstico: SAMA">Después del diagnóstico: SAMA</h2>
       </div>
-      <span class="kicker" data-en="Change framework · 6 weeks" data-es="Framework de cambio · 6 semanas">Framework de cambio · 6 semanas</span>
+      <span class="kicker" data-en="Change framework · 6 weeks" data-es="Framework de cambio · 6 semanas" data-pt="Framework de mudança · 6 semanas">Framework de cambio · 6 semanas</span>
     </div>
     <hr class="sep mb-5">
 
@@ -346,9 +371,9 @@
         <span class="accent">STORY · MIND · AGILE</span>
       </div>
       <div class="panel-body">
-        <p class="body-lg" data-en="A change-management framework that turns the diagnostic into actual transformation. Storytelling + AI-Q + Mindfulness + Agile, executed over a six-week Sense → Align → Move → Anchor cycle." data-es="Un framework de gestión del cambio que convierte el diagnóstico en transformación real. Storytelling + AI-Q + Mindfulness + Agile, ejecutado en un ciclo de seis semanas: Sense → Align → Move → Anchor.">Un framework de gestión del cambio que convierte el diagnóstico en transformación real. Storytelling + AI-Q + Mindfulness + Agile, ejecutado en un ciclo de seis semanas: Sense → Align → Move → Anchor.</p>
+        <p class="body-lg" data-en="A change-management framework that turns the diagnostic into actual transformation. Storytelling + AI-Q + Mindfulness + Agile, executed over a six-week Sense → Align → Move → Anchor cycle." data-es="Un framework de gestión del cambio que convierte el diagnóstico en transformación real. Storytelling + AI-Q + Mindfulness + Agile, ejecutado en un ciclo de seis semanas: Sense → Align → Move → Anchor." data-pt="Um framework de gestão da mudança que transforma o diagnóstico em transformação real. Storytelling + AI-Q + Mindfulness + Agile, executado em um ciclo de seis semanas: Sense → Align → Move → Anchor.">Un framework de gestión del cambio que convierte el diagnóstico en transformación real. Storytelling + AI-Q + Mindfulness + Agile, ejecutado en un ciclo de seis semanas: Sense → Align → Move → Anchor.</p>
         <div class="flex gap-3 mt-5" style="flex-wrap:wrap;">
-          <a class="btn primary" href="sama.html" data-en="Open SAMA framework →" data-es="Ver framework SAMA →">Ver framework SAMA →</a>
+          <a class="btn primary" href="sama.html" data-en="Open SAMA framework →" data-es="Ver framework SAMA →" data-pt="Ver framework SAMA →">Ver framework SAMA →</a>
         </div>
       </div>
     </div>
@@ -359,9 +384,9 @@
     <div class="section-head">
       <div>
         <div class="kicker">§06</div>
-        <h2 class="display-lg" style="margin-top:8px;" data-en="The books behind the framework" data-es="Los libros detrás del framework">Los libros detrás del framework</h2>
+        <h2 class="display-lg" style="margin-top:8px;" data-en="The books behind the framework" data-es="Los libros detrás del framework" data-pt="Os livros por trás do framework">Los libros detrás del framework</h2>
       </div>
-      <span class="kicker" data-en="By Dr. Federico Andino" data-es="Por el Dr. Federico Andino">Por el Dr. Federico Andino</span>
+      <span class="kicker" data-en="By Dr. Federico Andino" data-es="Por el Dr. Federico Andino" data-pt="Pelo Dr. Federico Andino">Por el Dr. Federico Andino</span>
     </div>
     <hr class="sep mb-5">
 
@@ -376,12 +401,12 @@
         <div class="panel-body" style="flex:1;display:flex;flex-direction:column;gap:var(--aq-space-4);">
           <img src="https://m.media-amazon.com/images/I/9139zEWykyL._SL1500_.jpg" alt="AI-Q Book Cover" style="width:90px;display:block;flex-shrink:0;border:var(--aq-border);">
           <div style="flex:1;">
-            <p class="kicker-tiny mb-2" data-en="AI Strategy" data-es="Estrategia de IA">Estrategia de IA</p>
-            <p class="body-md" style="margin-bottom:var(--aq-space-3);" data-en="The Four Dimensions That Separate the 5% Who Succeed from the 95% Who Fail" data-es="Las Cuatro Dimensiones que Separan el 5% que Triunfa del 95% que Falla">Las Cuatro Dimensiones que Separan el 5% que Triunfa del 95% que Falla</p>
-            <p class="muted" style="font-size:var(--aq-text-sm);" data-en="The complete framework: all 16 types, transformation strategies, and real case studies." data-es="El framework completo: los 16 tipos, estrategias de transformación y casos reales.">El framework completo: los 16 tipos, estrategias de transformación y casos reales.</p>
+            <p class="kicker-tiny mb-2" data-en="AI Strategy" data-es="Estrategia de IA" data-pt="Estratégia de IA">Estrategia de IA</p>
+            <p class="body-md" style="margin-bottom:var(--aq-space-3);" data-en="The Four Dimensions That Separate the 5% Who Succeed from the 95% Who Fail" data-es="Las Cuatro Dimensiones que Separan el 5% que Triunfa del 95% que Falla" data-pt="As Quatro Dimensões que Separam os 5% que Triunfam dos 95% que Fracassam">Las Cuatro Dimensiones que Separan el 5% que Triunfa del 95% que Falla</p>
+            <p class="muted" style="font-size:var(--aq-text-sm);" data-en="The complete framework: all 16 types, transformation strategies, and real case studies." data-es="El framework completo: los 16 tipos, estrategias de transformación y casos reales." data-pt="O framework completo: os 16 tipos, estratégias de transformação e casos reais.">El framework completo: los 16 tipos, estrategias de transformación y casos reales.</p>
           </div>
           <a class="btn primary" href="https://www.amazon.com/dp/B0DP5DR919" target="_blank"
-             data-en="Get on Amazon →" data-es="Conseguir en Amazon →">Conseguir en Amazon →</a>
+             data-en="Get on Amazon →" data-es="Conseguir en Amazon →" data-pt="Conseguir na Amazon →">Conseguir en Amazon →</a>
         </div>
       </div>
 
@@ -394,12 +419,12 @@
         <div class="panel-body" style="flex:1;display:flex;flex-direction:column;gap:var(--aq-space-4);">
           <img src="https://m.media-amazon.com/images/I/71ZaFIHbwoL._SL1500_.jpg" alt="SAMA Book Cover" style="width:90px;display:block;flex-shrink:0;border:var(--aq-border);">
           <div style="flex:1;">
-            <p class="kicker-tiny mb-2" data-en="Change Management" data-es="Gestión del Cambio">Gestión del Cambio</p>
-            <p class="body-md" style="margin-bottom:var(--aq-space-3);" data-en="A Change Management Framework for AI Transformations" data-es="Un Framework de Gestión del Cambio para Transformaciones de IA">Un Framework de Gestión del Cambio para Transformaciones de IA</p>
-            <p class="muted" style="font-size:var(--aq-text-sm);" data-en="Storytelling + AI-Q + Mindfulness + Agile. The 6-week execution playbook for real AI adoption." data-es="Storytelling + AI-Q + Mindfulness + Agile. El playbook de ejecución de 6 semanas para adopción real de IA.">Storytelling + AI-Q + Mindfulness + Agile. El playbook de ejecución de 6 semanas para adopción real de IA.</p>
+            <p class="kicker-tiny mb-2" data-en="Change Management" data-es="Gestión del Cambio" data-pt="Gestão da Mudança">Gestión del Cambio</p>
+            <p class="body-md" style="margin-bottom:var(--aq-space-3);" data-en="A Change Management Framework for AI Transformations" data-es="Un Framework de Gestión del Cambio para Transformaciones de IA" data-pt="Um Framework de Gestão da Mudança para Transformações de IA">Un Framework de Gestión del Cambio para Transformaciones de IA</p>
+            <p class="muted" style="font-size:var(--aq-text-sm);" data-en="Storytelling + AI-Q + Mindfulness + Agile. The 6-week execution playbook for real AI adoption." data-es="Storytelling + AI-Q + Mindfulness + Agile. El playbook de ejecución de 6 semanas para adopción real de IA." data-pt="Storytelling + AI-Q + Mindfulness + Agile. O playbook de execução de 6 semanas para adoção real de IA.">Storytelling + AI-Q + Mindfulness + Agile. El playbook de ejecución de 6 semanas para adopción real de IA.</p>
           </div>
           <a class="btn primary" href="https://www.amazon.com/dp/B0H4W8PG9Y" target="_blank"
-             data-en="Get on Amazon →" data-es="Conseguir en Amazon →">Conseguir en Amazon →</a>
+             data-en="Get on Amazon →" data-es="Conseguir en Amazon →" data-pt="Conseguir na Amazon →">Conseguir en Amazon →</a>
         </div>
       </div>
 
@@ -412,12 +437,12 @@
         <div class="panel-body" style="flex:1;display:flex;flex-direction:column;gap:var(--aq-space-4);">
           <img src="https://m.media-amazon.com/images/I/81UAbzOKK1L._SL1500_.jpg" alt="Scientific Mindfulness Book Cover" style="width:90px;display:block;flex-shrink:0;border:var(--aq-border);">
           <div style="flex:1;">
-            <p class="kicker-tiny mb-2" data-en="Mindfulness &amp; Well-being" data-es="Mindfulness y Bienestar">Mindfulness y Bienestar</p>
-            <p class="body-md" style="margin-bottom:var(--aq-space-3);" data-en="Scientific Mindfulness: A System of Meditation That's Evidence-Based" data-es="Mindfulness Científico: Un Sistema de Meditación Basado en Evidencia">Mindfulness Científico: Un Sistema de Meditación Basado en Evidencia</p>
-            <p class="muted" style="font-size:var(--aq-text-sm);" data-en="20+ years of research and practice distilled into a rigorous, evidence-based meditation system." data-es="Más de 20 años de investigación y práctica destilados en un sistema de meditación riguroso y basado en evidencia.">Más de 20 años de investigación y práctica destilados en un sistema de meditación riguroso y basado en evidencia.</p>
+            <p class="kicker-tiny mb-2" data-en="Mindfulness &amp; Well-being" data-es="Mindfulness y Bienestar" data-pt="Mindfulness e Bem-estar">Mindfulness y Bienestar</p>
+            <p class="body-md" style="margin-bottom:var(--aq-space-3);" data-en="Scientific Mindfulness: A System of Meditation That's Evidence-Based" data-es="Mindfulness Científico: Un Sistema de Meditación Basado en Evidencia" data-pt="Mindfulness Científico: Um Sistema de Meditação Baseado em Evidências">Mindfulness Científico: Un Sistema de Meditación Basado en Evidencia</p>
+            <p class="muted" style="font-size:var(--aq-text-sm);" data-en="20+ years of research and practice distilled into a rigorous, evidence-based meditation system." data-es="Más de 20 años de investigación y práctica destilados en un sistema de meditación riguroso y basado en evidencia." data-pt="Mais de 20 anos de pesquisa e prática destilados em um sistema de meditação rigoroso e baseado em evidências.">Más de 20 años de investigación y práctica destilados en un sistema de meditación riguroso y basado en evidencia.</p>
           </div>
           <a class="btn primary" href="https://www.amazon.com/dp/B0FQXXMVN5" target="_blank"
-             data-en="Get on Amazon →" data-es="Conseguir en Amazon →">Conseguir en Amazon →</a>
+             data-en="Get on Amazon →" data-es="Conseguir en Amazon →" data-pt="Conseguir na Amazon →">Conseguir en Amazon →</a>
         </div>
       </div>
 
@@ -430,16 +455,16 @@
       <div class="crosshair tl"></div><div class="crosshair tr"></div>
       <div class="crosshair bl"></div><div class="crosshair br"></div>
       <div class="panel-header">
-        <span>§07 · <span data-en="Start now" data-es="Empezá ahora">Empezá ahora</span></span>
+        <span>§07 · <span data-en="Start now" data-es="Empezá ahora" data-pt="Comece agora">Empezá ahora</span></span>
         <span class="accent">● READY</span>
       </div>
       <div class="panel-body" style="padding:48px 28px;text-align:center;">
-        <div class="kicker mb-4" data-en="The Test" data-es="El Test">El Test</div>
-        <h2 class="display-lg mb-4" data-en="Discover your AI-Q type." data-es="Descubrí tu tipo AI-Q.">Descubrí tu tipo AI-Q.</h2>
-        <p class="body-lg muted mb-5" style="max-width:560px;margin-left:auto;margin-right:auto;" data-en="20 questions. 5 minutes. Full clarity on where you stand and what to do next." data-es="20 preguntas. 5 minutos. Claridad total sobre dónde estás parado y qué hacer después.">20 preguntas. 5 minutos. Claridad total sobre dónde estás parado y qué hacer después.</p>
+        <div class="kicker mb-4" data-en="The Test" data-es="El Test" data-pt="O Teste">El Test</div>
+        <h2 class="display-lg mb-4" data-en="Discover your AI-Q type." data-es="Descubrí tu tipo AI-Q." data-pt="Descubra seu tipo AI-Q.">Descubrí tu tipo AI-Q.</h2>
+        <p class="body-lg muted mb-5" style="max-width:560px;margin-left:auto;margin-right:auto;" data-en="20 questions. 5 minutes. Full clarity on where you stand and what to do next." data-es="20 preguntas. 5 minutos. Claridad total sobre dónde estás parado y qué hacer después." data-pt="20 perguntas. 5 minutos. Clareza total sobre onde você está e o que fazer a seguir.">20 preguntas. 5 minutos. Claridad total sobre dónde estás parado y qué hacer después.</p>
         <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
-          <a class="btn primary btn-lg" href="quiz.html" data-en="Take the test →" data-es="Hacer el test →">Hacer el test →</a>
-          <a class="btn btn-lg" href="AI-Q-Guia-de-Tipos-ES.pdf" target="_blank" data-en="View the full guide" data-es="Ver la guía completa">Ver la guía completa</a>
+          <a class="btn primary btn-lg" href="quiz.html" data-en="Take the test →" data-es="Hacer el test →" data-pt="Fazer o teste →">Hacer el test →</a>
+          <a class="btn btn-lg" href="AI-Q-Guia-de-Tipos-ES.pdf" target="_blank" data-en="View the full guide" data-es="Ver la guía completa" data-pt="Ver o guia completo">Ver la guía completa</a>
         </div>
       </div>
     </div>
@@ -448,13 +473,13 @@
   <!-- ───────── Spec strip bottom ───────── -->
   <div class="spec-strip spec-strip-bottom">
     <div class="spec-strip-group">
-      <span data-en="END OF SHEET 02" data-es="FIN DE HOJA 02">FIN DE HOJA 02</span>
+      <span data-en="END OF SHEET 02" data-es="FIN DE HOJA 02" data-pt="FIM DA FOLHA 02">FIN DE HOJA 02</span>
     </div>
     <div class="spec-strip-group">
-      <span class="accent">ai-q.fit · <span data-en="AI strategy diagnostic" data-es="Diagnóstico de estrategia de IA">Diagnóstico de estrategia de IA</span></span>
+      <span class="accent">ai-q.fit · <span data-en="AI strategy diagnostic" data-es="Diagnóstico de estrategia de IA" data-pt="Diagnóstico de estratégia de IA">Diagnóstico de estrategia de IA</span></span>
     </div>
     <div class="spec-strip-group">
-      <span><span data-en="Created by" data-es="Creado por">Creado por</span> <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></span>
+      <span><span data-en="Created by" data-es="Creado por" data-pt="Criado por">Creado por</span> <a href="https://www.fedeandino.com" target="_blank">Dr. Federico Andino</a></span>
       <span class="mute2">© 2026</span>
     </div>
   </div>
@@ -464,22 +489,22 @@
 <!-- ───────── Types data ───────── -->
 <script id="types-data" type="application/json">
 [
-{"code":"SRTE","name":{"en":"The Chaos Pilot","es":"El Piloto del Caos"},"tagline":{"en":"We have AI... somewhere.","es":"Tenemos IA... en algún lugar."},"quadrant":"Scattered","description":{"en":"AI landscape is a graveyard of good intentions. Multiple tools, no clear owner, no measurable outcomes.","es":"Panorama de IA: cementerio de buenas intenciones. Múltiples herramientas, sin dueño claro, sin resultados medibles."}},
-{"code":"SRTB","name":{"en":"The Wishful Thinker","es":"El Pensador Idealista"},"tagline":{"en":"Can't AI just do that?","es":"¿No puede la IA simplemente hacer eso?"},"quadrant":"Scattered","description":{"en":"Leadership excited about AI but treats it like magic. Requests like 'use AI to fix churn' with no specifics.","es":"Liderazgo entusiasmado con IA pero la trata como magia. Pedidos como 'usar IA para arreglar la pérdida de clientes', sin especificaciones."}},
-{"code":"SPTE","name":{"en":"The Over-Engineer","es":"El Sobre-Ingeniero"},"tagline":{"en":"The architecture is beautiful. Nobody uses it.","es":"La arquitectura es hermosa. Nadie la usa."},"quadrant":"Scattered","description":{"en":"Tech team built impressive AI infrastructure. One problem: business users don't know it exists.","es":"El equipo técnico construyó una infraestructura impresionante. Un problema: el negocio no sabe que existe."}},
-{"code":"SPTB","name":{"en":"The Ambitious Starter","es":"El Iniciador Ambicioso"},"tagline":{"en":"Great strategy, scattered execution.","es":"Gran estrategia, ejecución dispersa."},"quadrant":"Scattered","description":{"en":"Good intentions, executive buy-in, strategy on paper. But execution is chaos.","es":"Buenas intenciones, apoyo ejecutivo, estrategia en papel. Pero la ejecución es caos."}},
-{"code":"SRTI","name":{"en":"The Accidental Success","es":"El Éxito Accidental"},"tagline":{"en":"It works, but don't ask me how.","es":"Funciona, pero no me preguntes cómo."},"quadrant":"Scattered","description":{"en":"Against all odds, AI is integrated into workflows. But it happened by accident.","es":"Contra todo pronóstico, hay IA integrada en los flujos. Pero pasó por accidente."}},
-{"code":"SRBI","name":{"en":"The Shadow IT Hero","es":"El Héroe de Shadow IT"},"tagline":{"en":"Don't tell IT, but this is working.","es":"No le digas a IT, pero esto está funcionando."},"quadrant":"Scattered","description":{"en":"Business users signed up for AI tools with credit cards and are getting results. IT doesn't know.","es":"Los usuarios de negocio se anotaron en herramientas de IA con tarjetas y están obteniendo resultados. IT no lo sabe."}},
-{"code":"SPTI","name":{"en":"The Rogue Lab","es":"El Laboratorio Rebelde"},"tagline":{"en":"Our tech is amazing. The business doesn't care.","es":"Nuestra tecnología es increíble. Al negocio no le importa."},"quadrant":"Scattered","description":{"en":"Proactive tech team with integrated AI. But what they build has little connection to business priorities.","es":"Equipo técnico proactivo, IA integrada. Pero lo que construyen tiene poca conexión con las prioridades del negocio."}},
-{"code":"SPBI","name":{"en":"The Grassroots Movement","es":"El Movimiento de Base"},"tagline":{"en":"Pockets of excellence, waiting to connect.","es":"Bolsillos de excelencia, esperando conectarse."},"quadrant":"Scattered","description":{"en":"Multiple departments doing AI well. But they're not talking to each other.","es":"Múltiples departamentos haciendo bien la IA. Pero no se comunican entre sí."}},
-{"code":"CRTE","name":{"en":"The Controlled Experiment","es":"El Experimento Controlado"},"tagline":{"en":"We're piloting... still.","es":"Estamos piloteando... todavía."},"quadrant":"Consolidated","description":{"en":"Consolidated AI tools with good governance. But stuck in permanent pilot mode.","es":"Herramientas consolidadas con buena gobernanza. Pero atascados en modo piloto permanente."}},
-{"code":"CRTB","name":{"en":"The Waiting Game","es":"El Juego de la Espera"},"tagline":{"en":"We're ready to be ready.","es":"Estamos listos para estar listos."},"quadrant":"Consolidated","description":{"en":"Business owns AI decisions, consolidated tools, but everything is reactive and cautious.","es":"El negocio es dueño de las decisiones, herramientas consolidadas, pero todo es reactivo y cauteloso."}},
-{"code":"CPTE","name":{"en":"The Tech Utopia","es":"La Utopía Tecnológica"},"tagline":{"en":"If only people would use what we built.","es":"Si tan solo la gente usara lo que construimos."},"quadrant":"Consolidated","description":{"en":"You've done everything right — technically. The only thing missing: people using it.","es":"Hicieron todo bien — técnicamente. Lo único que falta: gente usándolo."}},
-{"code":"CPTB","name":{"en":"The Strategy Doc","es":"El Documento de Estrategia"},"tagline":{"en":"The deck is ready. Execution isn't.","es":"El deck está listo. La ejecución no."},"quadrant":"Consolidated","description":{"en":"Beautiful strategy, executive alignment. But stuck between strategy and execution.","es":"Hermosa estrategia, alineación ejecutiva. Pero atascados entre estrategia y ejecución."}},
-{"code":"CRTI","name":{"en":"The Efficient Machine","es":"La Máquina Eficiente"},"tagline":{"en":"Responsive but not innovative.","es":"Responsivo pero no innovador."},"quadrant":"Consolidated","description":{"en":"IT runs a tight ship responding to requests. But optimizing yesterday's operations.","es":"IT maneja un barco ajustado respondiendo a solicitudes. Pero optimizando las operaciones de ayer."}},
-{"code":"CRBI","name":{"en":"The Service Desk","es":"El Service Desk"},"tagline":{"en":"We deliver what you ask for — nothing more.","es":"Entregamos lo que pedís — nada más."},"quadrant":"Consolidated","description":{"en":"AI is integrated and business-driven, but entirely reactive.","es":"La IA está integrada y es impulsada por el negocio, pero es completamente reactiva."}},
-{"code":"CPTI","name":{"en":"The Almost There","es":"El Casi Ahí"},"tagline":{"en":"One conversation away from excellence.","es":"A una conversación de la excelencia."},"quadrant":"Consolidated","description":{"en":"Consolidated, proactive, integrated. The only gap: business isn't driving priorities.","es":"Consolidado, proactivo, integrado. La única brecha: el negocio no impulsa las prioridades."}},
-{"code":"CPBI","name":{"en":"The Strategic Leader","es":"El Líder Estratégico"},"tagline":{"en":"AI is how we compete.","es":"La IA es cómo competimos."},"quadrant":"Consolidated","description":{"en":"Cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.","es":"Descifrado el código. Herramientas consolidadas, roadmap proactivo, el negocio impulsa las prioridades, IA integrada en los flujos."}}
+{"code": "SRTE", "name": {"en": "The Chaos Pilot", "es": "El Piloto del Caos", "pt": "O Piloto do Caos"}, "tagline": {"en": "We have AI... somewhere.", "es": "Tenemos IA... en algún lugar.", "pt": "Temos IA... em algum lugar."}, "quadrant": "Scattered", "description": {"en": "AI landscape is a graveyard of good intentions. Multiple tools, no clear owner, no measurable outcomes.", "es": "Panorama de IA: cementerio de buenas intenciones. Múltiples herramientas, sin dueño claro, sin resultados medibles.", "pt": "O panorama de IA é um cemitério de boas intenções. Múltiplas ferramentas, sem dono claro, sem resultados mensuráveis."}},
+{"code": "SRTB", "name": {"en": "The Wishful Thinker", "es": "El Pensador Idealista", "pt": "O Pensador Idealista"}, "tagline": {"en": "Can't AI just do that?", "es": "¿No puede la IA simplemente hacer eso?", "pt": "A IA não podia simplesmente fazer isso?"}, "quadrant": "Scattered", "description": {"en": "Leadership excited about AI but treats it like magic. Requests like 'use AI to fix churn' with no specifics.", "es": "Liderazgo entusiasmado con IA pero la trata como magia. Pedidos como 'usar IA para arreglar la pérdida de clientes', sin especificaciones.", "pt": "Liderança animada com a IA, mas a trata como mágica. Pedidos como 'usar IA para resolver o churn' sem nenhuma especificação."}},
+{"code": "SPTE", "name": {"en": "The Over-Engineer", "es": "El Sobre-Ingeniero", "pt": "O Superengenheiro"}, "tagline": {"en": "The architecture is beautiful. Nobody uses it.", "es": "La arquitectura es hermosa. Nadie la usa.", "pt": "A arquitetura é linda. Ninguém a usa."}, "quadrant": "Scattered", "description": {"en": "Tech team built impressive AI infrastructure. One problem: business users don't know it exists.", "es": "El equipo técnico construyó una infraestructura impresionante. Un problema: el negocio no sabe que existe.", "pt": "O time técnico construiu uma infraestrutura de IA impressionante. Um problema: os usuários de negócio não sabem que ela existe."}},
+{"code": "SPTB", "name": {"en": "The Ambitious Starter", "es": "El Iniciador Ambicioso", "pt": "O Iniciador Ambicioso"}, "tagline": {"en": "Great strategy, scattered execution.", "es": "Gran estrategia, ejecución dispersa.", "pt": "Ótima estratégia, execução dispersa."}, "quadrant": "Scattered", "description": {"en": "Good intentions, executive buy-in, strategy on paper. But execution is chaos.", "es": "Buenas intenciones, apoyo ejecutivo, estrategia en papel. Pero la ejecución es caos.", "pt": "Boas intenções, apoio executivo, estratégia no papel. Mas a execução é um caos."}},
+{"code": "SRTI", "name": {"en": "The Accidental Success", "es": "El Éxito Accidental", "pt": "O Sucesso Acidental"}, "tagline": {"en": "It works, but don't ask me how.", "es": "Funciona, pero no me preguntes cómo.", "pt": "Funciona, mas não me pergunte como."}, "quadrant": "Scattered", "description": {"en": "Against all odds, AI is integrated into workflows. But it happened by accident.", "es": "Contra todo pronóstico, hay IA integrada en los flujos. Pero pasó por accidente.", "pt": "Contra todas as expectativas, a IA está integrada aos fluxos de trabalho. Mas aconteceu por acidente."}},
+{"code": "SRBI", "name": {"en": "The Shadow IT Hero", "es": "El Héroe de Shadow IT", "pt": "O Herói do Shadow IT"}, "tagline": {"en": "Don't tell IT, but this is working.", "es": "No le digas a IT, pero esto está funcionando.", "pt": "Não conta pra TI, mas isso está funcionando."}, "quadrant": "Scattered", "description": {"en": "Business users signed up for AI tools with credit cards and are getting results. IT doesn't know.", "es": "Los usuarios de negocio se anotaron en herramientas de IA con tarjetas y están obteniendo resultados. IT no lo sabe.", "pt": "Usuários de negócio assinaram ferramentas de IA com cartão de crédito e estão obtendo resultados. A TI não sabe."}},
+{"code": "SPTI", "name": {"en": "The Rogue Lab", "es": "El Laboratorio Rebelde", "pt": "O Laboratório Rebelde"}, "tagline": {"en": "Our tech is amazing. The business doesn't care.", "es": "Nuestra tecnología es increíble. Al negocio no le importa.", "pt": "Nossa tecnologia é incrível. O negócio não liga."}, "quadrant": "Scattered", "description": {"en": "Proactive tech team with integrated AI. But what they build has little connection to business priorities.", "es": "Equipo técnico proactivo, IA integrada. Pero lo que construyen tiene poca conexión con las prioridades del negocio.", "pt": "Time técnico proativo com IA integrada. Mas o que constroem tem pouca conexão com as prioridades do negócio."}},
+{"code": "SPBI", "name": {"en": "The Grassroots Movement", "es": "El Movimiento de Base", "pt": "O Movimento de Base"}, "tagline": {"en": "Pockets of excellence, waiting to connect.", "es": "Bolsillos de excelencia, esperando conectarse.", "pt": "Bolsões de excelência, esperando para se conectar."}, "quadrant": "Scattered", "description": {"en": "Multiple departments doing AI well. But they're not talking to each other.", "es": "Múltiples departamentos haciendo bien la IA. Pero no se comunican entre sí.", "pt": "Vários departamentos fazendo IA bem. Mas eles não conversam entre si."}},
+{"code": "CRTE", "name": {"en": "The Controlled Experiment", "es": "El Experimento Controlado", "pt": "O Experimento Controlado"}, "tagline": {"en": "We're piloting... still.", "es": "Estamos piloteando... todavía.", "pt": "Ainda estamos pilotando... ainda."}, "quadrant": "Consolidated", "description": {"en": "Consolidated AI tools with good governance. But stuck in permanent pilot mode.", "es": "Herramientas consolidadas con buena gobernanza. Pero atascados en modo piloto permanente.", "pt": "Ferramentas de IA consolidadas com boa governança. Mas presos em modo piloto permanente."}},
+{"code": "CRTB", "name": {"en": "The Waiting Game", "es": "El Juego de la Espera", "pt": "O Jogo da Espera"}, "tagline": {"en": "We're ready to be ready.", "es": "Estamos listos para estar listos.", "pt": "Estamos prontos para estar prontos."}, "quadrant": "Consolidated", "description": {"en": "Business owns AI decisions, consolidated tools, but everything is reactive and cautious.", "es": "El negocio es dueño de las decisiones, herramientas consolidadas, pero todo es reactivo y cauteloso.", "pt": "O negócio é dono das decisões de IA, ferramentas consolidadas, mas tudo é reativo e cauteloso."}},
+{"code": "CPTE", "name": {"en": "The Tech Utopia", "es": "La Utopía Tecnológica", "pt": "A Utopia Tecnológica"}, "tagline": {"en": "If only people would use what we built.", "es": "Si tan solo la gente usara lo que construimos.", "pt": "Se ao menos as pessoas usassem o que construímos."}, "quadrant": "Consolidated", "description": {"en": "You've done everything right — technically. The only thing missing: people using it.", "es": "Hicieron todo bien — técnicamente. Lo único que falta: gente usándolo.", "pt": "Vocês fizeram tudo certo — tecnicamente. A única coisa que falta: as pessoas usarem."}},
+{"code": "CPTB", "name": {"en": "The Strategy Doc", "es": "El Documento de Estrategia", "pt": "O Documento de Estratégia"}, "tagline": {"en": "The deck is ready. Execution isn't.", "es": "El deck está listo. La ejecución no.", "pt": "O deck está pronto. A execução não."}, "quadrant": "Consolidated", "description": {"en": "Beautiful strategy, executive alignment. But stuck between strategy and execution.", "es": "Hermosa estrategia, alineación ejecutiva. Pero atascados entre estrategia y ejecución.", "pt": "Estratégia linda, alinhamento executivo. Mas presos entre a estratégia e a execução."}},
+{"code": "CRTI", "name": {"en": "The Efficient Machine", "es": "La Máquina Eficiente", "pt": "A Máquina Eficiente"}, "tagline": {"en": "Responsive but not innovative.", "es": "Responsivo pero no innovador.", "pt": "Responsiva, mas não inovadora."}, "quadrant": "Consolidated", "description": {"en": "IT runs a tight ship responding to requests. But optimizing yesterday's operations.", "es": "IT maneja un barco ajustado respondiendo a solicitudes. Pero optimizando las operaciones de ayer.", "pt": "A TI comanda uma operação ajustada respondendo a solicitações. Mas otimizando as operações de ontem."}},
+{"code": "CRBI", "name": {"en": "The Service Desk", "es": "El Service Desk", "pt": "O Service Desk"}, "tagline": {"en": "We deliver what you ask for — nothing more.", "es": "Entregamos lo que pedís — nada más.", "pt": "Entregamos o que você pede — nada mais."}, "quadrant": "Consolidated", "description": {"en": "AI is integrated and business-driven, but entirely reactive.", "es": "La IA está integrada y es impulsada por el negocio, pero es completamente reactiva.", "pt": "A IA está integrada e é conduzida pelo negócio, mas é totalmente reativa."}},
+{"code": "CPTI", "name": {"en": "The Almost There", "es": "El Casi Ahí", "pt": "O Quase Lá"}, "tagline": {"en": "One conversation away from excellence.", "es": "A una conversación de la excelencia.", "pt": "A uma conversa de distância da excelência."}, "quadrant": "Consolidated", "description": {"en": "Consolidated, proactive, integrated. The only gap: business isn't driving priorities.", "es": "Consolidado, proactivo, integrado. La única brecha: el negocio no impulsa las prioridades.", "pt": "Consolidado, proativo, integrado. A única lacuna: o negócio não conduz as prioridades."}},
+{"code": "CPBI", "name": {"en": "The Strategic Leader", "es": "El Líder Estratégico", "pt": "O Líder Estratégico"}, "tagline": {"en": "AI is how we compete.", "es": "La IA es cómo competimos.", "pt": "A IA é como competimos."}, "quadrant": "Consolidated", "description": {"en": "Cracked the code. Consolidated tools, proactive roadmap, business drives priorities, AI embedded in workflows.", "es": "Descifrado el código. Herramientas consolidadas, roadmap proactivo, el negocio impulsa las prioridades, IA integrada en los flujos.", "pt": "Decifraram o código. Ferramentas consolidadas, roadmap proativo, o negócio conduz as prioridades, IA incorporada aos fluxos de trabalho."}}
 ]
 </script>
 
@@ -489,7 +514,7 @@ let lang = (function () {
     var saved = localStorage.getItem('aiq_lang_pref');
     if (saved) return saved;
     var browserLang = (navigator.language || 'es').toLowerCase();
-    var detected = browserLang.indexOf('es') === 0 ? 'es' : 'en';
+    var detected = browserLang.indexOf('es') === 0 ? 'es' : (browserLang.indexOf('pt') === 0 ? 'pt' : 'en');
     localStorage.setItem('aiq_lang_pref', detected);
     return detected;
   } catch (e) { return 'es'; }
@@ -509,11 +534,12 @@ function setLang(l) {
       else el.innerHTML = txt;
     }
   });
-  document.getElementById('langSwitch').textContent = lang === 'es' ? 'EN' : 'ES';
+  document.querySelectorAll('.lang-switch-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
   try { localStorage.setItem('aiq_lang_pref', lang); } catch (e) {}
   renderTypes();
 }
-function toggleLang(){ setLang(lang === 'es' ? 'en' : 'es'); }
 
 // ───── Render 16 types ─────
 function renderTypes() {
@@ -522,9 +548,9 @@ function renderTypes() {
   grid.innerHTML = filtered.map((t, i) => {
     const num = String(types.indexOf(t) + 1).padStart(2, '0');
     const target = t.code === 'CPBI';
-    const quadLabel = t.quadrant === 'Scattered' ? (lang === 'es' ? 'DISPERSO' : 'SCATTERED') : (lang === 'es' ? 'CONSOL.' : 'CONSOL.');
+    const quadLabel = t.quadrant === 'Scattered' ? (lang === 'en' ? 'SCATTERED' : 'DISPERSO') : 'CONSOL.';
     const targetMark = target ? '<span class="code-dot">●</span>' : '';
-    const href = 'types/' + t.code.toLowerCase() + (lang === 'es' ? '-es' : '') + '.html';
+    const href = 'types/' + t.code.toLowerCase() + (lang === 'es' ? '-es' : lang === 'pt' ? '-pt' : '') + '.html';
     return `
       <a class="type-card${target ? ' is-target' : ''}" href="${href}">
         <div class="type-card-header">
@@ -537,7 +563,7 @@ function renderTypes() {
           <div class="type-card-desc">"${t.tagline[lang]}"</div>
         </div>
         <div class="type-card-footer">
-          <span>${lang === 'es' ? 'Ver tipo' : 'View type'}</span>
+          <span>${lang === 'en' ? 'View type' : 'Ver tipo'}</span>
           <span class="type-card-arrow">→</span>
         </div>
       </a>`;
@@ -562,7 +588,7 @@ document.getElementById('hamburger').addEventListener('click', () => {
 });
 
 // ───── Init ─────
-if (lang !== 'es') { setLang(lang); } else { renderTypes(); }
+setLang(lang);
 // Set "Todos" filter as active by default
 document.querySelector('.filter-btn[data-filter="all"]').style.background = 'var(--aq-ink)';
 document.querySelector('.filter-btn[data-filter="all"]').style.color = 'var(--aq-paper)';

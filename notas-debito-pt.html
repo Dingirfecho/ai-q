@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;notas-debito.html&quot;,&quot;en&quot;:&quot;notas-debito-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notas de Débito Bancárias · Automação · AI-Q</title>
+<meta name="description" content="Automação de notas de débito bancárias para SAP. Do extrato em CSV ao arquivo de carga, em 30 segundos. Regras contábeis auditáveis, split 67/33, totalizador, arquivo de auditoria completo.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.flow-pipeline { display: grid; gap: var(--aq-space-3); }
+.flow-node { display: grid; grid-template-columns: 80px 1fr; border: var(--aq-border); }
+.flow-icon { background: var(--aq-ink); color: var(--aq-paper); display: flex; align-items: center; justify-content: center; font-family: var(--aq-font-mono); font-weight: 600; font-size: 18px; letter-spacing: 0.05em; padding: 20px 8px; }
+.flow-content { padding: 16px 20px; }
+.flow-step-num { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-accent); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 4px; }
+.flow-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 4px; }
+.flow-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.flow-arrow { text-align: center; color: var(--aq-accent); font-family: var(--aq-font-mono); }
+
+.rule-card { border: var(--aq-border); padding: 22px; }
+.rule-tag { display: inline-block; font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); padding: 3px 9px; background: var(--aq-ink); color: var(--aq-paper); letter-spacing: var(--aq-track-kicker); margin-bottom: 12px; }
+.rule-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
+.rule-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.rule-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.benefit-table { width: 100%; border-collapse: collapse; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.benefit-table th, .benefit-table td { padding: 12px 16px; border: var(--aq-border-thin); text-align: left; vertical-align: top; }
+.benefit-table th { background: var(--aq-ink); color: var(--aq-paper); font-weight: 500; text-transform: uppercase; letter-spacing: var(--aq-track-kicker); font-size: var(--aq-fs-meta); }
+.benefit-table td:first-child { font-family: var(--aq-font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.02em; color: var(--aq-ink); }
+.benefit-table td.before { color: var(--aq-ink2); background: var(--aq-paper2); }
+.benefit-table td.after { color: var(--aq-ink); font-weight: 500; }
+@media (max-width: 768px) {
+  .benefit-table thead { display: none; }
+  .benefit-table tr { display: block; margin-bottom: 12px; border: var(--aq-border-thin); }
+  .benefit-table td { display: block; border: 0; border-bottom: var(--aq-border-thin); padding: 10px 14px; }
+  .benefit-table td:last-child { border-bottom: 0; }
+}
+
+.file-block { border: var(--aq-border); padding: 22px; }
+.file-name { font-family: var(--aq-font-mono); font-size: 14px; font-weight: 500; color: var(--aq-accent); margin-bottom: 8px; word-break: break-all; }
+.file-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.file-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); margin-bottom: 12px; }
+.file-format { font-family: var(--aq-font-mono); font-size: 12px; background: var(--aq-paper2); border: 1px solid var(--aq-mute1); padding: 10px 12px; word-break: break-all; line-height: 1.4; color: var(--aq-ink); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções Tributárias</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Estúdios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente de IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Servicios (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="notas-debito.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="notas-debito-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-NDB-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 10 / NOTAS DE DÉBITO</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Contabilidade &amp; tesouraria</div>
+      <h1 class="display-xl">Do extrato bancário ao arquivo SAP, <span class="accent">automático</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:820px;">"O extrato entra por e-mail. Saem o arquivo de carga SAP e o relatório de auditoria — classificados, totalizados, prontos para contabilizar."</p>
+      <p class="body-lg mt-4" style="max-width:820px;">Automação end-to-end de geração de notas de débito bancárias para SAP. O processo recebe extratos por e-mail, os estrutura com IA, os cruza contra catálogos contábeis e entrega dois arquivos no Google Drive: o arquivo de carga SAP e a listagem classificada para auditoria.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">~30 s</div>
+        <div class="marquee-label">Por extrato</div>
+        <div class="marquee-desc">Antes: 30 a 45 minutos de classificação manual e montagem do arquivo. Agora: do e-mail ao Drive, em segundos.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">8</div>
+        <div class="marquee-label">Regras de negócio auditáveis</div>
+        <div class="marquee-desc">Da identificação do banco até o split 67/33 e o totalizador, cada regra documentada e rastreável.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">100%</div>
+        <div class="marquee-label">Sem intervenção</div>
+        <div class="marquee-desc">Sem intervenção humana entre o envio do e-mail e a disponibilização dos arquivos no Drive. Log auditável por execução.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §01 problem -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Classificar à mão todos os meses</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">As empresas que migram para SAP costumam herdar um processo manual recorrente: <strong>classificar cada movimentação bancária, identificar conceitos sujeitos a lançamento contábil e montar o arquivo de carga</strong>. Uma pessoa abre o CSV, percorre as linhas, cruza contra uma planilha de critérios, divide valores segundo regras internas, monta cabeçalho e totalizador, e sobe o arquivo no sistema.</p>
+
+    <div class="panel"><div class="panel-body">
+      <table class="benefit-table">
+        <thead>
+          <tr><th>Dimensão</th><th>Antes (manual)</th><th>Depois (automatizado)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tempo por extrato</td><td class="before">30 a 45 minutos</td><td class="after">~30 segundos</td></tr>
+          <tr><td>Rastreabilidade</td><td class="before">Manual / planilha Excel</td><td class="after">Log + arquivos versionados</td></tr>
+          <tr><td>Escalabilidade</td><td class="before">1 banco por operador</td><td class="after">N bancos em paralelo</td></tr>
+          <tr><td>Risco de erro</td><td class="before">Alto — classificação manual</td><td class="after">Baixo — regras auditáveis</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <!-- §02 flow -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · Como funciona</div><h2 class="display-lg mt-4">O fluxo, em 7 passos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">O processo roda toda vez que um extrato chega por e-mail em uma caixa dedicada. Sem intervenção humana entre o envio do e-mail e os arquivos finais no Drive.</p>
+
+    <div class="flow-pipeline">
+      <div class="flow-node"><div class="flow-icon">01</div><div class="flow-content"><div class="flow-step-num">RECEPÇÃO</div><div class="flow-title">Mailhook recebe o extrato</div><div class="flow-desc">Um mailhook detecta o e-mail recebido com o extrato bancário anexado em formato CSV. O gatilho é imediato.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">02</div><div class="flow-content"><div class="flow-step-num">ESTRUTURAÇÃO</div><div class="flow-title">Gemini interpreta o CSV</div><div class="flow-desc"><code style="background:var(--aq-paper2);padding:1px 5px;border:1px solid var(--aq-mute1);font-size:12px;">gemini-2.5-pro</code> recebe o CSV e devolve um objeto JSON com o cabeçalho do extrato e um array de movimentações.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">03</div><div class="flow-content"><div class="flow-step-num">BANCO</div><div class="flow-title">Identificação contra catálogo BCRA</div><div class="flow-desc">O número da conta é cruzado contra o catálogo de Entidades BCRA. Se houver correspondência, obtêm-se o código BCRA e a denominação oficial do banco.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">04</div><div class="flow-content"><div class="flow-step-num">CRITÉRIOS</div><div class="flow-title">Classificação contábil</div><div class="flow-desc">Para cada movimentação, busca-se o critério no catálogo de Critérios usando como chave o código de operação bancária. Obtêm-se conta contábil, indicador de imposto, centro de custo, sentido e categoria (GST− / GST+).</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">05</div><div class="flow-content"><div class="flow-step-num">REGRAS</div><div class="flow-title">Aplicação de regras de negócio</div><div class="flow-desc">As movimentações GST− são incluídas no arquivo SAP. As contas especiais recebem split 67% despesa / 33% ativo computável. As movimentações sem critério são marcadas SEM CLASSIFICAÇÃO.</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">06</div><div class="flow-content"><div class="flow-step-num">CONSTRUÇÃO</div><div class="flow-title">Montagem dos dois arquivos</div><div class="flow-desc">Constroem-se o ND_SAP (cabeçalho + detalhe filtrado + totalizador) e o UMSATZ (todas as movimentações classificadas, para auditoria).</div></div></div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-node"><div class="flow-icon">07</div><div class="flow-content"><div class="flow-step-num">ENTREGA</div><div class="flow-title">Upload para o Google Drive</div><div class="flow-desc">Ambos os arquivos são enviados automaticamente para a pasta de destino, com timestamp no nome. Prontos para a equipe contábil coletar.</div></div></div>
+    </div>
+  </section>
+
+  <!-- §03 Tech stack -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Stack tecnológica</div><h2 class="display-lg mt-4">Componentes e arquitetura</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg mb-4">A automação é implementada sobre o <strong>Make.com</strong>, que orquestra os serviços externos. Sem servidores para administrar, sem código para manter, sem lock-in: se amanhã mudar um critério contábil ou um código BCRA, tudo está visível e editável.</p>
+
+      <table class="benefit-table">
+        <tbody>
+          <tr><td>Plataforma</td><td colspan="2">Make.com — orquestração e motor de execução</td></tr>
+          <tr><td>Inteligência artificial</td><td colspan="2">Google Gemini 2.5 Pro — estruturação do extrato</td></tr>
+          <tr><td>Dados de referência</td><td colspan="2">Google Sheets — catálogos Entidades BCRA e Critérios</td></tr>
+          <tr><td>Gatilho</td><td colspan="2">E-mail (mailhook customizado) — recepção do extrato anexado</td></tr>
+          <tr><td>Armazenamento</td><td colspan="2">Google Drive — repositório de saídas com timestamp</td></tr>
+          <tr><td>Saída SAP</td><td colspan="2">Texto simples (.txt) delimitado por pipe (│)</td></tr>
+          <tr><td>Saída auditoria</td><td colspan="2">CSV — 17 colunas</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Gemini 2.5 Pro</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Pronto para SAP</span>
+        <span class="tech-pill">Sem servidores</span>
+        <span class="tech-pill">Sem lock-in</span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- §04 Business rules -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Regras de negócio</div><h2 class="display-lg mt-4">Oito regras, todas auditáveis</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Cada regra está documentada de forma unívoca. Qualquer modificação funcional parte de atualizar esta seção — não de mexer no código.</p>
+
+    <div class="grid grid-2">
+      <div class="rule-card">
+        <span class="rule-tag">RN-01</span>
+        <div class="rule-title">Identificação do banco emissor</div>
+        <div class="rule-desc">Cada extrato é identificado cruzando o campo <code>Cuenta_Banco</code> do cabeçalho contra o catálogo Entidades BCRA. Correspondência por igualdade exata. Se o banco não estiver no catálogo, a execução continua com cabeçalho incompleto — o catálogo deve ser mantido atualizado.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-02</span>
+        <div class="rule-title">Cálculo de campos derivados</div>
+        <div class="rule-desc">A partir do código BCRA e da data do extrato, calculam-se os campos de cabeçalho: <code>Codigo_Proveedor</code> (400000000 + BCRA com padding), <code>N_Factura</code>, <code>Folio</code>, <code>Ejercicio</code>, <code>Periodo</code> e a data no formato <code>DDMMYY</code>.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-03</span>
+        <div class="rule-title">Classificação contábil</div>
+        <div class="rule-desc">Para cada movimentação, busca-se seu critério no catálogo Critérios, usando <code>Cod_Op_Bco</code> como chave. Devolve: categoria, chave, conta contábil, denominação, indicador de imposto, CECO e sentido.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-04</span>
+        <div class="rule-title">Filtro de inclusão no SAP</div>
+        <div class="rule-desc">Somente as movimentações com categoria <strong>GST−</strong> são incluídas no arquivo SAP. As GST+ e as sem classificação são excluídas do SAP, mas <strong>aparecem</strong> no arquivo UMSATZ de auditoria.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-05</span>
+        <div class="rule-title">Split 67% / 33% em contas especiais</div>
+        <div class="rule-desc">Se a conta contábil estiver marcada como "split" no catálogo, a movimentação é dividida em duas linhas: <strong>67% despesa</strong> na conta original, <strong>33% ativo computável</strong> na conta de ativo. Arredondamento a 2 decimais por linha — diferença ±0,01 aceita.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-06</span>
+        <div class="rule-title">Tratamento de SEM CLASSIFICAÇÃO</div>
+        <div class="rule-desc">Movimentações cujo <code>Cod_Op_Bco</code> não tem correspondência em Critérios são rotuladas <strong>SEM CLASSIFICAÇÃO</strong> nas sete colunas contábeis do UMSATZ. Não afetam o SAP (são excluídas pela RN-04). Sinal operacional de que o catálogo deve ser ampliado.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-07</span>
+        <div class="rule-title">Totalizador do arquivo SAP</div>
+        <div class="rule-desc">O SAP termina com uma linha F que contém a <strong>soma algébrica</strong> dos valores originais de todas as movimentações GST−. O sinal é preservado (os débitos são negativos). A soma é calculada sobre o valor original — não sobre os componentes parciais do split.</div>
+      </div>
+
+      <div class="rule-card">
+        <span class="rule-tag">RN-08</span>
+        <div class="rule-title">Constantes operacionais</div>
+        <div class="rule-desc">Cada cliente define suas constantes: CUIT receptor, moeda, código do documento, conta de ativo computável para o split, e catálogos próprios de bancos e critérios. Tudo configurável a partir do Google Sheets — alterá-los não requer mexer no cenário.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §05 Output files -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Saídas</div><h2 class="display-lg mt-4">Os dois arquivos gerados</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Cada execução produz dois arquivos versionados com timestamp no nome. O primeiro alimenta o SAP; o segundo é para auditoria.</p>
+
+    <div class="grid grid-2">
+
+      <div class="file-block">
+        <div class="file-name">ND_SAP_&lt;banco&gt;_&lt;timestamp&gt;.txt</div>
+        <div class="file-title">Arquivo de carga SAP</div>
+        <div class="file-desc">Texto simples delimitado por pipe. Três blocos: uma linha de cabeçalho <strong>H</strong>, N linhas de detalhe (uma por movimentação GST−, ou duas em caso de split), e uma linha de totalizador <strong>F</strong>. CRLF ao final de cada linha.</div>
+        <div class="file-format">H|&lt;Banco&gt;|&lt;Codigo_Proveedor&gt;|&lt;Moneda&gt;|&lt;N_Factura&gt;|&lt;Fecha_DDMMYY&gt;|&lt;Fecha_ISO&gt;|&lt;Ejercicio&gt;|&lt;Periodo&gt;|&lt;CUIT&gt;|&lt;Codigo_Doc&gt;|&lt;BCRA_4&gt;|&lt;Folio&gt;<br><br>&lt;Cuenta_Contable&gt;|&lt;Concepto&gt;|&lt;Indicador_Impuesto&gt;|&lt;CECO&gt;|&lt;Importe&gt;<br>...<br><br>F|&lt;Suma_GST−&gt;</div>
+      </div>
+
+      <div class="file-block">
+        <div class="file-name">UMSATZ_&lt;banco&gt;_&lt;timestamp&gt;.csv</div>
+        <div class="file-title">Arquivo de auditoria</div>
+        <div class="file-desc">CSV com a totalidade das movimentações do extrato, classificadas ou SEM CLASSIFICAÇÃO. Cabeçalho na primeira linha. <strong>17 colunas</strong>: código do banco, data, comprovante, valor, descrição, código de operação, data de download, categoria, chave, conta contábil, conceito, indicador de imposto, CECO, sentido e duas colunas reservadas.</div>
+        <div class="file-format">Codigo_Banco, Fecha, Comprobante, Importe, Descripcion, Cod_Op_Bco, Fecha_Descarga, COD_2, Clave, COD_2, Cuenta_Contable, Concepto, Indicador_Impuesto, CECO, Sentido, Col16, Col17</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- §06 Operation -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Operação &amp; manutenção</div><h2 class="display-lg mt-4">Como se opera no dia a dia</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="next-card">
+        <div class="next-eyebrow">DIA A DIA</div>
+        <div class="next-title">100% sem intervenção</div>
+        <div class="next-desc">Você manda o CSV para o e-mail configurado. Espera ~30 segundos. Coleta os dois arquivos no Drive. Não há intervenção humana no meio do caminho.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">CATÁLOGO BCRA</div>
+        <div class="next-title">Adicionar um banco</div>
+        <div class="next-desc">Você adiciona uma linha por conta operacional: código BCRA, denominação oficial e número de conta exatamente como aparece no extrato. Testa com um extrato real antes de produção.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">CATÁLOGO CRITÉRIOS</div>
+        <div class="next-title">Adicionar um critério</div>
+        <div class="next-desc">Quando aparece SEM CLASSIFICAÇÃO no UMSATZ, você identifica o código de operação, define com a contabilidade a categoria (GST−/GST+), conta, indicador e CECO, e adiciona uma linha ao catálogo.</div>
+      </div>
+    </div>
+
+    <div class="panel mt-5"><div class="panel-body">
+      <div class="kicker mb-2">Monitoramento</div>
+      <p class="body-lg">O Make.com mantém log auditável de cada execução: e-mail recebido e anexos, resposta do modelo de IA, bundles processados por módulo, arquivos enviados ao Drive, erros e novas tentativas. Cada execução pode ser auditada individualmente a partir do console.</p>
+    </div></div>
+  </section>
+
+  <!-- §07 Scope & roadmap -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Escopo &amp; premissas</div><h2 class="display-lg mt-4">O que cobre e o que não cobre</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+
+      <div class="panel">
+        <div class="panel-header"><span>§ PREMISSAS</span><span style="color:var(--aq-success);">● BASE</span></div>
+        <div class="panel-body">
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> Os extratos chegam em formato CSV com estrutura estável.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> Cada e-mail contém um único extrato de um único banco.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> A estrutura de contas não muda entre extratos do mesmo banco.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-success);">→</span> Os catálogos BCRA e Critérios são mantidos atualizados.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><span>§ FORA DE ESCOPO (v1)</span><span class="accent">● ROADMAP</span></div>
+        <div class="panel-body">
+          <ul style="list-style:none;padding:0;margin:0;">
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Notificação automática à equipe contábil ao finalizar.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Detecção de duplicados (reenvio gera duas execuções).</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Interrupção explícita se o banco não estiver registrado.</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Processamento em lote (vários extratos no mesmo e-mail).</li>
+            <li style="padding:10px 0 10px 24px;position:relative;border-top:var(--aq-border-thin);font-family:var(--aq-font-mono);font-size:var(--aq-fs-body);"><span style="position:absolute;left:0;color:var(--aq-accent);">→</span> Dashboard de acompanhamento (Looker Studio).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Migrando para SAP ou lançando notas à mão?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Se sua equipe contábil monta arquivos de carga à mão todo mês, agende uma chamada. A primeira conversa é para entender seu plano de contas, seus catálogos e seus critérios — e enviar uma proposta concreta.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Notas%20de%20D%C3%A9bito%20Bancarias">Peça um orçamento</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 10</span>
+    <span class="accent">ai-q.fit · notas de débito</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;consorcios.html&quot;,&quot;en&quot;:&quot;consorcios-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notas Fiscais a Retenção · Condomínios · AI-Q</title>
+<meta name="description" content="Processador automático de retenções a fornecedores de despesas condominiais para administradoras de condomínios. Imposto de Renda, INSS/contribuições e ISS. Arquivo pronto para envio às autoridades fiscais.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções de Impostos</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Estúdios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente de IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais a Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="consorcios.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="consorcios-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-CONS-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 13 / CONDOMÍNIOS</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Administração de condomínios</div>
+      <h1 class="display-xl">Notas Fiscais a Retenção: o fornecedor pago, com seu <span class="accent">certificado</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Sem planilhas montadas à mão, sem tabelas de memória, com auditoria incorporada."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Transforme cada nota fiscal de fornecedor de despesas condominiais —encanador, eletricista, segurança, limpeza, elevadores— em um certificado de retenção calculado e no arquivo pronto para enviar às autoridades fiscais. Uma solução end-to-end desenhada especificamente para administradoras de condomínios.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Minutos perdidos, condomínio por condomínio</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Se hoje você calcula manualmente a alíquota de imposto de renda retido, o regime especial de contribuições ou a jurisdição de ISS para cada nota fiscal de fornecedor, está perdendo entre <strong>5 e 15 minutos por certificado</strong> — e esse esforço se multiplica por cada condomínio que administra, cada um com seu próprio cadastro de fornecedores.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">+ 5 a 15 min <span class="accent">por certificado, por condomínio</span></p>
+      <p class="muted">E isso sem contar fornecedores mal classificados, alíquotas erradas e o arquivo de apresentação montado à mão no final do mês.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · A solução</div><h2 class="display-lg mt-4">Como funciona, em 5 passos</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Uma automação end-to-end que recebe a nota fiscal do fornecedor como ela chega, e a entrega processada, com a retenção calculada e o arquivo de apresentação pronto.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Nota fiscal do fornecedor</div><div class="step-desc">Chega por e-mail, ou é deixada na pasta do Drive do condomínio correspondente — sem passos novos.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Identificação do fornecedor</div><div class="step-desc">Busca o CNPJ/CPF no cadastro próprio daquele condomínio: enquadramento tributário, regime de imposto de renda e de contribuições, se aplicável.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Cálculo da retenção</div><div class="step-desc">Aplica a alíquota correspondente — imposto de renda retido, regime especial de contribuições se for limpeza ou segurança, e ISS conforme a jurisdição do prédio.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Certificado + arquivo de apresentação</div><div class="step-desc">Monta o certificado pronto para emitir antes de pagar, e o arquivo no formato exigido pelas autoridades fiscais.</div></div>
+      <div class="step-card"><div class="step-num">05</div><div class="step-title">Registro por condomínio</div><div class="step-desc">Cada prédio guarda seu próprio histórico de retenções, como respaldo e consulta — não como destino final do dado.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Métricas de serviço</div><h2 class="display-lg mt-4">O que você pode esperar</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-bordered grid-4">
+      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">~45 s</div><div class="kicker">Tempo por certificado</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">Ilimitados</div><div class="kicker">Condomínios e fornecedores</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">5–15%</div><div class="kicker">Só por exceção</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">24/7</div><div class="kicker">Sem supervisão</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · O que inclui</div><h2 class="display-lg mt-4">Uma solução completa</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Rastreabilidade por condomínio</div><div class="feature-desc">Cada certificado carrega o link para a nota fiscal original, o fornecedor, a data e o condomínio. <strong>Auditar um pagamento leva segundos, não minutos.</strong></div></div>
+      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Salvaguardas</div><div class="feature-desc">Se o fornecedor não está no cadastro, o sistema avisa — marca para revisão e alerta, em vez de calcular ou pagar às cegas.</div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Regras brasileiras embutidas</div><div class="feature-desc">Cálculo de <code>IRRF</code>, regime especial de <strong>contribuições</strong> para limpeza e segurança, e identificação de <strong>jurisdições de ISS</strong> conforme o endereço de cada prédio.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Cadastro por condomínio</div><div class="feature-desc">Cada prédio tem seu próprio cadastro de fornecedores, sua própria conta e seu próprio registro — o sistema não os mistura entre administradoras.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Por que funciona</div><h2 class="display-lg mt-4">Não é um wrapper do ChatGPT</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">Esta não é uma ferramenta genérica de OCR nem um wrapper do ChatGPT. É uma <strong>solução desenhada especificamente para retenções a fornecedores de despesas condominiais</strong>, com o conhecimento contábil e fiscal de cada regime incorporado em cada etapa do processo.</p>
+      <p class="body-lg">Construída sobre infraestrutura de nível empresarial e configurada com o cadastro e as particularidades dos seus condomínios. Sem servidores para administrar, sem desenvolvimento sob medida, sem lock-in: se amanhã você quiser modificar o fluxo, está tudo à vista e editável.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Google Cloud</span>
+        <span class="tech-pill">Gemini 2.5</span>
+        <span class="tech-pill">Google Drive</span>
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Pronto para as autoridades fiscais</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Para quem se aplica</div><h2 class="display-lg mt-4">Para quem é esta solução</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">CASO 01</div><div class="next-desc">Administradoras que gerenciam <strong>vários condomínios</strong> e hoje calculam as retenções à mão, prédio por prédio.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 02</div><div class="next-desc">Administradoras que são <strong>responsáveis pela retenção</strong> de seus fornecedores de manutenção, limpeza e segurança.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 03</div><div class="next-desc">Condomínios com fornecedores sob <strong>regime especial de contribuições</strong> (limpeza ou segurança), onde a alíquota não é a geral.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 04</div><div class="next-desc">Administradoras que já usam <strong>Google Workspace</strong> e buscam integrar sem substituir seu sistema de gestão.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Próximos passos</div><h2 class="display-lg mt-4">Como avançamos</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">PASSO 01 · 30 minutos</div><div class="next-title">Demo ao vivo</div><div class="next-desc">Mostramos a ferramenta processando <strong>notas fiscais reais dos seus condomínios</strong>, com seu próprio cadastro de fornecedores. Se depois da demo você não ver o valor, não há próximo passo.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PASSO 02 · 2 semanas</div><div class="next-title">Implementação piloto</div><div class="next-desc">Setup completo, carregamento do cadastro inicial de fornecedores por condomínio, teste com um mês de notas fiscais reais e capacitação. Ao final do piloto, fica funcionando em produção.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Pronto para parar de calcular à mão?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende 30 minutos para ver a ferramenta processando notas fiscais reais dos seus condomínios. Sem compromisso, sem slides genéricos.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Solicite uma demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Facturas%20a%20Retenci%C3%B3n%20-%20Consorcios">Falar com um consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 13</span>
+    <span class="accent">ai-q.fit · consorcios</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

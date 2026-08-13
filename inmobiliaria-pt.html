@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;inmobiliaria.html&quot;,&quot;en&quot;:&quot;inmobiliaria-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imobiliárias · Assistente IA · AI-Q</title>
+<meta name="description" content="Assistente IA para imobiliárias argentinas. WhatsApp, Telegram e email atendidos 24/7. Busca na carteira própria e em Zonaprop, Argenprop e MercadoLibre. Atribuição automática de visitas e relatório diário ao proprietário.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+
+.canal-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-meta); margin: 4px 8px 4px 0; }
+.canal-badge .dot { width: 7px; height: 7px; background: var(--aq-accent); display: inline-block; }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+    <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções Fiscais</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Studios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente IA</a>
+          <a href="consorcios-pt.html">Notas Fiscais com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="inmobiliaria.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="inmobiliaria-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-INMO-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 09 / IMOBILIÁRIAS</span></div>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Imobiliárias argentinas</div>
+      <h1 class="display-xl">Sua imobiliária atende consultas, agenda visitas e reporta — <span class="accent">sem que ninguém precise fazer isso</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"O cliente escreve às 22h. Às 22h, o assistente responde."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Um agente de IA conectado a WhatsApp, Telegram e email que classifica cada consulta, busca imóveis na sua carteira e em portais externos, coordena sua equipe de corretores e envia um resumo executivo todos os dias às 20h. Sem instalar software. Sem trocar de ferramentas.</p>
+    </div>
+  </section>
+
+  <!-- ── STATS ─────────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="grid grid-4" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">&lt; 30 seg</div>
+        <div class="marquee-label">Tempo de resposta</div>
+        <div class="marquee-desc">Antes: horas. Com o assistente: segundos. A qualquer hora do dia.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">24/7</div>
+        <div class="marquee-label">Atendimento contínuo</div>
+        <div class="marquee-desc">60% das consultas imobiliárias chegam fora do horário comercial.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">3 canais</div>
+        <div class="marquee-label">Unificados</div>
+        <div class="marquee-desc">WhatsApp, Telegram e email em um único sistema. O histórico persiste entre canais.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">14 dias</div>
+        <div class="marquee-label">Até o sistema operacional</div>
+        <div class="marquee-desc">Da primeira reunião ao primeiro cliente atendido automaticamente.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PARA QUIÉN ─────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · Para quem</div><h2 class="display-lg mt-4">Sua imobiliária tem esses problemas?</h2></div></div>
+    <hr class="sep mb-5">
+
+    <p class="body-lg" style="max-width:820px;">Esta solução se aplica diretamente se você gerencia imóveis na Argentina, tem entre 1 e 20 corretores, e se reconhece em algum destes cenários:</p>
+
+    <div class="signals-block">
+      <h4>Sinais de que esta solução é para você</h4>
+      <ul class="signals-list">
+        <li>Você recebe consultas à noite ou no fim de semana e não tem ninguém para responder — o lead liga para outra imobiliária</li>
+        <li>Seus corretores passam horas respondendo sempre a mesma coisa: preço, metragem, condomínio, disponibilidade</li>
+        <li>Você coordena visitas pelo WhatsApp pessoal e isso acaba em duplo agendamento, no-shows ou conflitos de agenda</li>
+        <li>Você tem mais de 5 corretores e a atribuição de imóveis por região é um processo manual e sujeito a erros</li>
+        <li>Você não sabe quantas consultas recebeu ontem, de qual canal vieram, nem qual imóvel gerou mais interesse</li>
+        <li>Você usa uma planilha Excel compartilhada que ninguém atualiza a tempo e os leads se perdem entre chats</li>
+        <li>Você quer oferecer busca em Zonaprop, Argenprop e MercadoLibre sem que sua equipe precise abrir cada portal</li>
+        <li>Como proprietário, você quer saber como foi o dia sem precisar perguntar a ninguém</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── QUÉ HACE ─────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · O que faz</div><h2 class="display-lg mt-4">Cinco capacidades operacionais</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="feature-card">
+        <div class="feature-icon">[ 01 ]</div>
+        <div class="feature-title">Busca na sua carteira própria</div>
+        <div class="feature-desc">O cliente pergunta e o assistente consulta seu Google Sheet de imóveis em tempo real. Filtra por tipo, região, preço, número de ambientes e status. Responde com a informação exata da ficha — sem inventar dados, sem improvisar. Se o dado não existir, ele diz isso e oferece contato direto.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ 02 ]</div>
+        <div class="feature-title">Busca em portais externos</div>
+        <div class="feature-desc">Quando o cliente pede algo que você não tem na carteira, o assistente faz buscas paralelas em Zonaprop, Argenprop e MercadoLibre. O LLM analisa os resultados e responde com as opções mais relevantes: preço, região e link direto para o anúncio original.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ 03 ]</div>
+        <div class="feature-title">Agenda e atribui visitas</div>
+        <div class="feature-desc">O assistente detecta a intenção de visita, identifica o corretor disponível para a região correspondente e o notifica pelo Telegram. O lead fica registrado no Sheets com status "Visita solicitada". O cliente recebe confirmação no mesmo canal em que perguntou.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ 04 ]</div>
+        <div class="feature-title">Responde dúvidas técnicas</div>
+        <div class="feature-desc">Condomínio, metragem coberta, idade do imóvel, andar, vaga de garagem — tudo disponível sem incomodar nenhum corretor. O assistente lê a ficha completa do imóvel e responde com precisão. Tempo médio de resposta: menos de 15 segundos.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ 05 ]</div>
+        <div class="feature-title">Informa o proprietário todos os dias</div>
+        <div class="feature-desc">Todos os dias às 20h, o LLM gera um resumo executivo automático: consultas do dia por canal, imóveis mais consultados, visitas agendadas, leads que exigem acompanhamento urgente. Chega por email e Telegram. Sem abrir nenhum app extra.</div>
+      </div>
+      <div class="feature-card" style="background: var(--aq-ink); color: var(--aq-paper);">
+        <div class="feature-icon" style="color: var(--aq-accent);">[ ● ]</div>
+        <div class="feature-title" style="color: var(--aq-paper);">Memória entre canais</div>
+        <div class="feature-desc" style="color: var(--aq-ink3);">Se um cliente começa pelo Telegram na segunda-feira, continua por email na terça e fecha pelo WhatsApp na quarta, o assistente lembra de toda a conversa. O histórico persiste em um Data Store e é recuperado a cada interação, independentemente do canal.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ARQUITECTURA ───────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Arquitetura</div><h2 class="display-lg mt-4">Como funciona por dentro</h2></div></div>
+    <hr class="sep mb-5">
+
+    <p class="body-lg" style="max-width:820px; margin-bottom:32px;">O sistema é construído em <strong>5 cenários no orquestrador</strong> que se comunicam entre si. Cada mensagem recebida dispara o fluxo completo em menos de 30 segundos.</p>
+
+    <div class="grid grid-3">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Receptores de canal</div>
+        <div class="step-desc">Três cenários separados escutam WhatsApp (webhook Twilio), Telegram (WatchUpdates) e Gmail (IMAP). Cada um normaliza a mensagem recebida para o mesmo formato canônico e a passa ao Agente Central.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Agente Central</div>
+        <div class="step-desc">Lê o histórico da conversa no Data Store. O LLM classifica a intenção da mensagem em: <code>CONSULTA_CARTEIRA</code>, <code>BUSCAR_EXTERNO</code>, <code>AGENDAR_VISITA</code>, <code>DUVIDA_IMOVEL</code> ou <code>ESCALAR</code>. Executa o ramo correspondente.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Dispatcher de respostas</div>
+        <div class="step-desc">Recebe a resposta gerada e a envia ao canal de origem: Telegram, WhatsApp (Twilio) ou Gmail. O lead fica registrado no Sheets. O corretor recebe sua notificação. O histórico é atualizado no Data Store.</div>
+      </div>
+    </div>
+
+    <div class="panel mt-5">
+      <div class="panel-header"><span>Canais suportados</span><span class="accent">/ PRODUÇÃO</span></div>
+      <div class="panel-body" style="display:flex; flex-wrap:wrap; gap:8px; padding:20px 28px;">
+        <span class="canal-badge"><span class="dot"></span>WhatsApp Business (Twilio)</span>
+        <span class="canal-badge"><span class="dot"></span>Bot do Telegram</span>
+        <span class="canal-badge"><span class="dot"></span>Gmail (IMAP / OAuth)</span>
+        <span class="canal-badge" style="border-color:var(--aq-mute1); color:var(--aq-ink3);">WhatsApp Meta API <span style="font-size:10px; margin-left:4px;">roadmap</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PORTALES ──────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · Portais externos</div><h2 class="display-lg mt-4">Zonaprop, Argenprop e MercadoLibre — em tempo real</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2" style="gap:32px; align-items:start;">
+      <div>
+        <p class="body-lg">Quando um cliente pergunta por um imóvel que você não tem na carteira, o assistente não diz "não temos". Ele busca nos três principais portais e apresenta as opções mais relevantes com preço, região e link direto para o anúncio.</p>
+        <p class="body-lg">O processo completo — desde a mensagem do cliente até a resposta com resultados — leva menos de 20 segundos.</p>
+        <div class="signals-block" style="margin-top:20px;">
+          <h4>Exemplo de conversa</h4>
+          <ul class="signals-list">
+            <li><strong>Cliente pelo Telegram:</strong> "Me procura casas à venda em Tigre até USD 280.000"</li>
+            <li><strong>Assistente:</strong> faz 3 requisições em paralelo a Zonaprop, Argenprop e MercadoLibre</li>
+            <li><strong>LLM:</strong> analisa os HTMLs e seleciona as 3–5 opções mais relevantes</li>
+            <li><strong>Assistente:</strong> "Encontrei 4 opções em Tigre: → Casa 4 amb · USD 265k · Boulogne · Ver anúncio"</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-header"><span>Portais integrados</span></div>
+          <div class="panel-body" style="padding:0;">
+            <div style="padding:18px 22px; border-bottom:var(--aq-border-thin);">
+              <div class="kicker-tiny" style="margin-bottom:6px; color:var(--aq-accent);">ZONAPROP</div>
+              <p style="margin:0; font-size:13px; color:var(--aq-ink2);">Portal líder em aluguéis e vendas residenciais na Argentina. Maior volume de anúncios do mercado de Buenos Aires e Grande Buenos Aires.</p>
+            </div>
+            <div style="padding:18px 22px; border-bottom:var(--aq-border-thin);">
+              <div class="kicker-tiny" style="margin-bottom:6px; color:var(--aq-accent);">ARGENPROP</div>
+              <p style="margin:0; font-size:13px; color:var(--aq-ink2);">Catálogo com forte presença em imóveis comerciais e regiões do interior. Complementa bem a busca residencial.</p>
+            </div>
+            <div style="padding:18px 22px;">
+              <div class="kicker-tiny" style="margin-bottom:6px; color:var(--aq-accent);">MERCADOLIBRE IMÓVEIS</div>
+              <p style="margin:0; font-size:13px; color:var(--aq-ink2);">Maior tráfego da América Latina. Captura demanda de compradores que não usam portais especializados.</p>
+            </div>
+          </div>
+        </div>
+        <p class="muted" style="font-size:11px; margin-top:10px;">* Se os portais bloquearem IPs do orquestrador, adicionamos o ScraperAPI como proxy (~US$ 49/mês opcional).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ANTES / DESPUÉS ───────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Impacto</div><h2 class="display-lg mt-4">Antes e depois em operações concretas</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel">
+      <div class="panel-header"><span>Comparativo de operação</span><span class="accent">/ ANTES → DEPOIS</span></div>
+      <div class="compare-row">
+        <div class="compare-cell header-cell before">Sem o sistema</div>
+        <div class="compare-cell header-cell after">Com o assistente IA</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Consulta às 22h → sem resposta até o dia seguinte. O lead liga para outra imobiliária.</div>
+        <div class="compare-cell after">Resposta em menos de 30 segundos, a qualquer hora. O lead recebe opções antes de ligar para mais alguém.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Corretores sobrecarregados respondendo preço, metragem e condomínio em vez de fechar negócios.</div>
+        <div class="compare-cell after">Os corretores recebem leads já qualificados com histórico completo. Focam em negociar e fechar.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Duplo agendamento e no-shows porque a coordenação de visitas é manual pelo WhatsApp pessoal.</div>
+        <div class="compare-cell after">O corretor certo para a região recebe a notificação no Telegram. Sem erros nem duplicidades.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">Planilha Excel compartilhada que ninguém atualiza. Leads perdidos entre chats. Reunião de segunda-feira para se atualizar.</div>
+        <div class="compare-cell after">Cada consulta se registra sozinha no Sheets. Pipeline visível em tempo real. Sem reuniões de acompanhamento.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell before">O proprietário não sabe como foi o dia até perguntar. Decisões com dados de 3 dias atrás.</div>
+        <div class="compare-cell after">Resumo executivo automático às 20h com consultas, imóveis em alta e visitas do dia.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STACK ─────────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Tecnologia</div><h2 class="display-lg mt-4">Stack técnico</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel">
+      <div class="panel-header"><span>Componentes e funções</span><span class="accent">/ PRODUÇÃO · SEM LOCK-IN</span></div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-family: var(--aq-font-mono); font-size:12px;">
+          <thead>
+            <tr style="border-bottom: var(--aq-border);">
+              <th style="text-align:left; padding:12px 22px; text-transform:uppercase; letter-spacing:0.1em; font-size:10px; color:var(--aq-ink3); font-weight:400;">Ferramenta</th>
+              <th style="text-align:left; padding:12px 16px; text-transform:uppercase; letter-spacing:0.1em; font-size:10px; color:var(--aq-ink3); font-weight:400;">Função na solução</th>
+              <th style="text-align:left; padding:12px 16px; text-transform:uppercase; letter-spacing:0.1em; font-size:10px; color:var(--aq-ink3); font-weight:400;">Custo aprox.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: var(--aq-border-thin);">
+              <td style="padding:14px 22px; font-weight:500;">Orquestrador</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">Orquestração dos 5 cenários. Trigger por webhook, processamento, roteamento e entrega.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">~ US$ 29/mês</td>
+            </tr>
+            <tr style="border-bottom: var(--aq-border-thin);">
+              <td style="padding:14px 22px; font-weight:500;">LLM</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">Modelo rápido para classificação de intenção e modelo avançado para redação de respostas e leitura dos portais.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">~ US$ 10–30/mês</td>
+            </tr>
+            <tr style="border-bottom: var(--aq-border-thin);">
+              <td style="padding:14px 22px; font-weight:500;">Google Sheets</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">Base de imóveis, corretores e leads. Editável diretamente pela equipe sem código.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">Incluído no Google Workspace</td>
+            </tr>
+            <tr style="border-bottom: var(--aq-border-thin);">
+              <td style="padding:14px 22px; font-weight:500;">Twilio</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">WhatsApp Business API. Número dedicado da imobiliária. Recebe e envia mensagens.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">~ US$ 15/mês + mensagens</td>
+            </tr>
+            <tr style="border-bottom: var(--aq-border-thin);">
+              <td style="padding:14px 22px; font-weight:500;">Bot do Telegram</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">Canal para clientes e notificações internas à equipe de corretores. Gratuito.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">Gratuito</td>
+            </tr>
+            <tr style="border-bottom: var(--aq-border-thin);">
+              <td style="padding:14px 22px; font-weight:500;">Gmail</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">Canal de email de entrada e saída. Relatórios diários ao proprietário.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">Incluído no Google Workspace</td>
+            </tr>
+            <tr>
+              <td style="padding:14px 22px; font-weight:500;">Data Store do orquestrador</td>
+              <td style="padding:14px 16px; color:var(--aq-ink2);">Persiste o histórico de conversa por contato entre canais e sessões.</td>
+              <td style="padding:14px 16px; color:var(--aq-ink3);">Incluído no orquestrador</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="padding:14px 22px; border-top:var(--aq-border-thin); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <span class="muted" style="font-size:11px;">* ScraperAPI (~US$ 49/mês) opcional se os portais bloquearem IPs do orquestrador em produção.</span>
+        <strong style="font-size:13px;">Opex total: ~ US$ 100–120 / mês</strong>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <span class="tech-pill">Orquestrador</span>
+      <span class="tech-pill">LLM</span>
+      <span class="tech-pill">Google Sheets</span>
+      <span class="tech-pill">Twilio</span>
+      <span class="tech-pill">Telegram</span>
+      <span class="tech-pill">Gmail</span>
+      <span class="tech-pill">Sem lock-in</span>
+    </div>
+  </section>
+
+  <!-- ── REQUISITOS ─────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Requisitos</div><h2 class="display-lg mt-4">O que você precisa do seu lado</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="feature-card">
+        <div class="feature-icon">[ REQ ]</div>
+        <div class="feature-title">Número de WhatsApp Business</div>
+        <div class="feature-desc">Um número dedicado para a imobiliária. Pode ser um chip novo. A Twilio gerencia a habilitação para a WhatsApp Business API — o processo leva de 2 a 3 dias úteis.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ REQ ]</div>
+        <div class="feature-title">Conta Gmail</div>
+        <div class="feature-desc">O email da imobiliária para atender consultas por correio e receber o relatório diário. Se você já tem Google Workspace, essa conta é usada diretamente.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ REQ ]</div>
+        <div class="feature-title">Carteira de imóveis</div>
+        <div class="feature-desc">Lista básica em qualquer formato: endereço, preço, tipo, ambientes e status. Se você já tem uma planilha Excel, nós a importamos para o Sheets da solução no dia 1 da implementação.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ REQ ]</div>
+        <div class="feature-title">Lista de corretores</div>
+        <div class="feature-desc">Nome, região de cobertura e contato do Telegram de cada corretor. Com essa informação, o sistema atribui visitas automaticamente por região geográfica.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">[ REQ ]</div>
+        <div class="feature-title">Bot do Telegram</div>
+        <div class="feature-desc">Criamos com o @BotFather em 5 minutos durante a configuração. Não exige conta paga — o Telegram é gratuito tanto para o canal de clientes quanto para a equipe interna.</div>
+      </div>
+      <div class="feature-card" style="border-color:var(--aq-mute1);">
+        <div class="feature-icon" style="color:var(--aq-ink3);">[ OPC ]</div>
+        <div class="feature-title" style="color:var(--aq-ink2);">Histórico de consultas anterior</div>
+        <div class="feature-desc">Se você tem um CRM ou Excel com leads anteriores, podemos importá-los para o Sheets para ter contexto histórico desde o primeiro dia de operação. Não é obrigatório para começar.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── IMPLEMENTACIÓN ─────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§08 · Implementação</div><h2 class="display-lg mt-4">Do zero ao sistema operacional em 14 dias</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="next-card">
+        <div class="next-eyebrow">PASSO 01 · DIA 1–2</div>
+        <div class="next-title">Levantamento</div>
+        <div class="next-desc">Levantamos sua carteira atual, canais ativos e o fluxo de trabalho com corretores. Configuramos o Google Sheet de imóveis, corretores e leads com o esquema da solução. Se você já tem dados em Excel, nós os importamos.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">PASSO 02 · DIA 3–7</div>
+        <div class="next-title">Configuração</div>
+        <div class="next-desc">Setup da Twilio WhatsApp Business, bot do Telegram e conexão com o Gmail. Importação e ajuste dos 5 cenários do orquestrador com seus IDs de conexão reais. Você não escreve código — nós conectamos as peças.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">PASSO 03 · DIA 8–12</div>
+        <div class="next-title">Piloto</div>
+        <div class="next-desc">O sistema atende consultas reais da sua carteira. Ajustamos os prompts do LLM, as regras de classificação e os filtros de corretores com dados ao vivo do seu negócio. Resultados visíveis desde o primeiro dia.</div>
+      </div>
+    </div>
+    <div class="grid grid-3 mt-4">
+      <div class="next-card">
+        <div class="next-eyebrow">PASSO 04 · DIA 13–14</div>
+        <div class="next-title">Entrega</div>
+        <div class="next-desc">Capacitação da equipe: como ler o Sheets de leads, como atualizar a carteira e como interpretar os relatórios diários. Entregamos o sistema documentado e pronto para você operar sem depender de ninguém.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-eyebrow">SUPORTE · DIA 14+</div>
+        <div class="next-title">30 dias incluídos</div>
+        <div class="next-desc">30 dias de suporte pós-entrega sem custo adicional. Correções de prompts, ajustes de fluxos e resposta a qualquer problema de integração. Sem instalar software na sua empresa — tudo roda na nuvem.</div>
+      </div>
+      <div class="panel" style="margin:0;">
+        <div class="panel-body" style="display:flex; flex-direction:column; justify-content:center; height:100%; gap:16px;">
+          <p style="margin:0; font-size:13px; font-weight:500;">Custo de implementação</p>
+          <p class="display-md" style="margin:0;">US$ X.XXX</p>
+          <p class="muted" style="margin:0; font-size:12px;">A combinar de acordo com o tamanho da carteira e os canais necessários. Preço final na primeira reunião.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§09 · Perguntas frequentes</div><h2 class="display-lg mt-4">O que sempre surge antes de decidir</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="panel">
+      <div class="panel-header"><span>FAQ · Assistente IA Imobiliária</span></div>
+      <div class="panel-body" style="padding:0;">
+        <div class="compare-row" style="grid-template-columns:1fr; border:0; border-bottom:var(--aq-border-thin);">
+          <div class="compare-cell" style="padding:22px 28px;">
+            <div class="kicker-tiny" style="margin-bottom:8px; color:var(--aq-accent);">O cliente sabe que está falando com uma IA?</div>
+            <p style="margin:0; color:var(--aq-ink2); font-size:13px;">Não precisa saber. O assistente responde com o nome da imobiliária e em linguagem natural. Se o cliente pedir para falar com uma pessoa, o sistema escala imediatamente para o corretor e o notifica pelo Telegram com todo o contexto da conversa.</p>
+          </div>
+        </div>
+        <div class="compare-row" style="grid-template-columns:1fr; border:0; border-bottom:var(--aq-border-thin);">
+          <div class="compare-cell" style="padding:22px 28px;">
+            <div class="kicker-tiny" style="margin-bottom:8px; color:var(--aq-accent);">O que acontece se a IA der uma informação incorreta?</div>
+            <p style="margin:0; color:var(--aq-ink2); font-size:13px;">O assistente responde com os dados que você carrega no Sheets — não inventa nem alucina. Se o cliente perguntar algo que não está na ficha, o sistema diz isso e oferece contato com um corretor. Você pode auditar cada conversa no histórico do Data Store.</p>
+          </div>
+        </div>
+        <div class="compare-row" style="grid-template-columns:1fr; border:0; border-bottom:var(--aq-border-thin);">
+          <div class="compare-cell" style="padding:22px 28px;">
+            <div class="kicker-tiny" style="margin-bottom:8px; color:var(--aq-accent);">Meus dados e os dos meus clientes estão seguros?</div>
+            <p style="margin:0; color:var(--aq-ink2); font-size:13px;">Os dados ficam no seu Google Sheets, na sua conta do Google — não na nossa. O LLM processa o texto das mensagens, mas não as armazena nem as usa para treinar modelos. O orquestrador cumpre GDPR e ISO 27001. Você pode auditar o que é armazenado a qualquer momento.</p>
+          </div>
+        </div>
+        <div class="compare-row" style="grid-template-columns:1fr; border:0; border-bottom:var(--aq-border-thin);">
+          <div class="compare-cell" style="padding:22px 28px;">
+            <div class="kicker-tiny" style="margin-bottom:8px; color:var(--aq-accent);">Isso substitui meus corretores?</div>
+            <p style="margin:0; color:var(--aq-ink2); font-size:13px;">Não. O assistente resolve as consultas repetitivas e filtra os leads. Os corretores recebem prospects já qualificados com histórico completo e se concentram em negociar e fechar. Com menos tempo no WhatsApp, ficam mais produtivos.</p>
+          </div>
+        </div>
+        <div class="compare-row" style="grid-template-columns:1fr; border:0;">
+          <div class="compare-cell" style="padding:22px 28px;">
+            <div class="kicker-tiny" style="margin-bottom:8px; color:var(--aq-accent);">Posso atualizar a carteira eu mesmo?</div>
+            <p style="margin:0; color:var(--aq-ink2); font-size:13px;">Sim, diretamente no Google Sheet. Você adiciona uma linha, muda o status de um imóvel para "Reservado" ou altera o preço — o assistente usa os dados atualizados na próxima consulta, sem mexer em nenhum código nem ligar para ninguém.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§10 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px; text-align:center;">
+        <h2 class="display-lg mb-4">Quer ver em ação?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px; margin-left:auto; margin-right:auto;">Agende uma chamada e mostramos o sistema funcionando com dados reais de uma imobiliária: o chat, a atribuição de visitas, os relatórios. Sem slides genéricos.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center; flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Asistente%20IA%20Inmobiliaria">Falar com um consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 09</span>
+    <span class="accent">ai-q.fit · imobiliárias</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

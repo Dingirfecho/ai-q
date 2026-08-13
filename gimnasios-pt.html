@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;gimnasios.html&quot;,&quot;en&quot;:&quot;gimnasios-en.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academias e Estúdios · Automação · AI-Q</title>
+<meta name="description" content="Automação completa para academias e estúdios. Três cenários sobre Google Sheets: relatório de planos, status de pagamentos, reativação de cancelamentos. 30–500 alunos.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Tem dúvidas ou quer uma demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Fale conosco &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Início</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Soluções ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="bancos-pt.html">Extratos Bancários</a>
+          <a href="notas-debito-pt.html">Notas de Débito Bancárias</a>
+          <a href="retenciones-pt.html">Retenções Fiscais</a>
+          <a href="amortizaciones-pt.html">Ativos Fixos · AxI</a>
+          <a href="estado-contratos-pt.html">Controle de Contratos</a>
+          <a href="gimnasios-pt.html">Academias e Estúdios</a>
+          <a href="posteo-redes-pt.html">Postagem Diária em Redes</a>
+          <a href="rrhh-pt.html">Automação de RH</a>
+          <a href="inmobiliaria-pt.html">Imobiliárias · Assistente de IA</a>
+          <a href="consorcios-pt.html">Faturas com Retenção · Condomínios</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consultoria ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria-pt.html">Serviços (ES)</a>
+          <a href="consultoria-pt.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnóstico ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Tipos</a>
+          <a href="framework.html#cases">Casos</a>
+          <a href="sama-pt.html">SAMA</a>
+          <a href="quiz.html">Fazer o Teste →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="gimnasios.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <a class="nav-link" href="gimnasios-en.html" onclick="AIQ_setLangPref('en')">EN</a>
+      <span class="nav-link lang-current" aria-current="true">PT</span><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma chamada →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-GIM-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 07 / ACADEMIAS</span></div>
+  </div>
+
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solução · Academias e estúdios</div>
+      <h1 class="display-xl">Automação completa para <span class="accent">academias e estúdios</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Sua planilha deixa de ser um arquivo morto e passa a trabalhar para você."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Transforme seu Google Sheets de alunos em um sistema que gera relatórios, cobra e se comunica sozinho. Sem trocar de ferramentas, sem contratar software caro. Três automações que rodam em segundo plano e devolvem horas a você toda semana.</p>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="grid grid-3" style="border:var(--aq-border);">
+      <div class="marquee-cell lead">
+        <div class="marquee-number">50%</div>
+        <div class="marquee-label">Faturamento recuperado</div>
+        <div class="marquee-desc">Inadimplentes detectados e cancelamentos reativados que de outra forma seriam perdidos.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">2–4 h</div>
+        <div class="marquee-label">Semanais recuperadas</div>
+        <div class="marquee-desc">O tempo que hoje você perde em planilhas e e-mails vai a zero.</div>
+      </div>
+      <div class="marquee-cell">
+        <div class="marquee-number">30–500</div>
+        <div class="marquee-label">Alunos suportados</div>
+        <div class="marquee-desc">Escala igual sem tocar na arquitetura. Cresça sem quebrar nada.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">A planilha que não trabalha para você</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Se você administra a academia com uma planilha — como a maioria — já tem <strong>80% do trabalho feito</strong>. O que falta é que essa planilha deixe de ser um arquivo morto e comece a avisar quem não pagou, mostrar quanto fatura cada plano e enviar os e-mails de acompanhamento sem que você precise escrever um por um.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">"Você não sabe quanto cada plano gera, nem quantos inadimplentes tem este mês."</p>
+      <p class="muted">E cada aluno que cancela e ninguém volta a contatar é receita que vai embora sem motivo.</p>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · A solução</div><h2 class="display-lg mt-4">Três automações, uma única planilha</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Três cenários independentes que compartilham seu Google Sheets atual. Cada um resolve uma dor concreta e roda <strong>manualmente com um clique ou de forma programada</strong> (todas as segundas-feiras às 9h, por exemplo).</p>
+
+    <div class="grid grid-3">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Relatório de Planos</div><div class="step-desc">Detalhe de cada passe: <strong>preço, alunos inscritos e faturamento projetado</strong>. Você sabe em segundos qual é seu plano mais rentável e quanto deveria faturar este mês.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Status de Pagamentos</div><div class="step-desc">Cruza alunos com pagamentos e retorna <strong>em dia, inadimplentes e valores devidos</strong>. Chega no seu e-mail sem que você entre na planilha nem filtre nada.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Reativação</div><div class="step-desc">Identifica alunos que cancelaram ou pausaram, e envia um <strong>e-mail de reativação</strong> com o tom que você definir. A automação com maior ROI.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Para quem se aplica</div><h2 class="display-lg mt-4">Para quem é esta solução</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">CASO 01</div><div class="next-desc"><strong>Academias e centros de treinamento</strong> com entre 30 e 500 alunos ativos.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 02</div><div class="next-desc"><strong>Escolas de artes marciais</strong> e academias esportivas que administram múltiplas modalidades e planos.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 03</div><div class="next-desc"><strong>Estúdios de yoga, pilates, crossfit, funcional</strong> que cobram por mensalidade ou passe.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 04</div><div class="next-desc">Qualquer negócio de <strong>assinatura recorrente</strong> que hoje administra cobranças e entradas/saídas em uma planilha.</div></div>
+    </div>
+
+    <div class="signals-block">
+      <h4>◆ Sinais de que serve para você</h4>
+      <ul class="signals-list">
+        <li>Você tem uma planilha com alunos, planos e status de pagamento, mas a atualiza manualmente.</li>
+        <li>Você perde receita porque alunos cancelam e ninguém volta a contatá-los.</li>
+        <li>Você não sabe com precisão quanto cada plano gera nem quantos inadimplentes tem este mês.</li>
+        <li>Você envia lembretes de pagamento um a um, copiando e colando.</li>
+        <li>Você quer profissionalizar a gestão sem contratar um sistema caro.</li>
+        <li>Você não está disposto a trocar de ferramentas nem migrar nada.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · O que inclui</div><h2 class="display-lg mt-4">Uma solução completa</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Zero mudança de stack</div><div class="feature-desc">Você continua usando <code>Google Sheets</code> e <code>Gmail</code>. <strong>Não é preciso aprender um software novo</strong> nem migrar nada. Sua equipe já sabe operar tudo.</div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Relatórios na sua caixa de entrada</div><div class="feature-desc">O sistema envia os relatórios <strong>direto para o seu e-mail</strong>, sem que você entre na planilha. Você abre pelo celular quando precisar.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Comunicação com o seu tom</div><div class="feature-desc">Os e-mails de reativação são enviados com <strong>a sua voz, a sua proposta e o seu estilo</strong> — não com um template genérico. Você configura uma vez, depois roda sozinho.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚙</div><div class="feature-title">Manual ou programado</div><div class="feature-desc">Você dispara os relatórios com <strong>um clique quando precisar</strong>, ou os programa para chegarem automaticamente às segundas-feiras às 9h.</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Arquitetura</div><h2 class="display-lg mt-4">A camada sobre sua planilha atual</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">Isso não é uma migração para um sistema novo nem uma ferramenta cara de gestão esportiva. É <strong>uma camada de inteligência sobre sua planilha atual</strong>: a base de dados não muda, as pessoas que a usam também não. A única coisa que muda é que a planilha passa a produzir relatórios e a se comunicar sozinha.</p>
+      <p class="body-lg">Três cenários independentes no Make.com leem seu Google Sheets, processam a informação e disparam as ações. Sem servidores para administrar, sem código para manter, sem lock-in: se amanhã você quiser modificar um e-mail ou o horário dos relatórios, está tudo à vista e editável.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Google Sheets</span>
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Gmail</span>
+        <span class="tech-pill">Google Workspace</span>
+        <span class="tech-pill">Sem lock-in</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Próximos passos</div><h2 class="display-lg mt-4">Como implementamos</h2></div></div>
+    <hr class="sep mb-5">
+
+    <div class="grid grid-3">
+      <div class="next-card"><div class="next-eyebrow">PASSO 01 · 30 minutos</div><div class="next-title">Diagnóstico</div><div class="next-desc">Revisamos sua planilha atual e definimos <strong>qual automação você precisa primeiro</strong>. Se você ainda não tem a planilha estruturada, montamos ela como parte do onboarding.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PASSO 02 · 2 a 5 dias</div><div class="next-title">Configuração</div><div class="next-desc">Adaptamos os cenários às <strong>suas colunas, seus planos e seu tom de comunicação</strong>. Você não escreve código; nós conectamos as peças e deixamos tudo funcionando.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PASSO 03 · 1 dia</div><div class="next-title">Testes e entrega</div><div class="next-desc">Rodamos testes com <strong>seus dados reais</strong> e deixamos o sistema funcionando, documentado e pronto para você gerenciar sem depender de ninguém.</div></div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§07 · Próximo passo</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Quer ver na prática?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende uma chamada e mostramos o sistema funcionando com um caso real de academia. Sem compromisso, sem slides genéricos — a planilha, os e-mails, o relatório.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Agende uma demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Automatizaci%C3%B3n%20Gimnasios">Falar com um consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>FIM DA FOLHA 07</span>
+    <span class="accent">ai-q.fit · academias</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

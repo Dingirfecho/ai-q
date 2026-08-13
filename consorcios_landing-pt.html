@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang-hrefs="{&quot;es&quot;:&quot;consorcios_landing.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Q · Notas Fiscais com Retenção — Para Administradoras de Condomínios</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  :root{
+    --paper: #f1ede2;
+    --paper-line: #d8d2c0;
+    --ink: #1c1a15;
+    --ink-soft: #5c5748;
+    --accent: #e2531f;
+    --accent-soft: #f3d8c9;
+    --panel: #e8e2d1;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  /* ---- top strip ---- */
+  .topstrip{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    padding:14px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  header.nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .logo{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:600;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo .mark{
+    width:22px;height:22px;
+    border:1.5px solid var(--ink);
+    border-radius:50%;
+    position:relative;
+    flex-shrink:0;
+  }
+  .logo .mark::before, .logo .mark::after{
+    content:"";
+    position:absolute;
+    background:var(--ink);
+  }
+  .logo .mark::before{ width:10px; height:1.5px; top:50%; left:50%; transform:translate(-50%,-50%);}
+  .logo .mark::after{ height:10px; width:1.5px; top:50%; left:50%; transform:translate(-50%,-50%);}
+  .back{
+    font-family:var(--mono);
+    font-size:12px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border:1px solid var(--paper-line);
+    padding:7px 12px;
+    border-radius:3px;
+  }
+  .back:hover{border-color:var(--ink-soft);}
+  /* ---- hero ---- */
+  .hero{ padding:56px 0 40px; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  h1{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:clamp(36px, 5.6vw, 60px);
+    line-height:1.04;
+    letter-spacing:-0.02em;
+    margin:0 0 22px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .sub{
+    font-size:18px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    max-width:580px;
+    margin:0 0 34px;
+  }
+  .cta-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .btn{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:15px;
+    padding:14px 22px;
+    border-radius:4px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1.5px solid transparent;
+    transition:transform .12s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+  }
+  .btn-secondary{
+    background:transparent;
+    border-color:var(--ink);
+    color:var(--ink);
+  }
+  .cta-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .cta-tertiary{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+  .cta-tertiary a{
+    color:var(--accent);
+    text-decoration:underline;
+  }
+  /* ---- calculator (signature element) ---- */
+  .calc{
+    margin-top:44px;
+    border:1px solid var(--ink);
+    background:var(--panel);
+    position:relative;
+  }
+  .calc::before, .calc::after,
+  .calc .corner-br, .calc .corner-bl{
+    content:"";
+    position:absolute;
+    width:14px; height:14px;
+    border:1.5px solid var(--ink);
+  }
+  .calc::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .calc::after{ top:-1px; right:-1px; border-left:none; border-bottom:none; }
+  .calc .corner-bl{ bottom:-1px; left:-1px; border-right:none; border-top:none; }
+  .calc .corner-br{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .calc-head{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    padding:14px 22px;
+    border-bottom:1px solid var(--ink);
+    display:flex;
+    justify-content:space-between;
+    color:var(--ink-soft);
+  }
+  .calc-body{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:0;
+  }
+  @media (max-width:760px){ .calc-body{grid-template-columns:1fr;} }
+  .calc-inputs{
+    padding:26px;
+    border-right:1px solid var(--ink);
+  }
+  @media (max-width:760px){ .calc-inputs{border-right:none; border-bottom:1px solid var(--ink);} }
+  .field{ margin-bottom:20px; }
+  .field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+    line-height:1.4;
+  }
+  .field .row{ display:flex; align-items:center; gap:12px; }
+  input[type=range]{
+    flex:1;
+    accent-color:var(--accent);
+  }
+  .field .val{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:14px;
+    min-width:52px;
+    text-align:right;
+  }
+  .calc-output{
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+  }
+  .output-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .output-number{
+    font-size:52px;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    color:var(--accent);
+    line-height:1;
+  }
+  .output-number span{
+    font-size:20px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .output-sub{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-top:6px;
+    line-height:1.5;
+  }
+  .output-breakdown{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid var(--paper-line);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .output-breakdown .line{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+  .output-breakdown .line b{
+    color:var(--ink);
+    font-weight:700;
+  }
+  /* ---- sections ---- */
+  section{ padding:64px 0; border-bottom:1px solid var(--paper-line); }
+  .sec-label{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+  h2{
+    font-size:clamp(26px,3.4vw,34px);
+    font-weight:800;
+    letter-spacing:-0.01em;
+    margin:0 0 36px;
+    max-width:640px;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid var(--ink);
+  }
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{
+    padding:26px 24px;
+    border-right:1px solid var(--ink);
+  }
+  .step:last-child{ border-right:none; }
+  @media (max-width:760px){
+    .step{ border-right:none; border-bottom:1px solid var(--ink); }
+    .step:last-child{border-bottom:none;}
+  }
+  .step-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .step h3{ font-size:18px; margin:0 0 8px; }
+  .step p{ font-size:14.5px; color:var(--ink-soft); line-height:1.5; margin:0; }
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:36px;
+  }
+  @media (max-width:680px){ .stat-row{grid-template-columns:1fr;} }
+  .stat{ border-top:2px solid var(--ink); padding-top:14px; }
+  .stat .num{ font-size:30px; font-weight:800; color:var(--accent); }
+  .stat .lbl{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+  .compare table{ width:100%; border-collapse:collapse; border:1px solid var(--ink); font-size:14.5px; }
+  .compare th, .compare td{ padding:14px 18px; text-align:left; }
+  .compare thead tr{ border-bottom:1px solid var(--ink); }
+  .compare thead th{ font-family:var(--mono); font-size:12px; font-weight:600; color:var(--ink-soft); }
+  .compare thead th.col-aiq{ color:var(--accent); font-weight:700; }
+  .compare tbody tr{ border-bottom:1px solid var(--paper-line); }
+  .compare tbody tr:last-child{ border-bottom:none; }
+  .compare tbody td.label{ color:var(--ink-soft); }
+  .compare tbody td.other{ color:var(--ink-soft); }
+  .faq{ max-width:720px; }
+  .qa{ padding:20px 0; border-bottom:1px solid var(--paper-line); }
+  .qa:first-child{ padding-top:0; }
+  .qa .q{ font-weight:700; font-size:16px; margin-bottom:8px; }
+  .qa .aa{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
+  .final{
+    background:var(--ink);
+    color:var(--paper);
+    padding:56px 0;
+    border-bottom:none;
+  }
+  .final .sec-label{ color:#8b8574; }
+  .final h2{ color:var(--paper); }
+  .final .sub{ color:#c9c3b3; }
+  .final .btn-secondary{ border-color:var(--paper); color:var(--paper); }
+  .final .cta-tertiary{ color:#8b8574; }
+  .final .cta-tertiary a{ color:var(--accent); }
+  footer{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    padding:24px 0 40px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topstrip">
+    <span>DOC // AIQ-CONS-002 · REV / A</span>
+    <span>HOJA 01 / 01 · SCALE 1:1</span>
+  </div>
+  <header class="nav">
+    <a class="logo" href="https://ai-q.fit/">
+      <span class="mark"></span>
+      ai—q.fit/
+    </a>
+    <a class="back" href="https://ai-q.fit/consorcios.html">← Ver a solução completa de Notas Fiscais com Retenção</a>
+  </header>
+  <section class="hero" style="border-bottom:none; padding-bottom:0;">
+    <div class="eyebrow"><span class="dot"></span> §01 · NOTAS FISCAIS COM RETENÇÃO · PARA ADMINISTRADORAS DE CONDOMÍNIOS</div>
+    <h1>Cada nota fiscal do condomínio,<br>com a retenção <em>já calculada.</em></h1>
+    <p class="sub">Encanador, eletricista, segurança, limpeza, elevadores — cada pagamento que você faz ao fornecedor com o dinheiro do condomínio pode ter retenção de imposto de renda, INSS ou ISS. Hoje isso é calculado à mão, nota por nota, condomínio por condomínio. O sistema lê a nota fiscal, aplica a alíquota que corresponde a cada fornecedor, monta o comprovante pronto para pagar e deixa o arquivo pronto para enviar à Receita Federal, à prefeitura ou ao órgão que corresponder — não fica só anotado numa planilha.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20soy%20administrador%20de%20consorcios%20y%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20retenciones%20a%20proveedores" target="_blank" rel="noopener">
+        Conte seu caso pelo WhatsApp →
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-q-automatizacion-con-ia" target="_blank" rel="noopener">
+        Agende uma chamada de estratégia
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/demo-semanal-retenciones" target="_blank" rel="noopener">
+        Participe da demo em grupo (terça-feira, 12h)
+      </a>
+    </div>
+    <div class="cta-note">Resposta no mesmo dia · sem custo · sem compromisso</div>
+    <div class="cta-tertiary">Prefere falar primeiro sobre estratégia de IA? <a href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Agende essa chamada aqui →</a></div>
+
+    <div class="calc">
+      <div class="corner-bl"></div><div class="corner-br"></div>
+      <div class="calc-head">
+        <span>§ CALCULADORA · HORAS RECUPERADAS EM RETENÇÕES</span>
+        <span>AO VIVO</span>
+      </div>
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="field">
+            <label>Condomínios que você administra</label>
+            <div class="row">
+              <input type="range" id="consorcios" min="1" max="100" value="15" step="1">
+              <span class="val" id="consorciosVal">15</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Notas fiscais de fornecedores com retenção, por condomínio e por mês</label>
+            <div class="row">
+              <input type="range" id="facturas" min="1" max="15" value="4" step="1">
+              <span class="val" id="facturasVal">4</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Minutos que leva para calcular e montar cada comprovante hoje</label>
+            <div class="row">
+              <input type="range" id="mins" min="3" max="25" value="10" step="1">
+              <span class="val" id="minsVal">10 min</span>
+            </div>
+          </div>
+        </div>
+        <div class="calc-output">
+          <div class="output-label">HORAS RECUPERADAS POR MÊS</div>
+          <div class="output-number"><span id="hoursOut">9,3</span> <span>hs</span></div>
+          <div class="output-sub" id="hoursSub">Hoje: 10,0 hs manuais → Automatizado: ~0,8 hs de revisão de exceções</div>
+          <div class="output-breakdown">
+            <div class="line"><span>Comprovantes por mês</span><b id="bCertificados">—</b></div>
+            <div class="line"><span>Segundos por comprovante, automatizado</span><b>~45 seg</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="sec-label">§02 · COMO FUNCIONA</div>
+    <h2>Três passos, sem mexer no seu sistema de administração atual.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>A nota fiscal chega ou você a deixa na pasta do condomínio</h3>
+        <p>O fornecedor manda por e-mail, ou você mesmo faz upload na pasta do Drive daquele prédio — o que você já faz hoje, sem passos novos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>O sistema identifica o fornecedor e calcula a retenção</h3>
+        <p>Um orquestrador conectado a um LLM lê o CNPJ/CPF e a descrição do serviço, busca o fornecedor no cadastro, e aplica a alíquota que corresponde — imposto de renda, INSS especial se for limpeza ou segurança, e ISS conforme o município do prédio.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Monta o comprovante e o arquivo pronto para enviar ao órgão</h3>
+        <p>O comprovante de retenção fica pronto para emitir antes de pagar o fornecedor, e o sistema monta também o arquivo no formato que cada órgão exige — Receita Federal, prefeitura, conforme o caso — pronto para apresentar. O registro por condomínio fica como respaldo, não como destino final. Se um fornecedor não está no cadastro, fica marcado para você cadastrá-lo — nada é calculado nem enviado às cegas.</p>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">+99%</div>
+        <div class="lbl">PRECISÃO APLICANDO A ALÍQUOTA QUE CORRESPONDE A CADA FORNECEDOR</div>
+      </div>
+      <div class="stat">
+        <div class="num">2–15</div>
+        <div class="lbl">DIAS TÍPICOS DE IMPLEMENTAÇÃO</div>
+      </div>
+      <div class="stat">
+        <div class="num">RECEITA FEDERAL · PREFEITURA</div>
+        <div class="lbl">ARQUIVO PRONTO PARA ENVIAR A CADA ÓRGÃO, NÃO SÓ PARA UMA PLANILHA</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§03 · VS. COMO É FEITO HOJE</div>
+    <h2>Como se compara com o que você já faz.</h2>
+    <div class="compare">
+      <div class="calc-head" style="border:1px solid var(--ink); border-bottom:none;">
+        <span>§ VS. PLANILHA MANUAL OU TERCEIRIZAR PARA O ESCRITÓRIO CONTÁBIL</span>
+        <span>POR CONDOMÍNIO</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th class="col-aiq">AI-Q</th>
+            <th>PLANILHA / ESCRITÓRIO CONTÁBIL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">Quando é calculado</td>
+            <td>Automático, assim que a nota fiscal do fornecedor chega</td>
+            <td class="other">É preciso juntar as notas do mês e calculá-las à mão, ou esperar o escritório contábil</td>
+          </tr>
+          <tr>
+            <td class="label">Escala entre condomínios</td>
+            <td>O mesmo sistema processa todos os prédios administrados, cada um com seu próprio cadastro</td>
+            <td class="other">O esforço cresce de forma linear a cada novo condomínio</td>
+          </tr>
+          <tr>
+            <td class="label">Se o fornecedor não está no cadastro</td>
+            <td>É detectado, marcado e você é avisado — nada é pago sem retenção por erro</td>
+            <td class="other">Depende de alguém se lembrar de checar manualmente</td>
+          </tr>
+          <tr>
+            <td class="label">Comprovante de retenção</td>
+            <td>É montado sozinho, pronto para emitir antes de pagar o fornecedor</td>
+            <td class="other">É montado à mão no Word ou Excel, nota por nota</td>
+          </tr>
+          <tr>
+            <td class="label">Apresentação ao órgão</td>
+            <td>Monta o arquivo pronto para enviar à Receita Federal, prefeitura ou órgão que corresponder</td>
+            <td class="other">Fica anotado numa planilha; é preciso montar o arquivo de apresentação à parte, à mão</td>
+          </tr>
+          <tr>
+            <td class="label">O que precisa ter</td>
+            <td>Um Google Drive e um cadastro de fornecedores por condomínio</td>
+            <td class="other">Um escritório contábil terceirizado, ou alguém da equipe dedicado a isso todo mês</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§04 · PERGUNTAS FREQUENTES</div>
+    <h2>Antes de nos escrever.</h2>
+    <div class="faq">
+      <div class="qa">
+        <div class="q">Tenho que cadastrar cada fornecedor manualmente?</div>
+        <div class="aa">Sim, uma única vez por fornecedor: CNPJ/CPF, regime tributário, e se for o caso, regime especial de INSS (limpeza ou segurança). A partir daí, cada nota fiscal desse fornecedor é processada sozinha.</div>
+      </div>
+      <div class="qa">
+        <div class="q">O que acontece se um fornecedor novo não está no cadastro?</div>
+        <div class="aa">O sistema detecta na hora, anota numa planilha de exceções e avisa por e-mail — não paga nem calcula nada às cegas. Você cadastra o fornecedor uma vez e o resto segue sozinho.</div>
+      </div>
+      <div class="qa">
+        <div class="q">Funciona se eu administro vários condomínios, cada um com sua própria conta e município para o ISS?</div>
+        <div class="aa">Sim. Cada condomínio tem sua própria pasta, seu próprio cadastro de fornecedores e seu próprio registro de retenções — o sistema não os mistura.</div>
+      </div>
+      <div class="qa">
+        <div class="q">O arquivo fica só anotado numa planilha, ou dá para apresentar direto?</div>
+        <div class="aa">Dá para apresentar direto. Além do registro por condomínio (que serve de respaldo e consulta), o sistema monta o arquivo no formato que cada órgão exige — Receita Federal, prefeitura, ou outro conforme o município — pronto para enviar. Não é só uma planilha de controle interno.</div>
+      </div>
+      <div class="qa">
+        <div class="q">Substitui meu escritório contábil ou meu sistema de administração?</div>
+        <div class="aa">Não. Você continua fechando as contas do condomínio e pagando fornecedores como sempre; o sistema entrega o comprovante e o arquivo de apresentação já calculados e auditados, prontos para usar.</div>
+      </div>
+      <div class="qa">
+        <div class="q">E se o sistema errar a alíquota?</div>
+        <div class="aa">Tudo que não é validado com certeza — fornecedor sem cadastro, regime ambíguo, campo faltando — é marcado e encaminhado para revisão manual. Nada é processado sem controle.</div>
+      </div>
+      <div class="qa">
+        <div class="q">Quanto custa?</div>
+        <div class="aa">Preço fechado de acordo com a quantidade de condomínios e de notas fiscais mensais — montamos com seus dados reais na primeira conversa.</div>
+      </div>
+      <div class="qa">
+        <div class="q">Quanto tempo leva para implementar?</div>
+        <div class="aa">Entre 2 e 15 dias, dependendo de quantos condomínios e fornecedores é preciso cadastrar inicialmente.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="final">
+  <div class="wrap">
+    <div class="sec-label">§05 · VAMOS CONVERSAR</div>
+    <h2>Conte quantos condomínios você administra e quantas notas fiscais de fornecedores processa por mês.</h2>
+    <p class="sub">Só com isso, já conseguimos dizer quantas horas você recupera.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/541128575753?text=Hola%2C%20soy%20administrador%20de%20consorcios%20y%20quiero%20saber%20m%C3%A1s%20sobre%20la%20automatizaci%C3%B3n%20de%20retenciones%20a%20proveedores" target="_blank" rel="noopener">
+        Conte seu caso pelo WhatsApp →
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/ai-q-automatizacion-con-ia" target="_blank" rel="noopener">
+        Agende uma chamada de estratégia
+      </a>
+      <a class="btn btn-secondary" href="https://calendly.com/dingirfecho/demo-semanal-retenciones" target="_blank" rel="noopener">
+        Participe da demo em grupo (terça-feira, 12h)
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>ai-q.fit · Notas Fiscais com Retenção para Administradoras de Condomínios</span>
+    <span>Federico Andino · Buenos Aires</span>
+  </footer>
+</div>
+
+<script>
+  const consorciosEl = document.getElementById('consorcios');
+  const facturasEl = document.getElementById('facturas');
+  const minsEl = document.getElementById('mins');
+  const consorciosVal = document.getElementById('consorciosVal');
+  const facturasVal = document.getElementById('facturasVal');
+  const minsVal = document.getElementById('minsVal');
+  const hoursOut = document.getElementById('hoursOut');
+  const hoursSub = document.getElementById('hoursSub');
+  const bCertificados = document.getElementById('bCertificados');
+
+  function fmt(n){
+    return n.toLocaleString('es-AR', {minimumFractionDigits:1, maximumFractionDigits:1});
+  }
+
+  function update(){
+    const consorcios = parseInt(consorciosEl.value, 10);
+    const facturas = parseInt(facturasEl.value, 10);
+    const mins = parseInt(minsEl.value, 10);
+    consorciosVal.textContent = consorcios;
+    facturasVal.textContent = facturas;
+    minsVal.textContent = mins + ' min';
+
+    const totalCertificados = consorcios * facturas;
+    const manualHours = (totalCertificados * mins) / 60;
+    const autoHours = (totalCertificados * 45) / 3600; // 45 seg por certificado, tiempo de revisión de excepciones
+    const recovered = Math.max(manualHours - autoHours, 0);
+
+    hoursOut.textContent = fmt(recovered);
+    hoursSub.textContent = `Hoy: ${fmt(manualHours)} hs manuales → Automatizado: ~${fmt(autoHours)} hs de revisión de excepciones`;
+    bCertificados.textContent = totalCertificados.toLocaleString('es-AR');
+  }
+
+  [consorciosEl, facturasEl, minsEl].forEach(el => el.addEventListener('input', update));
+  update();
+</script>
+
+<script>
+  // Contador de visitas oculto — solo visible con ?panel=fede en la URL.
+  // Mismo servicio que las otras landings: abacus.jasoncameron.dev (gratis,
+  // sin login). No cuenta la visita cuando se entra en modo panel, para no
+  // inflar el número al revisarlo vos mismo.
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var isAdmin = params.get('panel') === 'fede';
+    var namespace = 'aiq-fit-2026';
+    var key = 'consorcios-landing';
+    var endpoint = isAdmin
+      ? 'https://abacus.jasoncameron.dev/get/' + namespace + '/' + key
+      : 'https://abacus.jasoncameron.dev/hit/' + namespace + '/' + key;
+    fetch(endpoint)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(!isAdmin) return;
+        var badge = document.createElement('div');
+        badge.textContent = 'VISITAS: ' + (data.value != null ? data.value : '—');
+        badge.style.position = 'fixed';
+        badge.style.bottom = '18px';
+        badge.style.right = '18px';
+        badge.style.background = 'var(--ink)';
+        badge.style.color = 'var(--paper)';
+        badge.style.fontFamily = 'var(--mono)';
+        badge.style.fontSize = '12px';
+        badge.style.letterSpacing = '0.05em';
+        badge.style.padding = '9px 14px';
+        badge.style.borderRadius = '3px';
+        badge.style.zIndex = '9999';
+        badge.style.boxShadow = '0 4px 14px rgba(0,0,0,0.25)';
+        document.body.appendChild(badge);
+      })
+      .catch(function(){ /* servicio no disponible, no rompe la página */ });
+  })();
+</script>
+</body>
+</html>
