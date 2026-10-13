@@ -12,6 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blueprint.css">
 <style>
+.sol-note { max-width: 300px; text-align: right; align-self: flex-end; }
+@media (max-width: 768px) { .sol-note { max-width: none; text-align: left; align-self: flex-start; } }
 .sol-card { border: var(--aq-border); padding: 24px; display: flex; flex-direction: column; height: 100%; }
 .sol-card-tag { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 12px; }
 .sol-card-title { font-family: var(--aq-font-display); font-size: 21px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
@@ -185,7 +187,7 @@
         <div class="kicker">§02</div>
         <h2 class="display-lg" style="margin-top:8px;" data-en="Three solutions, ready today" data-es="Tres soluciones, listas hoy" data-pt="Três soluções, prontas hoje">Tres soluciones, listas hoy</h2>
       </div>
-      <span class="kicker" data-en="Pick one, see the other 8, or ask what fits your operation" data-es="Elegí una, mirá las otras 8, o consultanos cuál se ajusta a tu operación" data-pt="Escolha uma, veja as outras 8, ou nos pergunte qual se encaixa na sua operação">Elegí una, mirá las otras 8, o consultanos cuál se ajusta a tu operación</span>
+      <span class="kicker sol-note" data-en="Pick one, see the other 8, or ask what fits your operation" data-es="Elegí una, mirá las otras 8, o consultanos cuál se ajusta a tu operación" data-pt="Escolha uma, veja as outras 8, ou nos pergunte qual se encaixa na sua operação">Elegí una, mirá las otras 8, o consultanos cuál se ajusta a tu operación</span>
     </div>
     <hr class="sep mb-6">
 
