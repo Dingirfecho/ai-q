@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-hrefs="{&quot;es&quot;: &quot;order2cash.html&quot;, &quot;pt&quot;: &quot;order2cash-pt.html&quot;}">
+<head>
+<script src="lang-detect.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Export Order-to-Cash · Automation · AI-Q</title>
+<meta name="description" content="Export Order-to-Cash automation on top of SAP: purchase orders received by email, AI extraction, SAP load, ARCA invoicing and COMEX close.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blueprint.css">
+<style>
+.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.marquee-cell:last-child { border-right: 0; }
+.marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
+.marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
+@media (max-width: 768px) { .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); } .marquee-cell:last-child { border-bottom: 0; } }
+
+.step-card { border: var(--aq-border); padding: 22px; display: flex; flex-direction: column; }
+.step-num { font-family: var(--aq-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--aq-accent); margin-bottom: 10px; }
+.step-title { font-family: var(--aq-font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.step-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.feature-card { border: var(--aq-border); padding: 22px; }
+.feature-icon { font-family: var(--aq-font-mono); font-size: 24px; color: var(--aq-accent); margin-bottom: 10px; }
+.feature-title { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.feature-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+.feature-desc code { background: var(--aq-paper2); padding: 1px 5px; border: 1px solid var(--aq-mute1); font-size: 12px; }
+
+.signals-block { border: var(--aq-border-accent); padding: 22px; margin-top: 24px; }
+.signals-block h4 { font-family: var(--aq-font-display); font-size: 18px; font-weight: 500; margin-bottom: 14px; color: var(--aq-accent); }
+.signals-list { list-style: none; padding: 0; margin: 0; }
+.signals-list li { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); padding: 6px 0 6px 22px; position: relative; }
+.signals-list li::before { content: '→'; position: absolute; left: 0; color: var(--aq-accent); }
+
+.next-card { border: var(--aq-border); padding: 24px; }
+.next-eyebrow { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px; }
+.next-title { font-family: var(--aq-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; margin-bottom: 8px; }
+.next-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); }
+
+.tech-pill { display: inline-block; padding: 5px 11px; border: var(--aq-border-thin); font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); margin: 4px 6px 4px 0; text-transform: uppercase; letter-spacing: var(--aq-track-meta); }
+
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--aq-border-thin); }
+.compare-row:first-child { border-top: 0; }
+.compare-cell { padding: 14px 16px; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); }
+.compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
+.compare-cell.after { color: var(--aq-ink); font-weight: 500; }
+.compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
+</style>
+</head>
+<body>
+<div class="top-contact-bar">
+  <span class="top-contact-label">Have questions or want a demo?</span>
+  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit">Contact us &rarr;</a>
+</div>
+
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 80 80">
+        <rect x="2" y="2" width="76" height="76" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+        <line x1="2" y1="40" x2="78" y2="40" stroke="#0A0A0A" stroke-width="1"/>
+        <line x1="40" y1="2" x2="40" y2="78" stroke="#0A0A0A" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#FF3D00" stroke-width="2"/>
+        <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
+      </svg>
+      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+    </a>
+    <button class="hamburger" onclick="document.getElementById('siteNav').classList.toggle('open')">≡</button>
+        <nav class="site-nav" id="siteNav">
+      <a class="nav-link" href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-link">Solutions ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="estado-contratos-en.html">Contract Operations</a>
+          <a href="retenciones-en.html">Withholding Tax</a>
+          <a href="order2cash-en.html">Export Order-to-Cash</a>
+          <a href="soluciones-en.html">All solutions →</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Consulting ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="consultoria.html">Servicios (ES)</a>
+          <a href="consultoria-en.html">Services (EN)</a>
+          <a href="consultoria-pt.html">Serviços (PT)</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-link">Diagnostic ◆</button>
+        <div class="nav-dropdown-menu">
+          <a href="framework.html#framework">Framework</a>
+          <a href="framework.html#types">16 Types</a>
+          <a href="framework.html#cases">Cases</a>
+          <a href="sama-en.html">SAMA</a>
+          <a href="quiz.html">Take the Test →</a>
+        </div>
+      </div>
+      <a class="nav-link" href="order2cash.html" onclick="AIQ_setLangPref('es')">ES</a>
+      <span class="nav-link lang-current" aria-current="true">EN</span>
+      <a class="nav-link" href="order2cash-pt.html" onclick="AIQ_setLangPref('pt')">PT</a><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spec-strip spec-strip-top">
+    <div class="spec-strip-group"><span>DOC // AIQ-O2C-001</span><span class="mute2">REV / A</span></div>
+    <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 11 / ORDER-TO-CASH</span></div>
+  </div>
+  <section class="title-block">
+    <div>
+      <div class="kicker">§ Solution · Foreign trade &amp; finance</div>
+      <h1 class="display-xl">Export <span class="accent">Order-to-Cash</span> automated<span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"From the customer's email to the SAP close, with no side spreadsheets."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">An orchestration layer on top of SAP that digitises the whole export flow: it receives the purchase order in any format, validates it, loads it, invoices through ARCA, distributes the documents and closes the operation. Delivered in phases, with visible results from the first week.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Seven departments coordinated by email, Excel and Teams</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">Customer Service, Sales, Planning, Finance, Quality, COMEX and Dispatch handle every export order through emails, shared spreadsheets and chats. Each order crosses five stages — receipt, planning and production, batch allocation, invoicing and shipping — with no single source of truth.</p>
+    <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
+      <p class="display-md" style="margin-bottom:14px;">20%+ <span class="accent">of orders hit friction</span></p>
+      <p class="muted">In a reference case (an exporting biopharma lab, ~40 orders a month): 15% of shipments slip, hitting collections and cash directly, with a ~15-day cycle against 48–72 hours for competitors.</p>
+    </div></div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§02 · The solution</div><h2 class="display-lg mt-4">How it works, in 5 stages</h2></div></div>
+    <hr class="sep mb-5">
+    <p class="body-lg mb-5" style="max-width:880px;">An end-to-end automation that takes the order as it arrives and carries it to the close of the operation, with your team approving only what needs judgement.</p>
+    <div class="grid grid-3">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Receipt</div><div class="step-desc">The order arrives by email (PDF, text or internal form) in a dedicated mailbox.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Extraction &amp; validation</div><div class="step-desc">AI extracts customer, Incoterm, product, quantities, price and dates, and checks completeness, price, credit and consistency.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">SAP load</div><div class="step-desc">With the salesperson's approval the Sales Order is created; Planning confirms the date and the customer sees the status.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Invoicing &amp; ARCA</div><div class="step-desc">Once Quality releases the batch, the invoice is issued, the legal number obtained and the INV + PL + COA package sent.</div></div>
+      <div class="step-card"><div class="step-num">05</div><div class="step-title">COMEX close</div><div class="step-desc">Shared logistics schedule; when the flight departs, the base date is posted to SAP (ZSD019).</div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§03 · Phases</div><h2 class="display-lg mt-4">Modules delivered separately</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="grid grid-3">
+      <div class="next-card"><div class="next-eyebrow">PHASE 1 · 8–10 weeks</div><div class="next-title">Receipt to SAP</div><div class="next-desc">Intelligent receipt, validation and extraction of purchase orders, automatic SAP load and Planning confirmation with customer visibility.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PHASE 2 · estimated after Phase 1</div><div class="next-title">Invoicing &amp; close</div><div class="next-desc">Invoicing, ARCA validation, automatic distribution of the document package, logistics traceability and COMEX close.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PHASE 3 · Optional · ~4 weeks</div><div class="next-title">Contracts &amp; price lists</div><div class="next-desc">Automatic reading (AI + OCR) of current contracts and a dashboard matching every purchase order with its price list.</div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§04 · What is included</div><h2 class="display-lg mt-4">A complete solution</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="grid grid-2">
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Incomplete orders, solved in one step</div><div class="feature-desc">When data is missing, the salesperson gets a structured notification listing the missing fields with a direct reply field. The system re-reads and validates on its own, with no email rounds.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Credit safeguards</div><div class="feature-desc">Before loading into SAP the customer's credit status is checked. If the customer is overdue, the order is held and Finance and the salesperson are notified.</div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Tailored SAP integration</div><div class="feature-desc">Sales Order through RFC, IDoc or FTP depending on the available architecture. The order is born blocked for commercial validation.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">End-to-end traceability</div><div class="feature-desc">Real-time status for Customer Service, Sales and the customer. Quality is alerted automatically when a batch blocks the invoice.</div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§05 · Why it works</div><h2 class="display-lg mt-4">The knowledge stays with your team</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="panel"><div class="panel-body">
+      <p class="body-lg">We work as a mixed team: a technical person from your company accumulates the know-how and becomes the internal reference for the platform. We start from the modules and spreadsheets you already have (PO entry, delivery tracking) as the functional contract, and add the orchestration layer on top.</p>
+      <p class="body-lg mt-4">No servers to run and no lock-in: the logic lives in scenarios your team can read and change.</p>
+      <div class="mt-4">
+        <span class="tech-pill">Make.com</span>
+        <span class="tech-pill">Gemini</span>
+        <span class="tech-pill">OCR</span>
+        <span class="tech-pill">SAP · RFC / IDoc / FTP</span>
+        <span class="tech-pill">ARCA Web Services</span>
+        <span class="tech-pill">Google Workspace or Microsoft 365</span>
+      </div>
+    </div></div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§06 · Who it is for</div><h2 class="display-lg mt-4">Who this solution is for</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">CASE 01</div><div class="next-desc">Labs and exporters with <strong>20+ export orders a month</strong>.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 02</div><div class="next-desc"><strong>Customer Service and COMEX</strong> teams that coordinate by email and Excel today.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 03</div><div class="next-desc">Companies already on <strong>SAP and invoicing through ARCA</strong> that want to orchestrate without replacing.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 04</div><div class="next-desc">Regulated industries with <strong>batch release by Quality</strong> and documents for every shipment.</div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><div><div class="kicker">§07 · Next steps</div><h2 class="display-lg mt-4">How we move forward</h2></div></div>
+    <hr class="sep mb-5">
+    <div class="grid grid-2">
+      <div class="next-card"><div class="next-eyebrow">STEP 01 · Discovery</div><div class="next-title">Case survey</div><div class="next-desc">We review real orders, the flow between departments and the available SAP integration mechanism with your IT team.</div></div>
+      <div class="next-card"><div class="next-eyebrow">STEP 02 · Phase 1 · 8–10 weeks</div><div class="next-title">Internal pilot</div><div class="next-desc">Salespeople enter or validate orders on the platform; 1–2 tuning iterations of the extraction model and automatic SAP load.</div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <h2 class="display-lg mb-4">Ready to close the loop?</h2>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book 30 minutes and we walk through your export process end to end. No commitment, no generic slides.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Request a demo →</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Export%20Order-to-Cash%20enquiry">Talk to a consultant</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spec-strip spec-strip-bottom">
+    <span>END OF SHEET 11</span>
+    <span class="accent">ai-q.fit · order-to-cash</span>
+    <span class="mute2">© 2026 · Dr. Federico Andino</span>
+  </div>
+
+</div>
+</body>
+</html>

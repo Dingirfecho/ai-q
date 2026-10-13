@@ -64,16 +64,10 @@
       <div class="nav-dropdown">
         <button class="nav-link" data-en="Solutions ◆" data-es="Soluciones ◆" data-pt="Soluções ◆">Soluciones ◆</button>
         <div class="nav-dropdown-menu">
-          <a href="bancos.html" data-en="Bank Statements" data-es="Resúmenes Bancarios" data-pt="Extratos Bancários">Resúmenes Bancarios</a>
-          <a href="notas-debito.html" data-en="Bank Debit Notes" data-es="Notas de Débito Bancarias" data-pt="Notas de Débito Bancárias">Notas de Débito Bancarias</a>
-          <a href="retenciones.html" data-en="Withholding Tax" data-es="Retenciones Impositivas" data-pt="Retenções de Impostos">Retenciones Impositivas</a>
-          <a href="amortizaciones.html" data-en="Fixed Assets" data-es="Activos Fijos · AxI" data-pt="Ativos Fixos · AxI">Activos Fijos · AxI</a>
-          <a href="estado-contratos.html" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Control de Contratos</a>
-          <a href="gimnasios.html" data-en="Gyms &amp; Academies" data-es="Gimnasios y Academias" data-pt="Academias e Escolas">Gimnasios y Academias</a>
-          <a href="posteo-redes.html" data-en="AI Social Posting" data-es="Posteo Diario en Redes" data-pt="Postagem Diária em Redes">Posteo Diario en Redes</a>
-          <a href="rrhh.html" data-en="HR Automation" data-es="Automatización de RRHH" data-pt="Automação de RH">Automatización de RRHH</a>
-          <a href="inmobiliaria.html" data-en="Real Estate AI" data-es="Inmobiliarias · Asistente IA" data-pt="Imobiliárias · Assistente de IA">Inmobiliarias · Asistente IA</a>
-          <a href="consorcios.html" data-en="Invoices to Withholding · Condo Admins" data-es="Facturas a Retención · Consorcios" data-pt="Notas Fiscais a Retenção · Condomínios">Facturas a Retención · Consorcios</a>
+          <a href="estado-contratos.html" data-href-es="estado-contratos.html" data-href-en="estado-contratos-en.html" data-href-pt="estado-contratos-pt.html" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Control de Contratos</a>
+          <a href="retenciones.html" data-href-es="retenciones.html" data-href-en="retenciones-en.html" data-href-pt="retenciones-pt.html" data-en="Withholding Tax" data-es="Retenciones Impositivas" data-pt="Retenções de Impostos">Retenciones Impositivas</a>
+          <a href="order2cash.html" data-href-es="order2cash.html" data-href-en="order2cash-en.html" data-href-pt="order2cash-pt.html" data-en="Export Order-to-Cash" data-es="Order-to-Cash de Exportaciones" data-pt="Order-to-Cash de Exportações">Order-to-Cash de Exportaciones</a>
+          <a href="soluciones.html" data-href-es="soluciones.html" data-href-en="soluciones-en.html" data-href-pt="soluciones-pt.html" data-en="All solutions →" data-es="Todas las soluciones →" data-pt="Todas as soluções →">Todas las soluciones →</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -533,6 +527,10 @@ function setLang(l) {
       if (el.children.length === 0) el.textContent = txt;
       else el.innerHTML = txt;
     }
+  });
+  document.querySelectorAll('[data-href-en]').forEach(el => {
+    const href = el.getAttribute('data-href-' + lang);
+    if (href) el.setAttribute('href', href);
   });
   document.querySelectorAll('.lang-switch-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === lang);
