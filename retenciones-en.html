@@ -4,8 +4,8 @@
 <script src="lang-detect.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Withholding Tax · Processor · AI-Q</title>
-<meta name="description" content="Automated processor for Argentine withholding tax certificates. PDF/scan/photo → SAP-ready spreadsheet. OCR + AI + mapping. ~45 seconds per document.">
+<title>Withholding Tax Reconciliation · AI-Q</title>
+<meta name="description" content="Automated reconciliation of Argentine withholding taxes by payment order. AI reads the PDFs, checks tax ID, account and rate, verifies each payment order balances, and loads everything into Google Sheets or Excel. Includes a tracking dashboard.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blueprint.css">
@@ -110,94 +110,98 @@
 <div class="page">
 
   <div class="spec-strip spec-strip-top">
-    <div class="spec-strip-group"><span>DOC // AIQ-RET-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span>DOC // AIQ-RET-001</span><span class="mute2">REV / C</span></div>
     <div class="spec-strip-group"><span><span class="dot">●</span>SOLUTION</span><span>SHEET 08 / WITHHOLDING TAX</span></div>
   </div>
 
   <section class="title-block">
     <div>
       <div class="kicker">§ Solution · Accounting &amp; treasury</div>
-      <h1 class="display-xl">Automated processor for <span class="accent">withholding tax certificates</span><span class="accent">/</span></h1>
-      <p class="display-md muted mt-4" style="max-width:780px;">"No typing, no delays, with built-in audit."</p>
-      <p class="body-lg mt-4" style="max-width:780px;">Turn every withholding certificate you receive — PDF, scan, or photo — into a SAP-ready row in your spreadsheet. An end-to-end solution designed specifically for Argentine accounting teams.</p>
+      <h1 class="display-xl">Automated <span class="accent">withholding tax reconciliation by payment order</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Every withholding read, checked and reconciled against its payment order."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Drop withholding certificates and payment order PDFs into a folder. The process extracts each withholding with AI, matches it against your customer master, chart of accounts and rate table, and checks that every payment order balances. Runs on <strong>Google Workspace or Microsoft 365</strong>.</p>
     </div>
   </section>
 
-  
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Days lost each month</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§01 · The problem</div><h2 class="display-lg mt-4">Days lost every month</h2></div></div>
     <hr class="sep mb-5">
-    <p class="body-lg mb-5" style="max-width:880px;">If your team opens each certificate, identifies the agent, separates taxes line by line, looks up the SAP code, and loads it manually, you're losing <strong>3 to 8 minutes per document</strong>. Multiplied by typical monthly volume, that's days of administrative work that can be recovered.</p>
+    <p class="body-lg mb-5" style="max-width:880px;">If your team opens each certificate, identifies the withholding agent, splits taxes line by line, looks up the ledger account, keys it in by hand and then checks against the payment order that invoices, payments and withholdings add up, it is losing <strong>3 to 8 minutes per document</strong>. Multiplied by the monthly volume, that is days of administrative work you can recover.</p>
     <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
       <p class="display-md" style="margin-bottom:14px;">+ 3 to 8 min <span class="accent">per document</span></p>
-      <p class="muted">And that's not counting typing errors, mis-assigned SAP codes, and time spent on accounting corrections.</p>
+      <p class="muted">Not counting typos, wrong rates, payment orders that don’t balance, and time spent on accounting corrections.</p>
     </div></div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§02 · The solution</div><h2 class="display-lg mt-4">How it works, in 5 steps</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§02 · The solution</div><h2 class="display-lg mt-4">How it works, in 6 steps</h2></div></div>
     <hr class="sep mb-5">
-    <p class="body-lg mb-5" style="max-width:880px;">An end-to-end automation that receives certificates as they arrive — in any format — and delivers them processed, classified, and ready to post.</p>
+    <p class="body-lg mb-5" style="max-width:880px;">An automated process that takes PDFs as they arrive and returns them read, checked, reconciled and filed.</p>
 
     <div class="grid grid-3">
-      <div class="step-card"><div class="step-num">01</div><div class="step-title">Drop in Drive</div><div class="step-desc">The certificate is dropped into a Google Drive folder, or arrives by email if you prefer that flow.</div></div>
-      <div class="step-card"><div class="step-num">02</div><div class="step-title">OCR reading</div><div class="step-desc">The document is digitized, even if it's a low-quality scan or a phone photo.</div></div>
-      <div class="step-card"><div class="step-num">03</div><div class="step-title">AI extraction</div><div class="step-desc">Identifies the withholding agent and splits each tax into independent lines.</div></div>
-      <div class="step-card"><div class="step-num">04</div><div class="step-title">SAP mapping</div><div class="step-desc">Each withholding is mapped to its exact ledger account — income tax, gross-receipts, or reclassification.</div></div>
-      <div class="step-card"><div class="step-num">05</div><div class="step-title">Sheet ready</div><div class="step-desc">One row per tax line in Sheets, with Argentine formatting and reconciliation fields.</div></div>
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">PDFs in a folder</div><div class="step-desc">Files go into a Google Drive or OneDrive folder. The process checks it every 10 minutes.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Reading and classification</div><div class="step-desc">Tells a standalone certificate apart from a full payment order with its annex. If a scan has no tax ID in its text, it reads it as an image.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">AI extraction</div><div class="step-desc">Using Gemini or ChatGPT, splits out each withholding: tax, jurisdiction, taxable base, rate, amount and certificate number.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Cross-checks</div><div class="step-desc">Validates the tax ID (CUIT) against the customer master, assigns the ledger account and compares the rate with that month’s table.</div></div>
+      <div class="step-card"><div class="step-num">05</div><div class="step-title">Payment order reconciliation</div><div class="step-desc">Invoices − payments − withholdings must equal zero. If it doesn’t balance, the AI takes a second pass before flagging it.</div></div>
+      <div class="step-card"><div class="step-num">06</div><div class="step-title">Output and filing</div><div class="step-desc">Everything is written to Google Sheets or Excel, and each PDF is moved to Processed, Review or Rejected.</div></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§03 · Service metrics</div><h2 class="display-lg mt-4">What to expect</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§03 · How it runs</div><h2 class="display-lg mt-4">What to expect</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-bordered grid-4">
-      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">~45 s</div><div class="kicker">Tiempo per document</div></div>
-      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">Cientos</div><div class="kicker">Documents per day</div></div>
-      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">5–15%</div><div class="kicker">Exception only</div></div>
-      <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">24/7</div><div class="kicker">Unsupervised</div></div>
+      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">10 min</div><div class="kicker">Folder check interval</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">7 sheets</div><div class="kicker">Output per payment order</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">0</div><div class="kicker">Duplicate loads</div></div>
+      <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">24/7</div><div class="kicker">Unattended</div></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§04 · What's included</div><h2 class="display-lg mt-4">A complete solution</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§04 · What’s included</div><h2 class="display-lg mt-4">A complete solution</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
-      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Per-row traceability</div><div class="feature-desc">Every record loads with a confidence score (0–100), link to the original file, name, and timestamp. <strong>Auditing a record takes seconds, not minutes.</strong></div></div>
-      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Safeguards</div><div class="feature-desc">When the tool isn't sure, it says so — flags the record as "Review" or assigns it to a reclassification account, instead of guessing.</div></div>
-      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Argentine rules embedded</div><div class="feature-desc">Normalization to format <code>NNNN-NNNNNNNN</code>, rate corrections, and identification of the <strong>24 IIBB jurisdictions</strong> with their aliases.</div></div>
-      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Custom chart of accounts</div><div class="feature-desc">The SAP dictionary is tailored to your internal nomenclature. Your <strong>tax ID and company name</strong> are protected by explicit rules — a common error in generic solutions.</div></div>
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Reconciliation by payment order</div><div class="feature-desc">Invoices, checks, transfers and annex withholdings each get their own sheet. Every payment order has its balance check, with a <strong>configurable peso tolerance</strong>.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Full traceability</div><div class="feature-desc">Every row carries a confidence score, a link to the original PDF and a processing timestamp. A per-file log ensures <strong>nothing is loaded twice</strong>.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Safeguards</div><div class="feature-desc">When something doesn’t add up, it says so and explains why: low confidence, rate differs from the table, unbalanced payment order, or a conflict with one already loaded. <strong>It never overwrites data.</strong></div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Argentine rules built in</div><div class="feature-desc">Recognizes all <strong>24 gross income tax (IIBB) jurisdictions</strong>, monthly rates, jurisdictions that apply a Multilateral Agreement coefficient, and CUIT validation.</div></div>
+      <div class="feature-card"><div class="feature-icon">■</div><div class="feature-title">Your master data</div><div class="feature-desc">Works with your chart of accounts, customer master and rate table. New tax IDs are added automatically for you to complete. Your own CUIT is fixed as the recipient.</div></div>
+      <div class="feature-card"><div class="feature-icon">●</div><div class="feature-title">Tracking dashboard</div><div class="feature-desc">One screen showing what was processed, what needs review and what couldn’t be loaded. With users and roles, and sign-in with Google or Microsoft.</div></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§05 · Why it works</div><h2 class="display-lg mt-4">It's not a ChatGPT wrapper</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§05 · Why it works</div><h2 class="display-lg mt-4">Not a ChatGPT wrapper</h2></div></div>
     <hr class="sep mb-5">
     <div class="panel"><div class="panel-body">
-      <p class="body-lg">This isn't a generic OCR tool or a ChatGPT wrapper. It's a <strong>solution designed specifically for Argentine withholding certificates</strong>, with the accounting and fiscal knowledge built into every step.</p>
-      <p class="body-lg">Built on enterprise-grade infrastructure and configured with the particularities of your operation. No servers to administer, no custom development, no lock-in: if tomorrow you want to modify the flow, everything is visible and editable.</p>
+      <p class="body-lg">This is not a generic OCR tool or a ChatGPT wrapper. It is a <strong>solution built specifically for Argentine withholdings and payment orders</strong>, with accounting and tax knowledge embedded in every check.</p>
+      <p class="body-lg">It runs on <strong>n8n or Make.com</strong>, with <strong>Gemini or ChatGPT</strong> as the AI engine, in the cloud or on your own server, and the data stays in <strong>your</strong> Google Drive or OneDrive. No lock-in: the workflow is visible and editable, and new versions install without touching what’s already loaded.</p>
       <div class="mt-4">
+        <span class="tech-pill">n8n</span>
         <span class="tech-pill">Make.com</span>
-        <span class="tech-pill">Google Cloud</span>
-        <span class="tech-pill">Gemini 2.5</span>
+        <span class="tech-pill">Gemini</span>
+        <span class="tech-pill">ChatGPT</span>
         <span class="tech-pill">Google Drive</span>
         <span class="tech-pill">Google Sheets</span>
-        <span class="tech-pill">SAP-ready</span>
+        <span class="tech-pill">OneDrive</span>
+        <span class="tech-pill">Excel</span>
       </div>
     </div></div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§06 · Who it's for</div><h2 class="display-lg mt-4">Who this solution is for</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§06 · Who it’s for</div><h2 class="display-lg mt-4">Who this solution is for</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
-      <div class="next-card"><div class="next-eyebrow">CASE 01</div><div class="next-desc">Mid-sized and large companies that receive <strong>+50 withholding certificates per month</strong>.</div></div>
-      <div class="next-card"><div class="next-eyebrow">CASE 02</div><div class="next-desc"><strong>Accounting or treasury teams</strong> that currently process certificates manually.</div></div>
-      <div class="next-card"><div class="next-eyebrow">CASE 03</div><div class="next-desc">Operations with high volume of <strong>multi-jurisdiction IIBB</strong>, where SAP classification is the main source of errors.</div></div>
-      <div class="next-card"><div class="next-eyebrow">CASE 04</div><div class="next-desc">Organizations already using <strong>Google Workspace + SAP</strong> looking to integrate without replacing.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 01</div><div class="next-desc">Mid-size and large companies receiving <strong>50+ withholding certificates per month</strong>.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 02</div><div class="next-desc"><strong>Accounting or treasury</strong> teams that key in certificates and reconcile payment orders by hand today.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 03</div><div class="next-desc">Operations with high <strong>multi-jurisdiction IIBB</strong> volume, where rates and ledger accounts are the main source of errors.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASE 04</div><div class="next-desc">Organizations on <strong>Google Workspace or Microsoft 365</strong> looking to integrate without replacing their ERP.</div></div>
     </div>
   </section>
 
@@ -206,8 +210,8 @@
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
-      <div class="next-card"><div class="next-eyebrow">STEP 01 · 30 minutes</div><div class="next-title">Live demo</div><div class="next-desc">We show you the tool processing <strong>your own documents</strong>, with your chart of accounts. If after the demo you don't see the value, there's no next step.</div></div>
-      <div class="next-card"><div class="next-eyebrow">STEP 02 · 2 weeks</div><div class="next-title">Pilot implementation</div><div class="next-desc">Full setup, test plan with a month of your actual withholdings, SAP dictionary fine-tuning, and training. At pilot close, it's running in production.</div></div>
+      <div class="next-card"><div class="next-eyebrow">STEP 01 · 30 minutes</div><div class="next-title">Live demo</div><div class="next-desc">We show you the process running on <strong>your own documents</strong>: real withholdings and payment orders. If you don’t see the value after the demo, there’s no next step.</div></div>
+      <div class="next-card"><div class="next-eyebrow">STEP 02 · 2 weeks</div><div class="next-title">Pilot implementation</div><div class="next-desc">Setup with your folders, chart of accounts, customer master and rate table. A test run with a month of real withholdings and dashboard training. At the end, it’s running in production.</div></div>
     </div>
   </section>
 
@@ -218,10 +222,10 @@
       <div class="panel-header"><span>§08 · Next step</span><span class="accent">● ACTION</span></div>
       <div class="panel-body" style="padding:48px 28px;text-align:center;">
         <h2 class="display-lg mb-4">Ready to recover those days?</h2>
-        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book 30 minutes to see the tool processing your own certificates. No commitment, no generic slides.</p>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Book 30 minutes to see the process reconciling your own payment orders. No commitment, no generic slides.</p>
         <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
           <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Request a demo →</a>
-          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Withholding%20Tax%20Processor%20Inquiry">Talk to a consultant</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Withholding%20Tax%20Reconciliation%20Inquiry">Talk to a consultant</a>
         </div>
       </div>
     </div>

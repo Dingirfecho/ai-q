@@ -4,8 +4,8 @@
 <script src="lang-detect.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retenções de Impostos · Processador · AI-Q</title>
-<meta name="description" content="Processador automático de retenções de impostos argentinas. PDF/digitalização/foto → planilha pronta para SAP. OCR + IA + mapeamento. ~45 segundos por documento.">
+<title>Conciliação de Retenções · AI-Q</title>
+<meta name="description" content="Conciliação automática de retenções de impostos argentinas por ordem de pagamento. A IA lê os PDFs, cruza CUIT, conta e alíquota, verifica se cada ordem fecha e carrega tudo no Google Sheets ou Excel. Com dashboard de acompanhamento.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blueprint.css">
@@ -110,52 +110,52 @@
 <div class="page">
 
   <div class="spec-strip spec-strip-top">
-    <div class="spec-strip-group"><span>DOC // AIQ-RET-001</span><span class="mute2">REV / B</span></div>
+    <div class="spec-strip-group"><span>DOC // AIQ-RET-001</span><span class="mute2">REV / C</span></div>
     <div class="spec-strip-group"><span><span class="dot">●</span>SOLUÇÃO</span><span>FOLHA 08 / RETENÇÕES</span></div>
   </div>
 
   <section class="title-block">
     <div>
       <div class="kicker">§ Solução · Contabilidade &amp; tesouraria</div>
-      <h1 class="display-xl">Processador automático de <span class="accent">retenções de impostos</span><span class="accent">/</span></h1>
-      <p class="display-md muted mt-4" style="max-width:780px;">"Sem digitação, sem atrasos, com auditoria embutida."</p>
-      <p class="body-lg mt-4" style="max-width:780px;">Transforme cada comprovante de retenção que você recebe — PDF, digitalização ou foto — em uma linha pronta para o SAP na sua planilha. Uma solução ponta a ponta desenhada especificamente para equipes contábeis.</p>
+      <h1 class="display-xl">Conciliação automática de <span class="accent">retenções por ordem de pagamento</span><span class="accent">/</span></h1>
+      <p class="display-md muted mt-4" style="max-width:780px;">"Cada retenção lida, conferida e conciliada com sua ordem de pagamento."</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Coloque os PDFs de retenções e ordens de pagamento em uma pasta. O processo extrai cada retenção com IA, cruza com seu cadastro de clientes, seu plano de contas e sua tabela de alíquotas, e confere se cada ordem fecha. Funciona com <strong>Google Workspace ou Microsoft 365</strong>.</p>
     </div>
   </section>
-
 
   <section class="section">
     <div class="section-head"><div><div class="kicker">§01 · O problema</div><h2 class="display-lg mt-4">Dias perdidos todo mês</h2></div></div>
     <hr class="sep mb-5">
-    <p class="body-lg mb-5" style="max-width:880px;">Se a sua equipe abre cada comprovante, identifica o agente retentor, separa os impostos linha por linha, procura o código do SAP e faz o lançamento manualmente, ela está perdendo entre <strong>3 e 8 minutos por documento</strong>. Multiplicado pelo volume mensal habitual, são dias de trabalho administrativo que podem ser recuperados.</p>
+    <p class="body-lg mb-5" style="max-width:880px;">Se sua equipe abre cada comprovante, identifica o agente, separa os impostos linha a linha, procura a conta contábil, lança à mão e depois confere com a ordem de pagamento se faturas, pagamentos e retenções fecham, está perdendo de <strong>3 a 8 minutos por documento</strong>. Multiplicado pelo volume mensal, são dias de trabalho administrativo que podem ser recuperados.</p>
     <div class="panel"><div class="panel-body" style="text-align:center;padding:36px;">
       <p class="display-md" style="margin-bottom:14px;">+ 3 a 8 min <span class="accent">por documento</span></p>
-      <p class="muted">E isso sem contar erros de digitação, códigos SAP mal atribuídos e o tempo em correções contábeis.</p>
+      <p class="muted">Sem contar erros de digitação, alíquotas aplicadas errado, ordens de pagamento que não fecham e o tempo gasto com correções contábeis.</p>
     </div></div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§02 · A solução</div><h2 class="display-lg mt-4">Como funciona, em 5 passos</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§02 · A solução</div><h2 class="display-lg mt-4">Como funciona, em 6 passos</h2></div></div>
     <hr class="sep mb-5">
-    <p class="body-lg mb-5" style="max-width:880px;">Uma automação ponta a ponta que recebe os certificados como chegam — em qualquer formato — e os entrega processados, classificados e prontos para lançamento.</p>
+    <p class="body-lg mb-5" style="max-width:880px;">Um processo automático que recebe os PDFs como chegam e os devolve lidos, conferidos, conciliados e arquivados.</p>
 
     <div class="grid grid-3">
-      <div class="step-card"><div class="step-num">01</div><div class="step-title">Envio para o Drive</div><div class="step-desc">O certificado é deixado em uma pasta do Google Drive, ou chega por e-mail, se preferir esse fluxo.</div></div>
-      <div class="step-card"><div class="step-num">02</div><div class="step-title">Leitura por OCR</div><div class="step-desc">O documento é digitalizado, mesmo que seja uma digitalização de baixa qualidade ou uma foto do celular.</div></div>
-      <div class="step-card"><div class="step-num">03</div><div class="step-title">Extração por IA</div><div class="step-desc">Identifica o agente retentor e separa cada imposto em linhas independentes.</div></div>
-      <div class="step-card"><div class="step-num">04</div><div class="step-title">Mapeamento para o SAP</div><div class="step-desc">Cada retenção é atribuída à sua conta contábil exata — imposto de renda, impostos indiretos ou reclassificação.</div></div>
-      <div class="step-card"><div class="step-num">05</div><div class="step-title">Planilha pronta</div><div class="step-desc">Uma linha por lançamento de imposto no Sheets, com formatação local e campos para conciliação.</div></div>
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">PDFs em uma pasta</div><div class="step-desc">Os arquivos vão para uma pasta do Google Drive ou OneDrive. O processo a verifica a cada 10 minutos.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Leitura e classificação</div><div class="step-desc">Distingue um certificado avulso de uma ordem de pagamento completa com anexo. Se uma digitalização não traz o CUIT no texto, ela é lida como imagem.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Extração com IA</div><div class="step-desc">Com Gemini ou ChatGPT, separa cada retenção: imposto, jurisdição, base de cálculo, alíquota, valor e número do certificado.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Conferências cruzadas</div><div class="step-desc">Valida o CUIT no cadastro de clientes, atribui a conta contábil e compara a alíquota com a tabela do mês.</div></div>
+      <div class="step-card"><div class="step-num">05</div><div class="step-title">Conciliação da ordem</div><div class="step-desc">Faturas − pagamentos − retenções precisa dar zero. Se não fechar, a IA faz uma segunda tentativa antes de sinalizar.</div></div>
+      <div class="step-card"><div class="step-num">06</div><div class="step-title">Resultado e arquivo</div><div class="step-desc">Tudo é gravado no Google Sheets ou Excel e cada PDF é movido para Processados, Revisão ou Rejeitados.</div></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§03 · Métricas de serviço</div><h2 class="display-lg mt-4">O que você pode esperar</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§03 · Como opera</div><h2 class="display-lg mt-4">O que esperar</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-bordered grid-4">
-      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">~45 s</div><div class="kicker">Tempo por documento</div></div>
-      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">Centenas</div><div class="kicker">Documentos por dia</div></div>
-      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">5–15%</div><div class="kicker">Só por exceção</div></div>
+      <div><div class="kicker-tiny">01</div><div class="display-md" style="margin:8px 0 4px;">10 min</div><div class="kicker">Verificação da pasta</div></div>
+      <div><div class="kicker-tiny">02</div><div class="display-md" style="margin:8px 0 4px;">7 abas</div><div class="kicker">Resultado por ordem</div></div>
+      <div><div class="kicker-tiny">03</div><div class="display-md" style="margin:8px 0 4px;">0</div><div class="kicker">Cargas duplicadas</div></div>
       <div><div class="kicker-tiny">04</div><div class="display-md" style="margin:8px 0 4px;">24/7</div><div class="kicker">Sem supervisão</div></div>
     </div>
   </section>
@@ -165,10 +165,12 @@
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
-      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Rastreabilidade por linha</div><div class="feature-desc">Cada registro carrega um score de confiança (0–100), link para o arquivo original, nome e timestamp. <strong>Auditar um dado leva segundos, não minutos.</strong></div></div>
-      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Salvaguardas</div><div class="feature-desc">Quando a ferramenta não tem certeza, ela avisa — marca o registro como "Revisar" ou o atribui a uma conta de reclassificação, em vez de adivinhar.</div></div>
-      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Regras locais embutidas</div><div class="feature-desc">Normalização para o formato <code>NNNN-NNNNNNNN</code>, correção de alíquotas e identificação das <strong>diferentes jurisdições fiscais</strong> com seus apelidos.</div></div>
-      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Plano de contas sob medida</div><div class="feature-desc">O dicionário do SAP se ajusta à sua nomenclatura interna. Seu <strong>CNPJ e razão social</strong> ficam protegidos por regras explícitas — um erro comum em soluções genéricas.</div></div>
+      <div class="feature-card"><div class="feature-icon">◆</div><div class="feature-title">Conciliação por ordem de pagamento</div><div class="feature-desc">Faturas, cheques, transferências e retenções do anexo ficam em abas próprias. Cada ordem tem sua conferência de saldo, com <strong>tolerância em pesos configurável</strong>.</div></div>
+      <div class="feature-card"><div class="feature-icon">◇</div><div class="feature-title">Rastreabilidade completa</div><div class="feature-desc">Cada linha traz índice de confiança, link para o PDF original e data de processamento. Um registro por arquivo garante que <strong>nada seja carregado duas vezes</strong>.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚠</div><div class="feature-title">Salvaguardas</div><div class="feature-desc">Quando algo não fecha, avisa e explica o motivo: confiança baixa, alíquota diferente da tabela, ordem sem saldo zerado ou conflito com uma ordem já carregada. <strong>Nunca sobrescreve dados.</strong></div></div>
+      <div class="feature-card"><div class="feature-icon">▲</div><div class="feature-title">Regras argentinas embutidas</div><div class="feature-desc">Identificação das <strong>24 jurisdições de IIBB</strong>, alíquotas por mês, jurisdições com coeficiente do Convênio Multilateral e validação de CUIT.</div></div>
+      <div class="feature-card"><div class="feature-icon">■</div><div class="feature-title">Seus dados mestres</div><div class="feature-desc">Trabalha com seu plano de contas, seu cadastro de clientes e sua tabela de alíquotas. CUITs novos são cadastrados automaticamente para você completar. Seu CUIT fica fixado como receptor.</div></div>
+      <div class="feature-card"><div class="feature-icon">●</div><div class="feature-title">Dashboard de acompanhamento</div><div class="feature-desc">Uma tela para ver o que foi processado, o que precisa de revisão e o que não pôde ser carregado. Com usuários e perfis, e login com Google ou Microsoft.</div></div>
     </div>
   </section>
 
@@ -176,28 +178,30 @@
     <div class="section-head"><div><div class="kicker">§05 · Por que funciona</div><h2 class="display-lg mt-4">Não é um wrapper do ChatGPT</h2></div></div>
     <hr class="sep mb-5">
     <div class="panel"><div class="panel-body">
-      <p class="body-lg">Esta não é uma ferramenta genérica de OCR nem um wrapper do ChatGPT. É uma <strong>solução desenhada especificamente para comprovantes de retenção</strong>, com o conhecimento contábil e fiscal incorporado em cada etapa do processo.</p>
-      <p class="body-lg">Construída sobre infraestrutura de nível empresarial e configurada de acordo com as particularidades da sua operação. Sem servidores para administrar, sem desenvolvimento sob medida, sem lock-in: se amanhã você quiser modificar o fluxo, está tudo à vista e editável.</p>
+      <p class="body-lg">Esta não é uma ferramenta genérica de OCR nem um wrapper do ChatGPT. É uma <strong>solução feita especificamente para retenções e ordens de pagamento argentinas</strong>, com o conhecimento contábil e fiscal embutido em cada conferência.</p>
+      <p class="body-lg">Roda no <strong>n8n ou Make.com</strong>, com <strong>Gemini ou ChatGPT</strong> como motor de IA, na nuvem ou no seu próprio servidor, e os dados ficam no <strong>seu</strong> Google Drive ou OneDrive. Sem lock-in: o fluxo é visível e editável, e as versões novas são instaladas sem mexer no que já foi carregado.</p>
       <div class="mt-4">
+        <span class="tech-pill">n8n</span>
         <span class="tech-pill">Make.com</span>
-        <span class="tech-pill">Google Cloud</span>
-        <span class="tech-pill">Gemini 2.5</span>
+        <span class="tech-pill">Gemini</span>
+        <span class="tech-pill">ChatGPT</span>
         <span class="tech-pill">Google Drive</span>
         <span class="tech-pill">Google Sheets</span>
-        <span class="tech-pill">Pronto para SAP</span>
+        <span class="tech-pill">OneDrive</span>
+        <span class="tech-pill">Excel</span>
       </div>
     </div></div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§06 · Para quem se aplica</div><h2 class="display-lg mt-4">Para quem é esta solução</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§06 · Para quem</div><h2 class="display-lg mt-4">Para quem é esta solução</h2></div></div>
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
-      <div class="next-card"><div class="next-eyebrow">CASO 01</div><div class="next-desc">Empresas médias e grandes que recebem <strong>+50 comprovantes de retenção por mês</strong>.</div></div>
-      <div class="next-card"><div class="next-eyebrow">CASO 02</div><div class="next-desc">Equipes <strong>contábeis ou de tesouraria</strong> que hoje processam certificados manualmente.</div></div>
-      <div class="next-card"><div class="next-eyebrow">CASO 03</div><div class="next-desc">Operações com alto volume de <strong>retenções multi-jurisdição</strong>, onde a classificação no SAP é a maior fonte de erros.</div></div>
-      <div class="next-card"><div class="next-eyebrow">CASO 04</div><div class="next-desc">Organizações que já usam <strong>Google Workspace + SAP</strong> e buscam integrar sem substituir.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 01</div><div class="next-desc">Empresas médias e grandes que recebem <strong>mais de 50 comprovantes de retenção por mês</strong>.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 02</div><div class="next-desc">Equipes <strong>contábeis ou de tesouraria</strong> que hoje lançam certificados e conciliam ordens de pagamento à mão.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 03</div><div class="next-desc">Operações com alto volume de <strong>IIBB em várias jurisdições</strong>, onde a alíquota e a conta contábil são a maior fonte de erros.</div></div>
+      <div class="next-card"><div class="next-eyebrow">CASO 04</div><div class="next-desc">Organizações que usam <strong>Google Workspace ou Microsoft 365</strong> e querem integrar sem substituir seu ERP.</div></div>
     </div>
   </section>
 
@@ -206,8 +210,8 @@
     <hr class="sep mb-5">
 
     <div class="grid grid-2">
-      <div class="next-card"><div class="next-eyebrow">PASSO 01 · 30 minutos</div><div class="next-title">Demo ao vivo</div><div class="next-desc">Mostramos a ferramenta processando <strong>seus próprios documentos</strong>, com o seu plano de contas. Se depois da demo você não enxergar valor, não há próximo passo.</div></div>
-      <div class="next-card"><div class="next-eyebrow">PASSO 02 · 2 semanas</div><div class="next-title">Implementação piloto</div><div class="next-desc">Configuração completa, plano de testes com um mês das suas retenções reais, ajuste fino do dicionário SAP e treinamento. Ao final do piloto, a solução fica funcionando em produção.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PASSO 01 · 30 minutos</div><div class="next-title">Demo ao vivo</div><div class="next-desc">Mostramos o processo com <strong>seus próprios documentos</strong>: retenções e ordens de pagamento reais. Se depois da demo você não vir valor, não há próximo passo.</div></div>
+      <div class="next-card"><div class="next-eyebrow">PASSO 02 · 2 semanas</div><div class="next-title">Implementação piloto</div><div class="next-desc">Instalação com suas pastas, seu plano de contas, seu cadastro de clientes e sua tabela de alíquotas. Teste com um mês de retenções reais e treinamento no dashboard. Ao final, fica rodando em produção.</div></div>
     </div>
   </section>
 
@@ -218,10 +222,10 @@
       <div class="panel-header"><span>§08 · Próximo passo</span><span class="accent">● ACTION</span></div>
       <div class="panel-body" style="padding:48px 28px;text-align:center;">
         <h2 class="display-lg mb-4">Pronto para recuperar esses dias?</h2>
-        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende 30 minutos para ver a ferramenta processando seus próprios certificados. Sem compromisso, sem slides genéricos.</p>
+        <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Agende 30 minutos para ver o processo conciliando suas próprias ordens de pagamento. Sem compromisso, sem slides genéricos.</p>
         <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
           <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Solicitar uma demo →</a>
-          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Retenciones%20Impositivas">Falar com um consultor</a>
+          <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=Consulta%20Concilia%C3%A7%C3%A3o%20de%20Reten%C3%A7%C3%B5es">Falar com um consultor</a>
         </div>
       </div>
     </div>
