@@ -880,9 +880,23 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
   .grid-bordered > * { border-right: 0 !important; }
   .grid-bordered > *:last-child { border-bottom: 0; }
   .title-block {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     margin: 32px 0;
   }
+  /* Long words (e.g. "Automatizaciones") must not push the page sideways */
+  h1, h2, h3, .display-xl, .display-lg, .display-md, .kicker {
+    overflow-wrap: break-word;
+  }
+  /* Comparison tables: tighter cells so three columns fit on a phone;
+     if one still doesn't fit (narrow phones, long words), it scrolls inside its box */
+  .panel-body:has(> table.benefit-table) { padding: 12px; overflow-x: auto; }
+  table.benefit-table th, table.benefit-table td {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+  table.benefit-table th { letter-spacing: 0.06em; font-size: 10px; }
+  table.benefit-table td:first-child { font-size: 13px; }
+  table.benefit-table code { overflow-wrap: anywhere; }
   .title-block-mark { width: 56px; height: 56px; }
   .spec-strip {
     flex-direction: column;
@@ -895,6 +909,14 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
   }
   .panel-body { padding: 20px; }
   .crosshair { display: none; }
+}
+
+/* Phones: scale the biggest headings with the screen width */
+@media (max-width: 480px) {
+  :root {
+    --aq-fs-display-xl: clamp(32px, 10.5vw, 56px);
+    --aq-fs-display-lg: clamp(28px, 8.5vw, 36px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
