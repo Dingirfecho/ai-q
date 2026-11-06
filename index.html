@@ -5,34 +5,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Q · Soluciones de automatización con IA</title>
-<meta name="description" content="Contratos, retenciones y Order-to-Cash de exportaciones, más 8 soluciones de automatización con IA: bancos, impuestos, RRHH, gimnasios, redes sociales, inmobiliarias y consorcios. n8n o Make.com + Gemini o ChatGPT + Google Workspace o Microsoft 365. Instalación en días, sin servidores.">
+<meta name="description" content="Contratos, retenciones y Order-to-Cash de exportaciones, más 7 soluciones de automatización con IA: bancos, impuestos, RRHH, gimnasios, redes sociales e inmobiliarias. n8n o Make.com + Gemini o ChatGPT + Google Workspace o Microsoft 365. Instalación en días, sin servidores.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="blueprint.css">
 <style>
-.sol-note { max-width: 300px; text-align: right; align-self: flex-end; }
-@media (max-width: 768px) { .sol-note { max-width: none; text-align: left; align-self: flex-start; } }
-.sol-card { border: var(--aq-border); padding: 24px; display: flex; flex-direction: column; height: 100%; }
-.sol-card-tag { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 12px; }
-.sol-card-title { font-family: var(--aq-font-display); font-size: 21px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
-.sol-card-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); flex: 1; margin-bottom: 18px; }
-.sol-card-link { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-meta); text-decoration: none; color: var(--aq-ink); display: inline-flex; align-items: center; gap: 8px; }
-.sol-card-link:hover { color: var(--aq-accent); }
-.sol-card-link .arrow { transition: transform var(--aq-t-fast); }
-.sol-card:hover .sol-card-link .arrow { transform: translateX(3px); }
-
-.marquee-cell { padding: 18px 16px; border-right: var(--aq-border-thin); }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: var(--aq-border); }
+.marquee-cell { padding: 22px 20px; border-right: var(--aq-border-thin); }
 .marquee-cell:last-child { border-right: 0; }
 .marquee-cell.lead { background: var(--aq-ink); color: var(--aq-paper); }
+.marquee-cell.accent-cell .marquee-number { color: var(--aq-accent); }
 .marquee-number { font-family: var(--aq-font-display); font-size: 36px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
 .marquee-label { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); margin-bottom: 8px; }
 .marquee-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.5; opacity: 0.85; }
 
+/* Phone: one row per stat, number on the left, text on the right */
 @media (max-width: 768px) {
-  .marquee-cell { border-right: 0; border-bottom: var(--aq-border-thin); }
+  .stats-grid { grid-template-columns: 1fr; }
+  .marquee-cell {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    column-gap: 16px;
+    align-items: start;
+    padding: 18px 16px;
+    border-right: 0;
+    border-bottom: var(--aq-border-thin);
+  }
   .marquee-cell:last-child { border-bottom: 0; }
+  .marquee-number { grid-row: 1 / span 2; font-size: 30px; margin: 0; }
+  .marquee-label { margin-bottom: 6px; line-height: 1.4; }
+  .marquee-desc { font-size: 13px; line-height: 1.55; }
+}
+
+/* AutomaScore block */
+.ascore { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: 32px; padding: 40px 32px; }
+.ascore-title { margin: 12px 0 14px; }
+.ascore-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.ascore-steps { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.7; color: var(--aq-ink2); list-style: none; padding: 0; margin: 0 0 8px; }
+.ascore-steps li::before { content: "→ "; color: var(--aq-accent); }
+@media (max-width: 768px) {
+  .ascore { grid-template-columns: 1fr; gap: 20px; padding: 24px 20px; }
+  .ascore-cta .btn { width: 100%; justify-content: center; }
 }
 
 .lang-switch-group {
@@ -66,11 +81,6 @@
 </style>
 </head>
 <body>
-<div class="top-contact-bar">
-  <span class="top-contact-label" data-en="Have questions or want a demo?" data-es="&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?" data-pt="Tem d&uacute;vidas ou quer uma demo?">&iquest;Ten&eacute;s dudas o quer&eacute;s una demo?</span>
-  <a class="btn primary top-contact-btn" href="mailto:fedeandino@ai-q.fit"><span data-en="Contact us" data-es="Contactanos" data-pt="Fale conosco">Contactanos</span> &rarr;</a>
-</div>
-
 <!-- ───────── Site header ───────── -->
 <header class="site-header">
   <div class="site-header-inner">
@@ -83,7 +93,7 @@
         <circle cx="40" cy="40" r="4" fill="#FF3D00"/>
         <text x="6" y="14" font-family="JetBrains Mono, monospace" font-size="7" fill="#0A0A0A">AQ.01</text>
       </svg>
-      <span class="brand-wordmark">ai—q.fit<span class="slash">/</span></span>
+      <span class="brand-wordmark">ai—q<span class="slash">/</span></span>
     </a>
 
     <button class="hamburger" id="hamburger" aria-label="Menu">≡</button>
@@ -93,7 +103,7 @@
         <button class="nav-link" data-en="Solutions ◆" data-es="Soluciones ◆" data-pt="Soluções ◆">Soluciones ◆</button>
         <div class="nav-dropdown-menu">
           <a href="estado-contratos.html" data-href-es="estado-contratos.html" data-href-en="estado-contratos-en.html" data-href-pt="estado-contratos-pt.html" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Control de Contratos</a>
-          <a href="retenciones.html" data-href-es="retenciones.html" data-href-en="retenciones-en.html" data-href-pt="retenciones-pt.html" data-en="Withholding Tax" data-es="Retenciones Impositivas" data-pt="Retenções de Impostos">Retenciones Impositivas</a>
+          <a href="retenciones.html" data-href-es="retenciones.html" data-href-en="retenciones-en.html" data-href-pt="retenciones-pt.html" data-en="Withholding Tax Reconciliation" data-es="Retenciones con Conciliación" data-pt="Retenções com Conciliação">Retenciones con Conciliación</a>
           <a href="order2cash.html" data-href-es="order2cash.html" data-href-en="order2cash-en.html" data-href-pt="order2cash-pt.html" data-en="Export Order-to-Cash" data-es="Order-to-Cash de Exportaciones" data-pt="Order-to-Cash de Exportações">Order-to-Cash de Exportaciones</a>
           <a href="soluciones.html" data-href-es="soluciones.html" data-href-en="soluciones-en.html" data-href-pt="soluciones-pt.html" data-en="All solutions →" data-es="Todas las soluciones →" data-pt="Todas as soluções →">Todas las soluciones →</a>
         </div>
@@ -122,7 +132,7 @@
         <a class="lang-switch-opt" href="javascript:void(0)" onclick="setLang('en')" data-lang-opt="en">EN</a>
         <a class="lang-switch-opt" href="javascript:void(0)" onclick="setLang('pt')" data-lang-opt="pt">PT</a>
       </span>
-      <a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma chamada →">Agendá una llamada →</a>
+      <a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma ligação →">Agendá una llamada →</a>
     </nav>
   </div>
 </header>
@@ -147,33 +157,33 @@
     <div>
       <div class="kicker" data-en="§ AI-Q Solutions" data-es="§ Soluciones AI-Q" data-pt="§ Soluções AI-Q">§ Soluciones AI-Q</div>
       <h1 class="display-xl">
-        <span data-en="Automation that ships in" data-es="Automatización que se instala en" data-pt="Automação que se instala em">Automatización que se instala en</span><br>
+        <span data-en="Automations that ship in" data-es="Automatizaciones que se instalan en" data-pt="Automações que se instalam em">Automatizaciones que se instalan en</span><br>
         <span class="accent" data-en="days" data-es="días" data-pt="dias">días</span><span class="accent">/</span>
       </h1>
       <div class="display-md muted" style="max-width:760px;margin-top:24px;">
-        <span data-en="Contracts, withholding tax and export Order-to-Cash, plus 8 more AI solutions for finance, HR, real estate, gyms, social media and condo administration. n8n or Make.com + Gemini or ChatGPT + Google Workspace or Microsoft 365. No servers, no custom code, low monthly cost." data-es="Contratos, retenciones y Order-to-Cash de exportaciones, más 8 soluciones de IA para finanzas, RRHH, inmobiliarias, gimnasios, redes sociales y consorcios. n8n o Make.com + Gemini o ChatGPT + Google Workspace o Microsoft 365. Sin servidores, sin código a medida, bajo costo mensual." data-pt="Contratos, retenções e Order-to-Cash de exportações, mais 8 soluções de IA para finanças, RH, imobiliárias, academias, redes sociais e condomínios. n8n ou Make.com + Gemini ou ChatGPT + Google Workspace ou Microsoft 365. Sem servidores, sem código sob medida, baixo custo mensal.">Contratos, retenciones y Order-to-Cash de exportaciones, más 8 soluciones de IA para finanzas, RRHH, inmobiliarias, gimnasios, redes sociales y consorcios. n8n o Make.com + Gemini o ChatGPT + Google Workspace o Microsoft 365. Sin servidores, sin código a medida, bajo costo mensual.</span>
+        <span data-en="No servers, no custom code, with a low monthly cost." data-es="Sin servidores, sin código a medida, con un bajo costo mensual." data-pt="Sem servidores, sem código sob medida, com um baixo custo mensal.">Sin servidores, sin código a medida, con un bajo costo mensual.</span>
       </div>
       <div class="flex gap-3 mt-5" style="flex-wrap:wrap;">
-        <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma chamada →">Agendá una llamada →</a>
-        <a class="btn btn-lg" href="#soluciones" data-en="See all solutions" data-es="Ver todas las soluciones" data-pt="Ver todas as soluções">Ver todas las soluciones</a>
+        <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma ligação →">Agendá una llamada →</a>
+        <a class="btn btn-lg" href="soluciones.html" data-href-es="soluciones.html" data-href-en="soluciones-en.html" data-href-pt="soluciones-pt.html" data-en="See all solutions" data-es="Ver todas las soluciones" data-pt="Ver todas as soluções">Ver todas las soluciones</a>
       </div>
     </div>
   </section>
 
   <!-- ───────── Stats strip ───────── -->
   <section class="section">
-    <div class="grid grid-3" style="border:var(--aq-border);">
+    <div class="stats-grid">
       <div class="marquee-cell lead">
-        <div class="marquee-number">11</div>
+        <div class="marquee-number">10</div>
         <div class="marquee-label" data-en="Solutions in production" data-es="Soluciones en producción" data-pt="Soluções em produção">Soluciones en producción</div>
-        <div class="marquee-desc" data-en="Finance, foreign trade, HR, real estate, gyms, social media, condo admin." data-es="Finanzas, comercio exterior, RRHH, inmobiliarias, gimnasios, redes, consorcios." data-pt="Finanças, comércio exterior, RH, imobiliárias, academias, redes sociais, condomínios.">Finanzas, comercio exterior, RRHH, inmobiliarias, gimnasios, redes, consorcios.</div>
+        <div class="marquee-desc" data-en="Finance, foreign trade, HR, real estate, gyms, social media." data-es="Finanzas, comercio exterior, RRHH, inmobiliarias, gimnasios, redes." data-pt="Finanças, comércio exterior, RH, imobiliárias, academias, redes sociais.">Finanzas, comercio exterior, RRHH, inmobiliarias, gimnasios, redes.</div>
       </div>
       <div class="marquee-cell">
         <div class="marquee-number" data-en="2–15 days" data-es="2–15 días" data-pt="2–15 dias">2–15 días</div>
         <div class="marquee-label" data-en="Typical implementation time" data-es="Tiempo típico de implementación" data-pt="Tempo típico de implementação">Tiempo típico de implementación</div>
         <div class="marquee-desc" data-en="Not weeks, not months — built on proven scenarios." data-es="No semanas, no meses — sobre escenarios ya probados." data-pt="Não semanas, não meses — sobre cenários já testados.">No semanas, no meses — sobre escenarios ya probados.</div>
       </div>
-      <div class="marquee-cell">
+      <div class="marquee-cell accent-cell">
         <div class="marquee-number">0</div>
         <div class="marquee-label" data-en="Servers to maintain" data-es="Servidores propios" data-pt="Servidores próprios">Servidores propios</div>
         <div class="marquee-desc" data-en="Runs on n8n or Make.com + Gemini or ChatGPT + Google Workspace or Microsoft 365 + your channels." data-es="Corre sobre n8n o Make.com + Gemini o ChatGPT + Google Workspace o Microsoft 365 + tus canales." data-pt="Roda sobre n8n ou Make.com + Gemini ou ChatGPT + Google Workspace ou Microsoft 365 + seus canais.">Corre sobre n8n o Make.com + Gemini o ChatGPT + Google Workspace o Microsoft 365 + tus canales.</div>
@@ -181,52 +191,57 @@
     </div>
   </section>
 
-  <!-- ───────── §02 Solutions grid — THE FOCUS ───────── -->
-  <section class="section" id="soluciones">
-    <div class="section-head">
-      <div>
-        <div class="kicker">§02</div>
-        <h2 class="display-lg" style="margin-top:8px;" data-en="Three solutions, ready today" data-es="Tres soluciones, listas hoy" data-pt="Três soluções, prontas hoje">Tres soluciones, listas hoy</h2>
+  <!-- ───────── §02 AutomaScore ───────── -->
+  <section class="section" id="automascore">
+    <div class="panel">
+      <div class="panel-header">
+        <span>§02 · AutomaScore</span>
+        <span class="accent" data-en="● FREE" data-es="● GRATIS" data-pt="● GRÁTIS">● GRATIS</span>
       </div>
-      <span class="kicker sol-note" data-en="Pick one, see the other 8, or ask what fits your operation" data-es="Elegí una, mirá las otras 8, o consultanos cuál se ajusta a tu operación" data-pt="Escolha uma, veja as outras 8, ou nos pergunte qual se encaixa na sua operação">Elegí una, mirá las otras 8, o consultanos cuál se ajusta a tu operación</span>
-    </div>
-    <hr class="sep mb-6">
-
-    <div class="grid grid-3 gap-4">
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Operations" data-es="Operaciones" data-pt="Operações">Operaciones</div>
-        <h3 class="sol-card-title" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Control de Contratos</h3>
-        <p class="sol-card-desc" data-en="Dashboard for consulting firms billing via SAP Fieldglass. Trial windows, instalment plans, automatic collections. Zero forgotten contracts." data-es="Tablero para consultoras que facturan por SAP Fieldglass. Ventana de prueba, planes de cuotas y cobranzas automáticas. Cero contratos olvidados." data-pt="Painel para consultorias que faturam via SAP Fieldglass. Janela de teste, planos de parcelas e cobranças automáticas. Zero contratos esquecidos.">Tablero para consultoras que facturan por SAP Fieldglass. Ventana de prueba, planes de cuotas y cobranzas automáticas. Cero contratos olvidados.</p>
-        <a class="sol-card-link" href="estado-contratos.html" data-href-es="estado-contratos.html" data-href-en="estado-contratos-en.html" data-href-pt="estado-contratos-pt.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">Ver solución</span> <span class="arrow">→</span></a>
+      <div class="ascore">
+        <div>
+          <div class="kicker" data-en="Free AI-Q tool" data-es="Herramienta gratuita de AI-Q" data-pt="Ferramenta gratuita da AI-Q">Herramienta gratuita de AI-Q</div>
+          <h2 class="display-lg ascore-title" data-en="How automatable is your process?" data-es="¿Qué tan automatizable es tu proceso?" data-pt="Quão automatizável é o seu processo?">¿Qué tan automatizable es tu proceso?</h2>
+          <p class="body-lg muted" data-en="Describe in your own words the task that eats up your time. AutomaScore estimates how much of it can be automated and shows you similar AI solutions already running." data-es="Contá con tus palabras la tarea que te hace perder tiempo. AutomaScore estima cuánto se puede automatizar y te muestra soluciones de IA parecidas que ya están funcionando." data-pt="Descreva com suas palavras a tarefa que faz você perder tempo. O AutomaScore estima quanto dela pode ser automatizado e mostra soluções de IA parecidas que já estão funcionando.">Contá con tus palabras la tarea que te hace perder tiempo. AutomaScore estima cuánto se puede automatizar y te muestra soluciones de IA parecidas que ya están funcionando.</p>
+        </div>
+        <div class="ascore-cta">
+          <ul class="ascore-steps">
+            <li data-en="Describe the task" data-es="Describí la tarea" data-pt="Descreva a tarefa">Describí la tarea</li>
+            <li data-en="Get your automation score" data-es="Recibí tu puntaje de automatización" data-pt="Receba sua pontuação de automação">Recibí tu puntaje de automatización</li>
+            <li data-en="See similar solutions" data-es="Mirá soluciones similares" data-pt="Veja soluções parecidas">Mirá soluciones similares</li>
+          </ul>
+          <a class="btn primary btn-lg" href="https://automascore.com" target="_blank" rel="noopener" data-en="Evaluate my process →" data-es="Evaluar mi proceso →" data-pt="Avaliar meu processo →">Evaluar mi proceso →</a>
+        </div>
       </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finanzas</div>
-        <h3 class="sol-card-title" data-en="Withholding Tax" data-es="Retenciones Impositivas" data-pt="Retenções de Impostos">Retenciones Impositivas</h3>
-        <p class="sol-card-desc" data-en="Withholding tax reconciliation by payment order. AI reads each PDF, checks tax ID, account and rate, and verifies the payment order balances. In Google Sheets or Excel." data-es="Conciliación de retenciones por orden de pago. La IA lee cada PDF, controla CUIT, cuenta y alícuota, y verifica que la OP balancee. En Google Sheets o Excel." data-pt="Conciliação de retenções por ordem de pagamento. A IA lê cada PDF, confere CUIT, conta e alíquota, e verifica se a ordem fecha. No Google Sheets ou Excel.">Conciliación de retenciones por orden de pago. La IA lee cada PDF, controla CUIT, cuenta y alícuota, y verifica que la OP balancee. En Google Sheets o Excel.</p>
-        <a class="sol-card-link" href="retenciones.html" data-href-es="retenciones.html" data-href-en="retenciones-en.html" data-href-pt="retenciones-pt.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">Ver solución</span> <span class="arrow">→</span></a>
-      </div>
-
-      <div class="sol-card">
-        <div class="sol-card-tag" data-en="Foreign trade" data-es="Comercio exterior" data-pt="Comércio exterior">Comercio exterior</div>
-        <h3 class="sol-card-title" data-en="Export Order-to-Cash" data-es="Order-to-Cash de Exportaciones" data-pt="Order-to-Cash de Exportações">Order-to-Cash de Exportaciones</h3>
-        <p class="sol-card-desc" data-en="From the purchase order email to the SAP close: AI extraction, automatic load, ARCA invoicing and COMEX close. In phases, without replacing your ERP." data-es="De la orden de compra por mail al cierre en SAP: extracción con IA, carga automática, facturación ARCA y cierre COMEX. Por fases, sin reemplazar tu ERP." data-pt="Do pedido de compra por e-mail ao fechamento no SAP: extração com IA, carga automática, faturamento ARCA e fechamento COMEX. Em fases, sem substituir seu ERP.">De la orden de compra por mail al cierre en SAP: extracción con IA, carga automática, facturación ARCA y cierre COMEX. Por fases, sin reemplazar tu ERP.</p>
-        <a class="sol-card-link" href="order2cash.html" data-href-es="order2cash.html" data-href-en="order2cash-en.html" data-href-pt="order2cash-pt.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">Ver solución</span> <span class="arrow">→</span></a>
-      </div>
-
-    </div>
-
-    <div class="mt-5" style="text-align:center;">
-      <a class="btn btn-lg" href="soluciones.html" data-href-es="soluciones.html" data-href-en="soluciones-en.html" data-href-pt="soluciones-pt.html" data-en="See all solutions →" data-es="Ver todas las soluciones →" data-pt="Ver todas as soluções →">Ver todas las soluciones →</a>
     </div>
   </section>
 
-  <!-- ───────── §03 AI-Q Diagnostic + Cases teaser (demoted) ───────── -->
+  <!-- ───────── §03 Final CTA ───────── -->
+  <section class="section">
+    <div class="panel">
+      <div class="crosshair tl"></div><div class="crosshair tr"></div>
+      <div class="crosshair bl"></div><div class="crosshair br"></div>
+      <div class="panel-header">
+        <span>§03 · <span data-en="Talk to us" data-es="Hablemos" data-pt="Vamos conversar">Hablemos</span></span>
+        <span class="accent">● READY</span>
+      </div>
+      <div class="panel-body" style="padding:48px 28px;text-align:center;">
+        <div class="kicker mb-4" data-en="Next step" data-es="Próximo paso" data-pt="Próximo passo">Próximo paso</div>
+        <h2 class="display-lg mb-4" data-en="Automate what you already know needs automating." data-es="Automatizá lo que ya sabés que hay que automatizar." data-pt="Automatize o que você já sabe que precisa ser automatizado.">Automatizá lo que ya sabés que hay que automatizar.</h2>
+        <p class="body-lg muted mb-5" style="max-width:600px;margin-left:auto;margin-right:auto;" data-en="A first call to understand your volume and processes, and a concrete implementation and pricing proposal." data-es="Una primera llamada para entender tu volumen y tus procesos, y una propuesta concreta de implementación y costos." data-pt="Uma primeira ligação para entender seu volume e seus processos, e uma proposta concreta de implementação e custos.">Una primera llamada para entender tu volumen y tus procesos, y una propuesta concreta de implementación y costos.</p>
+        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma ligação →">Agendá una llamada →</a>
+          <a class="btn btn-lg" href="mailto:fedeandino@ai-q.fit" data-en="Ask for a quote" data-es="Pedí una cotización" data-pt="Peça um orçamento">Pedí una cotización</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── §04 AI-Q Diagnostic + Cases teaser (demoted) ───────── -->
   <section class="section">
     <div class="section-head">
       <div>
-        <div class="kicker">§03</div>
+        <div class="kicker">§04</div>
         <h2 class="display-lg" style="margin-top:8px;" data-en="Not sure where to start?" data-es="¿No sabés por dónde empezar?" data-pt="Não sabe por onde começar?">¿No sabés por dónde empezar?</h2>
       </div>
     </div>
@@ -264,27 +279,6 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ───────── §04 Final CTA ───────── -->
-  <section class="section">
-    <div class="panel">
-      <div class="crosshair tl"></div><div class="crosshair tr"></div>
-      <div class="crosshair bl"></div><div class="crosshair br"></div>
-      <div class="panel-header">
-        <span>§04 · <span data-en="Talk to us" data-es="Hablemos" data-pt="Vamos conversar">Hablemos</span></span>
-        <span class="accent">● READY</span>
-      </div>
-      <div class="panel-body" style="padding:48px 28px;text-align:center;">
-        <div class="kicker mb-4" data-en="Next step" data-es="Próximo paso" data-pt="Próximo passo">Próximo paso</div>
-        <h2 class="display-lg mb-4" data-en="Automate what you already know needs automating." data-es="Automatizá lo que ya sabés que hay que automatizar." data-pt="Automatize o que você já sabe que precisa ser automatizado.">Automatizá lo que ya sabés que hay que automatizar.</h2>
-        <p class="body-lg muted mb-5" style="max-width:600px;margin-left:auto;margin-right:auto;" data-en="A first call to understand your volume and processes, and a concrete implementation and pricing proposal." data-es="Una primera llamada para entender tu volumen y tus procesos, y una propuesta concreta de implementación y costos." data-pt="Uma primeira chamada para entender seu volume e seus processos, e uma proposta concreta de implementação e custos.">Una primera llamada para entender tu volumen y tus procesos, y una propuesta concreta de implementación y costos.</p>
-        <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
-          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" data-en="Book a call →" data-es="Agendá una llamada →" data-pt="Agende uma chamada →">Agendá una llamada →</a>
-          <a class="btn btn-lg" href="mailto:fedeandino@ai-q.fit" data-en="Ask for a quote" data-es="Pedí una cotización" data-pt="Peça um orçamento">Pedí una cotización</a>
-        </div>
-      </div>
     </div>
   </section>
 
