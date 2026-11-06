@@ -48,14 +48,6 @@
 .compare-cell.before { background: var(--aq-paper2); color: var(--aq-ink2); border-right: var(--aq-border-thin); }
 .compare-cell.after { color: var(--aq-ink); font-weight: 500; }
 .compare-cell.header-cell { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); background: var(--aq-ink); color: var(--aq-paper); }
-.sol-card { border: var(--aq-border); padding: 24px; display: flex; flex-direction: column; height: 100%; }
-.sol-card-tag { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 12px; }
-.sol-card-title { font-family: var(--aq-font-display); font-size: 21px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
-.sol-card-desc { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink2); line-height: var(--aq-lh-prose); flex: 1; margin-bottom: 18px; }
-.sol-card-link { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase; letter-spacing: var(--aq-track-meta); text-decoration: none; color: var(--aq-ink); display: inline-flex; align-items: center; gap: 8px; }
-.sol-card-link:hover { color: var(--aq-accent); }
-.sol-card-link .arrow { transition: transform var(--aq-t-fast); }
-.sol-card:hover .sol-card-link .arrow { transform: translateX(3px); }
 </style>
 </head>
 <body>
@@ -105,7 +97,7 @@
       </div>
       <a class="nav-link" href="soluciones.html" onclick="AIQ_setLangPref('es')">ES</a>
       <span class="nav-link lang-current" aria-current="true">EN</span>
-      <a class="nav-link" href="soluciones-pt.html" onclick="AIQ_setLangPref('pt')">PT</a><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+      <a class="nav-link" href="soluciones-pt.html" onclick="AIQ_setLangPref('pt')">PT</a><a class="btn primary" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a call →</a>
     </nav>
   </div>
 </header>
@@ -121,107 +113,385 @@
     <div>
       <div class="kicker">§ Solutions catalogue</div>
       <h1 class="display-xl">All <span class="accent">solutions</span><span class="accent">/</span></h1>
-      <p class="body-lg mt-4" style="max-width:780px;">AI-Q's three main solutions and the rest of the catalogue. All run on n8n or Make.com + Gemini or ChatGPT + Google Workspace or Microsoft 365, with no servers and installation in days.</p>
+      <p class="body-lg mt-4" style="max-width:780px;">Ten solutions ready to install. Filter by area and see, for each one, who it is for, what results it delivers and how it works. All run on n8n or Make.com + Gemini or ChatGPT + Google Workspace or Microsoft 365, with no servers and installation in days.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§01 · Featured</div><h2 class="display-lg mt-4">All of them, one at a time</h2></div></div>
+    <div class="section-head"><div><div class="kicker">§01 · Solutions</div><h2 class="display-lg mt-4">Explore each solution</h2></div></div>
     <hr class="sep mb-5">
-    <div class="spotlight" data-spotlight data-interval="7000" aria-roledescription="carousel" aria-label="Featured solutions">
+    <div class="spotlight" data-spotlight data-interval="9000" aria-roledescription="carousel" aria-label="Solutions">
       <div class="spotlight-head">
-        <span class="spotlight-label"><span class="dot">●</span><span data-en="Featured solution" data-es="Solución destacada" data-pt="Solução em destaque">Featured solution</span></span>
-        <span class="spotlight-count"><span data-spot-current>01</span> / 10</span>
+        <span class="spotlight-label"><span class="dot">●</span>Featured solution</span>
+        <span class="spotlight-count"><span data-spot-current>01</span> / <span data-spot-total>10</span></span>
         <div class="spotlight-ctrl">
           <button type="button" class="spotlight-btn" data-spot-prev aria-label="Previous">←</button>
           <button type="button" class="spotlight-btn" data-spot-pause aria-label="Pause or resume" aria-pressed="false">❚❚</button>
           <button type="button" class="spotlight-btn" data-spot-next aria-label="Next">→</button>
         </div>
       </div>
+      <div class="spot-filters" role="group" aria-label="Area">
+        <span class="spot-k">Area</span>
+          <button type="button" class="spot-chip" data-spot-filter="all" aria-pressed="true">All <span class="spot-chip-n">10</span></button>
+          <button type="button" class="spot-chip" data-spot-filter="fin" aria-pressed="false">Finance <span class="spot-chip-n">4</span></button>
+          <button type="button" class="spot-chip" data-spot-filter="ops" aria-pressed="false">Operations <span class="spot-chip-n">2</span></button>
+          <button type="button" class="spot-chip" data-spot-filter="ppl" aria-pressed="false">HR &amp; Marketing <span class="spot-chip-n">2</span></button>
+          <button type="button" class="spot-chip" data-spot-filter="ind" aria-pressed="false">By industry <span class="spot-chip-n">2</span></button>
+      </div>
       <div class="spotlight-body">
         <div class="spotlight-stage" aria-live="polite">
-        <article class="spotlight-slide is-active" data-spot-slide>
-          <div class="spotlight-num">01</div>
-          <div class="spotlight-tag" data-en="Operations" data-es="Operaciones" data-pt="Operações">Operations</div>
-          <h3 class="spotlight-title" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Contract Operations</h3>
-          <p class="spotlight-desc" data-en="Dashboard for consulting firms billing via SAP Fieldglass. Trial windows, instalment plans, automatic collections. Zero forgotten contracts." data-es="Tablero para consultoras que facturan por SAP Fieldglass. Ventana de prueba, planes de cuotas y cobranzas automáticas. Cero contratos olvidados." data-pt="Painel para consultorias que faturam via SAP Fieldglass. Janela de teste, planos de parcelas e cobranças automáticas. Zero contratos esquecidos.">Dashboard for consulting firms billing via SAP Fieldglass. Trial windows, instalment plans, automatic collections. Zero forgotten contracts.</p>
-          <a class="btn primary btn-lg" href="estado-contratos-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide is-active" data-spot-slide data-cat="ops" data-spot-id="contratos">
+          <div class="spot-top">
+            <span class="spotlight-num">01</span>
+            <div>
+              <div class="spotlight-tag">Operations</div>
+              <h3 class="spotlight-title">Contract Operations</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Dashboard for consulting firms billing via SAP Fieldglass. Trial windows, instalment plans, automatic collections. Zero forgotten contracts.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Consulting firms billing via SAP Fieldglass</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">0</div><div class="spot-kpi-l">Forgotten contracts</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">4–8 h</div><div class="spot-kpi-l">Recovered per week</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">20 → 500</div><div class="spot-kpi-l">Contracts in parallel</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Contracts and SAP Fieldglass status in Google Sheets</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Calculates trial windows, instalments and overdue payments</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Prioritised list, alerts and automatic claims</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Google Sheets</span><span class="spot-pill">SAP Fieldglass</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="estado-contratos-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">02</div>
-          <div class="spotlight-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-          <h3 class="spotlight-title" data-en="Withholding Tax Reconciliation" data-es="Retenciones con Conciliación" data-pt="Retenções com Conciliação">Withholding Tax Reconciliation</h3>
-          <p class="spotlight-desc" data-en="Withholding tax reconciliation by payment order. AI reads each PDF, checks tax ID, account and rate, and verifies the payment order balances. In Google Sheets or Excel." data-es="Conciliación de retenciones por orden de pago. La IA lee cada PDF, controla CUIT, cuenta y alícuota, y verifica que la OP balancee. En Google Sheets o Excel." data-pt="Conciliação de retenções por ordem de pagamento. A IA lê cada PDF, confere CUIT, conta e alíquota, e verifica se a ordem fecha. No Google Sheets ou Excel.">Withholding tax reconciliation by payment order. AI reads each PDF, checks tax ID, account and rate, and verifies the payment order balances. In Google Sheets or Excel.</p>
-          <a class="btn primary btn-lg" href="retenciones-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="fin" data-spot-id="retenciones">
+          <div class="spot-top">
+            <span class="spotlight-num">02</span>
+            <div>
+              <div class="spotlight-tag">Finance</div>
+              <h3 class="spotlight-title">Withholding Tax Reconciliation</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Withholding tax reconciliation by payment order. AI reads each PDF, checks tax ID, account and rate, and verifies the payment order balances. In Google Sheets or Excel.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Accounting teams receiving withholding certificates</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">10 min</div><div class="spot-kpi-l">Folder check cycle</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">0</div><div class="spot-kpi-l">Duplicate entries</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">24/7</div><div class="spot-kpi-l">Unattended</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Certificate and payment-order PDFs in Drive or OneDrive</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Extracts each withholding and checks tax ID, account and rate</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Reconciled payment order in Sheets or Excel</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">n8n · Make.com</span><span class="spot-pill">Gemini · ChatGPT</span><span class="spot-pill">Sheets · Excel</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="retenciones-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">03</div>
-          <div class="spotlight-tag" data-en="Foreign trade" data-es="Comercio exterior" data-pt="Comércio exterior">Foreign trade</div>
-          <h3 class="spotlight-title" data-en="Export Order-to-Cash" data-es="Order-to-Cash de Exportaciones" data-pt="Order-to-Cash de Exportações">Export Order-to-Cash</h3>
-          <p class="spotlight-desc" data-en="From the purchase order email to the SAP close: AI extraction, automatic load, ARCA invoicing and COMEX close. In phases, without replacing your ERP." data-es="De la orden de compra por mail al cierre en SAP: extracción con IA, carga automática, facturación ARCA y cierre COMEX. Por fases, sin reemplazar tu ERP." data-pt="Do pedido de compra por e-mail ao fechamento no SAP: extração com IA, carga automática, faturamento ARCA e fechamento COMEX. Em fases, sem substituir seu ERP.">From the purchase order email to the SAP close: AI extraction, automatic load, ARCA invoicing and COMEX close. In phases, without replacing your ERP.</p>
-          <a class="btn primary btn-lg" href="order2cash-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="ops" data-spot-id="order2cash">
+          <div class="spot-top">
+            <span class="spotlight-num">03</span>
+            <div>
+              <div class="spotlight-tag">Foreign trade</div>
+              <h3 class="spotlight-title">Export Order-to-Cash</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">From the purchase order email to the SAP close: AI extraction, automatic load, ARCA invoicing and COMEX close. In phases, without replacing your ERP.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Exporters running SAP</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">20%+</div><div class="spot-kpi-l">Orders with friction, before automating</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">5</div><div class="spot-kpi-l">Stages covered</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">0</div><div class="spot-kpi-l">ERP replacements</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Purchase order by email</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">AI extraction, SAP load and ARCA invoicing</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Order closed in SAP, with foreign-trade close</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Gemini</span><span class="spot-pill">SAP</span><span class="spot-pill">ARCA</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="order2cash-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">04</div>
-          <div class="spotlight-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-          <h3 class="spotlight-title" data-en="Bank Statements" data-es="Resúmenes Bancarios" data-pt="Extratos Bancários">Bank Statements</h3>
-          <p class="spotlight-desc" data-en="Bank PDF → spreadsheet ready to reconcile. Make + Gemini. 99%+ accuracy across 6+ Argentine banks." data-es="El PDF del banco se convierte en planilla lista para conciliar. Make + Gemini. Más de 99% de precisión en 6+ bancos argentinos." data-pt="O PDF do banco vira uma planilha pronta para conciliar. Make + Gemini. Mais de 99% de precisão em mais de 6 bancos argentinos.">Bank PDF → spreadsheet ready to reconcile. Make + Gemini. 99%+ accuracy across 6+ Argentine banks.</p>
-          <a class="btn primary btn-lg" href="bancos-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="fin" data-spot-id="bancos">
+          <div class="spot-top">
+            <span class="spotlight-num">04</span>
+            <div>
+              <div class="spotlight-tag">Finance</div>
+              <h3 class="spotlight-title">Bank Statements</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Bank PDF → spreadsheet ready to reconcile. Make + Gemini. 99%+ accuracy across 6+ Argentine banks.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Treasury and accounting teams with several bank accounts</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">&gt;99%</div><div class="spot-kpi-l">Accuracy in tests</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">8–15 h</div><div class="spot-kpi-l">Saved per month</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">6+</div><div class="spot-kpi-l">Banks covered</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Bank statement PDF</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Reads each transaction with bank-specific instructions</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Spreadsheet ready to reconcile</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">PDF.co</span><span class="spot-pill">Gemini</span><span class="spot-pill">Google Sheets</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="bancos-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">05</div>
-          <div class="spotlight-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-          <h3 class="spotlight-title" data-en="Bank Debit Notes" data-es="Notas de Débito Bancarias" data-pt="Notas de Débito Bancárias">Bank Debit Notes</h3>
-          <p class="spotlight-desc" data-en="From CSV bank statement to SAP load file in 30 seconds. Auditable accounting rules, full audit trail." data-es="Del extracto en CSV al archivo de carga en SAP, en 30 segundos. Reglas contables auditables y archivo de auditoría completo." data-pt="Do extrato bancário em CSV ao arquivo de carga no SAP, em 30 segundos. Regras contábeis auditáveis e trilha de auditoria completa.">From CSV bank statement to SAP load file in 30 seconds. Auditable accounting rules, full audit trail.</p>
-          <a class="btn primary btn-lg" href="notas-debito-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="fin" data-spot-id="notas-debito">
+          <div class="spot-top">
+            <span class="spotlight-num">05</span>
+            <div>
+              <div class="spotlight-tag">Finance</div>
+              <h3 class="spotlight-title">Bank Debit Notes</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">From CSV bank statement to SAP load file in 30 seconds. Auditable accounting rules, full audit trail.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Accounting teams posting bank debits to SAP</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">~30 s</div><div class="spot-kpi-l">Per statement (was 30–45 min)</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">8</div><div class="spot-kpi-l">Auditable accounting rules</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">100%</div><div class="spot-kpi-l">Unattended</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">CSV statement arriving by email</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Classifies each debit with documented rules</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">SAP load file and audit CSV</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Gemini 2.5 Pro</span><span class="spot-pill">Google Sheets</span><span class="spot-pill">Google Drive</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="notas-debito-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">06</div>
-          <div class="spotlight-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-          <h3 class="spotlight-title" data-en="Fixed Assets · AxI" data-es="Activos Fijos · AxI" data-pt="Ativo Imobilizado · AxI">Fixed Assets · AxI</h3>
-          <p class="spotlight-desc" data-en="Depreciation calculated directly in Google Sheets, Argentine format. 4 outputs per asset, processed in seconds." data-es="Cálculo de amortizaciones directo en Google Sheets, con formato argentino. 4 outputs por activo, procesados en segundos." data-pt="Cálculo de depreciação direto no Google Sheets, no formato argentino. 4 saídas por ativo, processadas em segundos.">Depreciation calculated directly in Google Sheets, Argentine format. 4 outputs per asset, processed in seconds.</p>
-          <a class="btn primary btn-lg" href="amortizaciones-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="fin" data-spot-id="activos-fijos">
+          <div class="spot-top">
+            <span class="spotlight-num">06</span>
+            <div>
+              <div class="spotlight-tag">Finance</div>
+              <h3 class="spotlight-title">Fixed Assets · AxI</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Depreciation calculated directly in Google Sheets, Argentine format. 4 outputs per asset, processed in seconds.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Accounting teams and firms managing fixed assets</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">50+</div><div class="spot-kpi-l">Assets processed in seconds</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">4</div><div class="spot-kpi-l">Outputs per asset</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">1 click</div><div class="spot-kpi-l">Or fully unattended</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Asset register uploaded to Google Drive</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Normalises data and calculates depreciation and inflation adjustment</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Google Sheets report in Argentine format</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Gemini</span><span class="spot-pill">Google Sheets</span><span class="spot-pill">Google Drive</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="amortizaciones-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">07</div>
-          <div class="spotlight-tag" data-en="Operations" data-es="Operaciones" data-pt="Operações">Operations</div>
-          <h3 class="spotlight-title" data-en="Gyms &amp; Academies" data-es="Gimnasios y Academias" data-pt="Academias e Escolas Esportivas">Gyms &amp; Academies</h3>
-          <p class="spotlight-desc" data-en="Plan reports, payment status and lapsed-member reactivation over Google Sheets. For gyms with 30–500 students." data-es="Reporte de planes, estado de pagos y reactivación de bajas sobre Google Sheets. Para gimnasios de 30 a 500 alumnos." data-pt="Relatório de planos, status de pagamentos e reativação de alunos inativos sobre o Google Sheets. Para academias de 30 a 500 alunos.">Plan reports, payment status and lapsed-member reactivation over Google Sheets. For gyms with 30–500 students.</p>
-          <a class="btn primary btn-lg" href="gimnasios-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="ind" data-spot-id="gimnasios">
+          <div class="spot-top">
+            <span class="spotlight-num">07</span>
+            <div>
+              <div class="spotlight-tag">Gyms</div>
+              <h3 class="spotlight-title">Gyms &amp; Academies</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Plan reports, payment status and lapsed-member reactivation over Google Sheets. For gyms with 30–500 students.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Gyms and academies with 30–500 members</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">50%</div><div class="spot-kpi-l">Revenue recovered</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">2–4 h</div><div class="spot-kpi-l">Recovered per week</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">30–500</div><div class="spot-kpi-l">Members supported</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Members, plans and payments in Google Sheets</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Flags late payers and lapsed members, builds the plan report</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Email report and reactivation messages</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Google Sheets</span><span class="spot-pill">Gmail</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="gimnasios-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">08</div>
-          <div class="spotlight-tag" data-en="HR" data-es="RRHH" data-pt="RH">HR</div>
-          <h3 class="spotlight-title" data-en="HR Automation" data-es="Automatización de RRHH" data-pt="Automação de RH">HR Automation</h3>
-          <p class="spotlight-desc" data-en="Onboarding, offboarding, leave requests, files, approvals and comms — all on Google Workspace and Make." data-es="Altas, bajas, licencias, legajos, aprobaciones y comunicaciones — todo sobre Google Workspace y Make." data-pt="Admissões, desligamentos, licenças, prontuários, aprovações e comunicações — tudo sobre Google Workspace e Make.">Onboarding, offboarding, leave requests, files, approvals and comms — all on Google Workspace and Make.</p>
-          <a class="btn primary btn-lg" href="rrhh-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="ppl" data-spot-id="rrhh">
+          <div class="spot-top">
+            <span class="spotlight-num">08</span>
+            <div>
+              <div class="spotlight-tag">HR</div>
+              <h3 class="spotlight-title">HR Automation</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Onboarding, offboarding, leave requests, files, approvals and comms — all on Google Workspace and Make.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> HR teams managing employee files and leave</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">&lt; 2 min</div><div class="spot-kpi-l">Employee onboarding (was 45–90 min)</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">1 click</div><div class="spot-kpi-l">Approvals (was 1–2 days)</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">11</div><div class="spot-kpi-l">Automated processes</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Onboarding, leave and advance requests</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Routes approvals, builds files and computes payroll changes</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">File in Drive, team notified, monthly close</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Google Workspace</span><span class="spot-pill">Gemini</span><span class="spot-pill">Telegram</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="rrhh-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">09</div>
-          <div class="spotlight-tag" data-en="Marketing" data-es="Marketing" data-pt="Marketing">Marketing</div>
-          <h3 class="spotlight-title" data-en="AI Social Posting" data-es="Posteo Diario en Redes" data-pt="Postagem Diária nas Redes">AI Social Posting</h3>
-          <p class="spotlight-desc" data-en="Instagram with generative AI: on-brand captions, original images, optimized hashtags. 365 posts a year, no community manager." data-es="Instagram con IA generativa: caption en tu tono de marca, imagen original y hashtags optimizados. 365 posteos al año, sin community manager." data-pt="Instagram com IA generativa: legendas no tom da sua marca, imagens originais e hashtags otimizadas. 365 postagens por ano, sem community manager.">Instagram with generative AI: on-brand captions, original images, optimized hashtags. 365 posts a year, no community manager.</p>
-          <a class="btn primary btn-lg" href="posteo-redes-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="ppl" data-spot-id="posteo-redes">
+          <div class="spot-top">
+            <span class="spotlight-num">09</span>
+            <div>
+              <div class="spotlight-tag">Marketing</div>
+              <h3 class="spotlight-title">AI Social Posting</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">Instagram with generative AI: on-brand captions, original images, optimized hashtags. 365 posts a year, no community manager.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Brands and businesses on Instagram</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">365</div><div class="spot-kpi-l">Posts a year</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">~US$0.05</div><div class="spot-kpi-l">Cost per post</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">5–10 PM</div><div class="spot-kpi-l">Human-like posting window</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Your brand voice and product lines</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Writes the caption and creates an original image</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">One Instagram post a day</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Gemini</span><span class="spot-pill">IG Business API</span><span class="spot-pill">Google Sheets</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="posteo-redes-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
-        <article class="spotlight-slide" data-spot-slide>
-          <div class="spotlight-num">10</div>
-          <div class="spotlight-tag" data-en="Real Estate" data-es="Inmobiliaria" data-pt="Imobiliária">Real Estate</div>
-          <h3 class="spotlight-title" data-en="Real Estate AI Assistant" data-es="Inmobiliarias · Asistente IA" data-pt="Imobiliárias · Assistente IA">Real Estate AI Assistant</h3>
-          <p class="spotlight-desc" data-en="WhatsApp, Telegram and email answered 24/7. Search across your own listings and Zonaprop, Argenprop, MercadoLibre. Automatic visit assignment and daily reports." data-es="WhatsApp, Telegram y email atendidos 24/7. Búsqueda en cartera propia y en Zonaprop, Argenprop y MercadoLibre. Asignación automática de visitas y reporte diario al dueño." data-pt="WhatsApp, Telegram e email atendidos 24/7. Busca na sua própria carteira e em Zonaprop, Argenprop e MercadoLibre. Atribuição automática de visitas e relatório diário ao proprietário.">WhatsApp, Telegram and email answered 24/7. Search across your own listings and Zonaprop, Argenprop, MercadoLibre. Automatic visit assignment and daily reports.</p>
-          <a class="btn primary btn-lg" href="inmobiliaria-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
+        <article class="spotlight-slide" data-spot-slide data-cat="ind" data-spot-id="inmobiliaria">
+          <div class="spot-top">
+            <span class="spotlight-num">10</span>
+            <div>
+              <div class="spotlight-tag">Real Estate</div>
+              <h3 class="spotlight-title">Real Estate AI Assistant</h3>
+            </div>
+          </div>
+          <p class="spotlight-desc">WhatsApp, Telegram and email answered 24/7. Search across your own listings and Zonaprop, Argenprop, MercadoLibre. Automatic visit assignment and daily reports.</p>
+          <p class="spot-for"><span class="spot-k">Who it's for</span> Agencies getting enquiries via WhatsApp and property portals</p>
+          <div class="spot-panel">
+            <div class="spot-k">Results</div>
+            <div class="spot-kpis">
+              <div class="spot-kpi"><div class="spot-kpi-v">&lt; 30 s</div><div class="spot-kpi-l">Response time</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">24/7</div><div class="spot-kpi-l">Always-on service</div></div>
+              <div class="spot-kpi"><div class="spot-kpi-v">14 days</div><div class="spot-kpi-l">From first meeting to live</div></div>
+            </div>
+          </div>
+          <div class="spot-panel">
+            <div class="spot-k">How it works</div>
+            <ol class="spot-flow">
+              <li class="spot-step"><span class="spot-step-k"><span class="n">01</span> In</span><span class="spot-step-t">Enquiries via WhatsApp, Telegram and email</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">02</span> AI does</span><span class="spot-step-t">Searches your listings and the portals, books visits</span></li>
+              <li class="spot-step"><span class="spot-step-k"><span class="n">03</span> Out</span><span class="spot-step-t">Reply to the client and daily report to the owner</span></li>
+            </ol>
+          </div>
+          <div class="spot-foot">
+            <div class="spot-stack"><span class="spot-k">Stack</span><span class="spot-pill">Make.com</span><span class="spot-pill">Gemini 2.5</span><span class="spot-pill">Twilio</span><span class="spot-pill">Google Sheets</span></div>
+            <div class="spot-actions">
+              <a class="btn primary" href="inmobiliaria-en.html">See solution <span class="arrow">→</span></a>
+              <a class="btn" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a demo</a>
+            </div>
+          </div>
         </article>
         </div>
         <ol class="spotlight-index">
-        <li><button type="button" data-spot-go="0" aria-current="true"><span class="n">01</span><span data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Contract Operations</span></button></li>
-        <li><button type="button" data-spot-go="1" aria-current="false"><span class="n">02</span><span data-en="Withholding Tax Reconciliation" data-es="Retenciones con Conciliación" data-pt="Retenções com Conciliação">Withholding Tax Reconciliation</span></button></li>
-        <li><button type="button" data-spot-go="2" aria-current="false"><span class="n">03</span><span data-en="Export Order-to-Cash" data-es="Order-to-Cash de Exportaciones" data-pt="Order-to-Cash de Exportações">Export Order-to-Cash</span></button></li>
-        <li><button type="button" data-spot-go="3" aria-current="false"><span class="n">04</span><span data-en="Bank Statements" data-es="Resúmenes Bancarios" data-pt="Extratos Bancários">Bank Statements</span></button></li>
-        <li><button type="button" data-spot-go="4" aria-current="false"><span class="n">05</span><span data-en="Bank Debit Notes" data-es="Notas de Débito Bancarias" data-pt="Notas de Débito Bancárias">Bank Debit Notes</span></button></li>
-        <li><button type="button" data-spot-go="5" aria-current="false"><span class="n">06</span><span data-en="Fixed Assets · AxI" data-es="Activos Fijos · AxI" data-pt="Ativo Imobilizado · AxI">Fixed Assets · AxI</span></button></li>
-        <li><button type="button" data-spot-go="6" aria-current="false"><span class="n">07</span><span data-en="Gyms &amp; Academies" data-es="Gimnasios y Academias" data-pt="Academias e Escolas Esportivas">Gyms &amp; Academies</span></button></li>
-        <li><button type="button" data-spot-go="7" aria-current="false"><span class="n">08</span><span data-en="HR Automation" data-es="Automatización de RRHH" data-pt="Automação de RH">HR Automation</span></button></li>
-        <li><button type="button" data-spot-go="8" aria-current="false"><span class="n">09</span><span data-en="AI Social Posting" data-es="Posteo Diario en Redes" data-pt="Postagem Diária nas Redes">AI Social Posting</span></button></li>
-        <li><button type="button" data-spot-go="9" aria-current="false"><span class="n">10</span><span data-en="Real Estate AI Assistant" data-es="Inmobiliarias · Asistente IA" data-pt="Imobiliárias · Assistente IA">Real Estate AI Assistant</span></button></li>
+        <li data-cat="ops"><button type="button" data-spot-go="0" aria-current="true"><span class="n">01</span><span class="t">Contract Operations<span class="c">Operations</span></span></button></li>
+        <li data-cat="fin"><button type="button" data-spot-go="1" aria-current="false"><span class="n">02</span><span class="t">Withholding Tax Reconciliation<span class="c">Finance</span></span></button></li>
+        <li data-cat="ops"><button type="button" data-spot-go="2" aria-current="false"><span class="n">03</span><span class="t">Export Order-to-Cash<span class="c">Foreign trade</span></span></button></li>
+        <li data-cat="fin"><button type="button" data-spot-go="3" aria-current="false"><span class="n">04</span><span class="t">Bank Statements<span class="c">Finance</span></span></button></li>
+        <li data-cat="fin"><button type="button" data-spot-go="4" aria-current="false"><span class="n">05</span><span class="t">Bank Debit Notes<span class="c">Finance</span></span></button></li>
+        <li data-cat="fin"><button type="button" data-spot-go="5" aria-current="false"><span class="n">06</span><span class="t">Fixed Assets · AxI<span class="c">Finance</span></span></button></li>
+        <li data-cat="ind"><button type="button" data-spot-go="6" aria-current="false"><span class="n">07</span><span class="t">Gyms &amp; Academies<span class="c">Gyms</span></span></button></li>
+        <li data-cat="ppl"><button type="button" data-spot-go="7" aria-current="false"><span class="n">08</span><span class="t">HR Automation<span class="c">HR</span></span></button></li>
+        <li data-cat="ppl"><button type="button" data-spot-go="8" aria-current="false"><span class="n">09</span><span class="t">AI Social Posting<span class="c">Marketing</span></span></button></li>
+        <li data-cat="ind"><button type="button" data-spot-go="9" aria-current="false"><span class="n">10</span><span class="t">Real Estate AI Assistant<span class="c">Real Estate</span></span></button></li>
         </ol>
       </div>
       <div class="spotlight-progress"><span></span></div>
@@ -229,92 +499,14 @@
   </section>
 
   <section class="section">
-    <div class="section-head"><div><div class="kicker">§02 · Catalogue</div><h2 class="display-lg mt-4">The full catalogue</h2></div></div>
-    <hr class="sep mb-5">
-    <div class="grid grid-3 gap-4">
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Operations" data-es="Operaciones" data-pt="Operações">Operations</div>
-        <h3 class="sol-card-title" data-en="Contract Operations" data-es="Control de Contratos" data-pt="Controle de Contratos">Contract Operations</h3>
-        <p class="sol-card-desc" data-en="Dashboard for consulting firms billing via SAP Fieldglass. Trial windows, instalment plans, automatic collections. Zero forgotten contracts." data-es="Tablero para consultoras que facturan por SAP Fieldglass. Ventana de prueba, planes de cuotas y cobranzas automáticas. Cero contratos olvidados." data-pt="Painel para consultorias que faturam via SAP Fieldglass. Janela de teste, planos de parcelas e cobranças automáticas. Zero contratos esquecidos.">Dashboard for consulting firms billing via SAP Fieldglass. Trial windows, instalment plans, automatic collections. Zero forgotten contracts.</p>
-        <a class="sol-card-link" href="estado-contratos-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-        <h3 class="sol-card-title" data-en="Withholding Tax Reconciliation" data-es="Retenciones con Conciliación" data-pt="Retenções com Conciliação">Withholding Tax Reconciliation</h3>
-        <p class="sol-card-desc" data-en="Withholding tax reconciliation by payment order. AI reads each PDF, checks tax ID, account and rate, and verifies the payment order balances. In Google Sheets or Excel." data-es="Conciliación de retenciones por orden de pago. La IA lee cada PDF, controla CUIT, cuenta y alícuota, y verifica que la OP balancee. En Google Sheets o Excel." data-pt="Conciliação de retenções por ordem de pagamento. A IA lê cada PDF, confere CUIT, conta e alíquota, e verifica se a ordem fecha. No Google Sheets ou Excel.">Withholding tax reconciliation by payment order. AI reads each PDF, checks tax ID, account and rate, and verifies the payment order balances. In Google Sheets or Excel.</p>
-        <a class="sol-card-link" href="retenciones-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Foreign trade" data-es="Comercio exterior" data-pt="Comércio exterior">Foreign trade</div>
-        <h3 class="sol-card-title" data-en="Export Order-to-Cash" data-es="Order-to-Cash de Exportaciones" data-pt="Order-to-Cash de Exportações">Export Order-to-Cash</h3>
-        <p class="sol-card-desc" data-en="From the purchase order email to the SAP close: AI extraction, automatic load, ARCA invoicing and COMEX close. In phases, without replacing your ERP." data-es="De la orden de compra por mail al cierre en SAP: extracción con IA, carga automática, facturación ARCA y cierre COMEX. Por fases, sin reemplazar tu ERP." data-pt="Do pedido de compra por e-mail ao fechamento no SAP: extração com IA, carga automática, faturamento ARCA e fechamento COMEX. Em fases, sem substituir seu ERP.">From the purchase order email to the SAP close: AI extraction, automatic load, ARCA invoicing and COMEX close. In phases, without replacing your ERP.</p>
-        <a class="sol-card-link" href="order2cash-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-        <h3 class="sol-card-title" data-en="Bank Statements" data-es="Resúmenes Bancarios" data-pt="Extratos Bancários">Bank Statements</h3>
-        <p class="sol-card-desc" data-en="Bank PDF → spreadsheet ready to reconcile. Make + Gemini. 99%+ accuracy across 6+ Argentine banks." data-es="El PDF del banco se convierte en planilla lista para conciliar. Make + Gemini. Más de 99% de precisión en 6+ bancos argentinos." data-pt="O PDF do banco vira uma planilha pronta para conciliar. Make + Gemini. Mais de 99% de precisão em mais de 6 bancos argentinos.">Bank PDF → spreadsheet ready to reconcile. Make + Gemini. 99%+ accuracy across 6+ Argentine banks.</p>
-        <a class="sol-card-link" href="bancos-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-        <h3 class="sol-card-title" data-en="Bank Debit Notes" data-es="Notas de Débito Bancarias" data-pt="Notas de Débito Bancárias">Bank Debit Notes</h3>
-        <p class="sol-card-desc" data-en="From CSV bank statement to SAP load file in 30 seconds. Auditable accounting rules, full audit trail." data-es="Del extracto en CSV al archivo de carga en SAP, en 30 segundos. Reglas contables auditables y archivo de auditoría completo." data-pt="Do extrato bancário em CSV ao arquivo de carga no SAP, em 30 segundos. Regras contábeis auditáveis e trilha de auditoria completa.">From CSV bank statement to SAP load file in 30 seconds. Auditable accounting rules, full audit trail.</p>
-        <a class="sol-card-link" href="notas-debito-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Finance" data-es="Finanzas" data-pt="Finanças">Finance</div>
-        <h3 class="sol-card-title" data-en="Fixed Assets · AxI" data-es="Activos Fijos · AxI" data-pt="Ativo Imobilizado · AxI">Fixed Assets · AxI</h3>
-        <p class="sol-card-desc" data-en="Depreciation calculated directly in Google Sheets, Argentine format. 4 outputs per asset, processed in seconds." data-es="Cálculo de amortizaciones directo en Google Sheets, con formato argentino. 4 outputs por activo, procesados en segundos." data-pt="Cálculo de depreciação direto no Google Sheets, no formato argentino. 4 saídas por ativo, processadas em segundos.">Depreciation calculated directly in Google Sheets, Argentine format. 4 outputs per asset, processed in seconds.</p>
-        <a class="sol-card-link" href="amortizaciones-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Operations" data-es="Operaciones" data-pt="Operações">Operations</div>
-        <h3 class="sol-card-title" data-en="Gyms &amp; Academies" data-es="Gimnasios y Academias" data-pt="Academias e Escolas Esportivas">Gyms &amp; Academies</h3>
-        <p class="sol-card-desc" data-en="Plan reports, payment status and lapsed-member reactivation over Google Sheets. For gyms with 30–500 students." data-es="Reporte de planes, estado de pagos y reactivación de bajas sobre Google Sheets. Para gimnasios de 30 a 500 alumnos." data-pt="Relatório de planos, status de pagamentos e reativação de alunos inativos sobre o Google Sheets. Para academias de 30 a 500 alunos.">Plan reports, payment status and lapsed-member reactivation over Google Sheets. For gyms with 30–500 students.</p>
-        <a class="sol-card-link" href="gimnasios-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="HR" data-es="RRHH" data-pt="RH">HR</div>
-        <h3 class="sol-card-title" data-en="HR Automation" data-es="Automatización de RRHH" data-pt="Automação de RH">HR Automation</h3>
-        <p class="sol-card-desc" data-en="Onboarding, offboarding, leave requests, files, approvals and comms — all on Google Workspace and Make." data-es="Altas, bajas, licencias, legajos, aprobaciones y comunicaciones — todo sobre Google Workspace y Make." data-pt="Admissões, desligamentos, licenças, prontuários, aprovações e comunicações — tudo sobre Google Workspace e Make.">Onboarding, offboarding, leave requests, files, approvals and comms — all on Google Workspace and Make.</p>
-        <a class="sol-card-link" href="rrhh-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Marketing" data-es="Marketing" data-pt="Marketing">Marketing</div>
-        <h3 class="sol-card-title" data-en="AI Social Posting" data-es="Posteo Diario en Redes" data-pt="Postagem Diária nas Redes">AI Social Posting</h3>
-        <p class="sol-card-desc" data-en="Instagram with generative AI: on-brand captions, original images, optimized hashtags. 365 posts a year, no community manager." data-es="Instagram con IA generativa: caption en tu tono de marca, imagen original y hashtags optimizados. 365 posteos al año, sin community manager." data-pt="Instagram com IA generativa: legendas no tom da sua marca, imagens originais e hashtags otimizadas. 365 postagens por ano, sem community manager.">Instagram with generative AI: on-brand captions, original images, optimized hashtags. 365 posts a year, no community manager.</p>
-        <a class="sol-card-link" href="posteo-redes-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-<div class="sol-card">
-        <div class="sol-card-tag" data-en="Real Estate" data-es="Inmobiliaria" data-pt="Imobiliária">Real Estate</div>
-        <h3 class="sol-card-title" data-en="Real Estate AI Assistant" data-es="Inmobiliarias · Asistente IA" data-pt="Imobiliárias · Assistente IA">Real Estate AI Assistant</h3>
-        <p class="sol-card-desc" data-en="WhatsApp, Telegram and email answered 24/7. Search across your own listings and Zonaprop, Argenprop, MercadoLibre. Automatic visit assignment and daily reports." data-es="WhatsApp, Telegram y email atendidos 24/7. Búsqueda en cartera propia y en Zonaprop, Argenprop y MercadoLibre. Asignación automática de visitas y reporte diario al dueño." data-pt="WhatsApp, Telegram e email atendidos 24/7. Busca na sua própria carteira e em Zonaprop, Argenprop e MercadoLibre. Atribuição automática de visitas e relatório diário ao proprietário.">WhatsApp, Telegram and email answered 24/7. Search across your own listings and Zonaprop, Argenprop, MercadoLibre. Automatic visit assignment and daily reports.</p>
-        <a class="sol-card-link" href="inmobiliaria-en.html"><span data-en="See solution" data-es="Ver solución" data-pt="Ver solução">See solution</span> <span class="arrow">→</span></a>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="section">
     <div class="panel">
       <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
-      <div class="panel-header"><span>§03 · Next step</span><span class="accent">● ACTION</span></div>
+      <div class="panel-header"><span>§02 · Next step</span><span class="accent">● ACTION</span></div>
       <div class="panel-body" style="padding:48px 28px;text-align:center;">
         <h2 class="display-lg mb-4">Don't see what you need?</h2>
         <p class="body-lg muted mb-5" style="max-width:620px;margin-left:auto;margin-right:auto;">Tell us about your process and we will say whether we already have it solved or build it to measure.</p>
         <div class="flex gap-3 items-center" style="justify-content:center;flex-wrap:wrap;">
-          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank">Book a call →</a>
+          <a class="btn primary btn-lg" href="https://calendly.com/dingirfecho/ai-strategy-discovery-call" target="_blank" rel="noopener">Book a call →</a>
           <a class="btn btn-lg" href="mailto:fede@fedeandino.com?subject=AI-Q%20solutions%20enquiry">Write to us</a>
         </div>
       </div>

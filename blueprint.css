@@ -935,13 +935,19 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
 .mb-7 { margin-bottom: var(--aq-space-7); }
 
 /* ============================================================
-   Spotlight — one featured solution at a time, auto-rotating
+   Spotlight — one solution at a time, shown as a small dashboard
+   (who it is for, results, how it works, stack). Auto-rotates;
+   area filters narrow the rotation.
    ============================================================ */
 
-.spotlight { border: var(--aq-border); background: var(--aq-paper); position: relative; }
+.spotlight {
+  --spot-hi: #FFE2D6;       /* light accent tint for highlighted states */
+  --spot-hi-ink: #C42F00;   /* darker accent, readable on light backgrounds */
+  border: var(--aq-border); background: var(--aq-paper); position: relative; scroll-margin-top: 96px;
+}
 .spotlight-head {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  background: var(--aq-ink); color: var(--aq-paper);
+  background: var(--aq-paper2); color: var(--aq-ink); border-bottom: var(--aq-border-thin);
   padding: 10px 14px 10px 20px;
   font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta);
   text-transform: uppercase; letter-spacing: var(--aq-track-kicker);
@@ -951,16 +957,40 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
 .spotlight-ctrl { display: flex; gap: 6px; }
 .spotlight-btn {
   width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
-  border: 1.5px solid var(--aq-paper); background: transparent; color: var(--aq-paper);
+  border: 1.5px solid var(--aq-ink); background: transparent; color: var(--aq-ink);
   font-family: var(--aq-font-mono); font-size: 12px; cursor: pointer; padding: 0;
   transition: all var(--aq-t-fast);
 }
-.spotlight-btn:hover, .spotlight-btn:focus-visible { background: var(--aq-accent); border-color: var(--aq-accent); outline: none; }
+.spotlight-btn:hover, .spotlight-btn:focus-visible { background: var(--aq-accent); border-color: var(--aq-accent); color: var(--aq-paper); outline: none; }
 
-.spotlight-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; }
-.spotlight-stage { display: grid; padding: 40px 40px 36px; }
+/* Small uppercase label used across the dashboard */
+.spot-k {
+  font-family: var(--aq-font-mono); font-size: var(--aq-fs-tiny); font-weight: 600;
+  text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-ink3);
+}
+
+/* Area filters */
+.spot-filters {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding: 12px 20px; border-bottom: var(--aq-border); background: var(--aq-paper);
+}
+.spot-filters > .spot-k { margin-right: 4px; }
+.spot-chip {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 6px 12px; border: var(--aq-border-thin); background: var(--aq-paper); color: var(--aq-ink);
+  font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta);
+  text-transform: uppercase; letter-spacing: var(--aq-track-meta);
+  transition: background var(--aq-t-fast), color var(--aq-t-fast);
+}
+.spot-chip-n { color: var(--aq-ink3); }
+.spot-chip:hover, .spot-chip:focus-visible { background: var(--aq-paper2); outline: none; }
+.spot-chip[aria-pressed="true"] { background: var(--spot-hi); color: var(--aq-ink); border-color: var(--aq-accent); }
+.spot-chip[aria-pressed="true"] .spot-chip-n { color: var(--spot-hi-ink); }
+
+.spotlight-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; }
+.spotlight-stage { display: grid; padding: 32px 36px; min-width: 0; }
 .spotlight-slide {
-  grid-area: 1 / 1; display: flex; flex-direction: column;
+  grid-area: 1 / 1; display: flex; flex-direction: column; gap: 18px; min-width: 0;
   opacity: 0; visibility: hidden; transform: translateY(8px);
   transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
 }
@@ -968,53 +998,171 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
   opacity: 1; visibility: visible; transform: none;
   transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
 }
+.spot-top { display: flex; align-items: flex-start; gap: 18px; }
 .spotlight-num {
-  font-family: var(--aq-font-display); font-size: 72px; font-weight: 500;
-  letter-spacing: -0.05em; line-height: 0.9; color: var(--aq-accent); margin-bottom: 18px;
+  font-family: var(--aq-font-display); font-size: 56px; font-weight: 500;
+  letter-spacing: -0.05em; line-height: 0.85; color: var(--aq-accent);
 }
 .spotlight-tag {
   font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); text-transform: uppercase;
-  letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 10px;
+  letter-spacing: var(--aq-track-kicker); color: var(--aq-accent); margin-bottom: 6px;
 }
 .spotlight-title {
   font-family: var(--aq-font-display); font-size: var(--aq-fs-display-md); font-weight: 500;
-  letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 16px;
+  letter-spacing: -0.03em; line-height: 1.05; margin: 0;
 }
 .spotlight-desc {
   font-family: var(--aq-font-mono); font-size: var(--aq-fs-body-lg); color: var(--aq-ink2);
-  line-height: var(--aq-lh-prose); max-width: 640px; margin: 0 0 28px;
+  line-height: var(--aq-lh-prose); max-width: 720px; margin: 0;
 }
-.spotlight-slide .btn { align-self: flex-start; margin-top: auto; }
+.spot-for {
+  margin: 0; font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); color: var(--aq-ink);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+  padding-left: 12px; border-left: 3px solid var(--aq-accent);
+}
 
+.spot-panel { display: flex; flex-direction: column; gap: 8px; }
+
+/* Results: three KPI tiles */
+.spot-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: var(--aq-border-thin); }
+.spot-kpi { padding: 14px 16px; border-right: var(--aq-border-thin); min-width: 0; }
+.spot-kpi:last-child { border-right: 0; }
+.spot-kpi:first-child { background: var(--spot-hi); }
+.spot-kpi-v {
+  font-family: var(--aq-font-display); font-size: 30px; font-weight: 500;
+  letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; white-space: nowrap;
+}
+.spot-kpi:first-child .spot-kpi-v { color: var(--spot-hi-ink); }
+.spot-kpi-l {
+  font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); line-height: 1.4;
+  text-transform: uppercase; letter-spacing: var(--aq-track-meta); color: var(--aq-ink2);
+}
+
+/* How it works: in -> AI -> out */
+.spot-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.spot-step {
+  position: relative; display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 14px; border: 1.5px dashed var(--aq-ink2); background: var(--aq-paper);
+}
+.spot-step:nth-child(2) { border: var(--aq-border-accent); }
+.spot-step:not(:last-child)::after {
+  content: '→'; position: absolute; right: -22px; top: 50%; transform: translateY(-50%);
+  font-family: var(--aq-font-mono); font-size: 16px; color: var(--aq-accent);
+}
+.spot-step-k {
+  font-family: var(--aq-font-mono); font-size: var(--aq-fs-tiny); font-weight: 600;
+  text-transform: uppercase; letter-spacing: var(--aq-track-kicker); color: var(--aq-accent);
+}
+.spot-step-k .n { color: var(--aq-ink3); }
+.spot-step-t { font-family: var(--aq-font-mono); font-size: var(--aq-fs-body); line-height: 1.45; color: var(--aq-ink); }
+
+/* Stack + actions */
+.spot-foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
+  padding-top: 16px; border-top: 1px solid var(--aq-mute2); margin-top: auto;
+}
+.spot-stack { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.spot-stack .spot-k { margin-right: 4px; }
+.spot-pill {
+  display: inline-block; padding: 4px 9px; border: 1px solid var(--aq-ink2);
+  font-family: var(--aq-font-mono); font-size: var(--aq-fs-tiny);
+  text-transform: uppercase; letter-spacing: var(--aq-track-meta); color: var(--aq-ink);
+}
+.spot-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Side index */
 .spotlight-index { list-style: none; margin: 0; padding: 0; border-left: var(--aq-border); display: flex; flex-direction: column; }
-.spotlight-index li { flex: 1; border-bottom: 1px solid var(--aq-mute2); }
-.spotlight-index li:last-child { border-bottom: 0; }
+.spotlight-index li { flex: 1; max-height: 72px; border-bottom: 1px solid var(--aq-mute2); }
+.spotlight-index li[hidden] { display: none; }
 .spotlight-index button {
-  width: 100%; height: 100%; min-height: 36px; text-align: left; cursor: pointer;
+  width: 100%; height: 100%; min-height: 44px; text-align: left; cursor: pointer;
   display: flex; align-items: center; gap: 12px; padding: 8px 16px;
   background: transparent; border: 0; color: var(--aq-ink2);
   font-family: var(--aq-font-display); font-size: 14px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2;
   transition: background var(--aq-t-fast), color var(--aq-t-fast);
 }
 .spotlight-index button .n { font-family: var(--aq-font-mono); font-size: var(--aq-fs-meta); color: var(--aq-ink3); }
+.spotlight-index button .t { display: flex; flex-direction: column; gap: 2px; }
+.spotlight-index button .c {
+  font-family: var(--aq-font-mono); font-size: var(--aq-fs-tiny); font-weight: 400;
+  text-transform: uppercase; letter-spacing: var(--aq-track-meta); color: var(--aq-ink3);
+}
 .spotlight-index button:hover, .spotlight-index button:focus-visible { background: var(--aq-paper2); color: var(--aq-ink); outline: none; }
-.spotlight-index button[aria-current="true"] { background: var(--aq-ink); color: var(--aq-paper); }
-.spotlight-index button[aria-current="true"] .n { color: var(--aq-accent); }
+.spotlight-index button[aria-current="true"] { background: var(--spot-hi); color: var(--aq-ink); box-shadow: inset 4px 0 0 var(--aq-accent); }
+.spotlight-index button[aria-current="true"] .n,
+.spotlight-index button[aria-current="true"] .c { color: var(--spot-hi-ink); }
 
 .spotlight-progress { height: 4px; background: var(--aq-mute1); border-top: var(--aq-border-thin); }
 .spotlight-progress span { display: block; height: 100%; width: 0; background: var(--aq-accent); }
 
+@media (max-width: 1100px) {
+  .spotlight-body { grid-template-columns: minmax(0, 1fr) 230px; }
+  .spot-kpi-v { font-size: 26px; }
+}
 @media (max-width: 900px) {
   .spotlight-body { grid-template-columns: 1fr; }
-  .spotlight-index { border-left: 0; border-top: var(--aq-border); }
   .spotlight-index { display: none; }
+  .spot-flow { grid-template-columns: 1fr; gap: 22px; }
+  .spot-step:not(:last-child)::after { content: '↓'; right: auto; left: 18px; top: auto; bottom: -21px; transform: none; }
 }
 @media (max-width: 768px) {
-  .spotlight-stage { padding: 24px 20px; }
-  .spotlight-num { font-size: 52px; }
-  .spotlight-title { font-size: 28px; }
+  .spotlight-stage { padding: 22px 16px; }
+  .spotlight-num { font-size: 40px; }
+  .spotlight-title { font-size: 26px; }
   .spotlight-desc { font-size: var(--aq-fs-body); }
   .spotlight-head { padding-left: 14px; }
   .spotlight-label { display: none; }
   .spotlight-count { margin-left: 0; }
+  .spot-filters { padding: 10px 16px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .spot-filters > .spot-k { display: none; }
+  .spot-chip { flex: 0 0 auto; }
+  .spot-kpis { grid-template-columns: 1fr; }
+  .spot-kpi { border-right: 0; border-bottom: var(--aq-border-thin); display: flex; align-items: baseline; gap: 12px; }
+  .spot-kpi:last-child { border-bottom: 0; }
+  .spot-kpi-v { font-size: 24px; margin-bottom: 0; flex: 0 0 auto; }
+  .spot-foot { flex-direction: column; align-items: stretch; }
+  .spot-actions .btn { flex: 1; justify-content: center; }
+}
+
+/* Spotlight animations: blocks enter one by one when a solution becomes active,
+   the "How it works" steps light up in order, and the arrows show the flow.
+   Skipped entirely for visitors who ask for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes spot-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes spot-pop  { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+  @keyframes spot-num  { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+  @keyframes spot-glow {
+    0%   { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); }
+    40%  { box-shadow: 0 0 0 6px rgba(255, 61, 0, 0.18); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); }
+  }
+  @keyframes spot-arrow { 0%, 100% { opacity: 0.35; translate: -4px 0; } 50% { opacity: 1; translate: 3px 0; } }
+  @keyframes spot-arrow-v { 0%, 100% { opacity: 0.35; translate: 0 -3px; } 50% { opacity: 1; translate: 0 3px; } }
+
+  .spotlight-slide.is-active .spotlight-num   { animation: spot-num 0.5s ease-out both; }
+  .spotlight-slide.is-active .spot-top > div  { animation: spot-rise 0.5s ease-out 0.05s both; }
+  .spotlight-slide.is-active .spotlight-desc  { animation: spot-rise 0.5s ease-out 0.12s both; }
+  .spotlight-slide.is-active .spot-for        { animation: spot-rise 0.5s ease-out 0.18s both; }
+  .spotlight-slide.is-active .spot-kpi        { animation: spot-pop 0.45s ease-out both; }
+  .spotlight-slide.is-active .spot-kpi:nth-child(1) { animation-delay: 0.25s; }
+  .spotlight-slide.is-active .spot-kpi:nth-child(2) { animation-delay: 0.33s; }
+  .spotlight-slide.is-active .spot-kpi:nth-child(3) { animation-delay: 0.41s; }
+  .spotlight-slide.is-active .spot-step       { animation: spot-rise 0.45s ease-out both, spot-glow 0.9s ease-out both; }
+  .spotlight-slide.is-active .spot-step:nth-child(1) { animation-delay: 0.5s, 0.55s; }
+  .spotlight-slide.is-active .spot-step:nth-child(2) { animation-delay: 0.65s, 0.75s; }
+  .spotlight-slide.is-active .spot-step:nth-child(3) { animation-delay: 0.8s, 0.95s; }
+  .spotlight-slide.is-active .spot-foot       { animation: spot-rise 0.5s ease-out 0.9s both; }
+
+  .spot-step:not(:last-child)::after { animation: spot-arrow 1.6s ease-in-out infinite; }
+  .spot-step:nth-child(2)::after { animation-delay: 0.4s; }
+
+  .spot-kpi, .spot-step, .spot-pill { transition: transform var(--aq-t-med), background var(--aq-t-med); }
+  .spot-kpi:hover { transform: translateY(-2px); }
+  .spot-step:hover { transform: translateY(-2px); }
+  .spot-pill:hover { background: var(--aq-paper2); }
+  .spotlight-index button .n { transition: transform var(--aq-t-fast); }
+  .spotlight-index button:hover .n { transform: translateX(3px); }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 900px) {
+  .spot-step:not(:last-child)::after { animation-name: spot-arrow-v; }
 }
