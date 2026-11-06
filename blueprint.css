@@ -322,14 +322,15 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
 }
 
 .brand-mark {
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
 }
 
 .brand-wordmark {
   font-family: var(--aq-font-display);
-  font-size: 22px;
+  font-size: 30px;
+  white-space: nowrap;
   font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -873,6 +874,8 @@ h4 { font-size: 18px; line-height: 1.3;  letter-spacing: -0.02em; }
     display: block;
   }
   .hamburger { display: inline-flex; }
+  .brand-mark { width: 42px; height: 42px; }
+  .brand-wordmark { font-size: 25px; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .grid-bordered > * { border-right: 0 !important; }
   .grid-bordered > *:last-child { border-bottom: 0; }
