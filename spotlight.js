@@ -105,10 +105,20 @@
     chips.forEach(function (c) {
       c.addEventListener('click', function () { filter(c.getAttribute('data-spot-filter')); setStopped(true); });
     });
-    root.addEventListener('mouseenter', function () { hovering = true; });
-    root.addEventListener('mouseleave', function () { hovering = false; });
-    root.addEventListener('focusin', function () { hovering = true; });
-    root.addEventListener('focusout', function () { hovering = false; });
+    // Pause while a real mouse is over it, or while keyboard focus is inside.
+    // Taps and mouse clicks don't count, so the rotation never gets stuck.
+    var mouseOver = false, keyFocus = false;
+    function sync() { hovering = mouseOver || keyFocus; }
+    root.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { mouseOver = true; sync(); } });
+    root.addEventListener('pointerleave', function () { mouseOver = false; sync(); });
+    root.addEventListener('focusin', function (e) {
+      var kb = false;
+      try { kb = e.target.matches(':focus-visible'); } catch (_) {}
+      keyFocus = kb; sync();
+    });
+    root.addEventListener('focusout', function (e) {
+      if (!root.contains(e.relatedTarget)) { keyFocus = false; sync(); }
+    });
 
     // Swipe on touch screens
     var x0 = null;

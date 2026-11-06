@@ -1,46 +1,54 @@
-# A.I.·Q — The A.I. Strategy Type Indicator
+# AI-Q — ai-q.fit
 
-Static site for **ai-q.fit** by Dr. Federico Andino.
-Art-Deco visual system, fully bilingual (Spanish default · English secondary).
+Sitio estático de **ai-q.fit** (Dr. Federico Andino).
+Tres idiomas: español (por defecto, sin sufijo), inglés (`-en`) y portugués (`-pt`).
+Estilo visual tipo plano técnico; todo el sitio usa `blueprint.css`.
 
-## What's in this bundle
+Fuente de verdad: repositorio `Dingirfecho/ai-q` (rama `main`).
+Esta carpeta se sincronizó con el commit `fdcd83a` (2026-11-04).
+
+## Estructura
 
 ```
 .
-├── index.html                     ← Homepage (default: ES)
-├── quiz.html                      ← 20-question assessment (bilingual)
-├── sama.html / sama-en.html       ← SAMA framework page (ES / EN)
-├── types/                         ← 32 type pages (16 codes × ES/EN)
-│     ├── cpbi.html, cpbi-es.html
-│     ├── cptb.html, cptb-es.html
-│     └── … (all 16)
-├── AI-Q-Types-Guide.html          ← Types guide (EN, print-ready)
-├── AI-Q-Guia-de-Tipos-ES.html     ← Guía de Tipos (ES, print-ready)
-├── AIQCasesEng.html               ← Case studies (EN, print-ready)
-├── AIQCasosESP.html               ← Casos (ES, print-ready)
-├── deco.css                       ← Shared design system
-├── favicon.svg                    ← Diamond mark
-├── assets/                        ← Type illustrations (SVG)
-└── README.md
+├── index.html                 ← Inicio: soluciones de automatización con IA
+├── soluciones.html            ← Catálogo completo de soluciones
+├── consultoria.html           ← Consultoría (Sprint 2 semanas / Quarter 90 días)
+│
+├── Diagnóstico AI-Q
+│   ├── framework.html         ← Las 4 dimensiones y los 16 tipos
+│   ├── quiz.html              ← Test de 20 preguntas
+│   ├── sama.html              ← Framework de gestión del cambio SAMA
+│   └── types/                 ← 16 tipos × 3 idiomas (xxxx.html = EN, -es, -pt) + SVG
+│
+├── Soluciones (cada una en ES / -en / -pt)
+│   ├── estado-contratos.html  ← Control de contratos (SAP Fieldglass)
+│   ├── retenciones.html       ← Retenciones con conciliación
+│   ├── order2cash.html        ← Order-to-Cash de exportaciones
+│   ├── bancos.html            ← Resúmenes bancarios
+│   ├── notas-debito.html      ← Notas de débito bancarias
+│   ├── amortizaciones.html    ← Activos fijos · AxI
+│   ├── rrhh.html              ← RRHH
+│   ├── posteo-redes.html      ← Posteo en redes
+│   ├── gimnasios.html, inmobiliaria.html  ← Por rubro
+│
+├── Guías imprimibles (HTML → Ctrl+P → Guardar como PDF)
+│   ├── AI-Q-Types-Guide.html / AI-Q-Guia-de-Tipos-ES.html / -PT.html
+│   └── AIQCasesEng.html / AIQCasosESP.html / AIQCasosPT.html
+│   (los .pdf son exportaciones ya generadas de EN y ES)
+│
+├── blueprint.css              ← Sistema de diseño en uso
+├── lang-detect.js             ← Detección de idioma
+├── favicon.svg, CNAME
+└── _archive/                  ← Material fuera del sitio (ver _archive/LEEME.md)
 ```
 
-All HTML files are self-contained — no build step, no JS framework, no external runtime dependencies. Fonts come from Google Fonts.
+## Diferencias con el repo
 
-## Print-ready guides
+En el repo, algunos archivos están en la raíz aunque ninguna página los enlaza
+(borradores viejos, `deco.css`, `assets/emblems/`, `*.jsx`, `Claude outputs/`).
+Acá están en `_archive/`. `__pycache__/` no se copió: es un residuo de un script de Python.
 
-The four `*Guide*` and `*Cases*` HTML files replace the previous PDF placeholders. Each has a deco cover spread plus content pages styled with `@page { size: letter }` so users can:
+## Publicación (GitHub Pages)
 
-1. Open the file in a browser
-2. Cmd+P / Ctrl+P → **Save as PDF**
-
-This produces a properly branded PDF on demand without shipping a binary in the repo.
-
-## Deployment (GitHub Pages)
-
-1. Drop everything in this folder at the **root** of `Dingirfecho/ai-q`
-2. **Settings → Pages → Branch: `main` / `(root)` → Save**
-3. Live at `https://dingirfecho.github.io/ai-q/` (or your custom domain)
-
-## Author
-
-Dr. Federico Andino · ai-q.fit
+Settings → Pages → Branch `main` / `(root)`. Dominio: `ai-q.fit` (archivo `CNAME`).
