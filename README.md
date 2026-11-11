@@ -30,6 +30,7 @@ Esta carpeta se sincronizó con el commit `fdcd83a` (2026-11-04).
 │   ├── amortizaciones.html    ← Activos fijos · AxI
 │   ├── rrhh.html              ← RRHH
 │   ├── posteo-redes.html      ← Posteo en redes
+│   ├── embudo-reclutamiento.html  ← Embudo de reclutamiento (demo animada, solo ES, noindex)
 │   ├── gimnasios.html, inmobiliaria.html  ← Por rubro
 │
 ├── Guías imprimibles (HTML → Ctrl+P → Guardar como PDF)

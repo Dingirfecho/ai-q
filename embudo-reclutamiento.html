@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Demo · Embudo de reclutamiento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2EFE6;--paper2:#E8E3D4;--ink:#0A0A0A;--ink2:#4A4A4A;--ink3:#888;
+  --accent:#FF3D00;--blue:#1740E6;--mute1:#D9D3C0;--mute2:#A8A395;--ok:#1F7A4A;--warn:#E69500;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --disp:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.45;letter-spacing:.01em;
+  background-image:linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px 48px}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--ink2)}
+.lt{background:var(--ink);color:var(--paper);font-size:10px;text-transform:uppercase;letter-spacing:.1em;padding:2px 7px;display:inline-block}
+.acc{color:var(--accent)}
+/* header */
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:2px solid var(--ink)}
+.brand{font-family:var(--disp);font-size:22px;letter-spacing:-.03em}
+.brand b{color:var(--accent);font-weight:500}
+.strip{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 0;border-bottom:2px solid var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.strip .m{color:var(--ink3)}
+.dot{color:var(--accent)}
+h1{font-family:var(--disp);font-weight:500;font-size:clamp(34px,5.2vw,64px);line-height:.98;letter-spacing:-.04em;margin:36px 0 12px}
+.lead{font-size:15px;color:var(--ink2);max-width:760px;line-height:1.6}
+.sim{margin:20px 0 24px;border:2px solid var(--accent);padding:10px 14px;display:flex;gap:10px;align-items:flex-start;font-size:12px}
+.sim .dot{flex:none}
+/* layout */
+.main{display:grid;grid-template-columns:260px 1fr;border:2px solid var(--ink);background:var(--paper)}
+.side{border-right:2px solid var(--ink);display:flex;flex-direction:column}
+.phead{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:2px solid var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:.14em}
+.phead .r{color:var(--accent)}
+.steps{list-style:none;flex:1}
+.steps li{display:flex;gap:10px;padding:11px 14px;border-bottom:1.5px solid var(--ink);cursor:pointer;transition:background .15s ease;font-size:12px;position:relative}
+.steps li:last-child{border-bottom:0}
+.steps li:hover{background:var(--paper2)}
+.steps li .n{color:var(--ink3);flex:none;width:28px}
+.steps li.done .n{color:var(--ok)}
+.steps li.cur{background:var(--ink);color:var(--paper)}
+.steps li.cur .n{color:var(--accent)}
+.steps li .pb{position:absolute;left:0;bottom:0;height:3px;background:var(--accent);width:0}
+.stage{display:flex;flex-direction:column;min-width:0}
+.scene{padding:24px 28px;min-height:420px;position:relative;background:var(--paper2);
+  background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:20px 20px}
+.stitle{font-family:var(--disp);font-weight:500;font-size:clamp(22px,3vw,32px);letter-spacing:-.03em;line-height:1.1;margin:6px 0 8px}
+.sdesc{color:var(--ink2);font-size:13px;line-height:1.6;max-width:720px;margin-bottom:18px}
+.canvas{position:relative}
+/* reveal */
+.rv{opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease}
+.rv.on{opacity:1;transform:none}
+.cd{background:var(--paper);border:2px solid var(--ink)}
+.cd .ch{padding:7px 12px;border-bottom:2px solid var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.14em;display:flex;justify-content:space-between;gap:8px}
+.cd .ch.ac{background:var(--accent);color:var(--paper)}
+.cd .cb{padding:12px 14px}
+.row{display:flex;gap:10px;justify-content:space-between;padding:6px 0;border-bottom:1.5px solid var(--mute1);font-size:12px;align-items:center}
+.row:last-child{border-bottom:0}
+.row .k{color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;font-size:10px;flex:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.chip{display:inline-block;border:1.5px solid var(--ink);padding:1px 7px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;background:var(--paper)}
+.chip.ok{border-color:var(--ok);color:var(--ok)}
+.chip.wr{border-color:var(--warn);color:#9a6400}
+.chip.ac{border-color:var(--accent);color:var(--accent)}
+.chip.bl{border-color:var(--blue);color:var(--blue)}
+.chip.k{background:var(--ink);color:var(--paper)}
+.cursor::after{content:"▌";color:var(--accent);animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.ad{white-space:pre-wrap;font-size:12px;line-height:1.6;min-height:200px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:500;padding:6px 10px;border-bottom:2px solid var(--ink)}
+td{padding:7px 10px;border-bottom:1.5px solid var(--mute1);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.bar{height:10px;border:1.5px solid var(--ink);background:var(--paper);position:relative;min-width:80px}
+.bar i{display:block;height:100%;background:var(--ink);width:0;transition:width .9s ease}
+.bar i.hi{background:var(--accent)}
+.rv.on .bar i{width:var(--w)}
+.thr{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--accent)}
+.btn{font:inherit;font-size:11px;text-transform:uppercase;letter-spacing:.12em;border:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:7px 12px;cursor:pointer;transition:all .15s ease}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.pri{background:var(--ink);color:var(--paper)}
+.btn.pri:hover{background:var(--accent);border-color:var(--accent)}
+.btn.sel{background:var(--ink);color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fake{pointer-events:none}
+.stk{display:grid}
+.stk>*{grid-area:1/1;justify-self:start;align-self:center}
+.fake.press{background:var(--ink);color:var(--paper)}
+/* controls + log */
+.ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 14px;border-top:2px solid var(--ink);background:var(--paper)}
+.ctl .sp{flex:1}
+.prog{height:4px;background:var(--mute1);flex:1;min-width:80px;position:relative}
+.prog i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:0}
+.log{border-top:2px solid var(--ink);background:var(--ink);color:var(--paper);height:150px;overflow:auto;padding:10px 14px;font-size:11.5px;line-height:1.7}
+.log .ln{display:none;white-space:pre-wrap}
+.log .ln.on{display:block}
+.log .t{color:var(--mute2)}
+.log .g{color:var(--accent)}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;margin-top:24px;border-top:2px solid var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink2)}
+/* flow */
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:16px}
+.nd{border:2px solid var(--ink);background:var(--paper);padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+.nd.on{background:var(--ink);color:var(--paper)}
+.ar{width:22px;height:2px;background:var(--ink);position:relative}
+.ar::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:7px solid var(--ink);border-right:0}
+.mail{background:var(--paper);border:2px solid var(--ink)}
+.mail .mh{padding:8px 14px;border-bottom:1.5px solid var(--ink);font-size:11px;color:var(--ink2);line-height:1.7}
+.mail .mb{padding:12px 14px;font-size:12px;line-height:1.7}
+.mail .mf{padding:8px 14px;border-top:1.5px solid var(--mute1);font-size:10px;color:var(--ink3)}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);background:var(--paper)}
+.kpi>div{padding:12px 14px;border-right:1.5px solid var(--ink)}
+.kpi>div:last-child{border-right:0}
+.kpi .v{font-family:var(--disp);font-size:30px;letter-spacing:-.04em;line-height:1}
+.kpi .l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink2);margin-top:6px}
+.cl{list-style:none}
+.cl li{display:flex;gap:8px;padding:5px 0;border-bottom:1.5px solid var(--mute1);font-size:12px}
+.cl li:last-child{border-bottom:0}
+.cl .bx{width:14px;height:14px;border:1.5px solid var(--ink);flex:none;margin-top:2px;text-align:center;line-height:11px;font-size:11px;color:var(--paper)}
+.cl li.ck .bx{background:var(--ok);border-color:var(--ok)}
+@media (max-width:900px){
+  .main{grid-template-columns:1fr}
+  .side{border-right:0;border-bottom:2px solid var(--ink)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr)}
+  .steps li{border-bottom:1.5px solid var(--ink);border-right:1.5px solid var(--ink);flex-direction:column;gap:2px;padding:8px}
+  .steps li .tx{display:none}
+  .steps li.cur .tx{display:none}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .kpi{grid-template-columns:1fr 1fr}
+  .kpi>div{border-bottom:1.5px solid var(--ink)}
+  .wrap{padding:0 16px 32px}
+  .scene{padding:18px 14px}
+  table{font-size:11px}
+  td,th{padding:6px 5px}
+  .hm{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---- navegación por secciones ---- */
+.tabs{display:flex;border:2px solid var(--ink);border-bottom:0;margin-top:8px;overflow-x:auto;background:var(--paper)}
+.tabs button{font:inherit;font-size:11px;text-transform:uppercase;letter-spacing:.12em;border:0;border-right:1.5px solid var(--ink);background:var(--paper);color:var(--ink);padding:12px 14px;cursor:pointer;white-space:nowrap;transition:background .15s ease;flex:1}
+.tabs button:last-child{border-right:0}
+.tabs button:hover{background:var(--paper2)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.tabs button small{color:var(--ink3);margin-left:6px;font-size:10px;letter-spacing:.04em}
+.tabs button[aria-selected=true] small{color:var(--accent)}
+.tabp{display:none}.tabp.on{display:block}
+.pane{border:2px solid var(--ink);background:var(--paper2);padding:24px 28px;min-height:480px;
+  background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:20px 20px}
+.sub{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink2);margin:22px 0 10px;display:flex;gap:10px;align-items:center}
+.sub::after{content:"";flex:1;height:1.5px;background:var(--ink)}
+.note{font-size:12px;color:var(--ink2);line-height:1.6}
+.note b{color:var(--ink)}
+pre.code{background:var(--ink);color:var(--paper);padding:12px 14px;font-size:11.5px;line-height:1.65;overflow:auto;border:2px solid var(--ink);font-family:var(--mono)}
+.code .k{color:var(--accent)}.code .s{color:#9fd3b0}.code .c{color:var(--mute2)}
+.btn.sm{padding:5px 9px;font-size:10px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.lbl{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink2);margin-bottom:4px}
+input[type=text],select{font:inherit;font-size:13px;border:2px solid var(--ink);background:var(--paper);padding:7px 10px;color:var(--ink);border-radius:0;width:100%}
+input[type=text]:focus,select:focus{border-color:var(--accent);outline:none}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.tag-ac{color:var(--accent)}
+/* arquitectura */
+.ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:2px solid var(--ink);background:var(--paper)}
+.ncol{border-right:1.5px solid var(--ink);display:flex;flex-direction:column}
+.ncol:last-child{border-right:0}
+.ncol>.nh{font-size:10px;text-transform:uppercase;letter-spacing:.14em;padding:7px 10px;border-bottom:2px solid var(--ink);background:var(--paper2);color:var(--ink2)}
+.node{font:inherit;text-align:left;border:0;border-bottom:1.5px solid var(--mute1);background:var(--paper);color:var(--ink);padding:10px;cursor:pointer;transition:background .15s ease;flex:1;min-height:62px}
+.node:last-child{border-bottom:0}
+.node:hover{background:var(--paper2)}
+.node b{display:block;font-size:12px;font-weight:600}
+.node span{font-size:11px;color:var(--ink2)}
+.node.hl{background:var(--ink);color:var(--paper)}
+.node.hl span{color:var(--mute2)}
+.node.sel{box-shadow:inset 0 0 0 3px var(--accent)}
+.steplist{counter-reset:st;list-style:none}
+.steplist li{counter-increment:st;display:flex;gap:10px;padding:7px 0;border-bottom:1.5px solid var(--mute1);font-size:12px;line-height:1.55}
+.steplist li:last-child{border-bottom:0}
+.steplist li::before{content:counter(st,decimal-leading-zero);color:var(--accent);flex:none;width:22px}
+/* funnel */
+.kan{display:grid;grid-template-columns:repeat(7,minmax(118px,1fr));border:2px solid var(--ink);background:var(--paper);overflow-x:auto}
+.kcol{border-right:1.5px solid var(--ink);min-height:150px}
+.kcol:last-child{border-right:0}
+.kcol .kh{gap:6px;align-items:flex-start;font-size:10px;text-transform:uppercase;letter-spacing:.1em;padding:7px 8px;border-bottom:2px solid var(--ink);background:var(--paper2);display:flex;justify-content:space-between}
+.kcard{margin:8px;border:1.5px solid var(--ink);background:var(--paper);padding:6px 8px;font-size:12px;animation:pop .35s ease}
+.kcard small{display:block;color:var(--ink3);font-size:10px;letter-spacing:.06em}
+.kcard.od{border-color:var(--accent);background:#fff1ea}
+.kcard.od small{color:var(--accent)}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.mets{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);background:var(--paper);margin-bottom:14px}
+.mets>div{padding:10px 14px;border-right:1.5px solid var(--ink)}
+.mets>div:last-child{border-right:0}
+.mets .v{font-family:var(--disp);font-size:28px;letter-spacing:-.04em;line-height:1}
+.mets .l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink2);margin-top:5px}
+.dayb{font-family:var(--disp);font-size:44px;letter-spacing:-.04em;line-height:1;margin-right:10px}
+.tw{overflow-x:auto;background:var(--paper);border:2px solid var(--ink)}
+.tw table{min-width:560px}
+.evl{background:var(--ink);color:var(--paper);font-size:11.5px;line-height:1.7;padding:10px 14px;height:150px;overflow:auto;border:2px solid var(--ink)}
+.evl .g{color:var(--accent)}.evl .t{color:var(--mute2)}
+/* acordeón */
+details.ac{border:2px solid var(--ink);background:var(--paper);margin-bottom:8px}
+details.ac summary{cursor:pointer;padding:10px 14px;font-size:12px;list-style:none;display:flex;gap:10px;justify-content:space-between;transition:background .15s ease}
+details.ac summary::-webkit-details-marker{display:none}
+details.ac summary::after{content:"+";color:var(--accent);font-size:16px;line-height:1}
+details.ac[open] summary{background:var(--ink);color:var(--paper);border-bottom:2px solid var(--ink)}
+details.ac[open] summary::after{content:"−"}
+details.ac summary:hover{background:var(--paper2)}
+details.ac[open] summary:hover{background:var(--ink)}
+details.ac .db{padding:12px 14px;font-size:12px;line-height:1.7;color:var(--ink2)}
+details.ac .db b{color:var(--ink)}
+.fgrid{display:grid;grid-template-columns:240px 1fr;border:2px solid var(--ink);background:var(--paper)}
+.fgrid .fl{border-right:2px solid var(--ink)}
+.fgrid .fl button{display:block;width:100%;text-align:left;font:inherit;font-size:12px;padding:10px 12px;border:0;border-bottom:1.5px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;transition:background .15s ease}
+.fgrid .fl button:last-child{border-bottom:0}
+.fgrid .fl button:hover{background:var(--paper2)}
+.fgrid .fl button[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.fgrid .fr{padding:16px}
+.f4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.f4>div{border:1.5px solid var(--ink);padding:10px;background:var(--paper2);font-size:12px;line-height:1.6}
+.f4 h4{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;color:var(--accent);font-weight:500}
+.vr{background:#ffe3d6;border-bottom:2px solid var(--accent);padding:0 2px}
+.chk{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1.5px solid var(--mute1);font-size:12px;cursor:pointer}
+.chk input{accent-color:var(--accent);width:15px;height:15px}
+.chk .w{margin-left:auto;color:var(--ink3)}
+.big{font-family:var(--disp);font-size:44px;letter-spacing:-.04em;line-height:1}
+.res{padding:12px 14px;border:2px solid var(--ink);background:var(--paper);margin-top:12px}
+@media (max-width:900px){
+  .ngrid{grid-template-columns:1fr 1fr}.ncol{border-bottom:1.5px solid var(--ink)}
+  .mets{grid-template-columns:1fr 1fr}.mets>div{border-bottom:1.5px solid var(--ink)}
+  .fgrid{grid-template-columns:1fr}.fgrid .fl{border-right:0;border-bottom:2px solid var(--ink)}
+  .f4{grid-template-columns:1fr 1fr}
+  .pane{padding:18px 14px}
+}
+@media (max-width:560px){.f4,.ngrid{grid-template-columns:1fr}}
+.grid2>*,.grid3>*{min-width:0}
+.cd pre{white-space:pre-wrap;word-break:break-all}
+
+.gantt{display:grid;grid-template-columns:repeat(13,1fr);border:2px solid var(--ink);background:var(--paper)}
+.gantt .wk{font-size:10px;text-align:center;padding:5px 0;border-bottom:2px solid var(--ink);border-right:1.5px solid var(--mute1);background:var(--paper2);color:var(--ink2)}
+.gantt .wk:nth-child(13){border-right:0}
+.gb{font:inherit;text-align:left;border:0;border-right:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:12px 12px;cursor:pointer;transition:background .15s ease;min-height:92px}
+.gb:last-child{border-right:0}
+.gb:hover{background:var(--paper2)}
+.gb[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.gb .pn{font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.gb b{display:block;font-size:13px;font-weight:600;margin:3px 0}
+.gb span{font-size:11px;opacity:.75}
+@media (max-width:900px){.gantt{grid-template-columns:repeat(13,minmax(34px,1fr));overflow-x:auto}.gb{padding:8px}.gb b{font-size:11px}.gb span{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">ai—q.fit<b>/</b></div>
+    <span class="lt">Demo · simulación</span>
+  </header>
+  <div class="strip">
+    <span>DOC // AIQ-DEMO-001 <span class="m">· REV / B</span></span>
+    <span><span class="dot">●</span> Datos ficticios <span class="m">· HOJA 01 / FLUJO</span></span>
+  </div>
+
+  <div class="kicker" style="margin-top:36px">§ Embudo de reclutamiento · recorrido de una búsqueda</div>
+  <h1>De la vacante al alta, <span class="acc">sin copiar y pegar/</span></h1>
+  <p class="lead">Primero un recorrido de una búsqueda de principio a fin (1:30 min). Luego, una pestaña por tema para bajar al detalle técnico: arquitectura, embudo, correos, candidato único, LLM y datos, fallas y preguntas. Los minutos son una guía para una sesión de una hora.</p>
+
+  <div class="sim"><span class="dot">●</span><span><b>Simulación ilustrativa.</b> Los nombres, cifras y mensajes son ficticios y no hay conexión con sistemas reales. Sirve para mostrar el flujo y los puntos donde una persona decide.</span></div>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Secciones"></nav>
+  <section id="tab-tour" class="tabp on">
+  <div class="main">
+    <aside class="side">
+      <div class="phead"><span>Etapas</span><span class="r" id="stepcount">01 / 08</span></div>
+      <ol class="steps" id="steps"></ol>
+    </aside>
+    <section class="stage">
+      <div class="phead"><span id="phtitle">FIG. 01 · Vacante</span><span class="r" id="clock">00:00</span></div>
+      <div class="scene">
+        <div class="kicker" id="skick"></div>
+        <h2 class="stitle" id="stitle"></h2>
+        <p class="sdesc" id="sdesc"></p>
+        <div class="flow" id="flow"></div>
+        <div class="canvas" id="canvas"></div>
+      </div>
+      <div class="ctl">
+        <button class="btn" id="bPrev" aria-label="Etapa anterior">←</button>
+        <button class="btn pri" id="bPlay" aria-label="Reproducir o pausar">❚❚ Pausa</button>
+        <button class="btn" id="bNext" aria-label="Etapa siguiente">→</button>
+        <button class="btn" id="bRestart">Reiniciar</button>
+        <div class="prog"><i id="gprog"></i></div>
+        <button class="btn" id="bSpeed" aria-label="Velocidad">1x</button>
+      </div>
+      <div class="log" id="log" aria-live="off"></div>
+    </section>
+  </div>
+
+  </section>
+<section id="tab-arq" class="tabp"><div class="pane" id="p-arq"></div></section>
+<section id="tab-funnel" class="tabp"><div class="pane" id="p-funnel"></div></section>
+<section id="tab-mail" class="tabp"><div class="pane" id="p-mail"></div></section>
+<section id="tab-dedup" class="tabp"><div class="pane" id="p-dedup"></div></section>
+<section id="tab-llm" class="tabp"><div class="pane" id="p-llm"></div></section>
+<section id="tab-fallas" class="tabp"><div class="pane" id="p-fallas"></div></section>
+<section id="tab-road" class="tabp"><div class="pane" id="p-road"></div></section>
+<section id="tab-faq" class="tabp"><div class="pane" id="p-faq"></div></section>
+  <div class="foot"><span>Orquestador · LLM · sistema de RR.HH.</span><span>Recorrido: espacio = pausa · ← → = etapas</span></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const FLOW=["Sistema RR.HH.","Orquestador","LLM","Portales","Correo","Persona"];
+
+/* ---------- escenas ---------- */
+const S=[];
+
+S.push({
+ ph:"FIG. 01 · Vacante",kick:"§01 · Detección",title:"Una vacante aprobada dispara el flujo",
+ desc:"El sistema de RR.HH. es la fuente de verdad. El orquestador consulta su API cada pocos minutos, compara contra su propia base y detecta lo nuevo: no depende de webhooks.",
+ dur:9000,flow:[0,1],
+ html:`<div class="grid2">
+  <div class="cd rv" data-at="300"><div class="ch"><span>Sistema RR.HH. · Vacante</span><span class="acc">Aprobada</span></div><div class="cb">
+   <div class="row"><span class="k">Cargo</span><span>Ejecutivo/a de atención</span></div>
+   <div class="row"><span class="k">Sucursal</span><span>Concepción</span></div>
+   <div class="row"><span class="k">Vacantes</span><span>3</span></div>
+   <div class="row"><span class="k">Jornada</span><span>Completa</span></div>
+   <div class="row"><span class="k">Aprobó</span><span>Jefatura de zona</span></div>
+  </div></div>
+  <div class="cd rv" data-at="2600"><div class="ch"><span>Orquestador · consulta periódica</span><span>Cada 10 min</span></div><div class="cb">
+   <div class="row"><span class="k">Última marca</span><span>09:50:00</span></div>
+   <div class="row"><span class="k">Consulta</span><span>09:59:58</span></div>
+   <div class="row rv" data-at="4200"><span class="k">Diferencia</span><span class="chip ac">1 vacante nueva</span></div>
+   <div class="row rv" data-at="5600"><span class="k">Acción</span><span class="chip k">Iniciar búsqueda BUS-0417</span></div>
+   <div class="row rv" data-at="6800"><span class="k">Registro</span><span class="chip ok">Guardado en base única</span></div>
+  </div></div></div>`,
+ log:[[400,"RR.HH","vacante aprobada · Ejecutivo/a de atención · Concepción"],[3200,"ORQ","consulta periódica · comparando contra base propia"],[4300,"ORQ","1 vacante nueva detectada"],[5700,"ORQ","búsqueda BUS-0417 creada"]]
+});
+
+S.push({
+ ph:"FIG. 02 · Aviso",kick:"§02 · Redacción",title:"El LLM redacta el aviso y define la rúbrica",
+ desc:"A partir del perfil del cargo, el LLM propone el texto del aviso y los criterios con los que se evaluarán las postulaciones. Una persona de RR.HH. aprueba antes de publicar.",
+ dur:11000,flow:[1,2],
+ html:`<div class="grid2">
+  <div class="cd rv" data-at="200"><div class="ch"><span>Borrador de aviso · LLM</span><span class="acc">Pendiente de aprobación</span></div><div class="cb">
+   <div class="ad cursor" data-tw="Ejecutivo/a de atención · Concepción
+
+Buscamos 3 personas para atender clientes en nuestra sucursal, resolviendo consultas y trámites con claridad y buen trato.
+
+Requisitos
+· Enseñanza media completa (técnico deseable)
+· 1 año de experiencia en atención presencial
+· Manejo de herramientas de oficina
+
+Ofrecemos jornada completa y capacitación inicial.
+Postula en el enlace de este aviso." data-at="700" data-dur="5200"></div>
+  </div></div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+   <div class="cd rv" data-at="6200"><div class="ch"><span>Rúbrica de evaluación</span><span>Total 100</span></div><div class="cb">
+    <div class="row"><span>Experiencia en atención</span><span class="chip">40</span></div>
+    <div class="row"><span>Formación</span><span class="chip">25</span></div>
+    <div class="row"><span>Herramientas de oficina</span><span class="chip">20</span></div>
+    <div class="row"><span>Disponibilidad y zona</span><span class="chip">15</span></div>
+   </div></div>
+   <div class="cd rv" data-at="8000"><div class="ch"><span>Aprobación</span><span>Persona</span></div><div class="cb" style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+    <span style="font-size:12px">Analista de selección revisa texto y rúbrica</span>
+    <span class="chip ok rv" data-at="9400">Aprobado</span></div></div>
+  </div></div>`,
+ log:[[800,"LLM","redactando aviso desde el perfil del cargo"],[6200,"LLM","rúbrica propuesta · 4 criterios"],[9400,"RR.HH","aviso y rúbrica aprobados por analista"]]
+});
+
+S.push({
+ ph:"FIG. 03 · Publicación",kick:"§03 · Publicación",title:"Cada portal, por la vía que permite",
+ desc:"Donde hay integración, se publica solo. Donde el portal solo tiene panel, el orquestador deja el aviso listo, la persona lo publica en minutos y el sistema registra el enlace.",
+ dur:12000,flow:[1,3],
+ html:`<div class="cd rv" data-at="200"><div class="ch"><span>Aviso BUS-0417 · estado por portal</span><span>5 portales</span></div>
+  <table><thead><tr><th>Portal</th><th>Vía</th><th>Estado</th></tr></thead><tbody>
+   <tr><td>Portal A</td><td><span class="chip bl">Automática</span></td><td class="stk"><span class="chip wr rv" data-at="800" data-until="2200">Publicando</span><span class="chip ok rv" data-at="2200">Publicado</span></td></tr>
+   <tr><td>Portal B</td><td><span class="chip bl">Vía socio ATS</span></td><td class="stk"><span class="chip wr rv" data-at="1400" data-until="3200">Publicando</span><span class="chip ok rv" data-at="3200">Publicado</span></td></tr>
+   <tr><td>Portal C</td><td><span class="chip">Contrato</span></td><td class="stk"><span class="chip wr rv" data-at="2000" data-until="4200">Publicando</span><span class="chip ok rv" data-at="4200">Publicado</span></td></tr>
+   <tr><td>Portal D</td><td><span class="chip">Contrato</span></td><td class="stk"><span class="chip wr rv" data-at="2600" data-until="5000">Publicando</span><span class="chip ok rv" data-at="5000">Publicado</span></td></tr>
+   <tr><td>Portal E <span class="m" style="color:var(--ink3)">(solo panel)</span></td><td><span class="chip ac">Asistida</span></td><td class="stk"><span class="chip wr rv" data-at="3200" data-until="8800">Tarea para una persona</span><span class="chip ok rv" data-at="8800">Publicado · enlace registrado</span></td></tr>
+  </tbody></table></div>
+  <div class="cd rv" data-at="5600" style="margin-top:16px"><div class="ch ac"><span>Tarea asistida · Portal E</span><span>~6 min</span></div><div class="cb" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+   <span style="font-size:12px">Aviso adaptado al formato del portal, listo para pegar.</span>
+   <span style="display:flex;gap:8px"><span class="btn fake rv" data-at="6200">Copiar aviso</span><span class="btn pri fake rv" data-at="7600">Marcar publicado</span></span>
+  </div></div>`,
+ log:[[900,"ORQ","publicando en portales con integración"],[3300,"ORQ","Portal E sin API · tarea asistida creada"],[6300,"PERS","aviso copiado desde el orquestador"],[8800,"ORQ","enlace de Portal E registrado · etiqueta de origen asignada"]]
+});
+
+S.push({
+ ph:"FIG. 04 · Captura",kick:"§04 · Captura",title:"Las postulaciones llegan de varias vías",
+ desc:"El camino principal es el enlace propio de cada aviso. Donde la postulación ocurre dentro del portal, se capta por API, por el correo de notificación o por exportación periódica. Cada registro lleva su origen.",
+ dur:12000,flow:[3,1],
+ html:`<div class="cd"><div class="ch"><span>Postulaciones entrantes · BUS-0417</span><span id="cnt1" class="acc">0 recibidas</span></div>
+ <table><thead><tr><th>Candidato/a</th><th>Origen</th><th class="hm">Portal</th><th>RUT</th></tr></thead><tbody>
+  <tr class="rv" data-at="800"><td>Camila R.</td><td><span class="chip bl">Enlace propio</span></td><td class="hm">Portal A</td><td>1X.XXX.XXX-X</td></tr>
+  <tr class="rv" data-at="2000"><td>Matías S.</td><td><span class="chip bl">Enlace propio</span></td><td class="hm">Portal B</td><td>1X.XXX.XXX-X</td></tr>
+  <tr class="rv" data-at="3200"><td>Camila R.</td><td><span class="chip wr">Correo de notificación</span></td><td class="hm">Portal C</td><td><span style="color:var(--ink3)">— sin RUT</span></td></tr>
+  <tr class="rv" data-at="4400"><td>Javiera P.</td><td><span class="chip">API / ATS</span></td><td class="hm">Portal A</td><td>1X.XXX.XXX-X</td></tr>
+  <tr class="rv" data-at="5600"><td>Diego F.</td><td><span class="chip wr">Correo de notificación</span></td><td class="hm">Portal D</td><td><span style="color:var(--ink3)">— sin RUT</span></td></tr>
+  <tr class="rv" data-at="6800"><td>Valentina C.</td><td><span class="chip">Exportación diaria</span></td><td class="hm">Portal E</td><td>1X.XXX.XXX-X</td></tr>
+  <tr class="rv" data-at="8000"><td>Tomás A.</td><td><span class="chip bl">Enlace propio</span></td><td class="hm">Portal E</td><td>1X.XXX.XXX-X</td></tr>
+ </tbody></table></div>
+ <p class="rv" data-at="9400" style="margin-top:12px;font-size:12px;color:var(--ink2)"><span class="dot">●</span> Si un portal cambia su pantalla, solo se ven afectadas las vías por correo y por panel; el enlace propio y las API no dependen de ella. El orquestador alerta cuando una vía deja de recibir registros.</p>`,
+ count:{id:"cnt1",steps:[800,2000,3200,4400,5600,6800,8000],label:" recibidas"},
+ log:[[900,"ORQ","registro 1 · origen ENLACE_PROPIO"],[3300,"ORQ","registro 3 · origen CORREO_NOTIF · RUT no informado"],[4500,"ORQ","registro 4 · origen API"],[8100,"ORQ","7 registros · 4 vías de captura"],[9500,"ORQ","monitor de vías · sin alertas"]]
+});
+
+S.push({
+ ph:"FIG. 05 · Duplicados",kick:"§05 · Candidato único",title:"Una persona, un registro, aunque no haya RUT",
+ desc:"Solo el RUT validado o el mismo archivo unifican solos. Si hay parecido por otros datos, el sistema calcula un puntaje, el LLM explica la coincidencia y una persona confirma.",
+ dur:12000,flow:[1,2,5],
+ html:`<div class="grid3">
+  <div class="cd rv" data-at="300"><div class="ch"><span>Registro 1</span><span>Enlace propio</span></div><div class="cb">
+   <div class="row"><span class="k">Nombre</span><span>Camila R.</span></div>
+   <div class="row"><span class="k">RUT</span><span>1X.XXX.XXX-X</span></div>
+   <div class="row"><span class="k">Correo</span><span>c.r****@mail.cl</span></div>
+   <div class="row"><span class="k">Teléfono</span><span>+56 9 ****</span></div>
+   <div class="row"><span class="k">Ciudad</span><span>Concepción</span></div></div></div>
+  <div class="cd rv" data-at="1400"><div class="ch"><span>Registro 3</span><span>Correo de notif.</span></div><div class="cb">
+   <div class="row"><span class="k">Nombre</span><span>Camila R.</span></div>
+   <div class="row"><span class="k">RUT</span><span style="color:var(--ink3)">sin dato</span></div>
+   <div class="row"><span class="k">Correo</span><span>c.r****@mail.cl</span></div>
+   <div class="row"><span class="k">Teléfono</span><span>+56 9 ****</span></div>
+   <div class="row"><span class="k">Ciudad</span><span>Concepción</span></div></div></div>
+  <div class="cd rv" data-at="3200"><div class="ch ac"><span>Posible duplicado</span><span>Confianza alta</span></div><div class="cb" style="font-size:12px;line-height:1.6">
+   <div class="rv" data-at="3800"><span class="chip ok">Coincide</span> correo normalizado</div>
+   <div class="rv" data-at="4400" style="margin-top:6px"><span class="chip ok">Coincide</span> teléfono, ciudad, nombre</div>
+   <div class="rv" data-at="5200" style="margin-top:6px"><span class="chip wr">Falta</span> RUT en el registro 3</div>
+   <p class="rv" data-at="6000" style="margin-top:10px;color:var(--ink2)">Explicación del LLM: mismos medios de contacto y misma ciudad; el segundo registro no informa RUT.</p>
+   <div class="rv" data-at="7200" style="margin-top:12px;display:flex;gap:8px"><span class="btn fake" id="bUn">Unificar</span><span class="btn fake">No son la misma</span></div></div></div>
+ </div>
+ <div class="cd rv" data-at="8600" style="margin-top:16px"><div class="ch"><span>Resultado en la base única</span><span class="acc">Decide una persona</span></div><div class="cb" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px">
+  <span><span class="chip k">1 candidata</span> &nbsp;con <span class="chip">2 postulaciones</span> &nbsp;origen conservado en cada una</span>
+  <span class="chip ok">RUT se valida en el primer correo</span></div></div>`,
+ press:{sel:"#bUn",at:8000},
+ log:[[3300,"ORQ","regla exacta no aplica (sin RUT) · evaluando similitud"],[6000,"LLM","explicación generada · 3 coincidencias, 1 dato faltante"],[8100,"PERS","analista confirma · unificar"],[8700,"ORQ","candidata única · 2 postulaciones asociadas"]]
+});
+
+S.push({
+ ph:"FIG. 06 · Evaluación",kick:"§06 · Preselección",title:"El LLM ordena; la persona decide",
+ desc:"Cada postulación se compara contra la rúbrica aprobada y queda con puntaje y motivos. Ninguna persona es descartada solo por el sistema: RR.HH. revisa y confirma quién avanza.",
+ dur:12000,flow:[2,5],
+ html:`<div class="cd"><div class="ch"><span>Puntaje contra rúbrica · 6 candidatos/as</span><span>Umbral de revisión 70</span></div>
+ <table><thead><tr><th>Candidato/a</th><th style="width:34%">Puntaje</th><th class="hm">Motivo principal</th><th>Decisión</th></tr></thead><tbody>
+  <tr class="rv" data-at="600"><td>Camila R.</td><td><div class="bar"><i class="hi" style="--w:92%"></i><span class="thr" style="left:70%"></span></div></td><td class="hm">3 años en atención presencial</td><td><span class="chip ok rv" data-at="7600">Avanza</span></td></tr>
+  <tr class="rv" data-at="1400"><td>Javiera P.</td><td><div class="bar"><i class="hi" style="--w:86%"></i><span class="thr" style="left:70%"></span></div></td><td class="hm">Técnico + 2 años en caja</td><td><span class="chip ok rv" data-at="8200">Avanza</span></td></tr>
+  <tr class="rv" data-at="2200"><td>Matías S.</td><td><div class="bar"><i class="hi" style="--w:78%"></i><span class="thr" style="left:70%"></span></div></td><td class="hm">1 año en atención telefónica</td><td><span class="chip ok rv" data-at="8800">Avanza</span></td></tr>
+  <tr class="rv" data-at="3000"><td>Valentina C.</td><td><div class="bar"><i style="--w:66%"></i><span class="thr" style="left:70%"></span></div></td><td class="hm">Sin experiencia presencial</td><td><span class="chip wr rv" data-at="9400">En revisión</span></td></tr>
+  <tr class="rv" data-at="3800"><td>Tomás A.</td><td><div class="bar"><i style="--w:58%"></i><span class="thr" style="left:70%"></span></div></td><td class="hm">Disponibilidad parcial</td><td><span class="chip wr rv" data-at="9400">En revisión</span></td></tr>
+  <tr class="rv" data-at="4600"><td>Diego F.</td><td><div class="bar"><i style="--w:44%"></i><span class="thr" style="left:70%"></span></div></td><td class="hm">Otra ciudad</td><td><span class="chip wr rv" data-at="9400">En revisión</span></td></tr>
+ </tbody></table></div>
+ <p class="rv" data-at="10200" style="margin-top:12px;font-size:12px;color:var(--ink2)"><span class="dot">●</span> Quienes quedan bajo el umbral los revisa una persona antes de cualquier respuesta. Los criterios y motivos quedan guardados para revisión posterior.</p>`,
+ log:[[700,"LLM","evaluando postulaciones contra rúbrica aprobada"],[5000,"LLM","6 evaluaciones con puntaje y motivos"],[7600,"PERS","analista confirma 3 candidatos/as"],[9400,"PERS","3 casos bajo umbral · revisión manual"]]
+});
+
+S.push({
+ ph:"FIG. 07 · Correo",kick:"§07 · Seguimiento por correo",title:"Todo por correo, con pausa cuando la persona responde",
+ desc:"Un remitente transaccional, un enlace seguro para subir documentos y una secuencia que se detiene sola al detectar una respuesta. Sin otros canales.",
+ dur:12000,flow:[1,4,5],
+ html:`<div class="grid2">
+  <div class="mail rv" data-at="300">
+   <div class="mh"><b>De:</b> Selección · empresa<br><b>Para:</b> c.r****@mail.cl<br><b>Asunto:</b> Avanzaste en el proceso · Ejecutivo/a de atención</div>
+   <div class="mb">Hola Camila,<br><br>Tu postulación avanza a entrevista. Para continuar necesitamos:<br>
+    · Confirmar tu RUT (en el enlace seguro)<br>· Subir tu CV actualizado<br><br>
+    <span class="chip k">Subir documentos</span><br><br>Puedes elegir un horario de entrevista en el mismo enlace.</div>
+   <div class="mf">Recibes este correo por tu postulación. Dejar de recibir correos · Ejercer mis derechos sobre mis datos</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+   <div class="cd rv" data-at="1800"><div class="ch"><span>Secuencia de seguimiento</span><span>Automática</span></div><div class="cb">
+    <div class="row"><span>Correo 1 · día 0</span><span class="chip ok">Enviado</span></div>
+    <div class="row"><span>Recordatorio · día 2</span><span class="chip rv" data-at="1800" data-until="5400">Programado</span><span class="chip ac rv" data-at="5400">Pausado</span></div>
+    <div class="row"><span>Recordatorio · día 5</span><span class="chip rv" data-at="1800" data-until="5400">Programado</span><span class="chip ac rv" data-at="5400">Pausado</span></div>
+   </div></div>
+   <div class="cd rv" data-at="4200"><div class="ch ac"><span>Respuesta detectada</span><span>Hace 3 h</span></div><div class="cb" style="font-size:12px">
+    <span class="rv" data-at="4200">Camila confirmó su RUT y subió su CV.</span><br>
+    <span class="rv" data-at="5400" style="display:block;margin-top:6px"><span class="chip ok">RUT validado</span> <span class="chip ok">CV recibido</span></span></div></div>
+   <div class="cd rv" data-at="7000"><div class="ch"><span>Agenda</span><span>Entrevista</span></div><div class="cb" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px">
+    <span>Jue 12 · 10:30 · Sucursal Concepción</span><span class="chip ok rv" data-at="8600">Confirmada</span></div></div>
+  </div></div>`,
+ log:[[400,"CORREO","envío 1 · enlace seguro para documentos"],[4300,"CORREO","respuesta detectada · secuencia pausada"],[5600,"ORQ","RUT validado · registros unificados por clave exacta"],[8600,"ORQ","entrevista agendada · invitación enviada"]]
+});
+
+S.push({
+ ph:"FIG. 08 · Alta",kick:"§08 · Cierre",title:"Oferta, documentos y alta en el sistema de RR.HH.",
+ desc:"Cuando la persona acepta, el orquestador verifica los documentos y crea el alta en el sistema de RR.HH. La vacante se cierra y los avisos se retiran de los portales.",
+ dur:12000,flow:[5,1,0],
+ html:`<div class="grid2">
+  <div class="cd rv" data-at="200"><div class="ch"><span>Documentos</span><span id="cnt2" class="acc">0 / 4</span></div><div class="cb"><ul class="cl">
+   <li class="rv" data-at="600" data-ck="1400"><span class="bx">✓</span>Cédula de identidad</li>
+   <li class="rv" data-at="900" data-ck="2000"><span class="bx">✓</span>Certificado de estudios</li>
+   <li class="rv" data-at="1200" data-ck="2600"><span class="bx">✓</span>Certificado de antecedentes</li>
+   <li class="rv" data-at="1500" data-ck="3200"><span class="bx">✓</span>Datos bancarios</li>
+  </ul></div></div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+   <div class="cd rv" data-at="4000"><div class="ch"><span>Oferta</span><span>Persona</span></div><div class="cb" style="display:flex;justify-content:space-between;align-items:center;font-size:12px"><span>Jefatura envía oferta · candidata acepta</span><span class="chip ok rv" data-at="5200">Aceptada</span></div></div>
+   <div class="cd rv" data-at="6000"><div class="ch ac"><span>Sistema RR.HH. · alta de colaborador</span><span>API</span></div><div class="cb" style="font-size:12px">
+    <div class="row"><span class="k">Acción</span><span>Crear colaborador</span></div>
+    <div class="row"><span class="k">Estado</span><span class="chip wr rv" data-at="6200" data-until="7400">Enviando</span><span class="chip ok rv" data-at="7400">Alta creada</span></div>
+    <div class="row rv" data-at="8000"><span class="k">Vacantes</span><span>1 de 3 cubierta · búsqueda continúa</span></div></div></div>
+  </div></div>
+  <div class="kpi rv" data-at="9000" style="margin-top:16px">
+   <div><div class="v">1</div><div class="l">Base única</div></div>
+   <div><div class="v">0</div><div class="l">Copias manuales de CV</div></div>
+   <div><div class="v">~6 min</div><div class="l">Intervención por portal asistido</div></div>
+   <div><div class="v">100%</div><div class="l">Decisiones tomadas por personas</div></div>
+  </div>`,
+ count2:{id:"cnt2",steps:[1400,2000,2600,3200],total:4},
+ log:[[1500,"ORQ","documentos verificados · 4 de 4"],[5200,"PERS","oferta aceptada"],[7400,"RR.HH","alta creada vía API · colaborador registrado"],[8200,"ORQ","búsqueda BUS-0417 · 1 de 3 vacantes cubierta"],[10000,"ORQ","ciclo completo · todo trazado en base única"]]
+});
+
+/* ---------- motor ---------- */
+const stepsEl=$("#steps"),canvas=$("#canvas"),logEl=$("#log");
+let cur=0,t=0,playing=true,speed=1,last=0,els=[];
+const fmt=ms=>{const s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+const total=S.reduce((a,s)=>a+s.dur,0);
+const before=i=>S.slice(0,i).reduce((a,s)=>a+s.dur,0);
+
+S.forEach((s,i)=>{
+  const li=document.createElement("li");
+  li.innerHTML=`<span class="n">§${String(i+1).padStart(2,"0")}</span><span class="tx">${s.kick.split("·")[1].trim()}</span><i class="pb"></i>`;
+  li.addEventListener("click",()=>go(i));
+  stepsEl.appendChild(li);
+});
+/* log: todas las líneas, visibilidad por tiempo */
+const logLines=[];
+S.forEach((s,i)=>s.log.forEach(l=>{
+  const d=document.createElement("div");d.className="ln";
+  d.innerHTML=`<span class="t">${fmt(before(i)+l[0])}</span> <span class="g">${l[1].padEnd(6," ")}</span> ${l[2]}`;
+  logEl.appendChild(d);logLines.push({d,s:i,at:l[0]});
+}));
+
+function build(i){
+  const s=S[i];cur=i;
+  $("#skick").textContent=s.kick;$("#stitle").textContent=s.title;$("#sdesc").textContent=s.desc;
+  $("#phtitle").textContent=s.ph;$("#stepcount").textContent=String(i+1).padStart(2,"0")+" / "+String(S.length).padStart(2,"0");
+  $("#flow").innerHTML=s.flow.map((n,k)=>(k?'<span class="ar"></span>':'')+`<span class="nd on">${FLOW[n]}</span>`).join("");
+  canvas.innerHTML=s.html;
+  els=[...canvas.querySelectorAll("[data-at]")].map(e=>({e,at:+e.dataset.at,until:e.dataset.until?+e.dataset.until:Infinity,tw:e.dataset.tw,dur:+e.dataset.dur||0,ck:e.dataset.ck?+e.dataset.ck:null}));
+  [...stepsEl.children].forEach((li,k)=>{li.classList.toggle("cur",k===i);li.classList.toggle("done",k<i)});
+}
+function frame(){
+  const s=S[cur];
+  els.forEach(o=>{
+    if(o.tw!==undefined){
+      const p=Math.max(0,Math.min(1,(t-o.at)/o.dur));
+      o.e.textContent=o.tw.slice(0,Math.round(o.tw.length*p));
+      o.e.classList.toggle("cursor",p<1);
+      o.e.classList.toggle("on",t>=o.at);
+    } else {
+      o.e.classList.toggle("on",t>=o.at&&t<o.until);
+      if(o.ck!==null)o.e.classList.toggle("ck",t>=o.ck);
+    }
+  });
+  if(s.count){const n=s.count.steps.filter(x=>t>=x).length;$("#"+s.count.id).textContent=n+s.count.label}
+  if(s.count2){const n=s.count2.steps.filter(x=>t>=x).length;$("#"+s.count2.id).textContent=n+" / "+s.count2.total}
+  if(s.press){const b=canvas.querySelector(s.press.sel);if(b)b.classList.toggle("press",t>=s.press.at)}
+  let lastOn=null;
+  logLines.forEach(l=>{const on=l.s<cur||(l.s===cur&&l.at<=t);l.d.classList.toggle("on",on);if(on)lastOn=l.d});
+  if(lastOn)logEl.scrollTop=logEl.scrollHeight;
+  const g=before(cur)+t;
+  $("#gprog").style.width=(100*g/total)+"%";$("#clock").textContent=fmt(g)+" / "+fmt(total);
+  [...stepsEl.children].forEach((li,k)=>{li.querySelector(".pb").style.width=k<cur?"100%":k===cur?(100*t/s.dur)+"%":"0"});
+}
+function go(i,at){
+  i=Math.max(0,Math.min(S.length-1,i));
+  build(i);t=at||0;frame();
+}
+function tick(ts){
+  if(playing){
+    const dt=Math.min(100,ts-last);t+=dt*speed;
+    if(t>=S[cur].dur){
+      if(cur<S.length-1){go(cur+1)}else{t=S[cur].dur;playing=false;setPlay()}
+    }
+    frame();
+  }
+  last=ts;requestAnimationFrame(tick);
+}
+window.__tourPause=function(){playing=false;setPlay()};
+function setPlay(){$("#bPlay").textContent=playing?"❚❚ Pausa":"▶ Reproducir"}
+$("#bPlay").onclick=()=>{
+  if(!playing&&cur===S.length-1&&t>=S[cur].dur){go(0)}
+  playing=!playing;setPlay();
+};
+$("#bPrev").onclick=()=>go(cur-1);
+$("#bNext").onclick=()=>go(cur+1);
+$("#bRestart").onclick=()=>{go(0);playing=true;setPlay()};
+$("#bSpeed").onclick=()=>{speed=speed===1?1.5:speed===1.5?2:1;$("#bSpeed").textContent=speed+"x"};
+document.addEventListener("keydown",e=>{
+  if(!$("#tab-tour").classList.contains("on")||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.code==="Space"){e.preventDefault();$("#bPlay").click()}
+  else if(e.code==="ArrowRight")go(cur+1);
+  else if(e.code==="ArrowLeft")go(cur-1);
+});
+/* parámetros de prueba: ?s=3&t=5000&pause=1 */
+const q=new URLSearchParams(location.search);
+go(q.has("s")?(+q.get("s")-1):0,q.has("t")?+q.get("t"):0);
+if(q.get("pause")==="1"){playing=false}
+setPlay();
+requestAnimationFrame(ts=>{last=ts;tick(ts)});
+})();
+</script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const head=(k,t,d)=>`<div class="kicker">${k}</div><h2 class="stitle">${t}</h2><p class="sdesc">${d}</p>`;
+const num=n=>Math.round(n).toLocaleString("es-CL");
+
+/* ================= navegación ================= */
+const TABS=[["tour","Recorrido","5'"],["arq","Arquitectura","10'"],["funnel","Embudo","8'"],["mail","Correos","8'"],["dedup","Candidato único","4'"],["llm","LLM y datos","8'"],["fallas","Fallas","4'"],["road","Roadmap","5'"],["faq","Preguntas","8'"]];
+const nav=$("#tabs");
+TABS.forEach(([id,n,m],i)=>{
+  const b=document.createElement("button");b.setAttribute("role","tab");b.dataset.tab=id;
+  b.innerHTML=`${String(i+1).padStart(2,"0")} ${n}<small>${m}</small>`;
+  b.onclick=()=>openTab(id);nav.appendChild(b);
+});
+function openTab(id,noHash){
+  if(!TABS.some(t=>t[0]===id))id="tour";
+  document.querySelectorAll(".tabp").forEach(s=>s.classList.toggle("on",s.id==="tab-"+id));
+  nav.querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id));
+  if(id!=="tour"&&window.__tourPause)window.__tourPause();
+  if(id!=="funnel"&&window.__funnelStop)window.__funnelStop();
+  if(!noHash)try{history.replaceState(null,"","#"+id)}catch(e){}
+}
+window.addEventListener("hashchange",()=>openTab(location.hash.slice(1),true));
+
+/* ================= 02 ARQUITECTURA ================= */
+const NODES={
+ rrhh:{col:0,n:"Sistema de RR.HH.",s:"Fuente de verdad · API",
+  d:[["Qué hace","Guarda vacantes aprobadas, colaboradores y altas. Es el único sistema donde se crea el colaborador."],["Cómo se conecta","API REST con credencial de servicio de permisos mínimos. Sin webhooks: el orquestador consulta cada 10–15 min con una marca de tiempo (cursor) y compara contra su base."],["Qué se lee / escribe","Lee: vacantes aprobadas y su estado. Escribe: alta del colaborador al aceptar la oferta (idempotente)."],["Si falla","Las consultas se reintentan con espera creciente; el embudo sigue operando porque la base única es propia. Las altas quedan en cola visible."],["A confirmar en Fase 0","Qué módulos y endpoints expone la cuenta de la empresa (vacantes, procesos, candidatos), límites de tasa y ambiente de pruebas."]]},
+ form:{col:0,n:"Formulario propio",s:"Enlace único por aviso",
+  d:[["Qué hace","Página de postulación del aviso. Cada portal recibe un enlace distinto (parámetro de origen) para saber de dónde viene cada persona."],["Cómo se conecta","Envía directo a la base única mediante el orquestador; sin intermediarios ni lectura de pantallas."],["Qué captura","Datos de contacto, RUT (validado al escribirlo), CV (archivo), consentimiento informado y aviso de privacidad."],["Si falla","Es un servicio propio con monitoreo; si cae, el aviso muestra un mensaje y el portal sigue funcionando por las otras vías."],["Por qué es la vía principal","No depende de la interfaz de ningún portal: si un portal cambia su pantalla, esta vía no se ve afectada."]]},
+ portales:{col:0,n:"Portales de empleo",s:"3 niveles de integración",
+  d:[["Nivel 1 · automático","Portales con API o socio certificado: publicación y lectura por API."],["Nivel 2 · contrato","Portales donde el ejecutivo de cuenta habilita una credencial: publicación por API con token del contrato."],["Nivel 3 · asistida","Portales solo con panel: el orquestador deja el aviso listo y una persona lo publica (~6 min); luego registra el enlace."],["Si cambian","Solo las vías por correo de notificación y por panel se ven afectadas (ver pestaña Fallas)."],["A confirmar en Fase 0","Qué portales tiene contratados la empresa, con qué plan, y si su cuenta de RR.HH. es socia certificada ante LinkedIn o Indeed."]]},
+ buzon:{col:0,n:"Buzón de notificaciones",s:"Vía de captura media",
+  d:[["Qué hace","Casilla dedicada donde algunos portales avisan cada postulación recibida."],["Cómo se conecta","El orquestador lee la casilla y extrae los datos con reglas fijas; el LLM actúa de respaldo si el formato cambia."],["Dependencia","Es la vía más frágil: depende del formato del correo del portal."],["Control","Monitor de vías: si baja la tasa de extracción o llegan cero registros en un periodo esperado, se alerta y el correo queda en bandeja sin procesar (no se pierde)."]]},
+ mailin:{col:0,n:"Respuestas entrantes",s:"Alias único por postulación",
+  d:[["Qué hace","Recibe las respuestas de las personas a los correos del proceso."],["Cómo se conecta","Cada correo sale con un Reply-To único (por ejemplo bus-0417.c8f2@respuestas…). Un servicio de recepción entrega el mensaje al orquestador por webhook."],["Qué detecta","Respuesta de la persona (pausa la secuencia), rebote, respuesta automática de ausencia. Las consultas abiertas y retiros pasan a una persona."],["Si falla","El proveedor reintenta la entrega; el orquestador procesa de forma idempotente."]]},
+ orq:{col:1,n:"Orquestador",s:"Flujos, colas, programador",
+  d:[["Qué hace","Ejecuta los 8 flujos del proceso (WF-01 a WF-08), coordina a los demás componentes y deja registro de cada paso."],["Cómo está hecho","Flujos versionados y exportables, con cola de trabajos, reintentos con espera creciente y claves de idempotencia para no duplicar acciones."],["Programador","Consultas periódicas a RR.HH., recordatorios por reglas de días, monitor de vías y tareas vencidas."],["Si falla","Las tareas pendientes viven en la cola persistente; al reiniciar se retoman. Alertas a operación."],["Operación","Monitoreo y soporte de AI-Q; RR.HH. no necesita tocarlo."]]},
+ db:{col:1,n:"Base única",s:"Candidato · postulación · eventos",
+  d:[["Qué guarda","busqueda, aviso_portal, candidato, postulacion, evento (bitácora), correo, tarea_humana, consentimiento, vinculo_duplicado."],["Principio","Un registro por persona y una postulación por búsqueda. Todo cambio genera un evento con fecha, actor (sistema o persona) y motivo."],["Seguridad","Cifrado en tránsito y en reposo; RUT en campo cifrado aparte; acceso por rol; registro de accesos."],["Propiedad","Los datos pertenecen a la empresa (responsable); AI-Q opera como encargado bajo contrato."],["A confirmar en Fase 0","Región de alojamiento y política de retención."]]},
+ llm:{col:2,n:"LLM",s:"Tareas acotadas, datos seudonimizados",
+  d:[["Qué hace","Redacta avisos, estructura CVs, puntúa contra la rúbrica con motivos, explica posibles duplicados y clasifica respuestas."],["Qué no hace","No decide descartes, no ve identificadores directos (RUT, correo, teléfono, dirección) y no escribe en sistemas por sí solo."],["Salida","Siempre JSON validado contra un esquema; si no cumple, se reintenta una vez y luego pasa a una persona."],["Trazabilidad","Cada llamada guarda versión de instrucciones, modelo, entrada seudonimizada y salida."],["A confirmar en Fase 0","Proveedor y región, con acuerdo de no retención ni entrenamiento con los datos."]]},
+ mailout:{col:2,n:"Correo transaccional",s:"Dominio autenticado",
+  d:[["Qué hace","Envía los correos del proceso desde un subdominio propio, autenticado con SPF, DKIM y DMARC."],["Eventos","Devuelve entregado, rebotado, queja de spam y baja por webhook al orquestador."],["Privacidad","Sin pixel de seguimiento de aperturas por defecto."],["Detalle","Ver pestaña Correos."],["A confirmar en Fase 0","Proveedor y subdominio; ¿puede la empresa delegar un subdominio de su dominio?"]]},
+ panel:{col:3,n:"Panel de tareas",s:"Donde deciden las personas",
+  d:[["Qué contiene","Cola de tareas humanas: publicar en portal asistido, aprobar aviso, confirmar duplicado, revisar bajo umbral, confirmar preselección, aprobar oferta."],["Cada tarea tiene","Responsable, fecha límite, contexto ya armado y botones de decisión. Todo queda en la bitácora."],["Vencimientos","Una tarea vencida avisa a la jefatura de selección."],["Forma","A definir en Fase 0: vista sobre la base única, o integrada a las herramientas que ya usa RR.HH."]]},
+ tablero:{col:3,n:"Tablero",s:"Conversión, tiempos, salud",
+  d:[["Qué muestra","Postulaciones por vía, conversión por etapa, tiempo por etapa, tareas vencidas y salud de cada vía de captura."],["Para qué sirve","Gestionar la operación y detectar dónde se frena un proceso."],["Fuente","Se calcula desde la bitácora de la base única; no es una copia manual."]]}
+};
+const COLS=["Entradas","Orquestación","Servicios","Personas"];
+const FLOWS=[
+ ["WF-01","Detectar vacante",["rrhh","orq","db"],["Cada 10–15 min el orquestador consulta vacantes aprobadas desde la última marca.","Compara contra su base; lo nuevo crea una búsqueda (BUS-xxxx).","Registra el evento y dispara WF-02."]],
+ ["WF-02","Redactar y publicar",["orq","llm","panel","portales","db"],["El LLM redacta aviso y rúbrica desde el perfil del cargo.","Un analista aprueba o edita en el panel.","Se publica por API donde hay integración; donde no, se crea una tarea asistida.","Se registra el enlace de cada publicación y su etiqueta de origen."]],
+ ["WF-03","Capturar postulaciones",["form","portales","buzon","orq","db"],["Llegan por enlace propio, API, correo de notificación o exportación.","Se normaliza (nombre, correo, teléfono, RUT) y se guarda el archivo con su huella.","Se asigna búsqueda y origen; se crea la postulación en estado nuevo.","Se dispara WF-04 y WF-06 (acuse)."]],
+ ["WF-04","Unificar candidato",["orq","db","llm","panel"],["Busca coincidencias: RUT validado o huella del archivo unifican solas.","Si hay parecido por otros campos, calcula un puntaje y el LLM explica la coincidencia.","Una persona confirma o rechaza; el vínculo es reversible."]],
+ ["WF-05","Evaluar",["orq","llm","db","panel"],["El LLM estructura el CV (seudonimizado) y puntúa contra la rúbrica con motivos y cita de evidencia.","Se valida la salida; si falla, pasa a evaluación manual.","El analista confirma quién avanza; los casos bajo umbral se revisan siempre."]],
+ ["WF-06","Comunicar por correo",["orq","mailout","mailin","db"],["Cada evento de la etapa dispara una plantilla (acuse, recordatorio, invitación, resultado).","Se envía en ventana horaria y con límite por hora.","Entrega, rebote o respuesta vuelven por webhook y actualizan el estado; una respuesta pausa la secuencia."]],
+ ["WF-07","Oferta y alta",["orq","rrhh","db","panel"],["Al aceptar la oferta, se verifica la lista de documentos.","Se crea el colaborador en el sistema de RR.HH. por API con clave de idempotencia.","Se actualiza la búsqueda y se retiran los avisos de los portales cuando se cubre la última vacante."]],
+ ["WF-08","Monitorear",["orq","tablero","db","panel"],["Revisa que cada vía siga recibiendo registros y que los formatos no hayan cambiado.","Marca tareas vencidas y avisa a jefatura.","Actualiza el tablero y envía el resumen semanal."]]
+];
+function arq(){
+  const p=$("#p-arq");
+  p.innerHTML=head("§02 · Arquitectura","Qué componentes hay y cómo se hablan","Selecciona un flujo para ver qué componentes participan y en qué orden, o un componente para ver cómo se conecta, qué datos toca y qué pasa si falla.")+
+  `<div class="ngrid" id="ng">${COLS.map((c,i)=>`<div class="ncol"><div class="nh">${c}</div>${Object.entries(NODES).filter(([k,v])=>v.col===i).map(([k,v])=>`<button class="node" data-n="${k}"><b>${v.n}</b><span>${v.s}</span></button>`).join("")}</div>`).join("")}</div>
+  <div class="sub">Flujos del orquestador</div>
+  <div class="btnrow" id="fl">${FLOWS.map((f,i)=>`<button class="btn sm" data-f="${i}">${f[0]} · ${f[1]}</button>`).join("")}</div>
+  <div class="cd" id="adet"><div class="ch"><span>Detalle</span><span>Selecciona un flujo o un componente</span></div><div class="cb note">Sugerencia: empezar por WF-03 (captura), que responde la pregunta sobre dependencia de los portales.</div></div>`;
+  const nodes=[...p.querySelectorAll(".node")];
+  function clear(){nodes.forEach(n=>n.classList.remove("hl","sel"));p.querySelectorAll("#fl .btn").forEach(b=>b.classList.remove("sel"))}
+  p.querySelectorAll("#fl .btn").forEach(b=>b.onclick=()=>{
+    clear();b.classList.add("sel");const f=FLOWS[+b.dataset.f];
+    nodes.forEach(n=>n.classList.toggle("hl",f[2].includes(n.dataset.n)));
+    $("#adet").innerHTML=`<div class="ch ac"><span>${f[0]} · ${f[1]}</span><span>${f[2].length} componentes</span></div><div class="cb"><ol class="steplist">${f[3].map(s=>`<li>${s}</li>`).join("")}</ol></div>`;
+  });
+  nodes.forEach(n=>n.onclick=()=>{
+    clear();n.classList.add("sel");const v=NODES[n.dataset.n];
+    $("#adet").innerHTML=`<div class="ch ac"><span>${v.n}</span><span>${v.s}</span></div><div class="cb">${v.d.map(r=>`<div class="row" style="align-items:flex-start"><span class="k" style="width:150px">${r[0]}</span><span style="text-align:left;flex:1">${r[1]}</span></div>`).join("")}</div>`;
+  });
+}
+
+/* ================= 03 FUNNEL ================= */
+const ST=[["VAL","Validación pendiente"],["REV","En revisión"],["PRE","Preseleccionada"],["ENT","Entrevista"],["OFE","Oferta"],["ALTA","Alta"],["CER","Cerrado"]];
+const CN=["Camila R.","Javiera P.","Matías S.","Valentina C.","Tomás A."];
+/* [candidato, día, etapa, día próxima acción, próxima acción, responsable, registro, correo enviado] */
+const EV=[
+ [0,0,"VAL",2,"Recordatorio si no responde","Orquestador","Camila R. · postulación registrada · RUT pendiente de validar","Acuse y validación"],
+ [1,0,"VAL",2,"Recordatorio si no responde","Orquestador","Javiera P. · postulación registrada","Acuse y validación"],
+ [2,0,"VAL",2,"Recordatorio si no responde","Orquestador","Matías S. · postulación registrada","Acuse y validación"],
+ [3,0,"VAL",2,"Recordatorio si no responde","Orquestador","Valentina C. · postulación registrada","Acuse y validación"],
+ [4,0,"VAL",2,"Recordatorio si no responde","Orquestador","Tomás A. · postulación registrada","Acuse y validación"],
+ [0,1,"PRE",2,"Agendar entrevista","Analista","Camila R. respondió · RUT validado · CV recibido · puntaje 92 · analista confirma",null],
+ [3,1,"REV",2,"Decisión de analista (bajo umbral)","Analista","Valentina C. · puntaje 66 bajo umbral 70 · pasa a revisión humana",null],
+ [4,1,"REV",2,"Decisión de analista (bajo umbral)","Analista","Tomás A. · puntaje 58 bajo umbral 70 · pasa a revisión humana",null],
+ [0,2,"ENT",5,"Entrevista","Analista","Camila R. · entrevista agendada jueves 10:30","Invitación a entrevista"],
+ [1,2,"VAL",5,"Recordatorio 2","Orquestador","Javiera P. sin respuesta · recordatorio 1","Recordatorio 1"],
+ [2,2,"VAL",5,"Recordatorio 2","Orquestador","Matías S. sin respuesta · recordatorio 1","Recordatorio 1"],
+ [1,3,"PRE",4,"Agendar entrevista","Analista","Javiera P. respondió · RUT validado · puntaje 86 · analista confirma",null],
+ [4,3,"CER",null,"Sin próxima acción","Analista","Tomás A. · analista decide no avanzar · se registra el motivo","Resultado (no avanza)"],
+ [3,4,"ENT",7,"Entrevista","Analista","Valentina C. · analista decide avanzar (2 días después del plazo) · entrevista agendada","Invitación a entrevista"],
+ [1,4,"ENT",7,"Entrevista","Analista","Javiera P. · entrevista agendada","Invitación a entrevista"],
+ [2,5,"VAL",8,"Cierre por falta de respuesta","Orquestador","Matías S. sin respuesta · recordatorio 2","Recordatorio 2"],
+ [0,6,"OFE",8,"Respuesta a la oferta","Jefatura","Camila R. · jefatura aprueba oferta y se envía","Oferta y documentos"],
+ [1,7,"CER",null,"Sin próxima acción","Jefatura","Javiera P. · jefatura decide no avanzar tras entrevista","Resultado (no avanza)"],
+ [2,8,"CER",null,"Sin próxima acción","Orquestador","Matías S. · cierre por falta de respuesta · pasa a banco de talento (con consentimiento)","Cierre cordial"],
+ [0,8,"ALTA",null,"Alta creada en el sistema de RR.HH.","Orquestador","Camila R. · documentos 4/4 · oferta aceptada · alta creada por API",null]
+];
+const MAXD=9;let D=0,ftimer=null;
+function cstate(c){
+  const ev=EV.filter(e=>e[0]===c&&e[1]<=D);if(!ev.length)return null;
+  const last=ev[ev.length-1];let since=last[1];
+  for(let i=ev.length-1;i>=0;i--){if(ev[i][2]===last[2])since=ev[i][1];else break}
+  return{stage:last[2],since,nd:last[3],nl:last[4],resp:last[5]};
+}
+function funnel(){
+  const p=$("#p-funnel");
+  p.innerHTML=head("§03 · Embudo","Cada postulación tiene una etapa, una próxima acción y una fecha","Es un reloj simulado: avanza los días y mira cómo se mueven las personas, qué correos salen solos y qué tareas quedan esperando a una persona. Misma lógica de una planilla de seguimiento (etapa, próxima acción, días en etapa), pero la ejecuta el orquestador.")+
+  `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px"><span class="dayb" id="dd">D+0</span>
+   <button class="btn pri" id="fPlay">▶ Reproducir</button><button class="btn" id="fNext">+1 día</button><button class="btn" id="fReset">Reiniciar</button></div>
+  <div class="mets"><div><div class="v" id="m1">0</div><div class="l">Correos enviados (acum.)</div></div><div><div class="v" id="m2">0</div><div class="l">Tareas humanas abiertas</div></div><div><div class="v" id="m3">0</div><div class="l">Tareas vencidas</div></div><div><div class="v" id="m4">0</div><div class="l">Altas</div></div></div>
+  <div class="kan" id="kan"></div>
+  <div class="sub">Registro por postulación</div><div class="tw"><table><thead><tr><th>Candidato/a</th><th>Etapa</th><th>Días en etapa</th><th>Próxima acción</th><th>Fecha</th><th>Responsable</th><th>Estado</th></tr></thead><tbody id="ft"></tbody></table></div>
+  <div class="sub">Bitácora</div><div class="evl" id="fev"></div>
+  <div class="sub">Reglas por etapa</div><div class="tw"><table><thead><tr><th>Etapa</th><th>Entra cuando</th><th>Sale cuando</th><th>Decide</th><th>Plazo</th></tr></thead><tbody>
+   <tr><td>Validación pendiente</td><td>Se registra la postulación</td><td>La persona confirma RUT o vence la secuencia</td><td>Automático</td><td>Recordatorios día 2 y 5; cierre día 8</td></tr>
+   <tr><td>En revisión</td><td>Puntaje bajo el umbral</td><td>Analista decide</td><td>Analista</td><td>1 día hábil (propuesto)</td></tr>
+   <tr><td>Preseleccionada</td><td>Puntaje sobre umbral y RUT validado</td><td>Analista confirma o no</td><td>Analista</td><td>1 día hábil (propuesto)</td></tr>
+   <tr><td>Entrevista</td><td>Analista confirma</td><td>Resultado de entrevista</td><td>Jefatura de la vacante</td><td>3 días hábiles (propuesto)</td></tr>
+   <tr><td>Oferta</td><td>Jefatura aprueba</td><td>Acepta o rechaza</td><td>Persona candidata</td><td>5 días corridos (propuesto)</td></tr>
+   <tr><td>Alta</td><td>Oferta aceptada y documentos 4/4</td><td>Alta creada en RR.HH.</td><td>Automático con verificación</td><td>Mismo día</td></tr></tbody></table></div>
+  <p class="note" style="margin-top:10px">Los plazos son propuestos y se ajustan con RR.HH. en Fase 0. Una tarea vencida avisa a la jefatura de selección; ninguna etapa de decisión se resuelve sola.</p>`;
+  $("#fNext").onclick=()=>{stop();step()};
+  $("#fReset").onclick=()=>{stop();D=0;draw()};
+  $("#fPlay").onclick=()=>{ftimer?stop():play()};
+  draw();
+}
+function step(){if(D<MAXD){D++;draw()}else stop()}
+function play(){if(D>=MAXD)D=0;draw();$("#fPlay").textContent="❚❚ Pausa";ftimer=setInterval(()=>{if(D>=MAXD){stop();return}step()},1500)}
+function stop(){if(ftimer){clearInterval(ftimer);ftimer=null}const b=$("#fPlay");if(b)b.textContent="▶ Reproducir"}
+window.__funnelStop=stop;
+function draw(){
+  $("#dd").textContent="D+"+D;
+  const sts=CN.map((n,i)=>cstate(i));
+  const kan=$("#kan");
+  kan.innerHTML=ST.map(([k,n])=>{
+    const cards=sts.map((s,i)=>s&&s.stage===k?{i,s}:null).filter(Boolean);
+    return `<div class="kcol"><div class="kh"><span>${n}</span><span>${cards.length}</span></div>${cards.map(({i,s})=>{
+      const od=s.nd!==null&&s.nd<D&&k!=="CER"&&k!=="ALTA";
+      return `<div class="kcard${od?" od":""}">${CN[i]}<small>${k==="CER"||k==="ALTA"?"cerrado":(D-s.since)+" d en etapa"}${od?" · vencida":""}</small></div>`}).join("")}</div>`}).join("");
+  $("#ft").innerHTML=sts.map((s,i)=>{
+    const od=s.nd!==null&&s.nd<D&&s.stage!=="CER"&&s.stage!=="ALTA";
+    const due=s.nd!==null&&s.nd===D&&s.stage!=="CER"&&s.stage!=="ALTA";
+    const stn=ST.find(x=>x[0]===s.stage)[1];
+    return `<tr><td>${CN[i]}</td><td>${stn}</td><td>${s.stage==="CER"||s.stage==="ALTA"?"—":D-s.since}</td><td>${s.nl}</td><td>${s.nd===null?"—":"D+"+s.nd}</td><td>${s.resp}</td><td>${od?'<span class="chip ac">Vencida · aviso a jefatura</span>':due?'<span class="chip wr">Vence hoy</span>':s.stage==="CER"||s.stage==="ALTA"?'<span class="chip k">Cerrada</span>':'<span class="chip ok">En plazo</span>'}</td></tr>`}).join("");
+  const sent=EV.filter(e=>e[7]&&e[1]<=D).length;
+  let open=0,over=0,alta=0;
+  sts.forEach(s=>{if(s.stage==="ALTA")alta++;const act=s.stage!=="CER"&&s.stage!=="ALTA";if(act&&s.resp!=="Orquestador")open++;if(act&&s.nd!==null&&s.nd<D)over++});
+  $("#m1").textContent=sent;$("#m2").textContent=open;$("#m3").textContent=over;$("#m4").textContent=alta;
+  const lines=[];
+  EV.filter(e=>e[1]<=D).forEach(e=>lines.push([e[1],e[5]==="Orquestador"?"ORQ":e[5]==="Jefatura"?"JEF":"PERS",e[6]+(e[7]?` · correo: ${e[7]}`:"")]));
+  sts.forEach((s,i)=>{if(s.nd!==null&&s.nd<D&&s.stage!=="CER"&&s.stage!=="ALTA")lines.push([D,"ALERTA",`${CN[i]} · tarea vencida (${s.nl}) · aviso a jefatura de selección`])});
+  lines.sort((a,b)=>a[0]-b[0]);
+  const ev=$("#fev");ev.innerHTML=lines.map(l=>`<div><span class="t">D+${l[0]}</span> <span class="g">${l[1].padEnd(6," ")}</span> ${l[2]}</div>`).join("");
+  ev.scrollTop=ev.scrollHeight;
+}
+
+/* ================= 04 CORREOS ================= */
+const V={nombre:"Camila",cargo:"Ejecutivo/a de atención",sucursal:"Concepción",enlace:"https://empleo.ejemplo.cl/p/tok_8f3a…",fecha:"jueves 12 de noviembre, 10:30",contacto:"datos@ejemplo.cl",resp:"la empresa (responsable)"};
+const TPL=[
+ {id:"acuse",n:"Acuse y validación",when:"Al registrarse la postulación",cond:"Siempre, salvo que la persona esté dada de baja",who:"Automático",
+  sub:"Recibimos tu postulación · {{cargo}}",
+  body:"Hola {{nombre}},\n\nRecibimos tu postulación a {{cargo}} ({{sucursal}}).\n\nPara continuar necesitamos que confirmes tu RUT y, si quieres, actualices tu CV en este enlace seguro (vence en 7 días):\n{{enlace}}\n\nPuedes responder este correo con cualquier consulta."},
+ {id:"rec",n:"Recordatorio",when:"Día 2 y día 5 desde el acuse",cond:"Solo si no hay respuesta, rebote ni baja",who:"Automático",
+  sub:"Falta un paso para continuar · {{cargo}}",
+  body:"Hola {{nombre}},\n\nTu postulación a {{cargo}} sigue pendiente de un paso: confirmar tu RUT en este enlace seguro:\n{{enlace}}\n\nSi ya no te interesa, puedes avisarnos respondiendo este correo."},
+ {id:"inv",n:"Invitación a entrevista",when:"Cuando el analista confirma la preselección",cond:"RUT validado y analista confirmó",who:"Persona confirma, sistema envía",
+  sub:"Entrevista · {{cargo}}",
+  body:"Hola {{nombre}},\n\nTu postulación avanzó. Te proponemos entrevista el {{fecha}} en la sucursal {{sucursal}}.\n\nPuedes confirmar o elegir otro horario aquí:\n{{enlace}}"},
+ {id:"no",n:"Resultado (no avanza)",when:"Cuando el analista o la jefatura confirma que no avanza",cond:"Nunca se envía sin confirmación humana",who:"Persona confirma, sistema envía",
+  sub:"Resultado de tu postulación · {{cargo}}",
+  body:"Hola {{nombre}},\n\nGracias por postular a {{cargo}}. En esta ocasión tu postulación no continúa en el proceso.\n\nSi quieres que una persona revise esta decisión o ejercer tus derechos sobre tus datos, escribe a {{contacto}}.\n\nSi lo autorizas, podemos considerarte para futuras búsquedas."},
+ {id:"of",n:"Oferta y documentos",when:"Cuando la jefatura aprueba la oferta",cond:"Aprobación registrada",who:"Persona aprueba, sistema envía",
+  sub:"Oferta · {{cargo}}",
+  body:"Hola {{nombre}},\n\nTenemos una oferta para ti en {{cargo}}.\n\nPara completar tu ingreso, sube tus documentos en este enlace seguro:\n{{enlace}}"},
+ {id:"cierre",n:"Cierre por falta de respuesta",when:"Día 8 sin respuesta",cond:"Dos recordatorios enviados sin respuesta",who:"Automático",
+  sub:"Cerramos tu postulación por ahora · {{cargo}}",
+  body:"Hola {{nombre}},\n\nComo no pudimos completar tu validación, cerramos tu postulación a {{cargo}} por ahora.\n\nSi quieres retomarla, responde este correo."}
+];
+const FOOT="Recibes este correo por tu postulación a {{cargo}}. Responsable de los datos: {{resp}}. Dejar de recibir correos · Ejercer mis derechos sobre mis datos";
+function fill(t,show){return t.replace(/\{\{(\w+)\}\}/g,(m,k)=>show?`<span class="vr">${m}</span>`:V[k]||m)}
+function mail(){
+  const p=$("#p-mail");
+  p.innerHTML=head("§04 · Correos","Cómo se envían, cómo llegan y cómo se detecta una respuesta","Todo el proceso es por correo. Elige un correo para ver el texto, las variables que completa el sistema, cuándo sale y quién lo autoriza. Debajo, la configuración técnica y un calculador de volumen.")+
+  `<div class="btnrow" id="tp">${TPL.map((t,i)=>`<button class="btn sm" data-i="${i}">${t.n}</button>`).join("")}</div>
+  <div class="grid2"><div class="mail"><div class="mh" id="mhd"></div><div class="mb" id="mbd"></div><div class="mf" id="mft"></div></div>
+  <div><div class="cd"><div class="ch"><span>Reglas de este correo</span><span id="mwho"></span></div><div class="cb"><div class="row"><span class="k">Cuándo sale</span><span id="mwhen" style="text-align:right"></span></div><div class="row"><span class="k">Condición</span><span id="mcond" style="text-align:right"></span></div></div></div>
+  <div class="btnrow" style="margin-top:12px"><button class="btn sm sel" id="vOn">Ver variables</button><button class="btn sm" id="vOff">Ver renderizado</button></div>
+  <div class="cd"><div class="ch"><span>Cabeceras técnicas</span><span>Ilustrativo</span></div><div class="cb"><pre class="code" style="margin:0;border:0;padding:0;background:none;color:var(--ink);font-size:11px">From: Selección &lt;seleccion@empleo.ejemplo.cl&gt;
+Reply-To: bus-0417.c8f2@respuestas.ejemplo.cl
+Message-ID: &lt;evt-91c2@empleo.ejemplo.cl&gt;
+In-Reply-To: &lt;acuse-77ab@empleo.ejemplo.cl&gt;   (recordatorios)
+List-Unsubscribe: &lt;https://empleo.ejemplo.cl/baja/tok_…&gt;
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Authentication-Results: spf=pass dkim=pass dmarc=pass</pre></div></div></div></div>
+  <div class="sub">Autenticación del dominio</div>
+  <div class="tw"><table><thead><tr><th>Registro</th><th>Dónde</th><th>Valor (ejemplo)</th><th>Para qué</th></tr></thead><tbody>
+   <tr><td>SPF</td><td>empleo.ejemplo.cl</td><td>v=spf1 include:_spf.proveedor.example ~all</td><td>Autoriza al proveedor a enviar por el dominio</td></tr>
+   <tr><td>DKIM</td><td>sel1._domainkey.empleo.ejemplo.cl</td><td>CNAME al proveedor</td><td>Firma cada mensaje</td></tr>
+   <tr><td>DMARC</td><td>_dmarc.empleo.ejemplo.cl</td><td>v=DMARC1; p=quarantine; rua=mailto:dmarc@ejemplo.cl</td><td>Política y reportes de autenticación</td></tr>
+   <tr><td>MX</td><td>respuestas.ejemplo.cl</td><td>Servicio de recepción del proveedor</td><td>Recibe las respuestas y las entrega por webhook</td></tr></tbody></table></div>
+  <p class="note" style="margin-top:10px">Se usa un subdominio separado para que la reputación del correo de selección no afecte al dominio principal de la empresa. Antes de enviar a volumen se hace una rampa gradual de envíos de varias semanas (calentamiento).</p>
+  <div class="sub">Reglas de envío</div>
+  <div class="f4">
+   <div><h4>Cuándo</h4>Lunes a sábado, 08:00–20:00 hora de Chile. Límite por hora para no saturar al proveedor ni a quien recibe.</div>
+   <div><h4>Sin duplicar</h4>Clave de idempotencia por persona, plantilla y secuencia: un reintento nunca envía dos veces.</div>
+   <div><h4>Respuesta</h4>Una respuesta pausa la secuencia al instante. Consultas y retiros pasan a una persona.</div>
+   <div><h4>Rebote o baja</h4>Rebote duro: se corta la secuencia y se crea una tarea para verificar el dato. Baja o queja: no se envía más.</div>
+  </div>
+  <div class="sub">Calculador de volumen (estimación)</div>
+  <div class="grid3">
+   <div><label class="lbl">Búsquedas por mes: <b id="cbV">250</b></label><input type="range" id="cB" min="50" max="500" step="10" value="250"></div>
+   <div><label class="lbl">Postulaciones por búsqueda: <b id="cpV">40</b></label><input type="range" id="cP" min="10" max="120" step="5" value="40"></div>
+   <div><label class="lbl">Responden al acuse: <b id="crV">60</b>%</label><input type="range" id="cR" min="20" max="90" step="5" value="60"></div>
+  </div>
+  <div class="mets" style="margin-top:12px"><div><div class="v" id="o1">—</div><div class="l">Correos por mes</div></div><div><div class="v" id="o2">—</div><div class="l">Promedio por día hábil</div></div><div><div class="v" id="o3">—</div><div class="l">Postulaciones por mes</div></div><div><div class="v" id="o4">—</div><div class="l">Sin respuesta (cierres)</div></div></div>
+  <p class="note" id="odet"></p>`;
+  let cur=0,vars=true;
+  function show(){
+    const t=TPL[cur];
+    $("#mhd").innerHTML=`<b>De:</b> Selección<br><b>Para:</b> c.r****@mail.cl<br><b>Asunto:</b> ${fill(t.sub,vars)}`;
+    $("#mbd").innerHTML=fill(t.body,vars).replace(/\n/g,"<br>");
+    $("#mft").innerHTML=fill(FOOT,vars);
+    $("#mwho").textContent=t.who;$("#mwhen").textContent=t.when;$("#mcond").textContent=t.cond;
+    p.querySelectorAll("#tp .btn").forEach((b,i)=>b.classList.toggle("sel",i===cur));
+    $("#vOn").classList.toggle("sel",vars);$("#vOff").classList.toggle("sel",!vars);
+  }
+  p.querySelectorAll("#tp .btn").forEach(b=>b.onclick=()=>{cur=+b.dataset.i;show()});
+  $("#vOn").onclick=()=>{vars=true;show()};$("#vOff").onclick=()=>{vars=false;show()};
+  function calc(){
+    const B=+$("#cB").value,P=+$("#cP").value,r=+$("#cR").value/100,E=6;
+    $("#cbV").textContent=B;$("#cpV").textContent=P;$("#crV").textContent=Math.round(r*100);
+    const ac=B*P,nr=ac*(1-r),rec=nr*2,cie=nr,inv=B*E,no=Math.max(0,ac*r-inv),of=B*2;
+    const tot=ac+rec+cie+inv+no+of;
+    $("#o1").textContent=num(tot);$("#o2").textContent=num(tot/26);$("#o3").textContent=num(ac);$("#o4").textContent=num(nr);
+    $("#odet").innerHTML=`Desglose mensual: acuses ${num(ac)} · recordatorios ${num(rec)} · cierres ${num(cie)} · invitaciones ${num(inv)} (${E} entrevistas por búsqueda) · resultados ${num(no)} · ofertas y documentos ${num(of)}. Supuestos ilustrativos, 26 días hábiles al mes. Es un volumen bajo para un proveedor transaccional; el límite práctico lo ponen las API de portales y del sistema de RR.HH.`;
+  }
+  ["cB","cP","cR"].forEach(i=>$("#"+i).oninput=calc);
+  show();calc();
+}
+
+/* ================= 05 CANDIDATO ÚNICO ================= */
+function rutDv(body){let s=0,f=2;for(let i=body.length-1;i>=0;i--){s+=(+body[i])*f;f=f===7?2:f+1}const r=11-(s%11);return r===11?"0":r===10?"K":String(r)}
+function dedup(){
+  const p=$("#p-dedup");
+  p.innerHTML=head("§05 · Candidato único","Cuándo se unifica sola una persona y cuándo decide un analista","Unificar a la persona equivocada es peor que preguntar. Por eso solo el RUT validado o el mismo archivo unifican automáticamente; todo lo demás sube como posible duplicado con una explicación.")+
+  `<div class="grid2"><div class="cd"><div class="ch"><span>Validación de RUT (módulo 11)</span><span>Al escribir</span></div><div class="cb">
+   <label class="lbl" for="rut">Prueba un RUT (ej. 12.345.678-5)</label><input type="text" id="rut" value="12.345.678-5" autocomplete="off">
+   <div class="res" id="rutRes"></div><p class="note" style="margin-top:8px">El formulario propio valida al escribir; el primer correo pide confirmar el RUT cuando la postulación llegó por una vía que no lo informa.</p></div></div>
+  <div class="cd"><div class="ch"><span>Puntaje de coincidencia</span><span>Sin RUT en uno de los registros</span></div><div class="cb" id="dd2"></div></div></div>
+  <div class="sub">Política de unificación</div>
+  <div class="tw"><table><thead><tr><th>Situación</th><th>Resultado</th><th>Quién decide</th></tr></thead><tbody>
+   <tr><td>RUT válido igual en ambos registros</td><td>Unificar</td><td>Automático</td></tr>
+   <tr><td>Mismo archivo de CV (huella igual)</td><td>Unificar</td><td>Automático</td></tr>
+   <tr><td>Puntaje ≥ 85 sin RUT en común</td><td>Posible duplicado (confianza alta)</td><td>Analista confirma</td></tr>
+   <tr><td>Puntaje 60–84</td><td>Revisión sugerida (confianza baja)</td><td>Analista decide si revisa</td></tr>
+   <tr><td>Puntaje &lt; 60</td><td>Personas distintas</td><td>Automático</td></tr>
+   <tr><td>RUT distinto y válido en ambos</td><td>Personas distintas, aunque el resto coincida</td><td>Automático</td></tr></tbody></table></div>
+  <p class="note" style="margin-top:10px"><b>Reversible:</b> al unificar no se borran los registros originales; se crea un vínculo (vinculo_duplicado) que se puede deshacer. Cada unificación guarda quién la hizo y por qué.</p>`;
+  const rut=$("#rut");
+  function chk(){
+    const raw=rut.value.replace(/[^0-9kK]/g,"").toUpperCase();
+    if(raw.length<2){$("#rutRes").innerHTML='<span class="note">Escribe un RUT completo con dígito verificador.</span>';return}
+    const body=raw.slice(0,-1),dv=raw.slice(-1);
+    if(!/^\d{6,8}$/.test(body)){$("#rutRes").innerHTML='<span class="chip wr">Formato inválido</span> <span class="note">El cuerpo debe tener 6 a 8 dígitos.</span>';return}
+    const exp=rutDv(body);
+    let f=2,parts=[];for(let i=body.length-1;i>=0;i--){parts.push(`${body[i]}×${f}`);f=f===7?2:f+1}
+    $("#rutRes").innerHTML=`${dv===exp?'<span class="chip ok">RUT válido</span>':'<span class="chip ac">Dígito verificador incorrecto</span>'}<p class="note" style="margin-top:8px">Cuerpo ${body} · suma ${parts.reverse().join(" + ")} · 11 − (suma mod 11) → dígito esperado <b>${exp}</b>, ingresado <b>${dv}</b>.</p>`;
+  }
+  rut.oninput=chk;chk();
+  const F=[["Nombre muy similar",30,true],["Correo normalizado igual",30,true],["Teléfono normalizado igual",25,true],["Misma ciudad",5,true],["Empleadores recientes en común",10,false]];
+  const box=$("#dd2");
+  box.innerHTML=F.map((f,i)=>`<label class="chk"><input type="checkbox" data-i="${i}" ${f[2]?"checked":""}> ${f[0]}<span class="w">+${f[1]}</span></label>`).join("")+`<div class="res"><div class="big" id="sc">0</div><div id="sd" style="margin-top:8px"></div></div>`;
+  function sc(){
+    let t=0;box.querySelectorAll("input").forEach((c,i)=>{if(c.checked)t+=F[i][1]});
+    $("#sc").textContent=t;
+    $("#sd").innerHTML=t>=85?'<span class="chip ac">Posible duplicado · confianza alta</span> <span class="note">Sube al analista con la explicación del LLM.</span>':t>=60?'<span class="chip wr">Revisión sugerida · confianza baja</span> <span class="note">El analista decide si revisa.</span>':'<span class="chip ok">Personas distintas</span> <span class="note">No se propone unificar.</span>';
+  }
+  box.querySelectorAll("input").forEach(c=>c.onchange=sc);sc();
+}
+
+/* ================= 06 LLM Y DATOS ================= */
+function llm(){
+  const p=$("#p-llm");
+  const raw=`Camila Rojas · RUT 12.345.678-5
+camila.rojas@mail.cl · +56 9 8765 4321
+Concepción, Av. Principal 123
+
+Experiencia
+2021–2024 · Ejecutiva de atención presencial, Entidad Financiera X
+Atención de clientes, caja y trámites. Uso de planillas y sistema CRM.
+Formación: Técnico en Administración, Instituto Y (2020).`;
+  const mask=`[CANDIDATA_0417-C8F2] · [RUT_OCULTO]
+[CORREO_OCULTO] · [TELÉFONO_OCULTO]
+Ciudad: Concepción · [DIRECCIÓN_OCULTA]
+
+Experiencia
+2021–2024 · Ejecutiva de atención presencial, Entidad Financiera X
+Atención de clientes, caja y trámites. Uso de planillas y sistema CRM.
+Formación: Técnico en Administración, Instituto Y (2020).`;
+  p.innerHTML=head("§06 · LLM y datos","Qué hace el LLM, qué no, y dónde viven los datos","El LLM trabaja con tareas acotadas y datos seudonimizados. Siempre devuelve un formato verificable. Una persona decide.")+
+  `<div class="sub">Qué ve el LLM</div>
+  <div class="btnrow"><button class="btn sm" id="lr">CV original</button><button class="btn sm sel" id="lm">Lo que recibe el LLM</button></div>
+  <pre class="code" id="lcv" style="min-height:170px"></pre>
+  <p class="note">Antes de llamar al LLM, el orquestador reemplaza los identificadores directos por marcadores. El LLM evalúa experiencia y formación, no a la persona.</p>
+  <div class="sub">Tareas del LLM</div>
+  <div class="tw"><table><thead><tr><th>Tarea</th><th>Entrada</th><th>Salida</th><th>Decide</th><th>Control</th></tr></thead><tbody>
+   <tr><td>Redactar aviso</td><td>Perfil del cargo</td><td>Texto y rúbrica</td><td>Analista aprueba</td><td>Lista de términos no permitidos (edad, sexo, estado civil, nacionalidad)</td></tr>
+   <tr><td>Estructurar CV</td><td>CV seudonimizado</td><td>JSON de experiencia, formación, herramientas</td><td>Nadie (solo estructura)</td><td>Validación de esquema; campos vacíos si no hay evidencia</td></tr>
+   <tr><td>Puntuar</td><td>Datos estructurados y rúbrica</td><td>Puntaje por criterio con cita y motivo</td><td>Analista confirma</td><td>Temperatura 0, versión de instrucciones, calibración contra analistas</td></tr>
+   <tr><td>Explicar duplicado</td><td>Dos registros seudonimizados</td><td>Explicación breve</td><td>Analista confirma</td><td>No agrega datos que no estén en los registros</td></tr>
+   <tr><td>Clasificar respuesta</td><td>Texto del correo</td><td>Intención: confirma, consulta, retira, ausencia</td><td>Consultas y retiros: persona</td><td>Baja confianza pasa a una persona</td></tr></tbody></table></div>
+  <div class="sub">Ejemplo de salida de puntaje (ilustrativo)</div>
+  <pre class="code"><span class="c">// esquema validado antes de aceptar la respuesta</span>
+{
+  <span class="k">"candidato"</span>: <span class="s">"CANDIDATA_0417-C8F2"</span>,
+  <span class="k">"rubrica_version"</span>: <span class="s">"BUS-0417.v1"</span>,
+  <span class="k">"criterios"</span>: [
+    { <span class="k">"id"</span>: <span class="s">"experiencia_atencion"</span>, <span class="k">"max"</span>: 40, <span class="k">"puntaje"</span>: 38,
+      <span class="k">"evidencia"</span>: <span class="s">"2021–2024 · Ejecutiva de atención presencial"</span>,
+      <span class="k">"motivo"</span>: <span class="s">"3 años en atención de clientes y caja"</span> },
+    { <span class="k">"id"</span>: <span class="s">"formacion"</span>, <span class="k">"max"</span>: 25, <span class="k">"puntaje"</span>: 22,
+      <span class="k">"evidencia"</span>: <span class="s">"Técnico en Administración (2020)"</span>, <span class="k">"motivo"</span>: <span class="s">"Cumple formación técnica deseable"</span> }
+  ],
+  <span class="k">"total"</span>: 92,
+  <span class="k">"confianza"</span>: <span class="s">"alta"</span>
+}
+<span class="c">// chequeos: suma de criterios = total · puntaje ≤ max · evidencia presente en el CV</span></pre>
+  <div class="sub">Dónde viven los datos</div>
+  <div class="tw"><table><thead><tr><th>Dato</th><th>Dónde</th><th>Quién accede</th><th>Plazo (propuesta)</th></tr></thead><tbody>
+   <tr><td>CV y datos de contacto</td><td>Base única cifrada y archivos cifrados</td><td>Analistas de la búsqueda; operación AI-Q bajo contrato</td><td>Proceso + 12 meses con consentimiento; luego borrado o anonimización</td></tr>
+   <tr><td>RUT</td><td>Campo cifrado aparte</td><td>Función de validación y analistas</td><td>Igual que el CV</td></tr>
+   <tr><td>Decisiones (puntaje, motivo, quién confirmó)</td><td>Bitácora de auditoría</td><td>RR.HH. y auditoría</td><td>Según política de la empresa</td></tr>
+   <tr><td>Datos enviados al LLM</td><td>Sin identificadores directos; sin retención ni entrenamiento (acuerdo a confirmar)</td><td>—</td><td>—</td></tr>
+   <tr><td>Correos enviados</td><td>Proveedor transaccional (metadatos) y copia en base</td><td>Operación</td><td>12 meses</td></tr></tbody></table></div>
+  <div class="sub">Roles y derechos</div>
+  <div class="f4">
+   <div><h4>Roles</h4>La empresa es responsable del tratamiento; AI-Q es encargado bajo contrato. Hosting, correo y LLM figuran como subencargados.</div>
+   <div><h4>Derechos</h4>Acceso, rectificación, supresión, oposición y portabilidad. Se piden por el correo de datos o el enlace del pie de cada mensaje.</div>
+   <div><h4>Plazos</h4>Respuesta dentro de los plazos legales (30 días corridos, prorrogables). Un candidato único facilita ejecutar la solicitud sobre todos los registros.</div>
+   <div><h4>Decisiones automatizadas</h4>Ninguna decisión que afecte a una persona se toma solo con el sistema. Se puede pedir revisión humana.</div>
+  </div>
+  <p class="note" style="margin-top:10px">La nueva ley de protección de datos personales (Ley 21.719) entra en vigencia el 1 de diciembre de 2026. Este diseño se alinea con sus principios; la revisión legal final corresponde al equipo jurídico de la empresa.</p>`;
+  const cv=$("#lcv");
+  function setCv(m){cv.textContent=m?mask:raw;$("#lm").classList.toggle("sel",m);$("#lr").classList.toggle("sel",!m)}
+  $("#lr").onclick=()=>setCv(false);$("#lm").onclick=()=>setCv(true);setCv(true);
+}
+
+/* ================= 07 FALLAS ================= */
+const FAL=[
+ ["Un portal cambia su pantalla",["El monitor de vías detecta que cae la tasa de extracción o que llegan cero registros en un periodo en que se esperan; también falla la validación de campos obligatorios.","Las postulaciones quedan en una bandeja sin procesar: no se pierden. Se activa la exportación manual diaria y se avisa a operación.","Se ajusta la regla de extracción y se reprocesa la bandeja. Tiempo objetivo de corrección a acordar.","Pruebas sintéticas diarias por vía; preferir enlace propio y API; pedir a los portales aviso de cambios."]],
+ ["El sistema de RR.HH. no responde",["Errores 5xx o tiempos de espera; chequeo de salud periódico.","Cola con reintentos de espera creciente. El embudo sigue operando porque la base única es propia; las altas pendientes quedan visibles.","Al volver el servicio se reanuda; la clave de idempotencia evita altas duplicadas.","Respeto de límites de tasa; alerta si la caída supera un umbral (por ejemplo 30 minutos); pruebas diarias del contrato de la API."]],
+ ["Un correo rebota",["El proveedor informa el rebote por webhook.","Se corta la secuencia para esa persona y el correo se marca como inválido.","Tarea humana: verificar el dato en el portal de origen o corregir un error de tipeo evidente.","Validación de sintaxis y dominio en el formulario propio; confirmación del correo en el primer paso."]],
+ ["El LLM devuelve una salida inválida",["Falla el esquema, la suma de criterios no coincide con el total, el puntaje excede el máximo o falta la evidencia en el CV.","Un reintento con instrucción de corrección; si falla, la postulación pasa a evaluación manual. Nunca se descarta por falla del sistema.","Ajuste de instrucciones con control de versiones.","Casos de prueba que corren antes de cada cambio de instrucciones o de modelo; revisión mensual de concordancia con los analistas."]],
+ ["Se unificó a la persona equivocada",["Lo reporta un analista o la propia persona, o aparece un dato contradictorio (por ejemplo un RUT distinto).","Los registros originales se conservan; solo existe un vínculo entre ambos.","Se deshace el vínculo, se reasignan las postulaciones y queda el evento en la bitácora.","Solo el RUT validado o el mismo archivo unifican solos; el resto requiere confirmación humana."]],
+ ["Una persona pide eliminar sus datos",["Llega al correo de datos o al enlace del pie de página.","Se registra la solicitud con su plazo y se bloquean nuevos envíos a esa persona.","Se ejecuta sobre todos los registros asociados y sobre los proveedores; se entrega constancia.","Mapa de datos actualizado y prueba semestral del flujo de derechos."]]
+];
+function fallas(){
+  const p=$("#p-fallas");
+  p.innerHTML=head("§07 · Fallas","Qué pasa cuando algo sale mal","Cada falla tiene cuatro respuestas: cómo se detecta, cómo se contiene, cómo se corrige y cómo se previene. Elige un escenario.")+
+  `<div class="fgrid"><div class="fl" id="fl2">${FAL.map((f,i)=>`<button data-i="${i}">${f[0]}</button>`).join("")}</div><div class="fr" id="fr2"></div></div>`;
+  const btns=[...p.querySelectorAll("#fl2 button")];
+  function show(i){
+    btns.forEach((b,k)=>b.setAttribute("aria-selected",k===i));
+    const f=FAL[i];
+    $("#fr2").innerHTML=`<div class="kicker">Escenario ${String(i+1).padStart(2,"0")}</div><h3 style="font-family:var(--disp);font-weight:500;font-size:22px;letter-spacing:-.03em;margin:4px 0 6px">${f[0]}</h3><div class="f4" style="grid-template-columns:1fr 1fr">${["Detección","Contención","Corrección","Prevención"].map((h,k)=>`<div><h4>${String(k+1).padStart(2,"0")} · ${h}</h4>${f[1][k]}</div>`).join("")}</div>`;
+  }
+  btns.forEach((b,i)=>b.onclick=()=>show(i));show(0);
+}
+
+/* ================= 08 PREGUNTAS ================= */
+const FAQ=[
+ ["¿Dónde corre la solución?","Propuesta: infraestructura en la nube, en la región que permita la política de la empresa, con ambientes de prueba y producción separados, base cifrada y accesos por rol. La región y el proveedor se confirman en Fase 0."],
+ ["¿Qué pasa si el sistema de RR.HH. cambia su API?","Las llamadas están aisladas en un solo módulo, con pruebas diarias del contrato de la API. Si algo cambia, se alerta antes de que afecte a una postulación y solo se ajusta ese módulo."],
+ ["¿Y si dejan de trabajar con AI-Q?","Los flujos son documentados y exportables, los datos son de la empresa y las credenciales quedan en su bóveda. La transferencia de conocimiento y de operación se incluye como entregable."],
+ ["¿Quién opera el sistema día a día?","AI-Q monitorea y da soporte (horario y niveles de servicio a acordar). RR.HH. opera solo el panel de tareas: publicar donde corresponda, confirmar, revisar y decidir."],
+ ["¿Soporta el volumen de 250 búsquedas por mes?","Con 40 postulaciones por búsqueda son unas 10.000 postulaciones y del orden de 30 mil correos por mes (ver calculador en Correos). Es una carga baja para la infraestructura; los límites reales los ponen las API de los portales y del sistema de RR.HH."],
+ ["¿Puede equivocarse el LLM?","Sí. Por eso solo propone: estructura, puntúa con evidencia citada y explica. Cada puntaje se valida contra un esquema, se calibra contra analistas con una muestra y una persona confirma. Una falla del sistema nunca descarta a nadie."],
+ ["¿Se puede auditar una decisión?","Sí. La bitácora guarda qué hizo el sistema, con qué versión de instrucciones y modelo, qué vio el LLM, qué puntaje y motivo dio, y quién confirmó cada decisión."],
+ ["¿Cómo se evita el sesgo?","Los criterios son laborales y los aprueba RR.HH. El LLM no recibe identificadores ni atributos de la persona, los avisos pasan por una lista de términos no permitidos y hay una muestra de revisión periódica de los resultados."],
+ ["¿Por qué no WhatsApp?","Por el costo de la API de mensajería. Todo el proceso es por correo; si más adelante se quisiera otro canal, se agrega sin cambiar el resto del flujo."],
+ ["¿Cuánto tarda en estar funcionando?","Propuesta: Fase 0 de relevamiento y pruebas de API, luego un piloto con una familia de cargos y uno o dos portales, y después la expansión. Los plazos se fijan al cierre de la Fase 0, cuando se conoce el alcance real de las integraciones."],
+ ["¿Qué debemos confirmar en Fase 0?","1. Alcance real de la API del sistema de RR.HH. en su cuenta (vacantes, procesos, candidatos), límites y ambiente de pruebas. 2. Portales contratados, planes y credenciales. 3. Si su cuenta es socia certificada ante LinkedIn o Indeed. 4. Subdominio y proveedor de correo. 5. Región de alojamiento y política de retención. 6. Proveedor de LLM y condiciones de no retención. 7. Requisitos de seguridad de TI y regulatorios aplicables a la empresa."]
+];
+function faq(){
+  const p=$("#p-faq");
+  p.innerHTML=head("§10 · Preguntas","Preguntas técnicas frecuentes y lo que se define en Fase 0","Respuestas cortas a lo que suele preguntar un equipo de TI y de RR.HH. Lo que hoy no se sabe se declara y pasa a la Fase 0.")+
+  FAQ.map((f,i)=>`<details class="ac"${i===FAQ.length-1?" open":""}><summary><span>${f[0]}</span></summary><div class="db">${f[1]}</div></details>`).join("");
+}
+
+
+/* ================= ROADMAP ================= */
+const PH=[
+ {id:"F0",n:"Fase 0",t:"Diagnóstico y diseño",w:[1,2],sem:"≈ 2 sem",
+  act:["Validar el alcance real de la API de Buk (vacantes, procesos, candidatos), límites y ambiente de pruebas","Matriz por portal: vía de publicación y vía de captura que admite cada uno","Definir con RR.HH. las rúbricas de evaluación por familia de cargos","Evaluación de impacto en datos personales con Legal, Riesgo y TI","Diseño detallado y alcance cerrado"],
+  ent:["Matriz de portales y vías","Documento de diseño y alcance","Rúbricas aprobadas","Evaluación de impacto","Propuesta económica con el alcance cerrado"],
+  flows:"Ninguno en producción: se prueban las conexiones.",
+  need:["Credenciales de API y ambiente de prueba de Buk","Un referente de RR.HH. para las rúbricas","Accesos a las cuentas de los portales","Revisión de Legal, Riesgo y TI"],
+  exit:"Alcance firmado y propuesta económica entregada.",val:"Se sabe qué se puede automatizar en cada portal y qué no, antes de comprometer construcción."},
+ {id:"F1",n:"Fase 1",t:"Publicación y captación",w:[3,6],sem:"≈ 4 sem",
+  act:["Detección de vacantes aprobadas y creación de la búsqueda","Avisos redactados por el LLM, con aprobación humana","Publicación automática donde hay integración y publicación asistida en el resto","Formulario propio con etiqueta de origen y las demás vías de captura","Base única, monitor de vías y tablero base"],
+  ent:["Vacantes detectadas solas","Avisos publicados en los portales acordados","Postulaciones entrando a una base única","Tablero base con postulaciones por vía"],
+  flows:"WF-01, WF-02, WF-03 y WF-08 (monitor y tablero base)",
+  need:["Accesos a portales y tokens de contrato","Aprobación de avisos por un analista"],
+  exit:"Búsquedas reales publicadas de punta a punta y postulaciones llegando a la base única.",val:"Desaparece la publicación manual repetida y las postulaciones dejan de repartirse en cada portal."},
+ {id:"F2",n:"Fase 2",t:"Filtrado y correos",w:[7,10],sem:"≈ 4 sem",
+  act:["Candidato único: validación de RUT y detección de duplicados","Lectura de CVs y puntaje contra la rúbrica, con evidencia citada","Calibración del LLM contra la decisión de analistas con una muestra","Secuencias de correo con dominio autenticado y detección de respuestas","Agenda de entrevistas y subida de documentos"],
+  ent:["Candidato único con vínculos reversibles","Evaluación con motivos y revisión humana","Correos en producción con dominio autenticado","Agenda y documentos por enlace seguro"],
+  flows:"WF-04, WF-05 y WF-06",
+  need:["Dominio o subdominio de correo y configuración DNS","Muestra de búsquedas pasadas para calibrar","Tiempo de analistas para revisar casos"],
+  exit:"Concordancia aceptable con los analistas en la muestra y secuencia de correos funcionando en las búsquedas piloto.",val:"Los analistas reciben una lista ordenada con motivos y dejan de escribir correos de seguimiento."},
+ {id:"F3",n:"Fase 3",t:"Contratación y alta",w:[11,13],sem:"≈ 3 sem",
+  act:["Oferta y firma","Verificación de documentos y alta del colaborador en Buk por API","Tablero completo de métricas y tareas vencidas","Capacitación, manual de operación y traspaso"],
+  ent:["Alta creada en Buk sin reingreso manual","Tablero completo","Manual de operación y capacitación","Soporte durante la puesta en marcha"],
+  flows:"WF-07 y WF-08 completo",
+  need:["Aprobadores de oferta definidos por la jefatura","Revisión de seguridad de TI para la puesta en marcha"],
+  exit:"Alta automática validada y operación traspasada al equipo.",val:"Se cierra el ciclo: de la vacante al alta sin copiar datos entre sistemas."}
+];
+const RISK=[["Portales sin acceso técnico","Conexión directa donde exista, publicación asistida donde no, y captura por enlace propio."],["Buk sin avisos de cambios","Consulta periódica desde el orquestador; límites de la API validados en la Fase 0."],["Correos que caen en spam","Dominio autenticado, calentamiento gradual y alertas de rebote."],["Sesgo en el filtrado","Rúbrica objetiva, sin datos sensibles, decisión humana y revisión periódica."],["Cambios en los portales","Alertas, captura de respaldo por exportación y soporte para ajustar la lectura."],["Accesos o revisiones que se demoran","Se piden en Fase 0 y quedan escritos como responsabilidad de la empresa; mueven las fechas si se atrasan."]];
+function road(){
+  const p=$("#p-road");
+  p.innerHTML=head("§09 · Roadmap","Cuatro fases, valor desde la primera","Las duraciones son semanas calendario y estimaciones iniciales; se confirman al cerrar la Fase 0. La propuesta económica se presenta con el alcance cerrado al terminar la Fase 0.")+
+  `<div class="btnrow"><button class="btn sm sel" id="rv4">Ver en 4 fases</button><button class="btn sm" id="rv2">Ver en 2 etapas</button></div>
+  <div class="gantt" id="gt"></div>
+  <div class="cd" id="rdet" style="margin-top:16px"></div>
+  <div class="sub">Riesgos que pueden mover las fechas</div>
+  <div class="tw"><table><thead><tr><th>Riesgo</th><th>Cómo se maneja</th></tr></thead><tbody>${RISK.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td></tr>`).join("")}</tbody></table></div>
+  <div class="sub">Cómo empezamos</div>
+  <div class="f4" style="grid-template-columns:repeat(3,1fr)"><div><h4>01</h4>Reunión de alcance de 60 minutos con RR.HH. y TI.</div><div><h4>02</h4>Acceso a Buk y a los datos de las últimas búsquedas.</div><div><h4>03</h4>Inicio de la Fase 0: diagnóstico y diseño.</div></div>`;
+  let mode=4,sel=0;
+  function groups(){
+    if(mode===4)return PH.map(f=>({n:f.n,t:f.t,w:f.w,sem:f.sem,d:f}));
+    return [{n:"Etapa A",t:"Diagnóstico y diseño",w:[1,2],sem:"≈ 2 sem",d:PH[0]},
+            {n:"Etapa B",t:"Construcción y puesta en marcha",w:[3,13],sem:"≈ 11 sem",d:null}];
+  }
+  function draw(){
+    const g=groups();sel=Math.min(sel,g.length-1);
+    const gt=$("#gt");
+    gt.innerHTML=Array.from({length:13},(_,i)=>`<div class="wk">S${i+1}</div>`).join("")+
+      g.map((x,i)=>`<button class="gb" style="grid-column:${x.w[0]} / ${x.w[1]+1}" data-i="${i}" aria-selected="${i===sel}"><div class="pn">${x.n} · ${x.sem}</div><b>${x.t}</b><span>${x.d?x.d.val:"Fases 1 a 3: publicación, filtrado, correos, contratación y alta."}</span></button>`).join("");
+    gt.querySelectorAll(".gb").forEach(b=>b.onclick=()=>{sel=+b.dataset.i;draw()});
+    const x=g[sel];
+    const L=(a)=>`<ul class="cl" style="margin:0">${a.map(t=>`<li><span class="bx" style="background:var(--ink);border-color:var(--ink)"></span>${t}</li>`).join("")}</ul>`;
+    let body;
+    if(x.d){const d=x.d;body=`<div class="grid2"><div><div class="sub" style="margin-top:0">Actividades</div>${L(d.act)}</div><div><div class="sub" style="margin-top:0">Entregables</div>${L(d.ent)}</div></div>
+      <div class="f4"><div><h4>Flujos del demo</h4>${d.flows}</div><div><h4>Se necesita de la empresa</h4>${d.need.join(". ")}.</div><div><h4>Criterio de salida</h4>${d.exit}</div><div><h4>Valor que ya se usa</h4>${d.val}</div></div>`}
+    else body=PH.slice(1).map(d=>`<div class="row" style="align-items:flex-start"><span class="k" style="width:130px">${d.n} · ${d.sem}</span><span style="text-align:left;flex:1"><b>${d.t}</b><br><span class="note">${d.ent.join(" · ")}</span></span></div>`).join("")+`<p class="note" style="margin-top:10px">Cada fase entrega algo que ya se usa. Elige "Ver en 4 fases" para el detalle.</p>`;
+    $("#rdet").innerHTML=`<div class="ch ac"><span>${x.n} · ${x.t}</span><span>Semanas ${x.w[0]}–${x.w[1]}</span></div><div class="cb">${body}</div>`;
+  }
+  $("#rv4").onclick=()=>{mode=4;sel=0;$("#rv4").classList.add("sel");$("#rv2").classList.remove("sel");draw()};
+  $("#rv2").onclick=()=>{mode=2;sel=0;$("#rv2").classList.add("sel");$("#rv4").classList.remove("sel");draw()};
+  draw();
+}
+
+arq();funnel();mail();dedup();llm();fallas();road();faq();
+openTab((location.hash||"#tour").slice(1),true);
+})();
+</script>
+</body>
+</html>
