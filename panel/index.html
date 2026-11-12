@@ -1,92 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Panel de ventas · AI-Q</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blueprint.css">
 <style>
-:root{--bg:#fff;--fg:#1b1f24;--mut:#667085;--panel:#f6f7f9;--line:#e3e6ea;--acc:#2563eb;--bad:#c2410c}
-@media (prefers-color-scheme:dark){:root{--bg:#14171a;--fg:#e8eaed;--mut:#9aa3ad;--panel:#1c2024;--line:#2b3036;--acc:#6ea0ff;--bad:#f08a5d}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-main{max-width:960px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:28px}
-h1{font-weight:500;font-size:26px;margin:0}
-h2{font-size:17px;font-weight:600;margin:0 0 10px}
-.lead,.note{color:var(--mut)}.note{font-size:13px;margin:8px 0 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
-.big{display:block;font-size:32px;font-variant-numeric:tabular-nums}.lbl{font-size:13px;color:var(--mut)}
-.row{display:grid;grid-template-columns:minmax(80px,38%) 1fr auto;gap:8px;align-items:center;font-size:13px;padding:3px 0}
+.pv{padding-top:32px;padding-bottom:64px}
+.pv .head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:32px;border-bottom:var(--aq-border);padding-bottom:20px}
+.pv .head h1{margin:6px 0 8px;font-size:40px}
+.pv .head p{margin:0}
+.pv .actions{display:flex;gap:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:var(--aq-border);background:var(--aq-paper)}
+.stat{padding:20px;border-right:var(--aq-border-thin)}
+.stat:last-child{border-right:0}
+.stat .num{display:block;font-family:var(--aq-font-display);font-size:38px;font-weight:500;letter-spacing:-0.04em;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.stat.hi .num{color:var(--aq-accent)}
+.stat .lab{font-size:var(--aq-fs-meta);text-transform:uppercase;letter-spacing:var(--aq-track-kicker);color:var(--aq-ink2)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:24px}
+.brow{display:grid;grid-template-columns:minmax(80px,38%) 1fr auto;gap:10px;align-items:center;font-size:var(--aq-fs-body);padding:4px 0}
 .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tr{background:var(--line);border-radius:3px;height:10px}.fl{height:10px;border-radius:3px;background:var(--acc)}
-.n{font-variant-numeric:tabular-nums;text-align:right;min-width:3ch}
-.prog{background:var(--line);border-radius:6px;height:14px;overflow:hidden}.prog>div{height:14px;background:var(--acc)}
-table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
-th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.tr{background:var(--aq-paper2);height:10px;border:1px solid var(--aq-ink)}
+.fl{height:100%;background:var(--aq-accent)}
+.n{font-variant-numeric:tabular-nums;text-align:right;min-width:3ch;font-weight:600}
+.prog{background:var(--aq-paper2);height:18px;border:var(--aq-border)}
+.prog>div{height:100%;background:var(--aq-accent)}
+.pnote{font-size:var(--aq-fs-meta);color:var(--aq-ink3);margin:10px 0 0;line-height:1.5}
+table{border-collapse:collapse;width:100%;font-size:var(--aq-fs-body);font-variant-numeric:tabular-nums}
+th{font-size:var(--aq-fs-meta);text-transform:uppercase;letter-spacing:var(--aq-track-meta);color:var(--aq-ink2);font-weight:500}
+th,td{text-align:left;padding:8px 10px;border-bottom:var(--aq-border-thin)}
 .scroll{overflow-x:auto}
-#login{max-width:360px;margin:15vh auto;display:flex;flex-direction:column;gap:12px}
-input,button{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--fg)}
-button{background:var(--acc);color:#fff;border:0;cursor:pointer}
-#err{color:var(--bad);min-height:1.4em;margin:0}
+#login{max-width:400px;margin:14vh auto;padding:0 24px}
+#login .panel-body{display:flex;flex-direction:column;gap:14px}
+#err{color:var(--aq-accent);min-height:1.4em;margin:0}
+.sec{margin-top:48px}
 [hidden]{display:none!important}
+@media (max-width:768px){.pv{padding-left:var(--aq-pad-page-x-sm);padding-right:var(--aq-pad-page-x-sm)}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:var(--aq-border-thin)}.pv .head h1{font-size:30px}}
 </style>
 </head>
 <body>
 <div id="login" hidden>
-  <h1>Panel de ventas</h1>
-  <p class="lead">Ingresá la clave de acceso.</p>
-  <input id="tok" type="password" autocomplete="current-password" placeholder="Clave" aria-label="Clave de acceso">
-  <button id="go">Entrar</button>
-  <p id="err" role="alert"></p>
+  <div class="panel">
+    <div class="panel-header"><span>AI-Q <span class="accent">/</span> Panel de ventas</span><span>Acceso</span></div>
+    <div class="panel-body">
+      <p class="muted" style="margin:0">Ingresá la clave de acceso.</p>
+      <input id="tok" class="input" type="password" autocomplete="current-password" placeholder="Clave" aria-label="Clave de acceso">
+      <button id="go" class="btn primary" style="justify-content:center">Entrar</button>
+      <p id="err" role="alert"></p>
+    </div>
+  </div>
 </div>
-<main id="app" hidden>
-  <header>
-    <h1>Base de contactos y campañas</h1>
-    <p class="lead" id="resumen">—</p>
-    <p class="note"><span id="stamp"></span> · <a href="#" id="refresh">Actualizar</a> · <a href="#" id="logout">Salir</a></p>
+<main id="app" class="page pv" hidden>
+  <header class="head">
+    <div>
+      <span class="kicker">AI-Q · Panel de ventas</span>
+      <h1 class="display">Base de contactos y campañas</h1>
+      <p class="muted" id="resumen">—</p>
+    </div>
+    <div class="actions">
+      <span class="kicker-tiny" id="stamp" style="align-self:center"></span>
+      <button class="btn" id="refresh">Actualizar</button>
+      <button class="btn" id="logout">Salir</button>
+    </div>
   </header>
+
   <section>
-    <h2>La base</h2>
-    <div class="grid">
-      <div class="card"><span class="big" id="k_contacts">—</span><span class="lbl">Contactos</span></div>
-      <div class="card"><span class="big" id="k_companies">—</span><span class="lbl">Empresas</span></div>
-      <div class="card"><span class="big" id="k_with_email">—</span><span class="lbl">Con email</span></div>
-      <div class="card"><span class="big" id="k_safe_email">—</span><span class="lbl">Email verificado (safe)</span></div>
+    <div class="section-head"><div><span class="kicker">01 / Base</span><h2 class="display">La base</h2></div></div>
+    <div class="stats">
+      <div class="stat"><span class="num" id="k_contacts">—</span><span class="lab">Contactos</span></div>
+      <div class="stat"><span class="num" id="k_companies">—</span><span class="lab">Empresas</span></div>
+      <div class="stat"><span class="num" id="k_with_email">—</span><span class="lab">Con email</span></div>
+      <div class="stat hi"><span class="num" id="k_safe_email">—</span><span class="lab">Email verificado</span></div>
     </div>
-    <div class="two">
-      <div class="card"><h2>Estado del email</h2><div id="b_email_status"></div></div>
-      <div class="card"><h2>Etapa del pipeline</h2><div id="b_pipeline"></div></div>
-      <div class="card"><h2>Lista de origen</h2><div id="b_sources"></div><p class="note">Un contacto puede estar en varias listas.</p></div>
-      <div class="card"><h2>Tamaño de empresa</h2><div id="b_sizes"></div></div>
-      <div class="card"><h2>Top 10 industrias</h2><div id="b_industries"></div><p class="note">Empresas, según la industria declarada en LinkedIn.</p></div>
+    <div class="cols">
+      <div class="panel"><div class="panel-header"><span>Estado del email</span></div><div class="panel-body"><div id="b_email_status"></div></div></div>
+      <div class="panel"><div class="panel-header"><span>Etapa del pipeline</span></div><div class="panel-body"><div id="b_pipeline"></div></div></div>
+      <div class="panel"><div class="panel-header"><span>Lista de origen</span></div><div class="panel-body"><div id="b_sources"></div><p class="pnote">Un contacto puede estar en varias listas.</p></div></div>
+      <div class="panel"><div class="panel-header"><span>Tamaño de empresa</span></div><div class="panel-body"><div id="b_sizes"></div></div></div>
+      <div class="panel"><div class="panel-header"><span>Top 10 industrias</span></div><div class="panel-body"><div id="b_industries"></div><p class="pnote">Empresas, según la industria declarada en LinkedIn.</p></div></div>
     </div>
   </section>
-  <section>
-    <h2>Campaña Automascore</h2>
-    <div class="grid">
-      <div class="card"><span class="big" id="k_pending">—</span><span class="lbl">Pendientes de enviar</span></div>
-      <div class="card"><span class="big" id="k_sent">—</span><span class="lbl">Enviados</span></div>
-      <div class="card"><span class="big" id="k_errors">—</span><span class="lbl">Con error</span></div>
-      <div class="card"><span class="big" id="k_dnc">—</span><span class="lbl">No contactar</span></div>
+
+  <section class="sec">
+    <div class="section-head"><div><span class="kicker">02 / Campaña</span><h2 class="display">Automascore</h2></div></div>
+    <div class="stats">
+      <div class="stat"><span class="num" id="k_pending">—</span><span class="lab">Pendientes de enviar</span></div>
+      <div class="stat hi"><span class="num" id="k_sent">—</span><span class="lab">Enviados</span></div>
+      <div class="stat"><span class="num" id="k_errors">—</span><span class="lab">Con error</span></div>
+      <div class="stat"><span class="num" id="k_dnc">—</span><span class="lab">No contactar</span></div>
     </div>
-    <div class="card" style="margin-top:12px">
-      <h2>Avance</h2>
-      <div class="prog" role="img" aria-label="Avance de la campaña"><div id="bar" style="width:0%"></div></div>
-      <p class="note" id="progtxt">—</p>
+    <div class="panel" style="margin-top:24px">
+      <div class="panel-header"><span>Avance</span></div>
+      <div class="panel-body">
+        <div class="prog" role="img" aria-label="Avance de la campaña"><div id="bar" style="width:0%"></div></div>
+        <p class="pnote" id="progtxt">—</p>
+      </div>
     </div>
-    <div class="two">
-      <div class="card"><h2>Pendientes por idioma</h2><div id="b_pending_lang"></div><p class="note">Solo mails verificados, sin portugués ni idioma indeterminado.</p></div>
-      <div class="card"><h2>Enviados por idioma</h2><div id="b_sent_lang"></div><p class="note" id="nosent">Todavía no se envió ninguna campaña.</p></div>
+    <div class="cols">
+      <div class="panel"><div class="panel-header"><span>Pendientes por idioma</span></div><div class="panel-body"><div id="b_pending_lang"></div><p class="pnote">Solo mails verificados, sin portugués ni idioma indeterminado.</p></div></div>
+      <div class="panel"><div class="panel-header"><span>Enviados por idioma</span></div><div class="panel-body"><div id="b_sent_lang"></div><p class="pnote" id="nosent">Todavía no se envió ninguna campaña.</p></div></div>
     </div>
-    <div class="card" style="margin-top:12px">
-      <h2>Envíos por día</h2>
-      <div class="scroll"><table><thead><tr><th>Día</th><th>Enviados</th><th>Errores</th></tr></thead><tbody id="daily"></tbody></table></div>
-      <p class="note" id="nodays">Sin actividad registrada todavía.</p>
+    <div class="panel" style="margin-top:24px">
+      <div class="panel-header"><span>Envíos por día</span></div>
+      <div class="panel-body"><div class="scroll"><table><thead><tr><th>Día</th><th>Enviados</th><th>Errores</th></tr></thead><tbody id="daily"></tbody></table></div>
+      <p class="pnote" id="nodays">Sin actividad registrada todavía.</p></div>
     </div>
   </section>
-  <p class="note">Solo se muestran totales; nunca datos personales de los contactos.</p>
+  <p class="pnote" style="margin-top:32px">Solo se muestran totales; nunca datos personales de los contactos.</p>
 </main>
 <script>
 const API = 'https://ybjquedtwkalgtrhovml.supabase.co/functions/v1/dashboard-stats';
@@ -100,7 +125,7 @@ function bars(id, rows) {
   if (!rows.length) { el.textContent = 'Sin datos'; return; }
   const max = Math.max(...rows.map((r) => r.n), 1);
   rows.forEach((r) => {
-    const row = document.createElement('div'); row.className = 'row';
+    const row = document.createElement('div'); row.className = 'brow';
     const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.label;
     const tr = document.createElement('div'); tr.className = 'tr';
     const fl = document.createElement('div'); fl.className = 'fl'; fl.style.width = (100 * r.n / max) + '%';
@@ -126,7 +151,7 @@ function render(d) {
     tb.appendChild(tr);
   });
   $('nodays').hidden = d.daily.length > 0;
-  $('stamp').textContent = 'Actualizado ' + new Date(d.generated_at).toLocaleString('es-AR');
+  $('stamp').textContent = 'Act. ' + new Date(d.generated_at).toLocaleString('es-AR');
 }
 
 async function load(token) {
@@ -149,8 +174,8 @@ async function start(token, fromLogin) {
 }
 $('go').onclick = () => start($('tok').value.trim(), true);
 $('tok').onkeydown = (e) => { if (e.key === 'Enter') $('go').click(); };
-$('refresh').onclick = (e) => { e.preventDefault(); let t = ''; try { t = localStorage.getItem(KEY) || ''; } catch (x) {} start(t, false); };
-$('logout').onclick = (e) => { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (x) {} show(false); };
+$('refresh').onclick = () => { let t = ''; try { t = localStorage.getItem(KEY) || ''; } catch (x) {} start(t, false); };
+$('logout').onclick = () => { try { localStorage.removeItem(KEY); } catch (x) {} show(false); };
 let saved = ''; try { saved = localStorage.getItem(KEY) || ''; } catch (e) {}
 if (saved) start(saved, false); else show(false);
 </script>
