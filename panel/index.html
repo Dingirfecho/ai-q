@@ -94,6 +94,12 @@ th,td{text-align:left;padding:8px 10px;border-bottom:var(--aq-border-thin)}
       <div class="stat"><span class="num" id="k_errors">—</span><span class="lab">Con error</span></div>
       <div class="stat"><span class="num" id="k_dnc">—</span><span class="lab">No contactar</span></div>
     </div>
+    <div class="stats" style="margin-top:24px">
+      <div class="stat hi"><span class="num" id="k_replies">—</span><span class="lab">Respuestas</span></div>
+      <div class="stat"><span class="num" id="k_reply_rate">—</span><span class="lab">Tasa de respuesta</span></div>
+      <div class="stat"><span class="num" id="k_review">—</span><span class="lab">Para revisar a mano</span></div>
+      <div class="stat"><span class="num" id="k_bounces">—</span><span class="lab">Rebotes</span></div>
+    </div>
     <div class="panel" style="margin-top:24px">
       <div class="panel-header"><span>Avance</span></div>
       <div class="panel-body">
@@ -137,7 +143,8 @@ function bars(id, rows) {
 
 function render(d) {
   const k = d.kpis;
-  ['contacts', 'companies', 'with_email', 'safe_email', 'pending', 'sent', 'errors', 'dnc'].forEach((f) => { $('k_' + f).textContent = fmt(k[f]); });
+  ['contacts', 'companies', 'with_email', 'safe_email', 'pending', 'sent', 'errors', 'dnc', 'replies', 'review', 'bounces'].forEach((f) => { $('k_' + f).textContent = fmt(k[f] || 0); });
+  $('k_reply_rate').textContent = k.sent ? pct((k.replies || 0) / k.sent) : '—';
   $('resumen').textContent = fmt(k.contacts) + ' contactos en ' + fmt(k.companies) + ' empresas; ' + fmt(k.pending) + ' listos para Automascore y ' + fmt(k.sent) + ' enviados hasta ahora.';
   const total = k.sent + k.pending, p = total ? k.sent / total : 0;
   $('bar').style.width = Math.min(100, p * 100) + '%';
