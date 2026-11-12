@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de ventas · AI-Q</title>
+<style>
+:root{--bg:#fff;--fg:#1b1f24;--mut:#667085;--panel:#f6f7f9;--line:#e3e6ea;--acc:#2563eb;--bad:#c2410c}
+@media (prefers-color-scheme:dark){:root{--bg:#14171a;--fg:#e8eaed;--mut:#9aa3ad;--panel:#1c2024;--line:#2b3036;--acc:#6ea0ff;--bad:#f08a5d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:28px}
+h1{font-weight:500;font-size:26px;margin:0}
+h2{font-size:17px;font-weight:600;margin:0 0 10px}
+.lead,.note{color:var(--mut)}.note{font-size:13px;margin:8px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.big{display:block;font-size:32px;font-variant-numeric:tabular-nums}.lbl{font-size:13px;color:var(--mut)}
+.row{display:grid;grid-template-columns:minmax(80px,38%) 1fr auto;gap:8px;align-items:center;font-size:13px;padding:3px 0}
+.nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr{background:var(--line);border-radius:3px;height:10px}.fl{height:10px;border-radius:3px;background:var(--acc)}
+.n{font-variant-numeric:tabular-nums;text-align:right;min-width:3ch}
+.prog{background:var(--line);border-radius:6px;height:14px;overflow:hidden}.prog>div{height:14px;background:var(--acc)}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.scroll{overflow-x:auto}
+#login{max-width:360px;margin:15vh auto;display:flex;flex-direction:column;gap:12px}
+input,button{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--fg)}
+button{background:var(--acc);color:#fff;border:0;cursor:pointer}
+#err{color:var(--bad);min-height:1.4em;margin:0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div id="login" hidden>
+  <h1>Panel de ventas</h1>
+  <p class="lead">Ingresá la clave de acceso.</p>
+  <input id="tok" type="password" autocomplete="current-password" placeholder="Clave" aria-label="Clave de acceso">
+  <button id="go">Entrar</button>
+  <p id="err" role="alert"></p>
+</div>
+<main id="app" hidden>
+  <header>
+    <h1>Base de contactos y campañas</h1>
+    <p class="lead" id="resumen">—</p>
+    <p class="note"><span id="stamp"></span> · <a href="#" id="refresh">Actualizar</a> · <a href="#" id="logout">Salir</a></p>
+  </header>
+  <section>
+    <h2>La base</h2>
+    <div class="grid">
+      <div class="card"><span class="big" id="k_contacts">—</span><span class="lbl">Contactos</span></div>
+      <div class="card"><span class="big" id="k_companies">—</span><span class="lbl">Empresas</span></div>
+      <div class="card"><span class="big" id="k_with_email">—</span><span class="lbl">Con email</span></div>
+      <div class="card"><span class="big" id="k_safe_email">—</span><span class="lbl">Email verificado (safe)</span></div>
+    </div>
+    <div class="two">
+      <div class="card"><h2>Estado del email</h2><div id="b_email_status"></div></div>
+      <div class="card"><h2>Etapa del pipeline</h2><div id="b_pipeline"></div></div>
+      <div class="card"><h2>Lista de origen</h2><div id="b_sources"></div><p class="note">Un contacto puede estar en varias listas.</p></div>
+      <div class="card"><h2>Tamaño de empresa</h2><div id="b_sizes"></div></div>
+      <div class="card"><h2>Top 10 industrias</h2><div id="b_industries"></div><p class="note">Empresas, según la industria declarada en LinkedIn.</p></div>
+    </div>
+  </section>
+  <section>
+    <h2>Campaña Automascore</h2>
+    <div class="grid">
+      <div class="card"><span class="big" id="k_pending">—</span><span class="lbl">Pendientes de enviar</span></div>
+      <div class="card"><span class="big" id="k_sent">—</span><span class="lbl">Enviados</span></div>
+      <div class="card"><span class="big" id="k_errors">—</span><span class="lbl">Con error</span></div>
+      <div class="card"><span class="big" id="k_dnc">—</span><span class="lbl">No contactar</span></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h2>Avance</h2>
+      <div class="prog" role="img" aria-label="Avance de la campaña"><div id="bar" style="width:0%"></div></div>
+      <p class="note" id="progtxt">—</p>
+    </div>
+    <div class="two">
+      <div class="card"><h2>Pendientes por idioma</h2><div id="b_pending_lang"></div><p class="note">Solo mails verificados, sin portugués ni idioma indeterminado.</p></div>
+      <div class="card"><h2>Enviados por idioma</h2><div id="b_sent_lang"></div><p class="note" id="nosent">Todavía no se envió ninguna campaña.</p></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h2>Envíos por día</h2>
+      <div class="scroll"><table><thead><tr><th>Día</th><th>Enviados</th><th>Errores</th></tr></thead><tbody id="daily"></tbody></table></div>
+      <p class="note" id="nodays">Sin actividad registrada todavía.</p>
+    </div>
+  </section>
+  <p class="note">Solo se muestran totales; nunca datos personales de los contactos.</p>
+</main>
+<script>
+const API = 'https://ybjquedtwkalgtrhovml.supabase.co/functions/v1/dashboard-stats';
+const KEY = 'aiq_panel_token';
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => Number(n).toLocaleString('es-AR');
+const pct = (x) => (x * 100).toLocaleString('es-AR', {maximumFractionDigits: 1}) + '%';
+
+function bars(id, rows) {
+  const el = $(id); el.replaceChildren();
+  if (!rows.length) { el.textContent = 'Sin datos'; return; }
+  const max = Math.max(...rows.map((r) => r.n), 1);
+  rows.forEach((r) => {
+    const row = document.createElement('div'); row.className = 'row';
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.label;
+    const tr = document.createElement('div'); tr.className = 'tr';
+    const fl = document.createElement('div'); fl.className = 'fl'; fl.style.width = (100 * r.n / max) + '%';
+    tr.appendChild(fl);
+    const n = document.createElement('span'); n.className = 'n'; n.textContent = fmt(r.n);
+    row.append(nm, tr, n); el.appendChild(row);
+  });
+}
+
+function render(d) {
+  const k = d.kpis;
+  ['contacts', 'companies', 'with_email', 'safe_email', 'pending', 'sent', 'errors', 'dnc'].forEach((f) => { $('k_' + f).textContent = fmt(k[f]); });
+  $('resumen').textContent = fmt(k.contacts) + ' contactos en ' + fmt(k.companies) + ' empresas; ' + fmt(k.pending) + ' listos para Automascore y ' + fmt(k.sent) + ' enviados hasta ahora.';
+  const total = k.sent + k.pending, p = total ? k.sent / total : 0;
+  $('bar').style.width = Math.min(100, p * 100) + '%';
+  $('progtxt').textContent = fmt(k.sent) + ' de ' + fmt(total) + ' elegibles enviados (' + pct(p) + ')';
+  ['email_status', 'pipeline', 'sources', 'sizes', 'industries', 'pending_lang', 'sent_lang'].forEach((f) => bars('b_' + f, d[f]));
+  $('nosent').hidden = d.sent_lang.length > 0;
+  const tb = $('daily'); tb.replaceChildren();
+  d.daily.forEach((r) => {
+    const tr = document.createElement('tr');
+    [r.day, fmt(r.sent), fmt(r.errors)].forEach((v) => { const td = document.createElement('td'); td.textContent = v; tr.appendChild(td); });
+    tb.appendChild(tr);
+  });
+  $('nodays').hidden = d.daily.length > 0;
+  $('stamp').textContent = 'Actualizado ' + new Date(d.generated_at).toLocaleString('es-AR');
+}
+
+async function load(token) {
+  const res = await fetch(API, {headers: {'x-dashboard-token': token}});
+  if (res.status === 401) throw new Error('Clave incorrecta');
+  if (!res.ok) throw new Error('No se pudo cargar (' + res.status + ')');
+  return res.json();
+}
+function show(app) { $('app').hidden = !app; $('login').hidden = app; }
+async function start(token, fromLogin) {
+  try {
+    render(await load(token));
+    try { localStorage.setItem(KEY, token); } catch (e) {}
+    show(true);
+  } catch (e) {
+    try { localStorage.removeItem(KEY); } catch (x) {}
+    show(false);
+    $('err').textContent = fromLogin ? e.message : '';
+  }
+}
+$('go').onclick = () => start($('tok').value.trim(), true);
+$('tok').onkeydown = (e) => { if (e.key === 'Enter') $('go').click(); };
+$('refresh').onclick = (e) => { e.preventDefault(); let t = ''; try { t = localStorage.getItem(KEY) || ''; } catch (x) {} start(t, false); };
+$('logout').onclick = (e) => { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (x) {} show(false); };
+let saved = ''; try { saved = localStorage.getItem(KEY) || ''; } catch (e) {}
+if (saved) start(saved, false); else show(false);
+</script>
+</body>
+</html>
