@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Baja · AI-Q</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blueprint.css">
+<style>
+#box{max-width:480px;margin:14vh auto;padding:0 24px}
+.panel-body{display:flex;flex-direction:column;gap:16px}
+.panel-body p{margin:0;line-height:1.5}
+#msg{min-height:1.4em}
+</style>
+</head>
+<body>
+<div id="box">
+  <div class="panel">
+    <div class="panel-header"><span class="kicker" id="k"></span></div>
+    <div class="panel-body">
+      <h1 class="display" style="font-size:32px;margin:0" id="h"></h1>
+      <p id="p"></p>
+      <button class="btn" id="go"></button>
+      <p id="msg"></p>
+    </div>
+  </div>
+</div>
+<script>
+const T={
+ es:{k:'§ BAJA',h:'¿Dejar de recibir mails?',p:'Confirmá y no te escribimos más desde AI-Q.',b:'Sí, darme de baja',ok:'Listo. No vas a recibir más mails nuestros. Perdón la molestia.',er:'No pudimos procesarlo. Escribinos a fedeandino@ai-q.fit y lo resolvemos.'},
+ pt:{k:'§ DESCADASTRO',h:'Deixar de receber e-mails?',p:'Confirme e não escreveremos mais da AI-Q.',b:'Sim, descadastrar',ok:'Pronto. Você não receberá mais e-mails nossos. Desculpe o incômodo.',er:'Não conseguimos processar. Escreva para fedeandino@ai-q.fit e resolvemos.'},
+ en:{k:'§ UNSUBSCRIBE',h:'Stop receiving emails?',p:'Confirm and AI-Q will not email you again.',b:'Yes, unsubscribe me',ok:'Done. You will not receive any more emails from us. Sorry for the bother.',er:'We could not process this. Write to fedeandino@ai-q.fit and we will sort it out.'}
+};
+const q=new URLSearchParams(location.search);
+const l=T[q.get('l')]?q.get('l'):'es', t=T[l], tok=q.get('t')||'';
+document.documentElement.lang=l;
+k.textContent=t.k;h.textContent=t.h;p.textContent=t.p;go.textContent=t.b;
+go.onclick=async()=>{
+  go.disabled=true;
+  try{
+    const r=await fetch('https://ybjquedtwkalgtrhovml.supabase.co/functions/v1/unsubscribe?t='+encodeURIComponent(tok),{method:'POST'});
+    if(!r.ok)throw 0;
+    msg.textContent=t.ok;go.style.display='none';p.style.display='none';
+  }catch(e){msg.textContent=t.er;go.disabled=false}
+};
+</script>
+</body>
+</html>
